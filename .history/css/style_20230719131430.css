@@ -1,0 +1,13 @@
+body {
+    font-family: capitolina, serif;
+    font-style: normal;
+    font-weight: 300;
+    color: #000;
+}
+
+@import url('https://fonts.googleapis.com/css2?family=Crimson+Text&family=Oswald:wght@300&display=swap');
+nav {
+    font-family: 'Crimson Text', serif;
+    font-family: 'Oswald', sans-serif;
+
+}
