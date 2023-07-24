@@ -12,30 +12,35 @@ try {
 
     // Check if the form has been submitted
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
-        // Get the image data from the file input field
         $imageData = file_get_contents($_FILES['image']['tmp_name']);
 
-        // Prepare the SQL query with a parameter placeholder for binary data
-        $stmt = $conn->prepare("INSERT INTO perfume (id,perfume_name,brand_id,category_id,price, imageurl) VALUES (:id,:perfume,:brand,:category,:price,:image_data)");
+        $stmt = $conn->prepare("INSERT INTO perfume (id,imgurl,price,perfume,brand_name,category_name) VALUES (:id,:imgurl,:brand,:price,:perfume,:brand_name,:category_name)");
 
-        // Replace ':id' with the ID for this image, and bind the binary data to the parameter
-        // $id = 1; // Change this ID as needed
-        $id = 6;
-        $perfume = "CK be";
-        $brand = 2;
-        $category = 4;
-        $price =34.80;
+        $brandstmt = $conn->prepare("SELECT brandname FROM brand");
+        $categorystmt = $conn->prepare("SELECT categoryname FROM category");
 
-        $formatted_price = number_format($price, 2, '.', '00');
-    
+
+        echo $brandstmt->fetch();
+
+
+        $id = 1;
+        $perfume = "Brit";
+        $brand = "Burbettry";
+        $category = 3;
+        $price = 34.80;
+
+
         $stmt->bindParam(':id', $id, PDO::PARAM_INT);
-        $stmt->bindParam(':perfume',$perfume);
-        $stmt->bindParam(':brand',$brand);
-        $stmt->bindParam(':category',$category);
-        $stmt->bindParam('price',$formatted_price);
-        $stmt->bindParam(':image_data', $imageData);
+        $stmt->bindParam(':imgurl', $imageData);
+        $stmt->bindParam(':perfume', $perfume);
+        $stmt->bindParam(':price', $price);
+        $stmt->bindParam('brand_name', $brand);
+        $stmt->bindParam(':category_name', $category);
 
         // Execute the query
+        $categorystmt->execute();
+        $brandstmt->execute();
+
         $stmt->execute();
 
         echo "Image inserted successfully.";
@@ -47,12 +52,68 @@ try {
 
 
 
-<!-- INSERT INTO brand(brand_name,country_of_origin,website)
- VALUES ( Burbettry,british,burbettry.com )
- (Calvin Klein,england,calvinklein.com)
- (Royal,england,royal.com)
- (Coldana,thai,coldana.com)
- (Revlon,british,revolon.com)
- (Calvin Klein,england,calvinklein.com)
+<!-- 
+CREATE TABLE IF NOT EXISTS brand(
+    
+    id INT AUTO_INCREMENT,
+    brandname  VARCHAR(255),
+    counrtyoforigin VARCHAR(255),
+    website VARCHAR(255),
+    
+    PRIMARY KEY(id,brandname)   
+)
+-->
+
+
+
+
+
+<!-- 
+INSERT INTO brand(brandname,counrtyoforigin,website)
+ VALUES ('Burbettry','british','burbettry.com'),
+ ('Calvin Klein','england','calvinklein.com'),
+ ('Royal','england','royal.com'),
+ ('Coldana','thai','coldana.com'),
+ ('Revlon','british','revolon.com'),
+ ('Calvin Klein','england','calvinklein.com')
  -->
+
+
+
+<!-- 
+    
+CREATE TABLE IF NOT EXISTS category(
+    
+    id INT AUTO_INCREMENT,
+    categoryname VARCHAR(255),
+    PRIMARY KEY(id,categoryname)
+     
+) 
+
+
+
+INSERT INTO category(id,categoryname)
+ VALUES (1,'all'),
+ (2,'men'),
+ (3,'women'),
+ (4,'unisex')
+ -->
+
+<!--  
+ CREATE TABLE IF NOT EXISTS perfumeitems(
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    imgurl BLOB(512),
+     price DECIMAL(10,2) NOT NULL,
+     brand_name VARCHAR(255),
+     brand_id INT,
+     category_name VARCHAR(255),
+     category_id INT,
+     FOREIGN KEY (brand_id,brand_name) REFERENCES brand(id,brandname) ON UPDATE CASCADE ON DELETE CASCADE,
+     FOREIGN KEY (category_id,category_name) REFERENCES category(id,categoryname) ON UPDATE CASCADE ON DELETE CASCADE,
+    
+      status INT
+    )
+ -->
+
+
 
