@@ -84,7 +84,7 @@
     <section class=" mt-6 mb-5">
         <div class=" grid grid-cols-2 p-2">
             <div class="flex justify-center">
-                <h1 class=" text-3xl">MEN's FRAGRANCES</h1>
+                <h1 class=" text-3xl">ALL's FRAGRANCES</h1>
             </div>
 
             <div>
@@ -237,7 +237,7 @@
 
             <div class="col-span-2 ">
                 <div>
-                    <span class="uppercase text-xs">Home <span class="m-1">|</span> Men's Fragrances</span>
+                    <span class="uppercase text-xs">Home <span class="m-1">|</span> Women's Fragrances</span>
                 </div>
 
 
@@ -246,7 +246,7 @@
 
                 <?php
 
-                require_once "menbk.php";
+                require_once "womenbk.php";
 
 
                 ?>

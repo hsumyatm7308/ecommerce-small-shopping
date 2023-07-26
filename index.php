@@ -24,9 +24,9 @@
 
             <div class="flex justify-start items-center">
                 <ul class="flex justify-start items-center text-[17px]">
-                    <li class="mr-5"><a href="">All</a></li>
+                    <li class="mr-5"><a href="index.php">All</a></li>
                     <li class="mr-5"><a href="menfrg.php">Men</a></li>
-                    <li class="mr-5"><a href="">Women</a></li>
+                    <li class="mr-5"><a href="womenfrg.php">Women</a></li>
                     <!-- <li class="mr-5"><a href="">Unisex</a></li> -->
 
                 </ul>
