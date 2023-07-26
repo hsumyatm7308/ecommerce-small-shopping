@@ -6,7 +6,7 @@ require_once "pagination.php";
 try {
     global $conn;
 
-    
+
 
     $recperpage = 12;
     $totalrec = $stmt->rowCount();
@@ -55,16 +55,40 @@ try {
     <?php endwhile; ?>
 </div>
 
-<div class="flex justify-center items-center mt-10">
-
+<div class="flex justify-center items-center mt-10 p-10">
 
 
     <?php
-    for ($x = 1; $x <= $totalpages; $x++) {
-        echo '<a href="index.php?page=' . $x . '" class="w-6 h-7 bg-stone-100 border p-1 m-1 flex justify-center items-center">' . $x . '</a>';
+    if (isset($_GET['page']) && $_GET['page'] > 1) {
+        ?> <a href="?page=<?php echo $_GET['page'] - 1 ?>" class="text-red-500 border px-2 py-1 mr-10">Prev</a>
+        <?php
+    } else {
+      
     }
     ?>
 
+    <?php
+    for ($x = 1; $x <= $totalpages; $x++) {
+
+        echo '<a href="index.php?page=' . $x . '" class="w-6 h-7 border p-1 m-1 flex justify-center items-center active">' . $x . '</a>';
+
+
+    }
+    ?>
+
+    <?php
+    if (isset($_GET['page'])) {
+        if ($_GET['page'] >= $totalpages) {
+            // echo '<a class="text-blue-500 border px-2 py-1 ml-10">Next</a>';
+        } else {
+            $nextPage = $_GET['page'] + 1;
+            echo '<a href="?page=' . $nextPage . '" class="text-red-500 border px-2 py-1 ml-10">Next</a>';
+        }
+    } else {
+        // This block is for the first page (page 1)
+        echo '<a href="?page=1" class="text-blue-500 border px-2 py-1 ml-10">Next</a>';
+    }
+    ?>
 
 
 </div>
