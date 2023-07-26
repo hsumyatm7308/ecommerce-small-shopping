@@ -104,7 +104,7 @@ INSERT INTO category(id,categoryname)
     )
  -->
 
- <!-- INSERT INTO perfume(perfume_name,price,brand_name,category_name,mili)
+  <!-- INSERT INTO perfume(perfume_name,price,brand_name,category_name,mili)
  VALUES('Brit',33.04,'Burbettry','Men','100ML'),
  ('CK one',38.80,'Calvin Klein','Unisex','200ML'),
  ('Eternity',34.04,'Calvin Klein','Women','100ML'),

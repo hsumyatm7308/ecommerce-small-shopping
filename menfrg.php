@@ -1,3 +1,6 @@
+
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -234,7 +237,7 @@
 
             <div class="col-span-2 ">
                 <div>
-                    <span class="uppercase text-xs">Home <span class="m-1">|</span> All's Fragrances</span>
+                    <span class="uppercase text-xs">Home <span class="m-1">|</span> Men's Fragrances</span>
                 </div>
 
 
@@ -243,7 +246,7 @@
 
                 <?php
 
-                require_once "allfrg.php";
+                require_once "menbk.php";
 
 
                 ?>
@@ -264,3 +267,4 @@
 </body>
 
 </html>
+
