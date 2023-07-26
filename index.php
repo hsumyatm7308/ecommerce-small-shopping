@@ -240,7 +240,6 @@
 
 
 
-                <!-- items  -->
 
                 <?php
 
@@ -249,41 +248,9 @@
 
                 ?>
 
-                
 
 
-
-                <div class="flex justify-center items-center mt-10">
-                    <a href="" class="w-6 h-7   bg-stone-100 border p-1 m-1 flex justify-center items-center">
-                        1
-                    </a>
-
-                    <a href="" class="w-6 h-7    p-1 m-1 flex justify-center items-center">
-                        2
-                    </a>
-
-                    <a href="" class="w-6 h-7    p-1 m-1 flex justify-center items-center">
-                        3
-                    </a>
-
-                    <a href="" class="w-6 h-7    p-1 m-1 flex justify-center items-center">
-                        4
-                    </a>
-
-                    <a href="" class="w-6 h-7    p-1 m-1 flex justify-center items-center">
-                        5
-                    </a>
-
-                    <a href="" class="w-6 h-7    p-1 m-1 flex justify-center items-center">
-                        6
-                    </a>
-                    <a href="" class="w-6 h-7    p-1 m-1 flex justify-center items-center">
-                        7
-                    </a>
-                </div>
-
-
-            </div>
+            </div> 
 
         </div>
 

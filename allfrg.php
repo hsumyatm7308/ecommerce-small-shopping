@@ -1,11 +1,32 @@
 <?php
 require_once "database.php";
+require_once "pagination.php";
+
 
 try {
     global $conn;
 
-    $stmt = $conn->prepare("SELECT id, perfume_name, brand_name, category_name, price, imgurl FROM perfume");
+    
+
+    $recperpage = 12;
+    $totalrec = $stmt->rowCount();
+    $totalpages = ceil($totalrec / $recperpage);
+
+
+    if (isset($_GET['page']) && isset($_GET['page']) != "") {
+        $page = $_GET['page'];
+    } else {
+        $page = 1;
+    }
+
+    $startfrom = ($page - 1) * 12;
+    // echo $startfrom;
+
+
+    $stmt = $conn->prepare("SELECT id, perfume_name, brand_name, category_name, price, imgurl, mili FROM perfume LIMIT $startfrom, $recperpage");
     $stmt->execute(); // Execute the query to fetch data
+
+
 
 } catch (Exception $e) {
     echo "Error Found: " . $e->getMessage();
@@ -22,9 +43,28 @@ try {
             ?>
 
             <a href="" class="w-64 self-start">
-                <?php echo $row['perfume_name'] ?> by <? echo$row['brand_name'] ?> EDT 3.3 OZ 100ml spray for <?= $row['category_name'] ?>
+                <?php echo $row['perfume_name'] ?> by
+                <? echo $row['brand_name'] ?> EDT 3.3 OZ
+                <?= $row['mili'] ?> spray for
+                <?= $row['category_name'] ?>
             </a>
-            <span class="self-start mt-2">$<?php echo $row['price'] ?></span>
+            <span class="self-start mt-2">$
+                <?php echo $row['price'] ?>
+            </span>
         </div>
     <?php endwhile; ?>
+</div>
+
+<div class="flex justify-center items-center mt-10">
+
+
+
+    <?php
+    for ($x = 1; $x <= $totalpages; $x++) {
+        echo '<a href="index.php?page=' . $x . '" class="w-6 h-7 bg-stone-100 border p-1 m-1 flex justify-center items-center">' . $x . '</a>';
+    }
+    ?>
+
+
+
 </div>
