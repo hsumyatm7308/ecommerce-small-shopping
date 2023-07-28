@@ -24,9 +24,9 @@
 
             <div class="flex justify-start items-center">
                 <ul class="flex justify-start items-center text-[17px]">
-                    <li class="mr-5"><a href="index.php">All</a></li>
+                    <li class="mr-5"><a href="index.php?page=1">All</a></li>
                     <li class="mr-5"><a href="menfrg.php?menpage=1">Men</a></li>
-                    <li class="mr-5"><a href="womenfrg.php">Women</a></li>
+                    <li class="mr-5"><a href="womenfrg.php?womenpage=1">Women</a></li>
 
                 </ul>
             </div>
@@ -210,11 +210,9 @@
                             </label>
                         </form>
 
-
-
                         <form id="menForm" action="menfrg.php" method="get">
                             <label for="mtype" class="flex items-center">
-                                <input type="checkbox" id="mtype" name="mtype" class= "typecheckbox m-1">
+                                <input type="checkbox" id="mtype" name="mtype" class="typecheckbox m-1">
                                 Male
                             </label>
                         </form>
@@ -229,10 +227,6 @@
                     <span class="uppercase text-xs">Home <span class="m-1">|</span> Men's Fragrances</span>
                 </div>
 
-
-
-
-
                 <?php
 
                 require_once "menbk.php";
@@ -240,14 +234,9 @@
 
                 ?>
 
-
-
             </div>
 
         </div>
-
-
-
 
         </div>
     </section>
@@ -267,15 +256,11 @@
             window.location.href = "menfrg.php";
         }
 
-
-      
-        
-
     }
 
-  
-    function handleCheckboxClickmen(){
-        const mcheckbox =document.getElementById('mtype');
+
+    function handleCheckboxClickmen() {
+        const mcheckbox = document.getElementById('mtype');
         if (mcheckbox.checked) {
             window.location.href = "menfrg.php?type=mon&menquery=1";
         } else {
@@ -286,12 +271,12 @@
     document.getElementById("type").addEventListener("click", handleCheckboxClick);
     document.getElementById("mtype").addEventListener("click", handleCheckboxClickmen);
 
-  
+
 
     const urlParams = new URLSearchParams(window.location.search);
     const typeParam = urlParams.get("type");
     const checkbox = document.getElementById("type");
-    const mcheckbox =document.getElementById('mtype');
+    const mcheckbox = document.getElementById('mtype');
 
     if (typeParam === "on") {
         checkbox.checked = true;

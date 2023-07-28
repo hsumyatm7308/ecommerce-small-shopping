@@ -24,10 +24,9 @@
 
             <div class="flex justify-start items-center">
                 <ul class="flex justify-start items-center text-[17px]">
-                    <li class="mr-5"><a href="index.php">All</a></li>
-                    <li class="mr-5"><a href="menfrg.php">Men</a></li>
-                    <li class="mr-5"><a href="womenfrg.php">Women</a></li>
-                    <!-- <li class="mr-5"><a href="">Unisex</a></li> -->
+                    <li class="mr-5"><a href="index.php?page=1">All</a></li>
+                    <li class="mr-5"><a href="menfrg.php?menpage=1">Men</a></li>
+                    <li class="mr-5"><a href="womenfrg.php?womenpage=1">Women</a></li>
 
                 </ul>
             </div>
@@ -204,35 +203,30 @@
 
                     <div>
                         <h1 class="font-[500] uppercase mb-1">Type</h1>
-                            <form id="unisexForm" action="womenfrg.php" method="get">
-                                <label for="type" class="flex items-center">
-                                    <input type="checkbox" id="type" name="type" class="m-1">
-                                    Unisex
-                                </label>
-                            </form>
+                        <form id="unisexForm" action="womenfrg.php" method="get">
+                            <label for="type" class="flex items-center">
+                                <input type="checkbox" id="type" name="type" class="m-1">
+                                Unisex
+                            </label>
+                        </form>
 
-                            <div class="flex items-center">
+                        <div class="flex items-center">
 
-                                <input type="checkbox" name="ftype" id="ftype" class="m-1">
-                                <label for="ftype">Women</label>
+                            <input type="checkbox" name="ftype" id="ftype" class="m-1">
+                            <label for="ftype">Women</label>
 
-                            </div>
+                        </div>
 
-                        
+
                     </div>
 
                 </div>
             </div>
 
-
             <div class="col-span-2 ">
                 <div>
                     <span class="uppercase text-xs">Home <span class="m-1">|</span> Women's Fragrances</span>
                 </div>
-
-
-
-
 
                 <?php
 
@@ -240,15 +234,9 @@
 
 
                 ?>
-
-
-
             </div>
 
         </div>
-
-
-
 
         </div>
     </section>
@@ -264,7 +252,16 @@
     function handleCheckboxClick() {
         const checkbox = document.getElementById("type");
         if (checkbox.checked) {
-            window.location.href = "womenfrg.php?type=on";
+            window.location.href = "womenfrg.php?type=on&unisexquery=1";
+        } else {
+            window.location.href = "womenfrg.php";
+        }
+    }
+
+    function handleCheckboxClickwomen() {
+        const fcheckbox = document.getElementById("ftype");
+        if (fcheckbox.checked) {
+            window.location.href = "womenfrg.php?type=fon&womenquery=1";
         } else {
             window.location.href = "womenfrg.php";
         }
@@ -272,14 +269,21 @@
 
     // Add event listener to checkbox
     document.getElementById("type").addEventListener("click", handleCheckboxClick);
+    document.getElementById("ftype").addEventListener("click", handleCheckboxClickwomen);
 
-    // Check the URL for the 'type' parameter and set checkbox state accordingly
     const urlParams = new URLSearchParams(window.location.search);
     const typeParam = urlParams.get("type");
     const checkbox = document.getElementById("type");
+    const fcheckbox = document.getElementById("ftype");
     if (typeParam === "on") {
         checkbox.checked = true;
     } else {
         checkbox.checked = false;
+    }
+
+    if (typeParam === "fon") {
+        fcheckbox.checked = true;
+    } else {
+        fcheckbox.checked = false;
     }
 </script>

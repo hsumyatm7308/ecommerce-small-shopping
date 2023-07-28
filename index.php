@@ -24,10 +24,9 @@
 
             <div class="flex justify-start items-center">
                 <ul class="flex justify-start items-center text-[17px]">
-                    <li class="mr-5"><a href="index.php">All</a></li>
-                    <li class="mr-5"><a href="menfrg.php">Men</a></li>
-                    <li class="mr-5"><a href="womenfrg.php">Women</a></li>
-                    <!-- <li class="mr-5"><a href="">Unisex</a></li> -->
+                    <li class="mr-5"><a href="index.php?page=1">All</a></li>
+                    <li class="mr-5"><a href="menfrg.php?menpage=1">Men</a></li>
+                    <li class="mr-5"><a href="womenfrg.php?womenpage=1">Women</a></li>
 
                 </ul>
             </div>
@@ -204,7 +203,7 @@
 
                     <div>
                         <h1 class="font-[500] uppercase mb-1">Type</h1>
-                      
+
 
 
                         <form id="" action="" method="post">
@@ -258,12 +257,3 @@
 </body>
 
 </html>
-
-
-
-
-
-
-
-
-

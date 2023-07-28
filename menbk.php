@@ -55,15 +55,8 @@ try {
 
         $startfrom = ($unipage - 1) * 12;
 
-
         $menstmt = $conn->prepare("SELECT id, perfume_name, brand_name, category_name, price, imgurl, mili FROM perfume WHERE category_name = 'Unisex' LIMIT $startfrom, $recperpage");
         $menstmt->execute();
-
-
-
-
-
-
     }
     if (isset($_GET['type']) && $_GET['type'] === 'mon') {
 
@@ -130,13 +123,11 @@ try {
         
         if (isset($_GET['unisexquery'])) {
             if ($_GET['unisexquery'] >= $totalpages) {
-                // echo '<a class="text-blue-500 border px-2 py-1 ml-10">Next</a>';
             } else {
                 $nextPage = $_GET['unisexquery'] + 1;
                 echo '<a href="?type=on&unisexquery=' . $nextPage . '" class="text-red-500 border px-2 py-1 ml-10">Next</a>';
             }
         } else {
-            // This block is for the first page (page 1)
             echo '<a href="?type=on&unisexquery=1" class="text-blue-500 border px-2 py-1 ml-10">Next</a>';
         }
     } elseif (isset($_GET['type']) && $_GET['type'] === 'mon') {
@@ -151,13 +142,11 @@ try {
 
         if (isset($_GET['menquery'])) {
             if ($_GET['menquery'] >= $totalpages) {
-                // echo '<a class="text-blue-500 border px-2 py-1 ml-10">Next</a>';
             } else {
                 $nextPage = $_GET['menquery'] + 1;
                 echo '<a href="?type=mon&menquery=' . $nextPage . '" class="text-red-500 border px-2 py-1 ml-10">Next</a>';
             }
         } else {
-            // This block is for the first page (page 1)
             echo '<a href="?type=mon&menquery=1" class="text-blue-500 border px-2 py-1 ml-10">Next</a>';
         }
     } else {
@@ -178,7 +167,6 @@ try {
                 echo '<a href="?menpage=' . $nextPage . '" class="text-red-500 border px-2 py-1 ml-10">Next</a>';
             }
         } else {
-            // This block is for the first page (page 1)
             echo '<a href="?menpage=1" class="text-blue-500 border px-2 py-1 ml-10">Next</a>';
         }
     }
