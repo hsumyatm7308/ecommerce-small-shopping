@@ -6,8 +6,7 @@ try {
     global $conn;
 
     $womenstmt = $conn->prepare("SELECT id, perfume_name, brand_name, category_name, price, imgurl, mili FROM perfume WHERE category_name IN ('Women','Unisex') ");
-    $womenstmt->execute(); // Execute the query to fetch data
-// Debug: Display the results to see what's fetched
+    $womenstmt->execute(); 
 
 
 if (isset($_GET['type']) && $_GET['type'] === 'on') {
@@ -30,7 +29,7 @@ try {
     $recperpage = 12;
     $totalrec = $womenstmt->rowCount();
 
-    echo $totalrec . "heljwf";
+    // echo $totalrec . "heljwf";
     $totalpages = ceil($totalrec / $recperpage);
 
     if (isset($_GET['womenpage']) && isset($_GET['womenpage']) != "") {

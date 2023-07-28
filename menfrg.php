@@ -1,6 +1,3 @@
-
-
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -28,9 +25,8 @@
             <div class="flex justify-start items-center">
                 <ul class="flex justify-start items-center text-[17px]">
                     <li class="mr-5"><a href="index.php">All</a></li>
-                    <li class="mr-5"><a href="menfrg.php">Men</a></li>
+                    <li class="mr-5"><a href="menfrg.php?menpage=1">Men</a></li>
                     <li class="mr-5"><a href="womenfrg.php">Women</a></li>
-                    <!-- <li class="mr-5"><a href="">Unisex</a></li> -->
 
                 </ul>
             </div>
@@ -207,27 +203,20 @@
 
                     <div>
                         <h1 class="font-[500] uppercase mb-1">Type</h1>
-                        <form action="">
-                            <div class="flex items-center">
+                        <form id="unisexForm" action="menfrg.php" method="get">
+                            <label for="type" class="flex items-center">
+                                <input type="checkbox" id="type" name="type" class="typecheckbox m-1">
+                                Unisex
+                            </label>
+                        </form>
 
-                                <input type="checkbox" name="type" id="type" class="m-1">
-                                <label for="type">Unisex</label>
 
-                            </div>
 
-                            <div class="flex items-center">
-
-                                <input type="checkbox" name="ftype" id="ftype" class="m-1">
-                                <label for="ftype">Women</label>
-
-                            </div>
-
-                            <div class="flex items-center">
-
-                                <input type="checkbox" name="mtype" id="mtype" class="m-1">
-                                <label for="mtype">Male</label>
-
-                            </div>
+                        <form id="menForm" action="menfrg.php" method="get">
+                            <label for="mtype" class="flex items-center">
+                                <input type="checkbox" id="mtype" name="mtype" class= "typecheckbox m-1">
+                                Male
+                            </label>
                         </form>
                     </div>
 
@@ -253,7 +242,7 @@
 
 
 
-            </div> 
+            </div>
 
         </div>
 
@@ -268,3 +257,51 @@
 
 </html>
 
+<script>
+
+    function handleCheckboxClick() {
+        const checkbox = document.getElementById("type");
+        if (checkbox.checked) {
+            window.location.href = "menfrg.php?type=on&unisexquery=1";
+        } else {
+            window.location.href = "menfrg.php";
+        }
+
+
+      
+        
+
+    }
+
+  
+    function handleCheckboxClickmen(){
+        const mcheckbox =document.getElementById('mtype');
+        if (mcheckbox.checked) {
+            window.location.href = "menfrg.php?type=mon&menquery=1";
+        } else {
+            window.location.href = "menfrg.php";
+        }
+    }
+
+    document.getElementById("type").addEventListener("click", handleCheckboxClick);
+    document.getElementById("mtype").addEventListener("click", handleCheckboxClickmen);
+
+  
+
+    const urlParams = new URLSearchParams(window.location.search);
+    const typeParam = urlParams.get("type");
+    const checkbox = document.getElementById("type");
+    const mcheckbox =document.getElementById('mtype');
+
+    if (typeParam === "on") {
+        checkbox.checked = true;
+    } else {
+        checkbox.checked = false;
+    }
+
+    if (typeParam === "mon") {
+        mcheckbox.checked = true;
+    } else {
+        mcheckbox.checked = false;
+    }
+</script>
