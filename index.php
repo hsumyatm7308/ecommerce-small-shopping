@@ -158,7 +158,7 @@
                         <h1 class="uppercase mb-1">Brand</h1>
                         <span class="text-sm text-blue-300 ml-10">Click a letter to find a perfume</span>
                         <ul class="w-80  flex-wrap flex justify-start items-center mt-2">
-                            <li class="w-7 h-7 flex justify-center items-center m-1 bg-stone-100">A</li>
+                            <!-- <li class="w-7 h-7 flex justify-center items-center m-1 bg-stone-100">A</li>
                             <li class="w-7 h-7 flex justify-center items-center m-1 bg-stone-100">B</li>
                             <li class="w-7 h-7 flex justify-center items-center m-1 bg-stone-100">C</li>
                             <li class="w-7 h-7 flex justify-center items-center m-1 bg-stone-100">D</li>
@@ -183,7 +183,9 @@
                             <li class="w-7 h-7 flex justify-center items-center m-1 bg-stone-100">W</li>
                             <li class="w-7 h-7 flex justify-center items-center m-1 bg-stone-100">X</li>
                             <li class="w-7 h-7 flex justify-center items-center m-1 bg-stone-100">Y</li>
-                            <li class="w-7 h-7 flex justify-center items-center m-1 bg-stone-100">Z</li>
+                            <li class="w-7 h-7 flex justify-center items-center m-1 bg-stone-100">Z</li> -->
+
+                            <?php require_once "brandnameall.php" ?>
                         </ul>
                     </div>
 

@@ -30,6 +30,7 @@ try {
 
 
 
+
 try {
 
 
@@ -94,6 +95,27 @@ try {
 ?>
 
 
+<!-- Brand Name -->
+<?php
+if (isset($_GET['letters'])) {
+    $letter = $_GET['letters'];
+    try {
+        global $conn;
+
+        $womenstmt = $conn->prepare("SELECT id, perfume_name, brand_name, category_name, price, imgurl, mili FROM perfume  WHERE category_name IN ('Women','Unisex') AND fsletter = :letter ORDER BY fsletter ASC");
+        $womenstmt->bindParam(":letter", $letter);
+        $womenstmt->execute();
+
+
+
+    } catch (Exception $e) {
+        echo "Error Found: " . $e->getMessage();
+    }
+}
+
+
+?>
+
 
 
 <div class="grid grid-cols-3">
@@ -132,7 +154,7 @@ try {
             echo '<a href="?type=on&unisexquery=' . $x . '" class="w-6 h-7 border p-1 m-1 flex justify-center items-center active">' . $x . '</a>';
         }
 
-        
+
         if (isset($_GET['unisexquery'])) {
             if ($_GET['unisexquery'] >= $totalpages) {
             } else {
