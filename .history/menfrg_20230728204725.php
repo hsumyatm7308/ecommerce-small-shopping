@@ -103,8 +103,8 @@
 
                     <div class="h-auto mb-5">
                         <h1 class="font-[500] uppercase mb-1">Filter by</h1>
-                        <div id="history" class=" flex flex-wrap leading-3 addingletterctn">
-                            <span id =""
+                        <div class=" flex flex-wrap leading-3">
+                            <span
                                 class=" bg-stone-100 text-stone-400 capitalize border rounded p-1 m-1 flex justify-center items-center">
                                 <span> Unisex</span>
                                 <span class="text-xs text-stone-500 font-sans mx-1">x</span>
@@ -151,10 +151,6 @@
                                 <span class="text-xs text-stone-500 font-sans mx-1">x</span>
                             </span>
 
-                            <?php 
-                            require_once "filterby/filterhistoryby.php";
-                            ?>
-                        
                         </div>
                     </div>
 
@@ -162,8 +158,35 @@
                         <h1 class="uppercase mb-1">Brand</h1>
                         <span class="text-sm text-blue-300 ml-10">Click a letter to find a perfume</span>
                         <ul class="w-80  flex-wrap flex justify-start items-center mt-2">
-                        
-                            <?php require_once "brandname/brandnamemen.php" ?>
+                            <!-- <li class="w-7 h-7 flex justify-center items-center m-1 bg-stone-100">A</li>
+                            <li class="w-7 h-7 flex justify-center items-center m-1 bg-stone-100">B</li>
+                            <li class="w-7 h-7 flex justify-center items-center m-1 bg-stone-100">C</li>
+                            <li class="w-7 h-7 flex justify-center items-center m-1 bg-stone-100">D</li>
+                            <li class="w-7 h-7 flex justify-center items-center m-1 bg-stone-100">E</li>
+                            <li class="w-7 h-7 flex justify-center items-center m-1 bg-stone-100">F</li>
+                            <li class="w-7 h-7 flex justify-center items-center m-1 bg-stone-100">G</li>
+                            <li class="w-7 h-7 flex justify-center items-center m-1 bg-stone-100">H</li>
+                            <li class="w-7 h-7 flex justify-center items-center m-1 bg-stone-100">I</li>
+                            <li class="w-7 h-7 flex justify-center items-center m-1 bg-stone-100">J</li>
+                            <li class="w-7 h-7 flex justify-center items-center m-1 bg-stone-100">K</li>
+                            <li class="w-7 h-7 flex justify-center items-center m-1 bg-stone-100">L</li>
+                            <li class="w-7 h-7 flex justify-center items-center m-1 bg-stone-100">M</li>
+                            <li class="w-7 h-7 flex justify-center items-center m-1 bg-stone-100">N</li>
+                            <li class="w-7 h-7 flex justify-center items-center m-1 bg-stone-100">O</li>
+                            <li class="w-7 h-7 flex justify-center items-center m-1 bg-stone-100">P</li>
+                            <li class="w-7 h-7 flex justify-center items-center m-1 bg-stone-100">Q</li>
+                            <li class="w-7 h-7 flex justify-center items-center m-1 bg-stone-100">R</li>
+                            <li class="w-7 h-7 flex justify-center items-center m-1 bg-stone-100">S</li>
+                            <li class="w-7 h-7 flex justify-center items-center m-1 bg-stone-100">T</li>
+                            <li class="w-7 h-7 flex justify-center items-center m-1 bg-stone-100">U</li>
+                            <li class="w-7 h-7 flex justify-center items-center m-1 bg-stone-100">V</li>
+                            <li class="w-7 h-7 flex justify-center items-center m-1 bg-stone-100">W</li>
+                            <li class="w-7 h-7 flex justify-center items-center m-1 bg-stone-100">X</li>
+                            <li class="w-7 h-7 flex justify-center items-center m-1 bg-stone-100">Y</li>
+                            <li class="w-7 h-7 flex justify-center items-center m-1 bg-stone-100">Z</li> -->
+
+
+                            <?php require_once "./brandnamemen.php" ?>
 
                         </ul>
                     </div>
@@ -210,7 +233,7 @@
 
                 <?php
 
-                require_once "backendfunction/menbk.php";
+                require_once "menbk.php";
 
 
                 ?>

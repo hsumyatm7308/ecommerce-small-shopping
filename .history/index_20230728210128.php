@@ -80,7 +80,7 @@
     <section class=" mt-6 mb-5">
         <div class=" grid grid-cols-2 p-2">
             <div class="flex justify-center">
-                <h1 class=" text-3xl">MEN's FRAGRANCES</h1>
+                <h1 class=" text-3xl">ALL's FRAGRANCES</h1>
             </div>
 
             <div>
@@ -103,8 +103,8 @@
 
                     <div class="h-auto mb-5">
                         <h1 class="font-[500] uppercase mb-1">Filter by</h1>
-                        <div id="history" class=" flex flex-wrap leading-3 addingletterctn">
-                            <span id =""
+                        <div class=" flex flex-wrap leading-3">
+                            <span
                                 class=" bg-stone-100 text-stone-400 capitalize border rounded p-1 m-1 flex justify-center items-center">
                                 <span> Unisex</span>
                                 <span class="text-xs text-stone-500 font-sans mx-1">x</span>
@@ -151,10 +151,6 @@
                                 <span class="text-xs text-stone-500 font-sans mx-1">x</span>
                             </span>
 
-                            <?php 
-                            require_once "filterby/filterhistoryby.php";
-                            ?>
-                        
                         </div>
                     </div>
 
@@ -162,9 +158,34 @@
                         <h1 class="uppercase mb-1">Brand</h1>
                         <span class="text-sm text-blue-300 ml-10">Click a letter to find a perfume</span>
                         <ul class="w-80  flex-wrap flex justify-start items-center mt-2">
-                        
-                            <?php require_once "brandname/brandnamemen.php" ?>
+                            <!-- <li class="w-7 h-7 flex justify-center items-center m-1 bg-stone-100">A</li>
+                            <li class="w-7 h-7 flex justify-center items-center m-1 bg-stone-100">B</li>
+                            <li class="w-7 h-7 flex justify-center items-center m-1 bg-stone-100">C</li>
+                            <li class="w-7 h-7 flex justify-center items-center m-1 bg-stone-100">D</li>
+                            <li class="w-7 h-7 flex justify-center items-center m-1 bg-stone-100">E</li>
+                            <li class="w-7 h-7 flex justify-center items-center m-1 bg-stone-100">F</li>
+                            <li class="w-7 h-7 flex justify-center items-center m-1 bg-stone-100">G</li>
+                            <li class="w-7 h-7 flex justify-center items-center m-1 bg-stone-100">H</li>
+                            <li class="w-7 h-7 flex justify-center items-center m-1 bg-stone-100">I</li>
+                            <li class="w-7 h-7 flex justify-center items-center m-1 bg-stone-100">J</li>
+                            <li class="w-7 h-7 flex justify-center items-center m-1 bg-stone-100">K</li>
+                            <li class="w-7 h-7 flex justify-center items-center m-1 bg-stone-100">L</li>
+                            <li class="w-7 h-7 flex justify-center items-center m-1 bg-stone-100">M</li>
+                            <li class="w-7 h-7 flex justify-center items-center m-1 bg-stone-100">N</li>
+                            <li class="w-7 h-7 flex justify-center items-center m-1 bg-stone-100">O</li>
+                            <li class="w-7 h-7 flex justify-center items-center m-1 bg-stone-100">P</li>
+                            <li class="w-7 h-7 flex justify-center items-center m-1 bg-stone-100">Q</li>
+                            <li class="w-7 h-7 flex justify-center items-center m-1 bg-stone-100">R</li>
+                            <li class="w-7 h-7 flex justify-center items-center m-1 bg-stone-100">S</li>
+                            <li class="w-7 h-7 flex justify-center items-center m-1 bg-stone-100">T</li>
+                            <li class="w-7 h-7 flex justify-center items-center m-1 bg-stone-100">U</li>
+                            <li class="w-7 h-7 flex justify-center items-center m-1 bg-stone-100">V</li>
+                            <li class="w-7 h-7 flex justify-center items-center m-1 bg-stone-100">W</li>
+                            <li class="w-7 h-7 flex justify-center items-center m-1 bg-stone-100">X</li>
+                            <li class="w-7 h-7 flex justify-center items-center m-1 bg-stone-100">Y</li>
+                            <li class="w-7 h-7 flex justify-center items-center m-1 bg-stone-100">Z</li> -->
 
+                            <?php require_once "./brandname/brandnameall.php" ?>
                         </ul>
                     </div>
 
@@ -184,17 +205,20 @@
 
                     <div>
                         <h1 class="font-[500] uppercase mb-1">Type</h1>
-                        <form id="unisexForm" action="menfrg.php" method="get">
+
+
+
+                        <form id="" action="" method="post">
                             <label for="type" class="flex items-center">
-                                <input type="checkbox" id="type" name="type" class="typecheckbox m-1">
-                                Unisex
+                                <input type="checkbox" id="type" name="type" class="m-1">
+                                Women
                             </label>
                         </form>
 
-                        <form id="menForm" action="menfrg.php" method="get">
-                            <label for="mtype" class="flex items-center">
-                                <input type="checkbox" id="mtype" name="mtype" class="typecheckbox m-1">
-                                Male
+                        <form id="" action="" method="post">
+                            <label for="type" class="flex items-center">
+                                <input type="checkbox" id="type" name="type" class="m-1">
+                                Men
                             </label>
                         </form>
                     </div>
@@ -205,19 +229,28 @@
 
             <div class="col-span-2 ">
                 <div>
-                    <span class="uppercase text-xs">Home <span class="m-1">|</span> Men's Fragrances</span>
+                    <span class="uppercase text-xs">Home <span class="m-1">|</span> All's Fragrances</span>
                 </div>
+
+
+
+
 
                 <?php
 
-                require_once "backendfunction/menbk.php";
+                include_once "./backendfunction/allfrg.php";
 
 
                 ?>
 
+
+
             </div>
 
         </div>
+
+
+
 
         </div>
     </section>
@@ -226,48 +259,3 @@
 </body>
 
 </html>
-
-<script>
-
-    function handleCheckboxClick() {
-        const checkbox = document.getElementById("type");
-        if (checkbox.checked) {
-            window.location.href = "menfrg.php?type=on&unisexquery=1";
-        } else {
-            window.location.href = "menfrg.php";
-        }
-
-    }
-
-
-    function handleCheckboxClickmen() {
-        const mcheckbox = document.getElementById('mtype');
-        if (mcheckbox.checked) {
-            window.location.href = "menfrg.php?type=mon&menquery=1";
-        } else {
-            window.location.href = "menfrg.php";
-        }
-    }
-
-    document.getElementById("type").addEventListener("click", handleCheckboxClick);
-    document.getElementById("mtype").addEventListener("click", handleCheckboxClickmen);
-
-
-
-    const urlParams = new URLSearchParams(window.location.search);
-    const typeParam = urlParams.get("type");
-    const checkbox = document.getElementById("type");
-    const mcheckbox = document.getElementById('mtype');
-
-    if (typeParam === "on") {
-        checkbox.checked = true;
-    } else {
-        checkbox.checked = false;
-    }
-
-    if (typeParam === "mon") {
-        mcheckbox.checked = true;
-    } else {
-        mcheckbox.checked = false;
-    }
-</script>

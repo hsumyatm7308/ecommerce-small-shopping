@@ -80,7 +80,7 @@
     <section class=" mt-6 mb-5">
         <div class=" grid grid-cols-2 p-2">
             <div class="flex justify-center">
-                <h1 class=" text-3xl">MEN's FRAGRANCES</h1>
+                <h1 class=" text-3xl">WOMEN's FRAGRANCES</h1>
             </div>
 
             <div>
@@ -103,8 +103,8 @@
 
                     <div class="h-auto mb-5">
                         <h1 class="font-[500] uppercase mb-1">Filter by</h1>
-                        <div id="history" class=" flex flex-wrap leading-3 addingletterctn">
-                            <span id =""
+                        <div class=" flex flex-wrap leading-3">
+                            <span
                                 class=" bg-stone-100 text-stone-400 capitalize border rounded p-1 m-1 flex justify-center items-center">
                                 <span> Unisex</span>
                                 <span class="text-xs text-stone-500 font-sans mx-1">x</span>
@@ -151,10 +151,6 @@
                                 <span class="text-xs text-stone-500 font-sans mx-1">x</span>
                             </span>
 
-                            <?php 
-                            require_once "filterby/filterhistoryby.php";
-                            ?>
-                        
                         </div>
                     </div>
 
@@ -162,8 +158,8 @@
                         <h1 class="uppercase mb-1">Brand</h1>
                         <span class="text-sm text-blue-300 ml-10">Click a letter to find a perfume</span>
                         <ul class="w-80  flex-wrap flex justify-start items-center mt-2">
-                        
-                            <?php require_once "brandname/brandnamemen.php" ?>
+                       
+                            <?php require_once "./brandname/brandnamewomen.php" ?>
 
                         </ul>
                     </div>
@@ -184,37 +180,37 @@
 
                     <div>
                         <h1 class="font-[500] uppercase mb-1">Type</h1>
-                        <form id="unisexForm" action="menfrg.php" method="get">
+                        <form id="unisexForm" action="womenfrg.php" method="get">
                             <label for="type" class="flex items-center">
-                                <input type="checkbox" id="type" name="type" class="typecheckbox m-1">
+                                <input type="checkbox" id="type" name="type" class="m-1">
                                 Unisex
                             </label>
                         </form>
 
-                        <form id="menForm" action="menfrg.php" method="get">
-                            <label for="mtype" class="flex items-center">
-                                <input type="checkbox" id="mtype" name="mtype" class="typecheckbox m-1">
-                                Male
-                            </label>
-                        </form>
+                        <div class="flex items-center">
+
+                            <input type="checkbox" name="ftype" id="ftype" class="m-1">
+                            <label for="ftype">Women</label>
+
+                        </div>
+
+
                     </div>
 
                 </div>
             </div>
 
-
             <div class="col-span-2 ">
                 <div>
-                    <span class="uppercase text-xs">Home <span class="m-1">|</span> Men's Fragrances</span>
+                    <span class="uppercase text-xs">Home <span class="m-1">|</span> Women's Fragrances</span>
                 </div>
 
                 <?php
 
-                require_once "backendfunction/menbk.php";
+                require_once "./backendfunction/womenbk.php";
 
 
                 ?>
-
             </div>
 
         </div>
@@ -227,47 +223,44 @@
 
 </html>
 
+
 <script>
 
     function handleCheckboxClick() {
         const checkbox = document.getElementById("type");
         if (checkbox.checked) {
-            window.location.href = "menfrg.php?type=on&unisexquery=1";
+            window.location.href = "womenfrg.php?type=on&unisexquery=1";
         } else {
-            window.location.href = "menfrg.php";
-        }
-
-    }
-
-
-    function handleCheckboxClickmen() {
-        const mcheckbox = document.getElementById('mtype');
-        if (mcheckbox.checked) {
-            window.location.href = "menfrg.php?type=mon&menquery=1";
-        } else {
-            window.location.href = "menfrg.php";
+            window.location.href = "womenfrg.php";
         }
     }
 
+    function handleCheckboxClickwomen() {
+        const fcheckbox = document.getElementById("ftype");
+        if (fcheckbox.checked) {
+            window.location.href = "womenfrg.php?type=fon&womenquery=1";
+        } else {
+            window.location.href = "womenfrg.php";
+        }
+    }
+
+    // Add event listener to checkbox
     document.getElementById("type").addEventListener("click", handleCheckboxClick);
-    document.getElementById("mtype").addEventListener("click", handleCheckboxClickmen);
-
-
+    document.getElementById("ftype").addEventListener("click", handleCheckboxClickwomen);
 
     const urlParams = new URLSearchParams(window.location.search);
     const typeParam = urlParams.get("type");
     const checkbox = document.getElementById("type");
-    const mcheckbox = document.getElementById('mtype');
-
+    const fcheckbox = document.getElementById("ftype");
     if (typeParam === "on") {
         checkbox.checked = true;
     } else {
         checkbox.checked = false;
     }
 
-    if (typeParam === "mon") {
-        mcheckbox.checked = true;
+    if (typeParam === "fon") {
+        fcheckbox.checked = true;
     } else {
-        mcheckbox.checked = false;
+        fcheckbox.checked = false;
     }
 </script>

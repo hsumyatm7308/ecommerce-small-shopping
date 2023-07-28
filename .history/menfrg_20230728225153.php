@@ -152,7 +152,7 @@
                             </span>
 
                             <?php 
-                            require_once "filterby/filterhistoryby.php";
+                            require_once "filterby/filterbymen.php";
                             ?>
                         
                         </div>

@@ -103,8 +103,8 @@
 
                     <div class="h-auto mb-5">
                         <h1 class="font-[500] uppercase mb-1">Filter by</h1>
-                        <div id="history" class=" flex flex-wrap leading-3 addingletterctn">
-                            <span id =""
+                        <div class=" flex flex-wrap leading-3">
+                            <span
                                 class=" bg-stone-100 text-stone-400 capitalize border rounded p-1 m-1 flex justify-center items-center">
                                 <span> Unisex</span>
                                 <span class="text-xs text-stone-500 font-sans mx-1">x</span>
@@ -152,7 +152,7 @@
                             </span>
 
                             <?php 
-                            require_once "filterby/filterhistoryby.php";
+                            require_once "filterby/filterbymen.php";
                             ?>
                         
                         </div>
