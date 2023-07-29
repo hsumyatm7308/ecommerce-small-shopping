@@ -1,0 +1,7 @@
+const clickedLetters = sessionStorage.getItem('clickedLetters') || '';
+    const updatedLetters = clickedLetters + letter;
+    sessionStorage.setItem('clickedLetters', updatedLetters);
+
+    // Display the history of clicked letters
+    const historyElement = document.getElementById('history');
+    historyElement.textContent = `History: ${updatedLetters}`;

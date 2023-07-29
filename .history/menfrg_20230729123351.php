@@ -314,36 +314,20 @@
 
         for (const letter of updatedLetters) {
             const outerSpan = document.createElement('span');
-            outerSpan.textContent = letter;
-            outerSpan.classList.add('bg-stone-100', 'text-stone-400', 'capitalize', 'border', 'rounded', 'p-1', 'm-1', 'flex', 'justify-center', 'items-center');
+            outerSpan.classList.add('outer-span'); // Optional: add a class to style the outer <span>
 
             const innerSpan = document.createElement('span');
-            innerSpan.textContent = 'x';
-            innerSpan.classList.add('text-xs', 'text-stone-500', 'font-sans', 'mx-1');
+            outerSpan.textContent = letter;
+            innerSpan.classList.add('inner-span'); // Optional: add a class to style the inner <span>
 
             outerSpan.appendChild(innerSpan);
+
             historyElement.appendChild(outerSpan);
-
-            // Use a separate function to handle the click event for each innerSpan
-            innerSpan.addEventListener('click', createInnerSpanClickHandler(letter));
-        }
-
-        function createInnerSpanClickHandler(letter) {
-            return function () {
-                console.log('hi');
-                let lettersToRemove = this.parentElement.remove();
-
-                const clickedLetters = sessionStorage.getItem('clickedLetters') || '';
-                const updatedLetters = clickedLetters.replace(letter, ''); // Remove the clicked letter from clickedLetters
-                sessionStorage.setItem('clickedLetters', updatedLetters);
-            };
         }
 
 
 
-
-
-
+        console.log(clickedLetters[0])
     }
 
 </script>

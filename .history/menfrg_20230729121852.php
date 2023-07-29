@@ -8,23 +8,6 @@
     <link rel="stylesheet" href="./css/style.css">
     <script src="https://cdn.tailwindcss.com"></script>
 
-    <style>
-        <style>.letter-history {
-            display: flex;
-            flex-wrap: wrap;
-            margin-top: 10px;
-        }
-
-        .letter-item {
-            background-color: #f0f0f0;
-            color: #333;
-            padding: 4px 8px;
-            margin: 4px;
-            border-radius: 4px;
-        }
-    </style>
-
-    </style>
 </head>
 
 <body class="">
@@ -293,57 +276,42 @@
 
 <!-- Add this script to your HTML page -->
 <script>
-    function handleLetterClick(letter) {
-        // Get the current URL
-        const currentURL = window.location.href;
+function handleLetterClick(letter) {
+  // Get the current URL
+  const currentURL = window.location.href;
 
-        const hasQuery = currentURL.includes('?');
+  // Check if the URL already contains a query string
+  const hasQuery = currentURL.includes('?');
 
-        const newURL = hasQuery
-            ? `${currentURL}&letters=${letter}`
-            : `${currentURL}?letters=${letter}`;
+  // Append the letter as a query parameter
+  const newURL = hasQuery
+    ? `${currentURL}&letters=${letter}`
+    : `${currentURL}?letters=${letter}`;
 
-        window.history.pushState({ path: newURL }, '', newURL);
+  // Redirect to the new URL without causing a full page reload
+  window.history.pushState({ path: newURL }, '', newURL);
 
-        const clickedLetters = sessionStorage.getItem('clickedLetters') || '';
-        const updatedLetters = clickedLetters + letter;
-        sessionStorage.setItem('clickedLetters', updatedLetters);
+  // Get the clicked letters from sessionStorage
+  const clickedLetters = sessionStorage.getItem('clickedLetters') || '';
 
-        const historyElement = document.getElementById('history');
-        historyElement.innerHTML = '';
+  // Update the clicked letters with the new letter
+  const updatedLetters = clickedLetters + letter;
 
-        for (const letter of updatedLetters) {
-            const outerSpan = document.createElement('span');
-            outerSpan.textContent = letter;
-            outerSpan.classList.add('bg-stone-100', 'text-stone-400', 'capitalize', 'border', 'rounded', 'p-1', 'm-1', 'flex', 'justify-center', 'items-center');
+  // Save the updated clicked letters to sessionStorage
+  sessionStorage.setItem('clickedLetters', updatedLetters);
 
-            const innerSpan = document.createElement('span');
-            innerSpan.textContent = 'x';
-            innerSpan.classList.add('text-xs', 'text-stone-500', 'font-sans', 'mx-1');
+  // Display the updated clicked letters in the history container
+  const historyElement = document.getElementById('history');
+  historyElement.innerHTML = '';
 
-            outerSpan.appendChild(innerSpan);
-            historyElement.appendChild(outerSpan);
-
-            // Use a separate function to handle the click event for each innerSpan
-            innerSpan.addEventListener('click', createInnerSpanClickHandler(letter));
-        }
-
-        function createInnerSpanClickHandler(letter) {
-            return function () {
-                console.log('hi');
-                let lettersToRemove = this.parentElement.remove();
-
-                const clickedLetters = sessionStorage.getItem('clickedLetters') || '';
-                const updatedLetters = clickedLetters.replace(letter, ''); // Remove the clicked letter from clickedLetters
-                sessionStorage.setItem('clickedLetters', updatedLetters);
-            };
-        }
-
-
-
-
-
-
-    }
+  for (const letter of updatedLetters) {
+    const letterElement = document.createElement('span');
+    letterElement.textContent = letter;
+    letterElement.classList.add('letter-item');
+    historyElement.appendChild(letterElement);
+  }
+}
 
 </script>
+
+<!-- Add this element to your HTML page where you want to display the history -->

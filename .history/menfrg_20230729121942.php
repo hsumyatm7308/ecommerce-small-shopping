@@ -297,53 +297,38 @@
         // Get the current URL
         const currentURL = window.location.href;
 
+        // Check if the URL already contains a query string
         const hasQuery = currentURL.includes('?');
 
+        // Append the letter as a query parameter
         const newURL = hasQuery
             ? `${currentURL}&letters=${letter}`
             : `${currentURL}?letters=${letter}`;
 
+        // Redirect to the new URL without causing a full page reload
         window.history.pushState({ path: newURL }, '', newURL);
 
+        // Get the clicked letters from sessionStorage
         const clickedLetters = sessionStorage.getItem('clickedLetters') || '';
+
+        // Update the clicked letters with the new letter
         const updatedLetters = clickedLetters + letter;
+
+        // Save the updated clicked letters to sessionStorage
         sessionStorage.setItem('clickedLetters', updatedLetters);
 
+        // Display the updated clicked letters in the history container
         const historyElement = document.getElementById('history');
         historyElement.innerHTML = '';
 
         for (const letter of updatedLetters) {
-            const outerSpan = document.createElement('span');
-            outerSpan.textContent = letter;
-            outerSpan.classList.add('bg-stone-100', 'text-stone-400', 'capitalize', 'border', 'rounded', 'p-1', 'm-1', 'flex', 'justify-center', 'items-center');
-
-            const innerSpan = document.createElement('span');
-            innerSpan.textContent = 'x';
-            innerSpan.classList.add('text-xs', 'text-stone-500', 'font-sans', 'mx-1');
-
-            outerSpan.appendChild(innerSpan);
-            historyElement.appendChild(outerSpan);
-
-            // Use a separate function to handle the click event for each innerSpan
-            innerSpan.addEventListener('click', createInnerSpanClickHandler(letter));
+            const letterElement = document.createElement('span');
+            letterElement.textContent = letter;
+            letterElement.classList.add('letter-item');
+            historyElement.appendChild(letterElement);
         }
-
-        function createInnerSpanClickHandler(letter) {
-            return function () {
-                console.log('hi');
-                let lettersToRemove = this.parentElement.remove();
-
-                const clickedLetters = sessionStorage.getItem('clickedLetters') || '';
-                const updatedLetters = clickedLetters.replace(letter, ''); // Remove the clicked letter from clickedLetters
-                sessionStorage.setItem('clickedLetters', updatedLetters);
-            };
-        }
-
-
-
-
-
-
     }
 
 </script>
+
+<!-- Add this element to your HTML page where you want to display the history -->

@@ -8,23 +8,6 @@
     <link rel="stylesheet" href="./css/style.css">
     <script src="https://cdn.tailwindcss.com"></script>
 
-    <style>
-        <style>.letter-history {
-            display: flex;
-            flex-wrap: wrap;
-            margin-top: 10px;
-        }
-
-        .letter-item {
-            background-color: #f0f0f0;
-            color: #333;
-            padding: 4px 8px;
-            margin: 4px;
-            border-radius: 4px;
-        }
-    </style>
-
-    </style>
 </head>
 
 <body class="">
@@ -121,7 +104,7 @@
                     <div class="h-auto mb-5">
                         <h1 class="font-[500] uppercase mb-1">Filter by</h1>
                         <div id="history" class=" flex flex-wrap leading-3 addingletterctn letter-history">
-                            <span id=""
+                            <span id =""
                                 class=" bg-stone-100 text-stone-400 capitalize border rounded p-1 m-1 flex justify-center items-center">
                                 <span> Unisex</span>
                                 <span class="text-xs text-stone-500 font-sans mx-1">x</span>
@@ -168,10 +151,10 @@
                                 <span class="text-xs text-stone-500 font-sans mx-1">x</span>
                             </span>
 
-                            <?php
+                            <?php 
                             require_once "filterby/filterhistoryby.php";
                             ?>
-
+                        
                         </div>
                     </div>
 
@@ -179,7 +162,7 @@
                         <h1 class="uppercase mb-1">Brand</h1>
                         <span class="text-sm text-blue-300 ml-10">Click a letter to find a perfume</span>
                         <ul class="w-80  flex-wrap flex justify-start items-center mt-2">
-
+                        
                             <?php require_once "brandname/brandnamemen.php" ?>
 
                         </ul>
@@ -293,57 +276,42 @@
 
 <!-- Add this script to your HTML page -->
 <script>
-    function handleLetterClick(letter) {
-        // Get the current URL
-        const currentURL = window.location.href;
+  function handleLetterClick(letter) {
+    // Get the current URL
+    const currentURL = window.location.href;
 
-        const hasQuery = currentURL.includes('?');
+    // Check if the URL already contains a query string
+    const hasQuery = currentURL.includes('?');
 
-        const newURL = hasQuery
-            ? `${currentURL}&letters=${letter}`
-            : `${currentURL}?letters=${letter}`;
+    // Append the letter as a query parameter
+    const newURL = hasQuery
+      ? `${currentURL}&letters=${letter}`
+      : `${currentURL}?letters=${letter}`;
 
-        window.history.pushState({ path: newURL }, '', newURL);
+    // Redirect to the new URL
+    window.location.href = newURL;
 
-        const clickedLetters = sessionStorage.getItem('clickedLetters') || '';
-        const updatedLetters = clickedLetters + letter;
-        sessionStorage.setItem('clickedLetters', updatedLetters);
+    const history =document.getElementById('history');
+    var newele = document.createElement('li');
+    newele.innerHTML= `
+                            <span
+                                class=" bg-stone-100 text-stone-400 capitalize border rounded p-1 m-1 flex justify-center items-center">
+                                <span> ${letter}</span>
+                                <span class="text-xs text-stone-500 font-sans mx-1">x</span>
+                            </span>`
 
-        const historyElement = document.getElementById('history');
-        historyElement.innerHTML = '';
+                            history.appendChild(newele);
+    
+  }
 
-        for (const letter of updatedLetters) {
-            const outerSpan = document.createElement('span');
-            outerSpan.textContent = letter;
-            outerSpan.classList.add('bg-stone-100', 'text-stone-400', 'capitalize', 'border', 'rounded', 'p-1', 'm-1', 'flex', 'justify-center', 'items-center');
-
-            const innerSpan = document.createElement('span');
-            innerSpan.textContent = 'x';
-            innerSpan.classList.add('text-xs', 'text-stone-500', 'font-sans', 'mx-1');
-
-            outerSpan.appendChild(innerSpan);
-            historyElement.appendChild(outerSpan);
-
-            // Use a separate function to handle the click event for each innerSpan
-            innerSpan.addEventListener('click', createInnerSpanClickHandler(letter));
-        }
-
-        function createInnerSpanClickHandler(letter) {
-            return function () {
-                console.log('hi');
-                let lettersToRemove = this.parentElement.remove();
-
-                const clickedLetters = sessionStorage.getItem('clickedLetters') || '';
-                const updatedLetters = clickedLetters.replace(letter, ''); // Remove the clicked letter from clickedLetters
-                sessionStorage.setItem('clickedLetters', updatedLetters);
-            };
-        }
-
-
-
-
-
-
+  // Retrieve the history of clicked letters on page load
+  document.addEventListener('DOMContentLoaded', () => {
+    const clickedLetters = sessionStorage.getItem('clickedLetters');
+    if (clickedLetters) {
+      const historyElement = document.getElementById('history');
+      historyElement.textContent = `History: ${clickedLetters}`;
     }
-
+  });
 </script>
+
+<!-- Add this element to your HTML page where you want to display the history -->
