@@ -54,6 +54,7 @@ try {
         $endprice = $_GET['endprice'];
 
         $recperpage = 12;
+
         $pricePage = isset($_GET['price']) ? (int) $_GET['price'] : 1;
         $startfromprice = max(0, ($pricePage - 1) * 12);
 
@@ -64,7 +65,7 @@ try {
         $totalrec = $pricestmt_total->fetchColumn();
         $totalpages = ceil($totalrec / $recperpage);
 
-        $pricestmt = $conn->prepare("SELECT id, perfume_name, brand_name, category_name, price, imgurl, mili FROM perfume WHERE price BETWEEN :startprice AND :endprice AND category_name IN ('Men','Unisex') LIMIT $startfromprice, $recperpage");
+        $pricestmt = $conn->prepare("SELECT id, perfume_name, brand_name, category_name, price, imgurl, mili FROM perfume WHERE price BETWEEN :startprice AND :endprice category_name IN ('Men','Unisex') LIMIT $startfromprice, $recperpage");
         $pricestmt->bindParam(':startprice', $startprice, PDO::PARAM_INT);
         $pricestmt->bindParam(':endprice', $endprice, PDO::PARAM_INT);
         $pricestmt->execute();
@@ -172,35 +173,26 @@ if (isset($_GET['letters'])) {
 
 
 
-
-
 <div class="grid grid-cols-3">
-    <?php
-    if (isset($_GET['startprice']) && isset($_GET['endprice'])) {
-        // echo "hie";
-    
-        while ($row = $pricestmt->fetch()) {
-            echo '<div class="w-full m-5 flex justify-center items-center flex-col">';
+    <?php while ($row = $menstmt->fetch()): ?>
+        <div class="w-full m-5 flex justify-center items-center flex-col">
+            <?php
             $binary_data = $row['imgurl'];
             $base64_image = base64_encode($binary_data);
             echo '<img src="data:image/jpeg;base64,' . $base64_image . '" alt="Image" style="max-width: 200px;" >';
-            echo '<a href="" class="w-64 self-start">' . $row['perfume_name'] . ' by ' . $row['brand_name'] . ' EDT 3.3 OZ ' . $row['mili'] . ' spray for ' . $row['category_name'] . '</a>';
-            echo '<span class="self-start mt-2">$' . $row['price'] . '</span>';
-            echo '</div>';
-        }
+            ?>
 
-    } else {
-        while ($row = $menstmt->fetch()) {
-            echo '<div class="w-full m-5 flex justify-center items-center flex-col">';
-            $binary_data = $row['imgurl'];
-            $base64_image = base64_encode($binary_data);
-            echo '<img src="data:image/jpeg;base64,' . $base64_image . '" alt="Image" style="max-width: 200px;" >';
-            echo '<a href="" class="w-64 self-start">' . $row['perfume_name'] . ' by ' . $row['brand_name'] . ' EDT 3.3 OZ ' . $row['mili'] . ' spray for ' . $row['category_name'] . '</a>';
-            echo '<span class="self-start mt-2">$' . $row['price'] . '</span>';
-            echo '</div>';
-        }
-    }
-    ?>
+            <a href="" class="w-64 self-start">
+                <?php echo $row['perfume_name'] ?> by
+                <? echo $row['brand_name'] ?> EDT 3.3 OZ
+                <?= $row['mili'] ?> spray for
+                <?= $row['category_name'] ?>
+            </a>
+            <span class="self-start mt-2">$
+                <?php echo $row['price'] ?>
+            </span>
+        </div>
+    <?php endwhile; ?>
 </div>
 
 
@@ -208,104 +200,68 @@ if (isset($_GET['letters'])) {
 
 <div class="flex justify-center items-center mt-10 p-10">
     <?php
-
-
-
-    if (isset($_GET['startprice']) && isset($_GET['endprice'])) {
-
-        if (isset($_GET['price']) && $_GET['price'] > 1) {
-            $prevMenPage = $_GET['price'] - 1;
-            echo '<a href="?startprice=' . $startprice . '&endprice=' . $endprice . `&price=` . $prevMenPage . '" class="text-red-500 border px-2 py-1 mr-10">Prev</a>';
+    if (isset($_GET['type']) && $_GET['type'] === 'on') {
+        if (isset($_GET['unisexquery']) && $_GET['unisexquery'] > 1) {
+            $prevUnisexPage = $_GET['unisexquery'] - 1;
+            echo '<a href="?type=on&unisexquery=' . $prevUnisexPage . '" class="text-red-500 border px-2 py-1 mr-10">Prev</a>';
         }
 
         for ($x = 1; $x <= $totalpages; $x++) {
-            echo '<a href="?startprice=' . $startprice . '&endprice=' . $endprice . '&price=' . $x . '" class="w-6 h-7 border p-1 m-1 flex justify-center items-center active">' . $x . '</a>';
+            echo '<a href="?type=on&unisexquery=' . $x . '" class="w-6 h-7 border p-1 m-1 flex justify-center items-center active">' . $x . '</a>';
         }
 
-        if (isset($_GET['price'])) {
-            if ($_GET['price'] >= $totalpages) {
-                // echo '<a class="text-blue-500 border px-2 py-1 ml-10">Next</a>';
+
+
+
+
+        if (isset($_GET['unisexquery'])) {
+            if ($_GET['unisexquery'] >= $totalpages) {
             } else {
-                // $nextPage = $_GET['page'] + 1;
-    
-                if (isset($_GET['price']) && is_numeric($_GET['price'])) {
-                    $nextPage = (int) $_GET['price'] + 1;
-                    echo '<a href="?startprice=' . $startprice . '&endprice=' . $endprice . '&price=' . $nextPage . '" class="text-red-500 border px-2 py-1 ml-10">Next</a>';
-                }
+                $nextPage = $_GET['unisexquery'] + 1;
+                echo '<a href="?type=on&unisexquery=' . $nextPage . '" class="text-red-500 border px-2 py-1 ml-10">Next</a>';
             }
         } else {
-            echo '<a href="?startprice=' . $startprice . '&endprice=' . $endprice . '&price=1 class="text-blue-500 border px-2 py-1 ml-10">Next</a>';
+            echo '<a href="?type=on&unisexquery=1" class="text-blue-500 border px-2 py-1 ml-10">Next</a>';
+        }
+    } elseif (isset($_GET['type']) && $_GET['type'] === 'mon') {
+        if (isset($_GET['menquery']) && $_GET['menquery'] > 1) {
+            $prevMenPage = $_GET['menquery'] - 1;
+            echo '<a href="?type=mon&menquery=' . $prevMenPage . '" class="text-red-500 border px-2 py-1 mr-10">Prev</a>';
+        }
+
+        for ($x = 1; $x <= $totalpages; $x++) {
+            echo '<a href="?type=mon&menquery=' . $x . '" class="w-6 h-7 border p-1 m-1 flex justify-center items-center active">' . $x . '</a>';
+        }
+
+        if (isset($_GET['menquery'])) {
+            if ($_GET['menquery'] >= $totalpages) {
+            } else {
+                $nextPage = $_GET['menquery'] + 1;
+                echo '<a href="?type=mon&menquery=' . $nextPage . '" class="text-red-500 border px-2 py-1 ml-10">Next</a>';
+            }
+        } else {
+            echo '<a href="?type=mon&menquery=1" class="text-blue-500 border px-2 py-1 ml-10">Next</a>';
         }
     } else {
-
-
-
-
-        if (isset($_GET['type']) && $_GET['type'] === 'on') {
-            if (isset($_GET['unisexquery']) && $_GET['unisexquery'] > 1) {
-                $prevUnisexPage = $_GET['unisexquery'] - 1;
-                echo '<a href="?type=on&unisexquery=' . $prevUnisexPage . '" class="text-red-500 border px-2 py-1 mr-10">Prev</a>';
-            }
-
-            for ($x = 1; $x <= $totalpages; $x++) {
-                echo '<a href="?type=on&unisexquery=' . $x . '" class="w-6 h-7 border p-1 m-1 flex justify-center items-center active">' . $x . '</a>';
-            }
-
-
-
-
-
-            if (isset($_GET['unisexquery'])) {
-                if ($_GET['unisexquery'] >= $totalpages) {
-                } else {
-                    $nextPage = $_GET['unisexquery'] + 1;
-                    echo '<a href="?type=on&unisexquery=' . $nextPage . '" class="text-red-500 border px-2 py-1 ml-10">Next</a>';
-                }
-            } else {
-                echo '<a href="?type=on&unisexquery=1" class="text-blue-500 border px-2 py-1 ml-10">Next</a>';
-            }
-        } elseif (isset($_GET['type']) && $_GET['type'] === 'mon') {
-            if (isset($_GET['menquery']) && $_GET['menquery'] > 1) {
-                $prevMenPage = $_GET['menquery'] - 1;
-                echo '<a href="?type=mon&menquery=' . $prevMenPage . '" class="text-red-500 border px-2 py-1 mr-10">Prev</a>';
-            }
-
-            for ($x = 1; $x <= $totalpages; $x++) {
-                echo '<a href="?type=mon&menquery=' . $x . '" class="w-6 h-7 border p-1 m-1 flex justify-center items-center active">' . $x . '</a>';
-            }
-
-            if (isset($_GET['menquery'])) {
-                if ($_GET['menquery'] >= $totalpages) {
-                } else {
-                    $nextPage = $_GET['menquery'] + 1;
-                    echo '<a href="?type=mon&menquery=' . $nextPage . '" class="text-red-500 border px-2 py-1 ml-10">Next</a>';
-                }
-            } else {
-                echo '<a href="?type=mon&menquery=1" class="text-blue-500 border px-2 py-1 ml-10">Next</a>';
-            }
-        } else {
-            if (isset($_GET['menpage']) && $_GET['menpage'] > 1) {
-                $prevMenPage = $_GET['menpage'] - 1;
-                echo '<a href="?menpage=' . $prevMenPage . '" class="text-red-500 border px-2 py-1 mr-10">Prev</a>';
-            }
-
-            for ($x = 1; $x <= $totalpages; $x++) {
-                echo '<a href="?menpage=' . $x . '" class="w-6 h-7 border p-1 m-1 flex justify-center items-center active">' . $x . '</a>';
-            }
-
-            if (isset($_GET['menpage'])) {
-                if ($_GET['menpage'] >= $totalpages) {
-                    // echo '<a class="text-blue-500 border px-2 py-1 ml-10">Next</a>';
-                } else {
-                    $nextPage = $_GET['menpage'] + 1;
-                    echo '<a href="?menpage=' . $nextPage . '" class="text-red-500 border px-2 py-1 ml-10">Next</a>';
-                }
-            } else {
-                echo '<a href="?menpage=1" class="text-blue-500 border px-2 py-1 ml-10">Next</a>';
-            }
+        if (isset($_GET['menpage']) && $_GET['menpage'] > 1) {
+            $prevMenPage = $_GET['menpage'] - 1;
+            echo '<a href="?menpage=' . $prevMenPage . '" class="text-red-500 border px-2 py-1 mr-10">Prev</a>';
         }
 
-    }
+        for ($x = 1; $x <= $totalpages; $x++) {
+            echo '<a href="?menpage=' . $x . '" class="w-6 h-7 border p-1 m-1 flex justify-center items-center active">' . $x . '</a>';
+        }
 
+        if (isset($_GET['menpage'])) {
+            if ($_GET['menpage'] >= $totalpages) {
+                // echo '<a class="text-blue-500 border px-2 py-1 ml-10">Next</a>';
+            } else {
+                $nextPage = $_GET['menpage'] + 1;
+                echo '<a href="?menpage=' . $nextPage . '" class="text-red-500 border px-2 py-1 ml-10">Next</a>';
+            }
+        } else {
+            echo '<a href="?menpage=1" class="text-blue-500 border px-2 py-1 ml-10">Next</a>';
+        }
+    }
     ?>
 </div>

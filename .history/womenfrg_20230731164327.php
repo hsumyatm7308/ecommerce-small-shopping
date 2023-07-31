@@ -83,9 +83,11 @@
                             <input type="text" name="startprice" placeholder=" Min" value="<?php if (isset($_GET['startprice'])) {
                                 echo $_GET['startprice'];
                             } ?>" class="w-20 border border-2 rounded m-1 p-1 focus:ring-1 focus:outline-none">
+
                             <input type="text" name="endprice" placeholder=" Max" value="<?php if (isset($_GET['endprice'])) {
                                 echo $_GET['endprice'];
                             } ?>" class="w-20 border border-2 rounded m-1 p-1 focus:ring-1 focus:outline-none">
+
                             <script>
                                 function updatePrice() {
                                     var startprice = document.getElementsByName('startprice')[0].value;
@@ -94,9 +96,13 @@
                                     document.getElementById('updateprice').href = updateURL;
                                 }
                             </script>
+                           
                             <a href="#" type="text" id="updateprice" name="price" onclick="updatePrice()"
                                 class="w-24 border border-2 rounded m-1 p-1">UPDATE</a>
+                          
                         </form>
+
+
                     </div>
 
 

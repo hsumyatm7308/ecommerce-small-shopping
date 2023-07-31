@@ -57,7 +57,7 @@ if (isset($_GET['letters'])) {
 
 
 
-=>Men 
+
 
 <div class="grid grid-cols-3">
     <?php while ($row = $menstmt->fetch()): ?>
@@ -82,7 +82,6 @@ if (isset($_GET['letters'])) {
 </div>
 
 
-=>Women
 
 <div class="grid grid-cols-3">
     <?php while ($row = $womenstmt->fetch()): ?>

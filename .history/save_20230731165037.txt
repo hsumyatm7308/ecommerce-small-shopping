@@ -57,7 +57,7 @@ if (isset($_GET['letters'])) {
 
 
 
-=>Men 
+
 
 <div class="grid grid-cols-3">
     <?php while ($row = $menstmt->fetch()): ?>

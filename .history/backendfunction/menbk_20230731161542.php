@@ -1,6 +1,7 @@
 <?php
 
 require_once "database.php";
+ini_set('display_errors', 1);
 
 try {
     global $conn;
@@ -10,7 +11,7 @@ try {
         $endprice = $_GET['endprice'];
 
 
-        $pricestmt = $conn->prepare("SELECT id, perfume_name, brand_name, category_name, price, imgurl, mili FROM perfume WHERE price BETWEEN :startprice AND :endprice");
+        $pricestmt = $conn->prepare("SELECT id, perfume_name, brand_name, category_name, price, imgurl, mili FROM perfume WHERE price BETWEEN :startprice AND :endprice AND  category_name IN ('Men','Unisex')");
         $pricestmt->bindParam(':startprice', $startprice, PDO::PARAM_INT);
         $pricestmt->bindParam(':endprice', $endprice, PDO::PARAM_INT);
         $pricestmt->execute();
@@ -18,37 +19,33 @@ try {
         // echo "sdlfjsa;";
     } else {
 
-
-        $womenstmt = $conn->prepare("SELECT id, perfume_name, brand_name, category_name, price, imgurl, mili FROM perfume WHERE category_name IN ('Women','Unisex') ");
-        $womenstmt->execute();
-
+        $menstmt = $conn->prepare("SELECT id, perfume_name, brand_name, category_name, price, imgurl,mili FROM perfume WHERE category_name IN ('Men','Unisex')");
+        $menstmt->execute();
 
         if (isset($_GET['type']) && $_GET['type'] === 'on') {
 
-            $womenstmt = $conn->prepare("SELECT id, perfume_name, brand_name, category_name, price, imgurl, mili FROM perfume WHERE category_name = 'Unisex'");
-            $womenstmt->execute();
+            $menstmt = $conn->prepare("SELECT id, perfume_name, brand_name, category_name, price, imgurl, mili FROM perfume WHERE category_name = 'Unisex'");
+            $menstmt->execute();
             // echo "Category: Unisex
         }
 
+        if (isset($_GET['type']) && $_GET['type'] === 'mon') {
 
-        if (isset($_GET['type']) && $_GET['type'] === 'fon') {
-
-            $womenstmt = $conn->prepare("SELECT id, perfume_name, brand_name, category_name, price, imgurl, mili FROM perfume WHERE category_name = 'Women'");
-            $womenstmt->execute();
+            $menstmt = $conn->prepare("SELECT id, perfume_name, brand_name, category_name, price, imgurl, mili FROM perfume WHERE category_name = 'Men'");
+            $menstmt->execute();
             // echo "Category: Unisex
         }
+
     }
+
 
 } catch (Exception $e) {
     echo "Error Found: " . $e->getMessage();
 }
 
-
-
-
-
 try {
 
+    global $conn;
 
 
 
@@ -68,7 +65,7 @@ try {
         $totalrec = $pricestmt_total->fetchColumn();
         $totalpages = ceil($totalrec / $recperpage);
 
-        $pricestmt = $conn->prepare("SELECT id, perfume_name, brand_name, category_name, price, imgurl, mili FROM perfume WHERE price BETWEEN :startprice AND :endprice LIMIT $startfromprice, $recperpage");
+        $pricestmt = $conn->prepare("SELECT id, perfume_name, brand_name, category_name, price, imgurl, mili FROM perfume WHERE price BETWEEN :startprice AND :endprice AND category_name IN ('Men','Unisex') LIMIT $startfromprice, $recperpage");
         $pricestmt->bindParam(':startprice', $startprice, PDO::PARAM_INT);
         $pricestmt->bindParam(':endprice', $endprice, PDO::PARAM_INT);
         $pricestmt->execute();
@@ -79,24 +76,20 @@ try {
 
     } else {
 
-
         $recperpage = 12;
-        $totalrec = $womenstmt->rowCount();
-
-        // echo $totalrec . "heljwf";
+        $totalrec = $menstmt->rowCount();
         $totalpages = ceil($totalrec / $recperpage);
 
-        if (isset($_GET['womenpage']) && isset($_GET['womenpage']) != "") {
-            $page = $_GET['womenpage'];
+        if (isset($_GET['menpage']) && isset($_GET['menpage']) != "") {
+            $page = $_GET['menpage'];
         } else {
             $page = 1;
         }
 
         $startfrom = ($page - 1) * 12;
 
-        $womenstmt = $conn->prepare("SELECT * FROM perfume WHERE category_name IN ('Women','Unisex') LIMIT $startfrom, $recperpage");
-        $womenstmt->execute(); // Execute the query to fetch data
-
+        $menstmt = $conn->prepare("SELECT * FROM perfume WHERE category_name IN ('Men','Unisex') LIMIT $startfrom, $recperpage");
+        $menstmt->execute();
 
         if (isset($_GET['type']) && $_GET['type'] === 'on') {
 
@@ -108,16 +101,25 @@ try {
 
             $startfrom = ($unipage - 1) * 12;
 
-
-            $womenstmt = $conn->prepare("SELECT id, perfume_name, brand_name, category_name, price, imgurl, mili FROM perfume WHERE category_name = 'Unisex' LIMIT $startfrom, $recperpage");
-            $womenstmt->execute();
-
-
-
-
-
-
+            $menstmt = $conn->prepare("SELECT id, perfume_name, brand_name, category_name, price, imgurl, mili FROM perfume WHERE category_name = 'Unisex' LIMIT $startfrom, $recperpage");
+            $menstmt->execute();
         }
+        if (isset($_GET['type']) && $_GET['type'] === 'mon') {
+
+            if (isset($_GET['unipage']) && isset($_GET['unipage']) != "") {
+                $unipage = $_GET['unipage'];
+            } else {
+                $unipage = 1;
+            }
+
+            $startfrom = ($unipage - 1) * 12;
+
+
+            $menstmt = $conn->prepare("SELECT id, perfume_name, brand_name, category_name, price, imgurl, mili FROM perfume WHERE category_name = 'Men' LIMIT $startfrom, $recperpage");
+            $menstmt->execute();
+            // echo "Category: Unisex
+        }
+
         if (isset($_GET['type']) && $_GET['type'] === 'fon') {
 
             if (isset($_GET['unipage']) && isset($_GET['unipage']) != "") {
@@ -133,13 +135,17 @@ try {
             $womenstmt->execute();
             // echo "Category: Unisex
         }
-
     }
+
+
+
 } catch (Exception $e) {
     echo "Error Found: " . $e->getMessage();
 }
 
 ?>
+
+
 
 
 <!-- Brand Name -->
@@ -149,9 +155,9 @@ if (isset($_GET['letters'])) {
     try {
         global $conn;
 
-        $womenstmt = $conn->prepare("SELECT id, perfume_name, brand_name, category_name, price, imgurl, mili FROM perfume  WHERE category_name IN ('Women','Unisex') AND fsletter = :letter ORDER BY fsletter ASC");
-        $womenstmt->bindParam(":letter", $letter);
-        $womenstmt->execute();
+        $menstmt = $conn->prepare("SELECT id, perfume_name, brand_name, category_name, price, imgurl, mili FROM perfume  WHERE category_name IN ('Men','Unisex') AND fsletter = :letter ORDER BY fsletter ASC");
+        $menstmt->bindParam(":letter", $letter);
+        $menstmt->execute();
 
 
 
@@ -159,9 +165,10 @@ if (isset($_GET['letters'])) {
         echo "Error Found: " . $e->getMessage();
     }
 }
-
-
 ?>
+
+
+
 
 
 
@@ -184,7 +191,7 @@ if (isset($_GET['letters'])) {
         }
 
     } else {
-        while ($row = $womenstmt->fetch()) {
+        while ($row = $menstmt->fetch()) {
             echo '<div class="w-full m-5 flex justify-center items-center flex-col">';
             $binary_data = $row['imgurl'];
             $base64_image = base64_encode($binary_data);
@@ -199,36 +206,15 @@ if (isset($_GET['letters'])) {
 
 
 
+
 <div class="flex justify-center items-center mt-10 p-10">
     <?php
 
+
+
     if (isset($_GET['startprice']) && isset($_GET['endprice'])) {
 
-        // if (isset($_GET['price']) && $_GET['price'] > 1) {
-        //     $prevMenPage = $_GET['price'] - 1;
-        //     echo '<a href="?startprice='.$startprice.'&endprice='.$endprice.`&price=` . $prevMenPage . '" class="text-red-500 border px-2 py-1 mr-10">Prev</a>';
-        // }
-    
-        // for ($x = 1; $x <= $totalpages; $x++) {
-        //     echo '<a href="?startprice='.$startprice.'&endprice='.$endprice.'&price=' . $x . '" class="w-6 h-7 border p-1 m-1 flex justify-center items-center active">' . $x . '</a>';
-        // }
-    
-        // if (isset($_GET['price'])) {
-        //     if ($_GET['price'] >= $totalpages) {
-        //         // echo '<a class="text-blue-500 border px-2 py-1 ml-10">Next</a>';
-        //     } else {
-        //         // $nextPage = $_GET['page'] + 1;
-    
-        //         if (isset($_GET['price']) && is_numeric($_GET['price'])) {
-        //             $nextPage = (int) $_GET['price'] + 1;
-        //             echo '<a href="?startprice='.$startprice.'&endprice='.$endprice.'&price=' . $nextPage . '" class="text-red-500 border px-2 py-1 ml-10">Next</a>';
-        //         }
-        //     }
-        // } else {
-        //     echo '<a href="?startprice='.$startprice.'&endprice='.$endprice.'&price=1 class="text-blue-500 border px-2 py-1 ml-10">Next</a>';
-        // }
-    
-
+       
         $currentPricePage = isset($_GET['price']) ? (int) $_GET['price'] : 1;
 
         if ($currentPricePage > 1) {
@@ -249,6 +235,10 @@ if (isset($_GET['letters'])) {
             echo '<a href="?startprice=' . $startprice . '&endprice=' . $endprice . '&price=' . $nextPricePage . '" class="text-red-500 border px-2 py-1 ml-10">Next</a>';
         }
     } else {
+
+
+
+
         if (isset($_GET['type']) && $_GET['type'] === 'on') {
             if (isset($_GET['unisexquery']) && $_GET['unisexquery'] > 1) {
                 $prevUnisexPage = $_GET['unisexquery'] - 1;
@@ -260,6 +250,9 @@ if (isset($_GET['letters'])) {
             }
 
 
+
+
+
             if (isset($_GET['unisexquery'])) {
                 if ($_GET['unisexquery'] >= $totalpages) {
                 } else {
@@ -269,46 +262,48 @@ if (isset($_GET['letters'])) {
             } else {
                 echo '<a href="?type=on&unisexquery=1" class="text-blue-500 border px-2 py-1 ml-10">Next</a>';
             }
-        } elseif (isset($_GET['type']) && $_GET['type'] === 'fon') {
-            if (isset($_GET['womenquery']) && $_GET['womenquery'] > 1) {
-                $prevMenPage = $_GET['womenquery'] - 1;
-                echo '<a href="?type=fon&womenquery=' . $prevMenPage . '" class="text-red-500 border px-2 py-1 mr-10">Prev</a>';
+        } elseif (isset($_GET['type']) && $_GET['type'] === 'mon') {
+            if (isset($_GET['menquery']) && $_GET['menquery'] > 1) {
+                $prevMenPage = $_GET['menquery'] - 1;
+                echo '<a href="?type=mon&menquery=' . $prevMenPage . '" class="text-red-500 border px-2 py-1 mr-10">Prev</a>';
             }
 
             for ($x = 1; $x <= $totalpages; $x++) {
-                echo '<a href="?type=fon&womenquery=' . $x . '" class="w-6 h-7 border p-1 m-1 flex justify-center items-center active">' . $x . '</a>';
+                echo '<a href="?type=mon&menquery=' . $x . '" class="w-6 h-7 border p-1 m-1 flex justify-center items-center active">' . $x . '</a>';
             }
 
-            if (isset($_GET['womenquery'])) {
-                if ($_GET['womenquery'] >= $totalpages) {
+            if (isset($_GET['menquery'])) {
+                if ($_GET['menquery'] >= $totalpages) {
                 } else {
-                    $nextPage = $_GET['womenquery'] + 1;
-                    echo '<a href="?type=fon&womenquery=' . $nextPage . '" class="text-red-500 border px-2 py-1 ml-10">Next</a>';
+                    $nextPage = $_GET['menquery'] + 1;
+                    echo '<a href="?type=mon&menquery=' . $nextPage . '" class="text-red-500 border px-2 py-1 ml-10">Next</a>';
                 }
             } else {
-                echo '<a href="?type=fon&womenpage=1" class="text-blue-500 border px-2 py-1 ml-10">Next</a>';
+                echo '<a href="?type=mon&menquery=1" class="text-blue-500 border px-2 py-1 ml-10">Next</a>';
             }
         } else {
-            if (isset($_GET['womenpage']) && $_GET['womenpage'] > 1) {
-                $prevMenPage = $_GET['womenpage'] - 1;
-                echo '<a href="?womenpage=' . $prevMenPage . '" class="text-red-500 border px-2 py-1 mr-10">Prev</a>';
+            if (isset($_GET['menpage']) && $_GET['menpage'] > 1) {
+                $prevMenPage = $_GET['menpage'] - 1;
+                echo '<a href="?menpage=' . $prevMenPage . '" class="text-red-500 border px-2 py-1 mr-10">Prev</a>';
             }
 
             for ($x = 1; $x <= $totalpages; $x++) {
-                echo '<a href="?womenpage=' . $x . '" class="w-6 h-7 border p-1 m-1 flex justify-center items-center active">' . $x . '</a>';
+                echo '<a href="?menpage=' . $x . '" class="w-6 h-7 border p-1 m-1 flex justify-center items-center active">' . $x . '</a>';
             }
 
-            if (isset($_GET['womenpage'])) {
-                if ($_GET['womenpage'] >= $totalpages) {
+            if (isset($_GET['menpage'])) {
+                if ($_GET['menpage'] >= $totalpages) {
                     // echo '<a class="text-blue-500 border px-2 py-1 ml-10">Next</a>';
                 } else {
-                    $nextPage = $_GET['womenpage'] + 1;
-                    echo '<a href="?womenpage=' . $nextPage . '" class="text-red-500 border px-2 py-1 ml-10">Next</a>';
+                    $nextPage = $_GET['menpage'] + 1;
+                    echo '<a href="?menpage=' . $nextPage . '" class="text-red-500 border px-2 py-1 ml-10">Next</a>';
                 }
             } else {
-                echo '<a href="?womenpage=1" class="text-blue-500 border px-2 py-1 ml-10">Next</a>';
+                echo '<a href="?menpage=1" class="text-blue-500 border px-2 py-1 ml-10">Next</a>';
             }
         }
+
     }
+
     ?>
 </div>

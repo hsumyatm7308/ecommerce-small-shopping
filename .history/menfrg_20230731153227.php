@@ -1,3 +1,5 @@
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -30,9 +32,9 @@
 <body class="">
 
     <!-- Start Header  -->
-    <?php
+    <?php 
     require_once "headersection.php";
-    ?>
+   ?>
 
 
     <section class=" mt-6 mb-5">
@@ -75,13 +77,13 @@
                             </span>
  -->
 
+                        
 
+                            <?php 
+                            // require_once "filterby/filterhistoryby.php";
+                            ?>
 
-                    <?php
-                    // require_once "filterby/filterhistoryby.php";
-                    ?>
-
-                    <!-- </div> -->
+                        <!-- </div> -->
                     <!-- </div> -->
 
                     <div class="h-auto mb-5">
@@ -95,10 +97,9 @@
                     </div>
 
 
-                  
                     <div class="h-auto mb-5">
                         <h1 class="font-[500] uppercase mb-1">Price</h1>
-                        <form action="index.php" method="get">
+                        <form action="" method="get">
                             <input type="text" name="startprice" placeholder=" Min" value="<?php if (isset($_GET['startprice'])) {
                                 echo $_GET['startprice'];
                             } ?>" class="w-20 border border-2 rounded m-1 p-1 focus:ring-1 focus:outline-none">
@@ -107,23 +108,9 @@
                                 echo $_GET['endprice'];
                             } ?>" class="w-20 border border-2 rounded m-1 p-1 focus:ring-1 focus:outline-none">
 
-
-
-                            <script>
-                                function updatePrice() {
-                                    var startprice = document.getElementsByName('startprice')[0].value;
-                                    var endprice = document.getElementsByName('endprice')[0].value;
-                                    var updateURL = "index.php?startprice=" + startprice + "&endprice=" + endprice + "&price=1";
-                                    document.getElementById('updateprice').href = updateURL;
-                                }
-                            </script>
-                           
-                            <a href="#" type="text" id="updateprice" name="price" onclick="updatePrice()"
-                                class="w-24 border border-2 rounded m-1 p-1">UPDATE</a>
+                            <button type="text" id="updateprice" name="price" class="w-24 border border-2 rounded m-1 p-1">UPDATE</button>
                           
                         </form>
-
-
                     </div>
 
 
@@ -153,7 +140,7 @@
                     <span class="uppercase text-xs">Home <span class="m-1">|</span> Men's Fragrances</span>
                 </div>
 
-                <?php require_once "backendfunction/menbk.php"; ?>
+                <?php require_once "backendfunction/menbk.php";?>
 
             </div>
 
