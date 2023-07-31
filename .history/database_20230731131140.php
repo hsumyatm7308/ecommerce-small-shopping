@@ -1,4 +1,5 @@
 <?php
+// Replace these with your actual database connection details
 $servername = "localhost";
 $username = "root";
 $password = "";

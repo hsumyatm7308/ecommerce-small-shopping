@@ -115,8 +115,11 @@
                                 echo $_GET['endprice'];
                             } ?>" class="w-20 border border-2 rounded m-1 p-1 focus:ring-1 focus:outline-none">
 
-                            <button type="text" id="updateprice" name="price" class="w-24 border border-2 rounded m-1 p-1">UPDATE</button>
-                          
+                            <!-- <button type="submit" id="updateprice" name="price" class="w-24 border border-2 rounded m-1 p-1">UPDATE</button> -->
+                            <button type="button"
+                                onclick="handleCheckboxClickprice('<?php echo isset($_GET['startprice']) ? $_GET['startprice'] : ''; ?>', '<?php echo isset($_GET['endprice']) ? $_GET['endprice'] : ''; ?>')"
+                                class="w-24 border border-2 rounded m-1 p-1">UPDATE</button>
+
                         </form>
                     </div>
 
@@ -221,6 +224,9 @@
     }
 
 
+    function handleCheckboxClickprice(startprice, endprice) {
+    window.location.href = `index.php?startprice=${startprice}&endprice=${endprice}&price=1`;
+}
 
     // Add event listener to checkbox
 

@@ -107,16 +107,17 @@
                     <div class="h-auto mb-5">
                         <h1 class="font-[500] uppercase mb-1">Price</h1>
                         <form action="" method="get">
-                            <input type="text" name="startprice" placeholder=" Min" value="<?php if (isset($_GET['startprice'])) {
-                                echo $_GET['startprice'];
-                            } ?>" class="w-20 border border-2 rounded m-1 p-1 focus:ring-1 focus:outline-none">
+                            <input type="text" name="startprice" placeholder="Min"
+                                value="<?php echo isset($_GET['startprice']) ? $_GET['startprice'] : ''; ?>"
+                                class="w-20 border border-2 rounded m-1 p-1 focus:ring-1 focus:outline-none">
 
-                            <input type="text" name="endprice" placeholder=" Max" value="<?php if (isset($_GET['endprice'])) {
-                                echo $_GET['endprice'];
-                            } ?>" class="w-20 border border-2 rounded m-1 p-1 focus:ring-1 focus:outline-none">
+                            <input type="text" name="endprice" placeholder="Max"
+                                value="<?php echo isset($_GET['endprice']) ? $_GET['endprice'] : ''; ?>"
+                                class="w-20 border border-2 rounded m-1 p-1 focus:ring-1 focus:outline-none">
 
-                            <button type="text" id="updateprice" name="price" class="w-24 border border-2 rounded m-1 p-1">UPDATE</button>
-                          
+                            <button type="button"
+                                onclick="handleCheckboxClickprice('<?php echo isset($_GET['startprice']) ? $_GET['startprice'] : ''; ?>', '<?php echo isset($_GET['endprice']) ? $_GET['endprice'] : ''; ?>')"
+                                class="w-24 border border-2 rounded m-1 p-1">UPDATE</button>
                         </form>
                     </div>
 
@@ -220,6 +221,9 @@
         }
     }
 
+    function handleCheckboxClickprice(startprice, endprice) {
+    window.location.href = `index.php?startprice=${startprice}&endprice=${endprice}&price=1`;
+}
 
 
     // Add event listener to checkbox
@@ -227,6 +231,7 @@
     document.getElementById("type").addEventListener("click", handleCheckboxClick);
     document.getElementById("ftype").addEventListener("click", handleCheckboxClickwomen);
     document.getElementById("mtype").addEventListener("click", handleCheckboxClickmen);
+    document.getElementById("updateprice").addEventListener("click", handleCheckboxClickprice);
 
 
 

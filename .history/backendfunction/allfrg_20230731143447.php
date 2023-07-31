@@ -62,6 +62,12 @@ try {
     global $conn;
 
 
+
+
+
+
+
+
     if (isset($_GET['price']) && isset($_GET['price'])) {
         $startprice = $_GET['startprice'];
         $endprice = $_GET['endprice'];
@@ -180,6 +186,25 @@ if (isset($_GET['letters'])) {
 ?>
 
 
+
+<?php
+
+// if (isset($_GET['startprice']) && isset($_GET['endprice'])) {
+
+//     $startprice = $_GET['startprice'];
+//     $endprice = $_GET['endprice'];
+//     try {
+//         $pricestmt = $conn->prepare("SELECT id, perfume_name, brand_name, category_name, price, imgurl, mili FROM perfume WHERE price BETWEEN :startprice AND :endprice AND category_name IN ('Men','Unisex','Women')");
+//         $pricestmt->bindParam(':startprice', $startprice, PDO::PARAM_INT);
+//         $pricestmt->bindParam(':endprice', $endprice, PDO::PARAM_INT);
+//         $pricestmt->execute();
+//     } catch (Exception $e) {
+//         echo "Error Found " . $e->getMessage();
+//     }
+// }
+
+
+?>
 
 
 

@@ -62,15 +62,23 @@ try {
     global $conn;
 
 
+
+
+
+
+
+
     if (isset($_GET['price']) && isset($_GET['price'])) {
         $startprice = $_GET['startprice'];
         $endprice = $_GET['endprice'];
         
         $recperpage = 12;
         
+        // Determine the current page for price filtered items
         $pricePage = isset($_GET['price']) ? (int)$_GET['price'] : 1;
         $startfromprice = max(0, ($pricePage - 1) * 12);
         
+        // Fetch the total number of price filtered records
         $pricestmt_total = $conn->prepare("SELECT COUNT(*) as total FROM perfume WHERE price BETWEEN :startprice AND :endprice");
         $pricestmt_total->bindParam(':startprice', $startprice, PDO::PARAM_INT);
         $pricestmt_total->bindParam(':endprice', $endprice, PDO::PARAM_INT);
@@ -78,6 +86,7 @@ try {
         $totalrec = $pricestmt_total->fetchColumn();
         $totalpages = ceil($totalrec / $recperpage);
         
+        // Fetch the price filtered items for the current page
         $pricestmt = $conn->prepare("SELECT id, perfume_name, brand_name, category_name, price, imgurl, mili FROM perfume WHERE price BETWEEN :startprice AND :endprice LIMIT $startfromprice, $recperpage");
         $pricestmt->bindParam(':startprice', $startprice, PDO::PARAM_INT);
         $pricestmt->bindParam(':endprice', $endprice, PDO::PARAM_INT);
@@ -180,6 +189,25 @@ if (isset($_GET['letters'])) {
 ?>
 
 
+
+<?php
+
+if (isset($_GET['startprice']) && isset($_GET['endprice'])) {
+
+    $startprice = $_GET['startprice'];
+    $endprice = $_GET['endprice'];
+    try {
+        $pricestmt = $conn->prepare("SELECT id, perfume_name, brand_name, category_name, price, imgurl, mili FROM perfume WHERE price BETWEEN :startprice AND :endprice AND category_name IN ('Men','Unisex','Women')");
+        $pricestmt->bindParam(':startprice', $startprice, PDO::PARAM_INT);
+        $pricestmt->bindParam(':endprice', $endprice, PDO::PARAM_INT);
+        $pricestmt->execute();
+    } catch (Exception $e) {
+        echo "Error Found " . $e->getMessage();
+    }
+}
+
+
+?>
 
 
 

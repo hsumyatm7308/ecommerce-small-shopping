@@ -10,14 +10,21 @@ try {
     if (isset($_GET['startprice']) && isset($_GET['endprice'])) {
         $startprice = $_GET['startprice'];
         $endprice = $_GET['endprice'];
+        echo "hleo";
 
+        
+        if (isset($_GET['price'])  == "") {
+            $price = $_GET['price'];
+        } else {
+            $price = 1;
+        }
 
-        $pricestmt = $conn->prepare("SELECT id, perfume_name, brand_name, category_name, price, imgurl, mili FROM perfume WHERE price BETWEEN :startprice AND :endprice");
+        // $pricestmt = $conn->prepare("SELECT id, perfume_name, brand_name, category_name, price, imgurl,mili FROM perfume WHERE price BETWEEN :startprice AND :endprice AND category_name IN ('Men','Unisex','Women')");
+        $pricestmt = $conn->prepare("SELECT id, perfume_name, brand_name, category_name, price, imgurl, mili FROM perfume WHERE price BETWEEN :startprice AND :endprice AND category_name IN ('Men','Unisex','Women')  LIMIT $startfromprice, $recperpage");
+
         $pricestmt->bindParam(':startprice', $startprice, PDO::PARAM_INT);
         $pricestmt->bindParam(':endprice', $endprice, PDO::PARAM_INT);
         $pricestmt->execute();
-
-        echo "sdlfjsa;";
     } else {
 
         $stmt = $conn->prepare("SELECT id, perfume_name, brand_name, category_name, price, imgurl,mili FROM perfume WHERE category_name IN ('Men','Unisex','Women')");
@@ -62,29 +69,40 @@ try {
     global $conn;
 
 
+
+   
+    
+
+
+
     if (isset($_GET['price']) && isset($_GET['price'])) {
-        $startprice = $_GET['startprice'];
-        $endprice = $_GET['endprice'];
-        
+        // $startprice = $_GET['startprice'];
+        // $endprice = $_GET['endprice'];
+
         $recperpage = 12;
-        
-        $pricePage = isset($_GET['price']) ? (int)$_GET['price'] : 1;
-        $startfromprice = max(0, ($pricePage - 1) * 12);
-        
-        $pricestmt_total = $conn->prepare("SELECT COUNT(*) as total FROM perfume WHERE price BETWEEN :startprice AND :endprice");
-        $pricestmt_total->bindParam(':startprice', $startprice, PDO::PARAM_INT);
-        $pricestmt_total->bindParam(':endprice', $endprice, PDO::PARAM_INT);
-        $pricestmt_total->execute();
-        $totalrec = $pricestmt_total->fetchColumn();
+        $totalrec = $pricestmt->rowCount();
         $totalpages = ceil($totalrec / $recperpage);
-        
-        $pricestmt = $conn->prepare("SELECT id, perfume_name, brand_name, category_name, price, imgurl, mili FROM perfume WHERE price BETWEEN :startprice AND :endprice LIMIT $startfromprice, $recperpage");
-        $pricestmt->bindParam(':startprice', $startprice, PDO::PARAM_INT);
-        $pricestmt->bindParam(':endprice', $endprice, PDO::PARAM_INT);
-        $pricestmt->execute();
-        
-        echo "totalpages" . $startfromprice;
-        
+
+
+
+        // if (isset($_GET['price']) && isset($_GET['price']) != "") {
+        //     $price = $_GET['price'];
+        // } else {
+        //     $price = 1;
+        // }
+
+        $price = isset($_GET['price']) ? (int) $_GET['price'] : 1;
+        // $price = $_GET['price'];
+        $startfromprice = max(0, ($price - 1) * 12);
+
+        echo "helo" . $price . "totoal" . $totalrec;
+
+        // $pricestmt = $conn->prepare("SELECT id, perfume_name, brand_name, category_name, price, imgurl, mili FROM perfume WHERE price BETWEEN :startprice AND :endprice AND category_name IN ('Men','Unisex','Women')  LIMIT $startfromprice, $recperpage");
+        // $pricestmt->bindParam(':startprice', $startprice, PDO::PARAM_INT);
+        // $pricestmt->bindParam(':endprice', $endprice, PDO::PARAM_INT);
+        // $pricestmt->execute();
+
+
 
 
     } else {
@@ -99,10 +117,9 @@ try {
         // $startfrom = ($page - 1) * 12;
         // echo $startfrom;
 
-        echo $page . "apge";
 
         $stmt = $conn->prepare("SELECT id, perfume_name, brand_name, category_name, price, imgurl, mili FROM perfume LIMIT $startfrom, $recperpage");
-        $stmt->execute();
+        $stmt->execute(); 
 
 
         if (isset($_GET['type']) && $_GET['type'] === 'on') {
@@ -181,14 +198,33 @@ if (isset($_GET['letters'])) {
 
 
 
+<?php
+
+if (isset($_GET['startprice']) && isset($_GET['endprice'])) {
+   
+    $startprice = $_GET['startprice'];
+    $endprice = $_GET['endprice'];
+    try {
+        $pricestmt = $conn->prepare("SELECT id, perfume_name, brand_name, category_name, price, imgurl, mili FROM perfume WHERE price BETWEEN :startprice AND :endprice AND category_name IN ('Men','Unisex','Women')");
+        $pricestmt->bindParam(':startprice', $startprice, PDO::PARAM_INT);
+        $pricestmt->bindParam(':endprice', $endprice, PDO::PARAM_INT);
+        $pricestmt->execute();
+    } catch (Exception $e) {
+        echo "Error Found " . $e->getMessage();
+    }
+}
+
+
+?>
+
 
 
 <div class="grid grid-cols-3">
-    <?php
+   <?php 
     if (isset($_GET['startprice']) && isset($_GET['endprice'])) {
         // echo "hie";
-    
-        while ($row = $pricestmt->fetch()) {
+
+        while ($row = $pricestmt->fetch()) { 
             echo '<div class="w-full m-5 flex justify-center items-center flex-col">';
             $binary_data = $row['imgurl'];
             $base64_image = base64_encode($binary_data);
@@ -197,9 +233,9 @@ if (isset($_GET['letters'])) {
             echo '<span class="self-start mt-2">$' . $row['price'] . '</span>';
             echo '</div>';
         }
-
+       
     } else {
-        while ($row = $stmt->fetch()) {
+        while ($row = $stmt->fetch()) { 
             echo '<div class="w-full m-5 flex justify-center items-center flex-col">';
             $binary_data = $row['imgurl'];
             $base64_image = base64_encode($binary_data);
@@ -209,7 +245,7 @@ if (isset($_GET['letters'])) {
             echo '</div>';
         }
     }
-    ?>
+   ?>
 </div>
 
 
@@ -220,50 +256,30 @@ if (isset($_GET['letters'])) {
 
     if (isset($_GET['startprice']) && isset($_GET['endprice'])) {
 
-        // if (isset($_GET['price']) && $_GET['price'] > 1) {
-        //     $prevMenPage = $_GET['price'] - 1;
-        //     echo '<a href="?startprice='.$startprice.'&endprice='.$endprice.`&price=` . $prevMenPage . '" class="text-red-500 border px-2 py-1 mr-10">Prev</a>';
-        // }
-    
-        // for ($x = 1; $x <= $totalpages; $x++) {
-        //     echo '<a href="?startprice='.$startprice.'&endprice='.$endprice.'&price=' . $x . '" class="w-6 h-7 border p-1 m-1 flex justify-center items-center active">' . $x . '</a>';
-        // }
-    
-        // if (isset($_GET['price'])) {
-        //     if ($_GET['price'] >= $totalpages) {
-        //         // echo '<a class="text-blue-500 border px-2 py-1 ml-10">Next</a>';
-        //     } else {
-        //         // $nextPage = $_GET['page'] + 1;
-    
-        //         if (isset($_GET['price']) && is_numeric($_GET['price'])) {
-        //             $nextPage = (int) $_GET['price'] + 1;
-        //             echo '<a href="?startprice='.$startprice.'&endprice='.$endprice.'&price=' . $nextPage . '" class="text-red-500 border px-2 py-1 ml-10">Next</a>';
-        //         }
-        //     }
-        // } else {
-        //     echo '<a href="?startprice='.$startprice.'&endprice='.$endprice.'&price=1 class="text-blue-500 border px-2 py-1 ml-10">Next</a>';
-        // }
-    
-
-        $currentPricePage = isset($_GET['price']) ? (int) $_GET['price'] : 1;
-
-        if ($currentPricePage > 1) {
-            $prevPricePage = $currentPricePage - 1;
-            echo '<a href="?startprice=' . $startprice . '&endprice=' . $endprice . '&price=' . $prevPricePage . '" class="text-red-500 border px-2 py-1 mr-10">Prev</a>';
+        if (isset($_GET['price']) && $_GET['price'] > 1) {
+            $prevMenPage = $_GET['price'] - 1;
+            echo '<a href="?startprice='.$startprice.'&endprice='.$endprice.`&price=` . $prevMenPage . '" class="text-red-500 border px-2 py-1 mr-10">Prev</a>';
         }
 
         for ($x = 1; $x <= $totalpages; $x++) {
-            echo '<a href="?startprice=' . $startprice . '&endprice=' . $endprice . '&price=' . $x . '" class="w-6 h-7 border p-1 m-1 flex justify-center items-center';
-            if ($x === $currentPricePage) {
-                echo ' active';
-            }
-            echo '">' . $x . '</a>';
+            echo '<a href="?startprice='.$startprice.'&endprice='.$endprice.'&price=' . $x . '" class="w-6 h-7 border p-1 m-1 flex justify-center items-center active">' . $x . '</a>';
         }
 
-        if ($currentPricePage < $totalpages) {
-            $nextPricePage = $currentPricePage + 1;
-            echo '<a href="?startprice=' . $startprice . '&endprice=' . $endprice . '&price=' . $nextPricePage . '" class="text-red-500 border px-2 py-1 ml-10">Next</a>';
+        if (isset($_GET['price'])) {
+            if ($_GET['price'] >= $totalpages) {
+                // echo '<a class="text-blue-500 border px-2 py-1 ml-10">Next</a>';
+            } else {
+                // $nextPage = $_GET['page'] + 1;
+
+                if (isset($_GET['price']) && is_numeric($_GET['price'])) {
+                    $nextPage = (int) $_GET['price'] + 1;
+                    echo '<a href="?startprice='.$startprice.'&endprice='.$endprice.'&price=' . $nextPage . '" class="text-red-500 border px-2 py-1 ml-10">Next</a>';
+                }
+            }
+        } else {
+            echo '<a href="?startprice='.$startprice.'&endprice='.$endprice.'&price=1 class="text-blue-500 border px-2 py-1 ml-10">Next</a>';
         }
+
     } else {
 
         if (isset($_GET['type']) && $_GET['type'] === 'on') {
