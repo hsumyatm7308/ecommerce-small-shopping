@@ -1,6 +1,25 @@
+<!-- Sorting  -->
 <?php
-include_once "database.php";
+require_once "database.php";
 require_once "pagination.php";
+
+ini_set('display_errors', 1);
+
+
+$sortOption = "price ASC";
+
+if (isset($_POST['asc'])) {
+    $sortOption = "price ASC";
+} elseif (isset($_POST['dec'])) {
+    $sortOption = "price DESC";
+}
+
+
+?>
+
+
+
+<?php
 
 
 try {
@@ -12,29 +31,11 @@ try {
         $startprice = $_GET['startprice'];
         $endprice = $_GET['endprice'];
 
-
-        // $pricestmt = $conn->prepare("SELECT id, perfume_name, brand_name, category_name, price, imgurl, mili FROM perfume WHERE price BETWEEN :startprice AND :endprice ORDER BY $sortOption");
-        // $pricestmt->bindParam(':startprice', $startprice, PDO::PARAM_INT);
-        // $pricestmt->bindParam(':endprice', $endprice, PDO::PARAM_INT);
-        // $pricestmt->execute();
-
-        $sortOption = 'price';
-
-        if (isset($_POST['dec'])) {
-            $sortOption = 'price DESC';
-        } elseif (isset($_POST['asc'])) {
-            $sortOption = 'price ASC';
-        }
-
-
         $pricestmt = $conn->prepare("SELECT id, perfume_name, brand_name, category_name, price, imgurl, mili FROM perfume WHERE price BETWEEN :startprice AND :endprice ORDER BY $sortOption");
         $pricestmt->bindParam(':startprice', $startprice, PDO::PARAM_INT);
         $pricestmt->bindParam(':endprice', $endprice, PDO::PARAM_INT);
         $pricestmt->execute();
 
-
-
-        // echo "sdlfjsa;";
     } else {
 
 
@@ -102,23 +103,6 @@ try {
         $totalpages = ceil($totalrec / $recperpage);
 
 
-
-        // $pricestmt = $conn->prepare("SELECT id, perfume_name, brand_name, category_name, price, imgurl, mili FROM perfume WHERE price BETWEEN :startprice AND :endprice LIMIT $startfromprice, $recperpage");
-        // $pricestmt->bindParam(':startprice', $startprice, PDO::PARAM_INT);
-        // $pricestmt->bindParam(':endprice', $endprice, PDO::PARAM_INT);
-        // $pricestmt->execute();
-
-        // echo "totalpages" . $startfromprice;
-
-        $sortOption = 'price';
-
-        if (isset($_POST['dec'])) {
-            $sortOption = 'price DESC';
-        } elseif (isset($_POST['asc'])) {
-            $sortOption = 'price ASC';
-        }
-
-
         $pricestmt = $conn->prepare("SELECT id, perfume_name, brand_name, category_name, price, imgurl, mili FROM perfume WHERE price BETWEEN :startprice AND :endprice ORDER BY $sortOption LIMIT $startfromprice, $recperpage");
         $pricestmt->bindParam(':startprice', $startprice, PDO::PARAM_INT);
         $pricestmt->bindParam(':endprice', $endprice, PDO::PARAM_INT);
@@ -136,17 +120,6 @@ try {
         $startfrom = max(0, ($page - 1) * 12);
         // $startfrom = ($page - 1) * 12;
         // echo $startfrom;
-
-        // echo $page . "apge";
-
-        $sortOption = 'price';
-
-        if (isset($_POST['dec'])) {
-            $sortOption = 'price DESC';
-        } elseif (isset($_POST['asc'])) {
-            $sortOption = 'price ASC';
-        }
-
 
         $stmt = $conn->prepare("SELECT id, perfume_name, brand_name, category_name, price, imgurl, mili FROM perfume ORDER BY $sortOption LIMIT $startfrom, $recperpage");
         $stmt->execute();
@@ -178,7 +151,6 @@ try {
 
             $stmt = $conn->prepare("SELECT id, perfume_name, brand_name, category_name, price, imgurl, mili FROM perfume WHERE category_name = 'Men' ORDER BY $sortOption LIMIT $startfrom, $recperpage");
             $stmt->execute();
-            // echo "Category: Unisex
         }
 
         if (isset($_GET['type']) && $_GET['type'] === 'fon') {
@@ -194,7 +166,6 @@ try {
 
             $stmt = $conn->prepare("SELECT id, perfume_name, brand_name, category_name, price, imgurl, mili FROM perfume WHERE category_name = 'Women' ORDER BY $sortOption LIMIT $startfrom, $recperpage");
             $stmt->execute();
-            // echo "Category: Unisex
         }
     }
 
@@ -212,10 +183,6 @@ if (isset($_GET['letters'])) {
     $letter = $_GET['letters'];
     try {
         global $conn;
-
-
-
-        
 
         $stmt = $conn->prepare("SELECT id, perfume_name, brand_name, category_name, price, imgurl, mili FROM perfume WHERE fsletter = :letter ORDER BY fsletter ASC");
         $stmt->bindParam(":letter", $letter);

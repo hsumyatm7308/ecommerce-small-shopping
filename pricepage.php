@@ -27,11 +27,14 @@
                 <ul class="flex justify-center items-center">
                     <li class="font-bold mr-5">Sort by : </li>
                     <form action="" method="post" class="flex justify-center items-center">
-                        <li class="mr-5"><input type="submit" name="dec" id="" value="Descending price"
-                                placeholder="Ascending"></li>
-                        <li class="mr-5"><input type="submit" name="asc" id="" value="Ascending price"
-                                placeholder="Ascending"></li>
-                        <li class="mr-5"><input type="submit" name="rev" id="" value="Review" placeholder="Ascending">
+                        <li  class="mr-5" >
+                           <button type="submit" name="dec"> Descending price</button>
+                        </li>
+                        <li type="submit" class="mr-5" name="asc">
+                           <button type="submit" name="asc">  Ascending price</button>
+                        </li>
+                        <li type="submit" class="mr-5">
+                           <button type="submit" name="rev">  Review</button>
                         </li>
                     </form>
                 </ul>

@@ -1,6 +1,8 @@
 
 <!-- Sorting  -->
 <?php
+require_once "database.php";
+ini_set('display_errors', 1);
 
 
 $sortOption = "price ASC";
@@ -11,17 +13,13 @@ if (isset($_POST['asc'])) {
     $sortOption = "price DESC";
 }
 
-$menstmt = $conn->prepare("SELECT id, perfume_name, brand_name, category_name, price, imgurl, mili FROM perfume WHERE category_name IN ('Men','Unisex') ORDER BY $sortOption");
-$menstmt->execute();
-
 
 ?>
 
 
 <?php
 
-require_once "database.php";
-ini_set('display_errors', 1);
+
 
 
 
@@ -33,7 +31,7 @@ try {
         $endprice = $_GET['endprice'];
 
 
-        $pricestmt = $conn->prepare("SELECT id, perfume_name, brand_name, category_name, price, imgurl, mili FROM perfume WHERE price BETWEEN :startprice AND :endprice AND  category_name IN ('Men','Unisex')");
+        $pricestmt = $conn->prepare("SELECT id, perfume_name, brand_name, category_name, price, imgurl, mili FROM perfume WHERE price BETWEEN :startprice AND :endprice AND  category_name IN ('Men','Unisex') ORDER BY $sortOption");
         $pricestmt->bindParam(':startprice', $startprice, PDO::PARAM_INT);
         $pricestmt->bindParam(':endprice', $endprice, PDO::PARAM_INT);
         $pricestmt->execute();
@@ -41,19 +39,19 @@ try {
         // echo "sdlfjsa;";
     } else {
 
-        $menstmt = $conn->prepare("SELECT id, perfume_name, brand_name, category_name, price, imgurl,mili FROM perfume WHERE category_name IN ('Men','Unisex')");
+        $menstmt = $conn->prepare("SELECT id, perfume_name, brand_name, category_name, price, imgurl,mili FROM perfume WHERE category_name IN ('Men','Unisex') ORDER BY $sortOption");
         $menstmt->execute();
 
         if (isset($_GET['type']) && $_GET['type'] === 'on') {
 
-            $menstmt = $conn->prepare("SELECT id, perfume_name, brand_name, category_name, price, imgurl, mili FROM perfume WHERE category_name = 'Unisex'");
+            $menstmt = $conn->prepare("SELECT id, perfume_name, brand_name, category_name, price, imgurl, mili FROM perfume WHERE category_name = 'Unisex' ORDER BY $sortOption");
             $menstmt->execute();
             // echo "Category: Unisex
         }
 
         if (isset($_GET['type']) && $_GET['type'] === 'mon') {
 
-            $menstmt = $conn->prepare("SELECT id, perfume_name, brand_name, category_name, price, imgurl, mili FROM perfume WHERE category_name = 'Men'");
+            $menstmt = $conn->prepare("SELECT id, perfume_name, brand_name, category_name, price, imgurl, mili FROM perfume WHERE category_name = 'Men' ORDER BY $sortOption");
             $menstmt->execute();
             // echo "Category: Unisex
         }
@@ -79,14 +77,14 @@ try {
         $pricePage = isset($_GET['price']) ? (int) $_GET['price'] : 1;
         $startfromprice = max(0, ($pricePage - 1) * 12);
 
-        $pricestmt_total = $conn->prepare("SELECT COUNT(*) as total FROM perfume WHERE price BETWEEN :startprice AND :endprice AND category_name IN ('Men','Unisex')");
+        $pricestmt_total = $conn->prepare("SELECT COUNT(*) as total FROM perfume WHERE price BETWEEN :startprice AND :endprice AND category_name IN ('Men','Unisex') ORDER BY $sortOption");
         $pricestmt_total->bindParam(':startprice', $startprice, PDO::PARAM_INT);
         $pricestmt_total->bindParam(':endprice', $endprice, PDO::PARAM_INT);
         $pricestmt_total->execute();
         $totalrec = $pricestmt_total->fetchColumn();
         $totalpages = ceil($totalrec / $recperpage);
 
-        $pricestmt = $conn->prepare("SELECT id, perfume_name, brand_name, category_name, price, imgurl, mili FROM perfume WHERE price BETWEEN :startprice AND :endprice AND category_name IN ('Men','Unisex') LIMIT $startfromprice, $recperpage");
+        $pricestmt = $conn->prepare("SELECT id, perfume_name, brand_name, category_name, price, imgurl, mili FROM perfume WHERE price BETWEEN :startprice AND :endprice AND category_name IN ('Men','Unisex') ORDER BY $sortOption LIMIT $startfromprice, $recperpage");
         $pricestmt->bindParam(':startprice', $startprice, PDO::PARAM_INT);
         $pricestmt->bindParam(':endprice', $endprice, PDO::PARAM_INT);
         $pricestmt->execute();
@@ -109,7 +107,7 @@ try {
 
         $startfrom = ($page - 1) * 12;
 
-        $menstmt = $conn->prepare("SELECT * FROM perfume WHERE category_name IN ('Men','Unisex') LIMIT $startfrom, $recperpage");
+        $menstmt = $conn->prepare("SELECT * FROM perfume WHERE category_name IN ('Men','Unisex') ORDER BY $sortOption LIMIT $startfrom, $recperpage");
         $menstmt->execute();
 
         if (isset($_GET['type']) && $_GET['type'] === 'on') {
@@ -122,7 +120,7 @@ try {
 
             $startfrom = ($unipage - 1) * 12;
 
-            $unisexstmt = $conn->prepare("SELECT id, perfume_name, brand_name, category_name, price, imgurl, mili FROM perfume WHERE category_name = 'Unisex' LIMIT $startfrom, $recperpage");
+            $unisexstmt = $conn->prepare("SELECT id, perfume_name, brand_name, category_name, price, imgurl, mili FROM perfume WHERE category_name = 'Unisex' ORDER BY $sortOption LIMIT $startfrom, $recperpage");
             $unisexstmt->execute();
         }
         if (isset($_GET['type']) && $_GET['type'] === 'mon') {
@@ -136,7 +134,7 @@ try {
             $startfrom = ($unipage - 1) * 12;
 
 
-            $menstmt = $conn->prepare("SELECT id, perfume_name, brand_name, category_name, price, imgurl, mili FROM perfume WHERE category_name = 'Men' LIMIT $startfrom, $recperpage");
+            $menstmt = $conn->prepare("SELECT id, perfume_name, brand_name, category_name, price, imgurl, mili FROM perfume WHERE category_name = 'Men' ORDER BY $sortOption LIMIT $startfrom, $recperpage");
             $menstmt->execute();
             // echo "Category: Unisex
         }

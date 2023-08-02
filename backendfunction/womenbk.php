@@ -1,3 +1,23 @@
+<!-- Sorting  -->
+<?php
+require_once "database.php";
+require_once "pagination.php";
+
+ini_set('display_errors', 1);
+
+
+$sortOption = "price ASC";
+
+if (isset($_POST['asc'])) {
+    $sortOption = "price ASC";
+} elseif (isset($_POST['dec'])) {
+    $sortOption = "price DESC";
+}
+
+
+?>
+
+
 <?php
 
 require_once "database.php";
@@ -10,7 +30,7 @@ try {
         $endprice = $_GET['endprice'];
 
 
-        $pricestmt = $conn->prepare("SELECT id, perfume_name, brand_name, category_name, price, imgurl, mili FROM perfume WHERE price BETWEEN :startprice AND :endprice AND category_name IN ('Women','Unisex')");
+        $pricestmt = $conn->prepare("SELECT id, perfume_name, brand_name, category_name, price, imgurl, mili FROM perfume WHERE price BETWEEN :startprice AND :endprice AND category_name IN ('Women','Unisex') ORDER BY $sortOption");
         $pricestmt->bindParam(':startprice', $startprice, PDO::PARAM_INT);
         $pricestmt->bindParam(':endprice', $endprice, PDO::PARAM_INT);
         $pricestmt->execute();
@@ -19,13 +39,13 @@ try {
     } else {
 
 
-        $womenstmt = $conn->prepare("SELECT id, perfume_name, brand_name, category_name, price, imgurl, mili FROM perfume WHERE category_name IN ('Women','Unisex') ");
+        $womenstmt = $conn->prepare("SELECT id, perfume_name, brand_name, category_name, price, imgurl, mili FROM perfume WHERE category_name IN ('Women','Unisex') ORDER BY $sortOption");
         $womenstmt->execute();
 
 
         if (isset($_GET['type']) && $_GET['type'] === 'on') {
 
-            $womenstmt = $conn->prepare("SELECT id, perfume_name, brand_name, category_name, price, imgurl, mili FROM perfume WHERE category_name = 'Unisex'");
+            $womenstmt = $conn->prepare("SELECT id, perfume_name, brand_name, category_name, price, imgurl, mili FROM perfume WHERE category_name = 'Unisex' ORDER BY $sortOption");
             $womenstmt->execute();
             // echo "Category: Unisex
         }
@@ -33,7 +53,7 @@ try {
 
         if (isset($_GET['type']) && $_GET['type'] === 'fon') {
 
-            $womenstmt = $conn->prepare("SELECT id, perfume_name, brand_name, category_name, price, imgurl, mili FROM perfume WHERE category_name = 'Women'");
+            $womenstmt = $conn->prepare("SELECT id, perfume_name, brand_name, category_name, price, imgurl, mili FROM perfume WHERE category_name = 'Women' ORDER BY $sortOption");
             $womenstmt->execute();
             // echo "Category: Unisex
         }
@@ -61,14 +81,14 @@ try {
         $pricePage = isset($_GET['price']) ? (int) $_GET['price'] : 1;
         $startfromprice = max(0, ($pricePage - 1) * 12);
 
-        $pricestmt_total = $conn->prepare("SELECT COUNT(*) as total FROM perfume WHERE price BETWEEN :startprice AND :endprice AND category_name IN ('Women','Unisex')");
+        $pricestmt_total = $conn->prepare("SELECT COUNT(*) as total FROM perfume WHERE price BETWEEN :startprice AND :endprice AND category_name IN ('Women','Unisex') ORDER BY $sortOption");
         $pricestmt_total->bindParam(':startprice', $startprice, PDO::PARAM_INT);
         $pricestmt_total->bindParam(':endprice', $endprice, PDO::PARAM_INT);
         $pricestmt_total->execute();
         $totalrec = $pricestmt_total->fetchColumn();
         $totalpages = ceil($totalrec / $recperpage);
 
-        $pricestmt = $conn->prepare("SELECT id, perfume_name, brand_name, category_name, price, imgurl, mili FROM perfume WHERE price BETWEEN :startprice AND :endprice AND category_name IN ('Women','Unisex') LIMIT $startfromprice, $recperpage");
+        $pricestmt = $conn->prepare("SELECT id, perfume_name, brand_name, category_name, price, imgurl, mili FROM perfume WHERE price BETWEEN :startprice AND :endprice AND category_name IN ('Women','Unisex') ORDER BY $sortOption LIMIT $startfromprice, $recperpage");
         $pricestmt->bindParam(':startprice', $startprice, PDO::PARAM_INT);
         $pricestmt->bindParam(':endprice', $endprice, PDO::PARAM_INT);
         $pricestmt->execute();
@@ -94,7 +114,7 @@ try {
 
         $startfrom = ($page - 1) * 12;
 
-        $womenstmt = $conn->prepare("SELECT * FROM perfume WHERE category_name IN ('Women','Unisex') LIMIT $startfrom, $recperpage");
+        $womenstmt = $conn->prepare("SELECT * FROM perfume WHERE category_name IN ('Women','Unisex') ORDER BY $sortOption LIMIT $startfrom, $recperpage");
         $womenstmt->execute(); // Execute the query to fetch data
 
 
@@ -109,7 +129,7 @@ try {
             $startfrom = ($unipage - 1) * 12;
 
 
-            $womenstmt = $conn->prepare("SELECT id, perfume_name, brand_name, category_name, price, imgurl, mili FROM perfume WHERE category_name = 'Unisex' LIMIT $startfrom, $recperpage");
+            $womenstmt = $conn->prepare("SELECT id, perfume_name, brand_name, category_name, price, imgurl, mili FROM perfume WHERE category_name = 'Unisex' ORDER BY $sortOption LIMIT $startfrom, $recperpage");
             $womenstmt->execute();
 
 
@@ -129,7 +149,7 @@ try {
             $startfrom = ($unipage - 1) * 12;
 
 
-            $womenstmt = $conn->prepare("SELECT id, perfume_name, brand_name, category_name, price, imgurl, mili FROM perfume WHERE category_name = 'Women' LIMIT $startfrom, $recperpage");
+            $womenstmt = $conn->prepare("SELECT id, perfume_name, brand_name, category_name, price, imgurl, mili FROM perfume WHERE category_name = 'Women' ORDER BY $sortOption LIMIT $startfrom, $recperpage");
             $womenstmt->execute();
             // echo "Category: Unisex
         }
@@ -163,22 +183,6 @@ if (isset($_GET['letters'])) {
 
 ?>
 
-<!-- Sorting  -->
-<?php
-
-$sortOption = "price ASC";
-
-if (isset($_POST['asc'])) {
-    $sortOption = "price ASC";
-} elseif (isset($_POST['dec'])) {
-    $sortOption = "price DESC";
-}
-
-$womenstmt = $conn->prepare("SELECT id, perfume_name, brand_name, category_name, price, imgurl, mili FROM perfume WHERE category_name IN ('Unisex','Women') ORDER BY $sortOption");
-$womenstmt->execute();
-
-
-?>
 
 
 
@@ -230,9 +234,9 @@ $womenstmt->execute();
         for ($x = 1; $x <= $totalpages; $x++) {
             echo '<a href="?startprice=' . $startprice . '&endprice=' . $endprice . '&price=' . $x . '"  class="border px-2 py-1 m-1 flex justify-center items-center';
             if (isset($_GET['price']) && $_GET['price'] == $x) {
-                echo ' bg-gray-500 text-white';
+                echo ' bg-gray-500 text-white'; 
             } else {
-                echo ' text-black-500';
+                echo ' text-black-500'; 
             }
             echo '">' . $x . '</a>';
         }
