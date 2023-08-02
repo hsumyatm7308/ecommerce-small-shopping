@@ -5,7 +5,7 @@ try {
     global $conn;
 
     $stmt = $conn->prepare("SELECT id, perfume_name, brand_id, category_id, price, imageurl FROM perfume");
-    $stmt->execute(); // Execute the query to fetch data
+    $stmt->execute(); 
 
 } catch (Exception $e) {
     echo "Error Found: " . $e->getMessage();
@@ -32,7 +32,7 @@ try {
         </tr>
 
         <?php while ($row = $stmt->fetch()) : ?>
-            <!-- id, perfume_name, brand_id, category_id, price, imageurl -->
+         
 
             <tr>
                 <td><?php echo $row['id'] ?></td>
@@ -42,13 +42,13 @@ try {
                 <td><?php echo $row['price'] ?></td>
                 <td>
                     <?php
-                    // Get the image data (BLOB) from the 'image_data' column
+                  
                     $binary_data = $row['imageurl'];
 
-                    // Convert the binary data to base64 encoding
+               
                     $base64_image = base64_encode($binary_data);
 
-                    // Display the image using the <img> tag with data URI
+             
                     echo '<img src="data:image/jpeg;base64,' . $base64_image . '" alt="Image">';
                     ?>
                 </td>

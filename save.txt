@@ -134,3 +134,14 @@ if (isset($_GET['letters'])) {
         //     echo '<a href="?startprice='.$startprice.'&endprice='.$endprice.'&price=1 class="text-blue-500 border px-2 py-1 ml-10">Next</a>';
         // }
     
+
+
+
+
+    =>letter 
+     <!-- <li class="w-7 h-7 flex justify-center items-center m-1 bg-stone-100">
+            <a href="womenfrg.php?letters=<?php echo $row['fsletter'] ?>"
+                onclick="handleLetterClick('<?php echo $row['fsletter'] ?>')">
+                <?php echo $row['fsletter'] ?>
+            </a>
+        </li> -->

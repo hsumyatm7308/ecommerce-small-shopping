@@ -98,7 +98,7 @@
                   
                     <div class="h-auto mb-5">
                         <h1 class="font-[500] uppercase mb-1">Price</h1>
-                        <form action="index.php" method="get">
+                        <form action="menfrg.php" method="get">
                             <input type="text" name="startprice" placeholder=" Min" value="<?php if (isset($_GET['startprice'])) {
                                 echo $_GET['startprice'];
                             } ?>" class="w-20 border border-2 rounded m-1 p-1 focus:ring-1 focus:outline-none">
@@ -113,7 +113,7 @@
                                 function updatePrice() {
                                     var startprice = document.getElementsByName('startprice')[0].value;
                                     var endprice = document.getElementsByName('endprice')[0].value;
-                                    var updateURL = "index.php?startprice=" + startprice + "&endprice=" + endprice + "&price=1";
+                                    var updateURL = "menfrg.php?startprice=" + startprice + "&endprice=" + endprice + "&price=1";
                                     document.getElementById('updateprice').href = updateURL;
                                 }
                             </script>
@@ -370,4 +370,3 @@
 
 <!-- URL.createObjectURL() -->
 
-<!-- 30UP  -->

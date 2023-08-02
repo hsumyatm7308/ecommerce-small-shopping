@@ -57,7 +57,7 @@ try {
         $pricePage = isset($_GET['price']) ? (int) $_GET['price'] : 1;
         $startfromprice = max(0, ($pricePage - 1) * 12);
 
-        $pricestmt_total = $conn->prepare("SELECT COUNT(*) as total FROM perfume WHERE price BETWEEN :startprice AND :endprice");
+        $pricestmt_total = $conn->prepare("SELECT COUNT(*) as total FROM perfume WHERE price BETWEEN :startprice AND :endprice AND category_name IN ('Men','Unisex')");
         $pricestmt_total->bindParam(':startprice', $startprice, PDO::PARAM_INT);
         $pricestmt_total->bindParam(':endprice', $endprice, PDO::PARAM_INT);
         $pricestmt_total->execute();
@@ -69,7 +69,7 @@ try {
         $pricestmt->bindParam(':endprice', $endprice, PDO::PARAM_INT);
         $pricestmt->execute();
 
-        echo "totalpages" . $startfromprice;
+        // echo "totalpages" . $startfromprice;
 
 
 
@@ -219,7 +219,13 @@ if (isset($_GET['letters'])) {
         }
 
         for ($x = 1; $x <= $totalpages; $x++) {
-            echo '<a href="?startprice=' . $startprice . '&endprice=' . $endprice . '&price=' . $x . '" class="w-6 h-7 border p-1 m-1 flex justify-center items-center active">' . $x . '</a>';
+            echo '<a href="?startprice=' . $startprice . '&endprice=' . $endprice . '&price=' . $x . '"  class="border px-2 py-1 m-1 flex justify-center items-center';
+            if (isset($_GET['price']) && $_GET['price'] == $x) {
+                echo ' bg-gray-500 text-white'; 
+            } else {
+                echo ' text-black-500'; 
+            }
+            echo '">' . $x . '</a>';
         }
 
         if (isset($_GET['price'])) {
@@ -248,10 +254,14 @@ if (isset($_GET['letters'])) {
             }
 
             for ($x = 1; $x <= $totalpages; $x++) {
-                echo '<a href="?type=on&unisexquery=' . $x . '" class="w-6 h-7 border p-1 m-1 flex justify-center items-center active">' . $x . '</a>';
+                echo '<a href="?type=on&unisexquery=' . $x . '"  class="border px-2 py-1 m-1 flex justify-center items-center';
+                if (isset($_GET['unisexquery']) && $_GET['unisexquery'] == $x) {
+                    echo ' bg-gray-500 text-white'; 
+                } else {
+                    echo ' text-black-500'; 
+                }
+                echo '">' . $x . '</a>';
             }
-
-
 
 
 
@@ -271,7 +281,13 @@ if (isset($_GET['letters'])) {
             }
 
             for ($x = 1; $x <= $totalpages; $x++) {
-                echo '<a href="?type=mon&menquery=' . $x . '" class="w-6 h-7 border p-1 m-1 flex justify-center items-center active">' . $x . '</a>';
+                echo '<a href="?type=mon&menquery=' . $x . '"  class="border px-2 py-1 m-1 flex justify-center items-center';
+                if (isset($_GET['menquery']) && $_GET['menquery'] == $x) {
+                    echo ' bg-gray-500 text-white'; 
+                } else {
+                    echo ' text-black-500'; 
+                }
+                echo '">' . $x . '</a>';
             }
 
             if (isset($_GET['menquery'])) {
@@ -283,15 +299,25 @@ if (isset($_GET['letters'])) {
             } else {
                 echo '<a href="?type=mon&menquery=1" class="text-blue-500 border px-2 py-1 ml-10">Next</a>';
             }
-        } else {
+        }elseif(isset($_GET['letters'])){
+            //nothing
+       } else {
             if (isset($_GET['menpage']) && $_GET['menpage'] > 1) {
                 $prevMenPage = $_GET['menpage'] - 1;
                 echo '<a href="?menpage=' . $prevMenPage . '" class="text-red-500 border px-2 py-1 mr-10">Prev</a>';
             }
 
             for ($x = 1; $x <= $totalpages; $x++) {
-                echo '<a href="?menpage=' . $x . '" class="w-6 h-7 border p-1 m-1 flex justify-center items-center active">' . $x . '</a>';
+                echo '<a href="?menpage=' . $x . '"  class="border px-2 py-1 m-1 flex justify-center items-center';
+                if (isset($_GET['menpage']) && $_GET['menpage'] == $x) {
+                    echo ' bg-gray-500 text-white'; 
+                } else {
+                    echo ' text-black-500'; 
+                }
+                echo '">' . $x . '</a>';
             }
+
+            
 
             if (isset($_GET['menpage'])) {
                 if ($_GET['menpage'] >= $totalpages) {

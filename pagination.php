@@ -5,7 +5,7 @@ try {
     global $conn;
 
     $stmt = $conn->prepare("SELECT id, perfume_name, brand_name, category_name, price, imgurl,mili FROM perfume");
-    $stmt->execute(); // Execute the query to fetch data
+    $stmt->execute();
 
 
     $pricestmt = $conn->prepare("SELECT id, perfume_name, brand_name, category_name, price, imgurl, mili FROM perfume WHERE price BETWEEN :startprice AND :endprice AND category_name IN ('Men','Unisex','Women')");

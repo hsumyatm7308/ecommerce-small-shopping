@@ -5,7 +5,7 @@ try {
     global $conn;
 
     $womenstmt = $conn->prepare("SELECT fsletter FROM perfume WHERE category_name IN ('Women','Unisex') ORDER BY fsletter ASC");
-    $womenstmt->execute(); 
+    $womenstmt->execute();
 
 
     $shownLetters = array();
@@ -20,10 +20,20 @@ try {
     if (!in_array($row['fsletter'], $shownLetters)) {
         $shownLetters[] = $row['fsletter'];
         ?>
-        <li class="w-7 h-7 flex justify-center items-center m-1 bg-stone-100">
-            <a href="womenfrg.php?letters=<?php echo $row['fsletter'] ?>" onclick="handleLetterClick('<?php echo $row['fsletter'] ?>')">
-                <?php echo $row['fsletter'] ?>
-            </a>
+       
+
+        <?php
+
+        $letter = $row['fsletter'];
+        if (isset($_GET['letters']) && $_GET['letters'] === $letter) {
+            $backgroundClass = "bg-gray-400 text-white";
+        } else {
+            $backgroundClass = "bg-gray-100";
+        }
+        ?>
+
+        <li class="w-7 h-7 flex justify-center items-center m-1 letter-link <?php echo $backgroundClass; ?>">
+            <a href="womenfrg.php?letters=<?php echo urlencode($letter); ?>"><?php echo $letter; ?></a>
         </li>
     <?php } ?>
 

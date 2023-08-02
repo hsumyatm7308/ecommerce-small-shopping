@@ -20,17 +20,30 @@ try {
     if (!in_array($row['fsletter'], $shownLetters)) {
         $shownLetters[] = $row['fsletter'];
         ?>
-        <li class="w-7 h-7 flex justify-center items-center m-1 bg-stone-100">
-            <a href="index.php?letters=<?php echo $row['fsletter'] ?>"> <?php echo $row['fsletter'] ?> </a>
+        <?php
+        // Assuming $row['fsletter'] contains the letter value for the link
+        $letter = $row['fsletter'];
+        if (isset($_GET['letters']) && $_GET['letters'] === $letter) {
+            $backgroundClass = "bg-gray-400 text-white";
+        } else {
+            $backgroundClass = "bg-gray-100"; 
+        }
+        ?>
+
+        <li class="w-7 h-7 flex justify-center items-center m-1 letter-link <?php echo $backgroundClass; ?>">
+            <a href="index.php?letters=<?php echo urlencode($letter); ?>"><?php echo $letter; ?></a>
         </li>
+
+
+    <?php
+
+
+
+
+    ?>
     <?php } ?>
 
 
-    
+
 
 <?php endwhile; ?>
-
-
-
-
-
