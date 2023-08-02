@@ -13,32 +13,57 @@ try {
         $endprice = $_GET['endprice'];
 
 
-        $pricestmt = $conn->prepare("SELECT id, perfume_name, brand_name, category_name, price, imgurl, mili FROM perfume WHERE price BETWEEN :startprice AND :endprice");
+        // $pricestmt = $conn->prepare("SELECT id, perfume_name, brand_name, category_name, price, imgurl, mili FROM perfume WHERE price BETWEEN :startprice AND :endprice ORDER BY $sortOption");
+        // $pricestmt->bindParam(':startprice', $startprice, PDO::PARAM_INT);
+        // $pricestmt->bindParam(':endprice', $endprice, PDO::PARAM_INT);
+        // $pricestmt->execute();
+
+        $sortOption = 'price';
+
+        if (isset($_POST['dec'])) {
+            $sortOption = 'price DESC';
+        } elseif (isset($_POST['asc'])) {
+            $sortOption = 'price ASC';
+        }
+
+
+        $pricestmt = $conn->prepare("SELECT id, perfume_name, brand_name, category_name, price, imgurl, mili FROM perfume WHERE price BETWEEN :startprice AND :endprice ORDER BY $sortOption");
         $pricestmt->bindParam(':startprice', $startprice, PDO::PARAM_INT);
         $pricestmt->bindParam(':endprice', $endprice, PDO::PARAM_INT);
         $pricestmt->execute();
 
+
+
         // echo "sdlfjsa;";
     } else {
 
-        $stmt = $conn->prepare("SELECT id, perfume_name, brand_name, category_name, price, imgurl,mili FROM perfume WHERE category_name IN ('Men','Unisex','Women')");
+
+        $sortOption = 'price';
+
+        if (isset($_POST['dec'])) {
+            $sortOption = 'price DESC';
+        } elseif (isset($_POST['asc'])) {
+            $sortOption = 'price ASC';
+        }
+
+        $stmt = $conn->prepare("SELECT id, perfume_name, brand_name, category_name, price, imgurl,mili FROM perfume WHERE category_name IN ('Men','Unisex','Women') ORDER BY $sortOption");
         $stmt->execute();
 
         if (isset($_GET['type']) && $_GET['type'] === 'on') {
 
-            $stmt = $conn->prepare("SELECT id, perfume_name, brand_name, category_name, price, imgurl, mili FROM perfume WHERE category_name = 'Unisex'");
+            $stmt = $conn->prepare("SELECT id, perfume_name, brand_name, category_name, price, imgurl, mili FROM perfume WHERE category_name = 'Unisex' ORDER BY $sortOption");
             $stmt->execute();
         }
 
         if (isset($_GET['type']) && $_GET['type'] === 'mon') {
 
-            $menstmt = $conn->prepare("SELECT id, perfume_name, brand_name, category_name, price, imgurl, mili FROM perfume WHERE category_name = 'Men'");
+            $menstmt = $conn->prepare("SELECT id, perfume_name, brand_name, category_name, price, imgurl, mili FROM perfume WHERE category_name = 'Men' ORDER BY $sortOption");
             $menstmt->execute();
         }
 
         if (isset($_GET['type']) && $_GET['type'] === 'fon') {
 
-            $menstmt = $conn->prepare("SELECT id, perfume_name, brand_name, category_name, price, imgurl, mili FROM perfume WHERE category_name = 'Women'");
+            $menstmt = $conn->prepare("SELECT id, perfume_name, brand_name, category_name, price, imgurl, mili FROM perfume WHERE category_name = 'Women' ORDER BY $sortOption");
             $menstmt->execute();
         }
 
@@ -78,13 +103,26 @@ try {
 
 
 
-        $pricestmt = $conn->prepare("SELECT id, perfume_name, brand_name, category_name, price, imgurl, mili FROM perfume WHERE price BETWEEN :startprice AND :endprice LIMIT $startfromprice, $recperpage");
-        $pricestmt->bindParam(':startprice', $startprice, PDO::PARAM_INT);
-        $pricestmt->bindParam(':endprice', $endprice, PDO::PARAM_INT);
-        $pricestmt->execute();
+        // $pricestmt = $conn->prepare("SELECT id, perfume_name, brand_name, category_name, price, imgurl, mili FROM perfume WHERE price BETWEEN :startprice AND :endprice LIMIT $startfromprice, $recperpage");
+        // $pricestmt->bindParam(':startprice', $startprice, PDO::PARAM_INT);
+        // $pricestmt->bindParam(':endprice', $endprice, PDO::PARAM_INT);
+        // $pricestmt->execute();
 
         // echo "totalpages" . $startfromprice;
 
+        $sortOption = 'price';
+
+        if (isset($_POST['dec'])) {
+            $sortOption = 'price DESC';
+        } elseif (isset($_POST['asc'])) {
+            $sortOption = 'price ASC';
+        }
+
+
+        $pricestmt = $conn->prepare("SELECT id, perfume_name, brand_name, category_name, price, imgurl, mili FROM perfume WHERE price BETWEEN :startprice AND :endprice ORDER BY $sortOption LIMIT $startfromprice, $recperpage");
+        $pricestmt->bindParam(':startprice', $startprice, PDO::PARAM_INT);
+        $pricestmt->bindParam(':endprice', $endprice, PDO::PARAM_INT);
+        $pricestmt->execute();
 
 
     } else {
@@ -101,7 +139,16 @@ try {
 
         // echo $page . "apge";
 
-        $stmt = $conn->prepare("SELECT id, perfume_name, brand_name, category_name, price, imgurl, mili FROM perfume LIMIT $startfrom, $recperpage");
+        $sortOption = 'price';
+
+        if (isset($_POST['dec'])) {
+            $sortOption = 'price DESC';
+        } elseif (isset($_POST['asc'])) {
+            $sortOption = 'price ASC';
+        }
+
+
+        $stmt = $conn->prepare("SELECT id, perfume_name, brand_name, category_name, price, imgurl, mili FROM perfume ORDER BY $sortOption LIMIT $startfrom, $recperpage");
         $stmt->execute();
 
 
@@ -115,7 +162,7 @@ try {
 
             $startfrom = ($unipage - 1) * 12;
 
-            $stmt = $conn->prepare("SELECT id, perfume_name, brand_name, category_name, price, imgurl, mili FROM perfume WHERE category_name = 'Unisex' LIMIT $startfrom, $recperpage");
+            $stmt = $conn->prepare("SELECT id, perfume_name, brand_name, category_name, price, imgurl, mili FROM perfume WHERE category_name = 'Unisex' ORDER BY $sortOption LIMIT $startfrom, $recperpage");
             $stmt->execute();
         }
         if (isset($_GET['type']) && $_GET['type'] === 'mon') {
@@ -129,7 +176,7 @@ try {
             $startfrom = ($unipage - 1) * 12;
 
 
-            $stmt = $conn->prepare("SELECT id, perfume_name, brand_name, category_name, price, imgurl, mili FROM perfume WHERE category_name = 'Men' LIMIT $startfrom, $recperpage");
+            $stmt = $conn->prepare("SELECT id, perfume_name, brand_name, category_name, price, imgurl, mili FROM perfume WHERE category_name = 'Men' ORDER BY $sortOption LIMIT $startfrom, $recperpage");
             $stmt->execute();
             // echo "Category: Unisex
         }
@@ -145,7 +192,7 @@ try {
             $startfrom = ($unipage - 1) * 12;
 
 
-            $stmt = $conn->prepare("SELECT id, perfume_name, brand_name, category_name, price, imgurl, mili FROM perfume WHERE category_name = 'Women' LIMIT $startfrom, $recperpage");
+            $stmt = $conn->prepare("SELECT id, perfume_name, brand_name, category_name, price, imgurl, mili FROM perfume WHERE category_name = 'Women' ORDER BY $sortOption LIMIT $startfrom, $recperpage");
             $stmt->execute();
             // echo "Category: Unisex
         }
@@ -166,6 +213,10 @@ if (isset($_GET['letters'])) {
     try {
         global $conn;
 
+
+
+        
+
         $stmt = $conn->prepare("SELECT id, perfume_name, brand_name, category_name, price, imgurl, mili FROM perfume WHERE fsletter = :letter ORDER BY fsletter ASC");
         $stmt->bindParam(":letter", $letter);
         $stmt->execute();
@@ -179,7 +230,12 @@ if (isset($_GET['letters'])) {
 
 ?>
 
+<?php
 
+
+
+
+?>
 
 
 
@@ -253,11 +309,11 @@ if (isset($_GET['letters'])) {
         }
 
         for ($x = 1; $x <= $totalpages; $x++) {
-            echo '<a href="?startprice=' . $startprice . '&endprice=' . $endprice . '&price=' . $x .'"  class="border px-2 py-1 m-1 flex justify-center items-center';
+            echo '<a href="?startprice=' . $startprice . '&endprice=' . $endprice . '&price=' . $x . '"  class="border px-2 py-1 m-1 flex justify-center items-center';
             if (isset($_GET['price']) && $_GET['price'] == $x) {
-                echo ' bg-gray-500 text-white'; 
+                echo ' bg-gray-500 text-white';
             } else {
-                echo ' text-black-500'; 
+                echo ' text-black-500';
             }
             echo '">' . $x . '</a>';
         }
@@ -277,9 +333,9 @@ if (isset($_GET['letters'])) {
             for ($x = 1; $x <= $totalpages; $x++) {
                 echo '<a href="?type=on&unisexquery=' . $x . '"  class="border px-2 py-1 m-1 flex justify-center items-center';
                 if (isset($_GET['unisexquery']) && $_GET['unisexquery'] == $x) {
-                    echo ' bg-gray-500 text-white'; 
+                    echo ' bg-gray-500 text-white';
                 } else {
-                    echo ' text-black-500'; 
+                    echo ' text-black-500';
                 }
                 echo '">' . $x . '</a>';
             }
@@ -303,9 +359,9 @@ if (isset($_GET['letters'])) {
             for ($x = 1; $x <= $totalpages; $x++) {
                 echo '<a href="?type=mon&menquery=' . $x . '"  class="border px-2 py-1 m-1 flex justify-center items-center';
                 if (isset($_GET['menquery']) && $_GET['menquery'] == $x) {
-                    echo ' bg-gray-500 text-white'; 
+                    echo ' bg-gray-500 text-white';
                 } else {
-                    echo ' text-black-500'; 
+                    echo ' text-black-500';
                 }
                 echo '">' . $x . '</a>';
             }
@@ -328,9 +384,9 @@ if (isset($_GET['letters'])) {
             for ($x = 1; $x <= $totalpages; $x++) {
                 echo '<a href="?type=fon&womenquery=' . $x . '" class="border px-2 py-1 m-1 flex justify-center items-center';
                 if (isset($_GET['womenquery']) && $_GET['womenquery'] == $x) {
-                    echo ' bg-gray-500 text-white'; 
+                    echo ' bg-gray-500 text-white';
                 } else {
-                    echo ' text-black-500'; 
+                    echo ' text-black-500';
                 }
                 echo '">' . $x . '</a>';
             }
@@ -386,4 +442,7 @@ if (isset($_GET['letters'])) {
 
 
     ?>
+
+
+
 </div>

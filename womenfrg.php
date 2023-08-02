@@ -27,10 +27,14 @@
             <div>
                 <ul class="flex justify-center items-center">
                     <li class="font-bold mr-5">Sort by : </li>
-                    <li class="mr-5"><a href="" class="">Best Selling</a></li>
-                    <li class="mr-5"><a href="" class="">Price Ascending</a></li>
-                    <li class="mr-5"><a href="" class="">Price Descending</a></li>
-                    <li class="mr-5"><a href="" class="">Review</a></li>
+                    <form action="" method="post" class="flex justify-center items-center">
+                        <li class="mr-5"><input type="submit" name="dec" id="" value="Descending price"
+                                placeholder="Ascending"></li>
+                        <li class="mr-5"><input type="submit" name="asc" id="" value="Ascending price"
+                                placeholder="Ascending"></li>
+                        <li class="mr-5"><input type="submit" name="rev" id="" value="Review" placeholder="Ascending">
+                        </li>
+                    </form>
                 </ul>
             </div>
         </div>

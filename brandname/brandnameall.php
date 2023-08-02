@@ -21,7 +21,7 @@ try {
         $shownLetters[] = $row['fsletter'];
         ?>
         <?php
-        // Assuming $row['fsletter'] contains the letter value for the link
+      
         $letter = $row['fsletter'];
         if (isset($_GET['letters']) && $_GET['letters'] === $letter) {
             $backgroundClass = "bg-gray-400 text-white";

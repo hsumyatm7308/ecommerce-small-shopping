@@ -163,6 +163,22 @@ if (isset($_GET['letters'])) {
 
 ?>
 
+<!-- Sorting  -->
+<?php
+
+$sortOption = "price ASC";
+
+if (isset($_POST['asc'])) {
+    $sortOption = "price ASC";
+} elseif (isset($_POST['dec'])) {
+    $sortOption = "price DESC";
+}
+
+$womenstmt = $conn->prepare("SELECT id, perfume_name, brand_name, category_name, price, imgurl, mili FROM perfume WHERE category_name IN ('Unisex','Women') ORDER BY $sortOption");
+$womenstmt->execute();
+
+
+?>
 
 
 
@@ -214,9 +230,9 @@ if (isset($_GET['letters'])) {
         for ($x = 1; $x <= $totalpages; $x++) {
             echo '<a href="?startprice=' . $startprice . '&endprice=' . $endprice . '&price=' . $x . '"  class="border px-2 py-1 m-1 flex justify-center items-center';
             if (isset($_GET['price']) && $_GET['price'] == $x) {
-                echo ' bg-gray-500 text-white'; 
+                echo ' bg-gray-500 text-white';
             } else {
-                echo ' text-black-500'; 
+                echo ' text-black-500';
             }
             echo '">' . $x . '</a>';
         }

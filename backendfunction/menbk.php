@@ -1,7 +1,29 @@
+
+<!-- Sorting  -->
+<?php
+
+
+$sortOption = "price ASC";
+
+if (isset($_POST['asc'])) {
+    $sortOption = "price ASC";
+} elseif (isset($_POST['dec'])) {
+    $sortOption = "price DESC";
+}
+
+$menstmt = $conn->prepare("SELECT id, perfume_name, brand_name, category_name, price, imgurl, mili FROM perfume WHERE category_name IN ('Men','Unisex') ORDER BY $sortOption");
+$menstmt->execute();
+
+
+?>
+
+
 <?php
 
 require_once "database.php";
 ini_set('display_errors', 1);
+
+
 
 try {
     global $conn;
@@ -100,8 +122,8 @@ try {
 
             $startfrom = ($unipage - 1) * 12;
 
-            $menstmt = $conn->prepare("SELECT id, perfume_name, brand_name, category_name, price, imgurl, mili FROM perfume WHERE category_name = 'Unisex' LIMIT $startfrom, $recperpage");
-            $menstmt->execute();
+            $unisexstmt = $conn->prepare("SELECT id, perfume_name, brand_name, category_name, price, imgurl, mili FROM perfume WHERE category_name = 'Unisex' LIMIT $startfrom, $recperpage");
+            $unisexstmt->execute();
         }
         if (isset($_GET['type']) && $_GET['type'] === 'mon') {
 
@@ -119,21 +141,7 @@ try {
             // echo "Category: Unisex
         }
 
-        if (isset($_GET['type']) && $_GET['type'] === 'fon') {
-
-            if (isset($_GET['unipage']) && isset($_GET['unipage']) != "") {
-                $unipage = $_GET['unipage'];
-            } else {
-                $unipage = 1;
-            }
-
-            $startfrom = ($unipage - 1) * 12;
-
-
-            $womenstmt = $conn->prepare("SELECT id, perfume_name, brand_name, category_name, price, imgurl, mili FROM perfume WHERE category_name = 'Women' LIMIT $startfrom, $recperpage");
-            $womenstmt->execute();
-            // echo "Category: Unisex
-        }
+      
     }
 
 
@@ -174,6 +182,8 @@ if (isset($_GET['letters'])) {
 
 
 
+
+<!-- display  -->
 <div class="grid grid-cols-3">
     <?php
     if (isset($_GET['startprice']) && isset($_GET['endprice'])) {
