@@ -10,9 +10,8 @@ try {
         $result = $searchstmt->fetchAll(PDO::FETCH_ASSOC);
 
         foreach ($result as $row) {
-            echo '<a href="index.php?search=' . $row["perfume_name"] . '" class="w-[82%] self-start ml-5 mb-1 p-3 border border-t-transparent border-l-transparent border-r-transparent border-b-gray-200">' . $row['perfume_name'] . '</a>';
+            echo '<a href="index.php?search=<?php $row["<?php $row['perfume_name']  ?>"] ?>" class="w-[82%] self-start ml-5 mb-1 p-3 border border-t-transparent border-l-transparent border-r-transparent border-b-gray-200">' . $row['perfume_name'] . '</a>';
         }
-        
     } else {
         echo "No data received.";
     }

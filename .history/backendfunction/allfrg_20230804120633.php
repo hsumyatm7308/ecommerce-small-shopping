@@ -26,15 +26,8 @@ try {
     global $conn;
 
 
-    if (isset($_GET['search'])) {
-        $searchTerm = $_GET['search'];
 
-        $searchstmt = $conn->prepare("SELECT id, perfume_name, brand_name, category_name, price, imgurl, mili FROM perfume WHERE (perfume_name LIKE :searchTerm OR brand_name LIKE :searchTerm) AND category_name IN ('Men', 'Unisex', 'Women') ORDER BY $sortOption");
-
-        $searchstmt->bindValue(':searchTerm', "%$searchTerm%", PDO::PARAM_STR);
-
-        $searchstmt->execute();
-    } elseif (isset($_GET['startprice']) && isset($_GET['endprice'])) {
+    if (isset($_GET['startprice']) && isset($_GET['endprice'])) {
         $startprice = $_GET['startprice'];
         $endprice = $_GET['endprice'];
 
@@ -206,27 +199,32 @@ if (isset($_GET['letters'])) {
 
 
 <!-- search  -->
+<?php
 
+if(isset($_POST['search'])){
+    header('Location:index.php?search='.$_POST["search"]);
+}
+
+?>
 
 
 
 <div class="grid grid-cols-3">
     <?php
-
-    if (isset($_GET['search'])) {
-        // header('Location:index.php?search='.$_POST["search"]);
     
-        while ($row = $searchstmt->fetch()) {
-            echo '<div class="w-full m-5 flex justify-center items-center flex-col">';
-            $binary_data = $row['imgurl'];
-            $base64_image = base64_encode($binary_data);
-            echo '<img src="data:image/jpeg;base64,' . $base64_image . '" alt="Image" style="max-width: 200px;" >';
-            echo '<a href="" class="w-64 self-start">' . $row['perfume_name'] . ' by ' . $row['brand_name'] . ' EDT 3.3 OZ ' . $row['mili'] . ' spray for ' . $row['category_name'] . '</a>';
-            echo '<span class="self-start mt-2">$' . $row['price'] . '</span>';
-            echo '</div>';
-        }
+if(isset($_POST['search'])){
+    // header('Location:index.php?search='.$_POST["search"]);
 
-    } elseif (isset($_GET['startprice']) && isset($_GET['endprice'])) {
+    while ($row = $pricestmt->fetch()) {
+        echo '<div class="w-full m-5 flex justify-center items-center flex-col">';
+        $binary_data = $row['imgurl'];
+        $base64_image = base64_encode($binary_data);
+        echo '<img src="data:image/jpeg;base64,' . $base64_image . '" alt="Image" style="max-width: 200px;" >';
+        echo '<a href="" class="w-64 self-start">' . $row['perfume_name'] . ' by ' . $row['brand_name'] . ' EDT 3.3 OZ ' . $row['mili'] . ' spray for ' . $row['category_name'] . '</a>';
+        echo '<span class="self-start mt-2">$' . $row['price'] . '</span>';
+        echo '</div>';
+    }
+}elseif (isset($_GET['startprice']) && isset($_GET['endprice'])) {
         // echo "hie";
     
         while ($row = $pricestmt->fetch()) {
