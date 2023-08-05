@@ -59,7 +59,7 @@
             ?>
 
             <div class="flex justify-start items-center">
-                <ul class="flex justify-start items-center text-[15px] uppercase cursor-pointer">
+                <ul class="flex justify-start items-center text-[15px] uppercase">
                     <?php
                     $currentPage = $_GET['page'] ?? ''; 
                     $currentMenPage = $_GET['menpage'] ?? ''; 
@@ -92,7 +92,7 @@
 
             <!-- <form action="" class=""> -->
 
-            <div class="h-full  flex justify-center items-center flex-col relative ">
+            <div class="h-full  flex justify-center items-center flex-col relative mt-5">
                 <div class="flex justify-center items-center bg-gray-100 rounded-lg py-2 pl-1 pr-5 searchbox">
                     <input type="search" name="search" id="search"
                         class=" bg-gray-100 ml-4 pr-9 focus:outline-none placeholder-[#01125f]  placeholder-opacity-75 active:transparent "
@@ -121,7 +121,7 @@
 
                 <div class="flex justify-center items-center mr-10">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                        stroke="currentColor" class="w-6 h-6 text-gray-600 cursor-pointer">
+                        stroke="currentColor" class="w-6 h-6 text-gray-600">
                         <path stroke-linecap="round" stroke-linejoin="round"
                             d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z" />
                     </svg>

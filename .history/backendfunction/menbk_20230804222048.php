@@ -187,7 +187,7 @@ if (isset($_GET['letters'])) {
     if (isset($_GET['startprice']) && isset($_GET['endprice'])) {
     
         while ($row = $pricestmt->fetch()) {
-            echo '<div class="w-[95%] bg-gray-100 p-3 m-2 rounded flex justify-center items-center flex-col hover:opacity-80">';
+            echo '<div class="w-[95%] bg-gray-100 p-3 m-2 rounded flex justify-center items-center flex-col">';
             $binary_data = $row['imgurl'];
             $base64_image = base64_encode($binary_data);
             echo '<img src="data:image/jpeg;base64,' . $base64_image . '" alt="Image" style="max-width: 200px;" >';
@@ -198,7 +198,7 @@ if (isset($_GET['letters'])) {
 
     } else {
         while ($row = $menstmt->fetch()) {
-            echo '<div class="w-[95%] bg-gray-100 p-3 m-2 rounded flex justify-center items-center flex-col hover:opacity-80">';
+            echo '<div class="w-[95%] bg-gray-100 p-3 m-2 rounded flex justify-center items-center flex-col">';
             $binary_data = $row['imgurl'];
             $base64_image = base64_encode($binary_data);
             echo '<img src="data:image/jpeg;base64,' . $base64_image . '" alt="Image" style="max-width: 200px;" >';

@@ -92,7 +92,7 @@
 
             <!-- <form action="" class=""> -->
 
-            <div class="h-full  flex justify-center items-center flex-col relative ">
+            <div class="h-full  flex justify-center items-center flex-col relative mt-5">
                 <div class="flex justify-center items-center bg-gray-100 rounded-lg py-2 pl-1 pr-5 searchbox">
                     <input type="search" name="search" id="search"
                         class=" bg-gray-100 ml-4 pr-9 focus:outline-none placeholder-[#01125f]  placeholder-opacity-75 active:transparent "
