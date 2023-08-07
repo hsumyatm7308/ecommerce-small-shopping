@@ -220,7 +220,7 @@ if (isset($_GET['letters'])) {
             $binary_data = $row['imgurl'];
             $base64_image = base64_encode($binary_data);
             echo '<img src="data:image/jpeg;base64,' . $base64_image . '" alt="Image" style="max-width: 200px;" >';
-            echo '<a href="./itemspage.php?items='. $row["id"].'"class="w-64 self-start">' . $row['perfume_name'] . ' by ' . $row['brand_name'] . ' EDT 3.3 OZ ' . $row['mili'] . ' spray for ' . $row['category_name'] . '</a>';
+            echo '<a href="" class="w-64 self-start">' . $row['perfume_name'] . ' by ' . $row['brand_name'] . ' EDT 3.3 OZ ' . $row['mili'] . ' spray for ' . $row['category_name'] . '</a>';
             echo '<span class="self-start mt-2">$' . $row['price'] . '</span>';
             echo '</div>';
         }
@@ -232,22 +232,21 @@ if (isset($_GET['letters'])) {
             $binary_data = $row['imgurl'];
             $base64_image = base64_encode($binary_data);
             echo '<img src="data:image/jpeg;base64,' . $base64_image . '" alt="Image" style="max-width: 200px;" >';
-            echo '<a href="./itemspage.php?items='. $row["id"].' "class="w-64 self-start">' . $row['perfume_name'] . ' by ' . $row['brand_name'] . ' EDT 3.3 OZ ' . $row['mili'] . ' spray for ' . $row['category_name'] . '</a>';
+            echo '<a href="" class="w-64 self-start">' . $row['perfume_name'] . ' by ' . $row['brand_name'] . ' EDT 3.3 OZ ' . $row['mili'] . ' spray for ' . $row['category_name'] . '</a>';
             echo '<span class="self-start mt-2 bg-gray-200 hover:opacity-80 border border-gray-300 rounded-bl-full rounded-tr-full cursor-pointer px-2">$' . $row['price'] . '</span>';
             echo '</div>';
         }
 
     } else {
         while ($row = $stmt->fetch()) {
-           
+            echo "<a href=''>";
             echo '<div class="w-[95%]  bg-gray-100 p-3 m-2 rounded flex justify-center items-center flex-col hover:opacity-80">';
             $binary_data = $row['imgurl'];
             $base64_image = base64_encode($binary_data);
             echo '<img src="data:image/jpeg;base64,' . $base64_image . '" alt="Image" style="max-width: 200px;" >';
-            echo '<a href="./itemspage.php?items='. $row["id"].'" class="w-64 self-start">' . $row['perfume_name'] . ' by ' . $row['brand_name'] . ' EDT 3.3 OZ ' . $row['mili'] . ' spray for ' . $row['category_name'] . '</a>';
-            echo '<a href="" class="self-start mt-2 bg-gray-200 hover:opacity-80 border border-gray-300 rounded-bl-full rounded-tr-full cursor-pointer px-2">$' . $row['price'] . '</a>';
+            echo '<a href="" class="w-64 self-start">' . $row['perfume_name'] . ' by ' . $row['brand_name'] . ' EDT 3.3 OZ ' . $row['mili'] . ' spray for ' . $row['category_name'] . '</a>';
+            echo '<span class="self-start mt-2 bg-gray-200 hover:opacity-80 border border-gray-300 rounded-bl-full rounded-tr-full cursor-pointer px-2">$' . $row['price'] . '</span>';
             echo '</div>';
-       
         }
     }
     ?>

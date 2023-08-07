@@ -108,6 +108,7 @@ INSERT INTO category(id,categoryname)
       status INT
     )
  
+
 INSERT INTO perfume(perfume_name,price,brand_name,category_name,mili,fsletter,description)
  VALUES('Brit',33.04,'Burbettry','Men','100ML','B',"Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s"),
  ('CK one',38.80,'Calvin Klein','Unisex','200ML','C',"Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s"),
@@ -122,7 +123,7 @@ INSERT INTO perfume(perfume_name,price,brand_name,category_name,mili,fsletter,de
  ('CK One',43.05,'Calvin Klein','Unisex','100ML','C',"Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s"),
  ('Halston Z-14',58.58,'Colodgne','Men','236ML','H',"Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s"),
  ('Nautica Blue',47.18,'Vaporisateur','Men','100ML','N',"Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s"),
- ('CK one',87.18,'Calvin Klein','Unisex','75g','C',"Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s"),
+ ('CK one',87.18,'Calvin Klein','Unisex','75g','C','Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s"),
  ('Elizabeth Arden Red Door',43.08,'Vaporisateur','Women','100ML','E',"Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s"),
  ('Jontue',63.88,'Aidonull','Women','100ML','J',"Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s"),
  ('Davidoff Cool Water',29.89,'Aidonull','Men','200ML','D',"Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s"),
@@ -130,7 +131,7 @@ INSERT INTO perfume(perfume_name,price,brand_name,category_name,mili,fsletter,de
  ('NYC',35.15,'Aidonull','Unisex','50ML','N',"Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s"),
  ('Sung Alfred',35.15,'Vaporisateur','Women','100ML','S',"Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s"),
  ('Royal Copenhagen',48.99,'Royal','Men','100ML','R',"Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s"),
- ('Anals',34.15,'Cacharel','Women','100ML','A',"Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s"),
+ ('Anals',34.15,'Cacharel','Women','100ML','A',Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s"),
  ('By The Sea 03',32.05,'Cacharel','Unisex','100ML','B',"Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s"),
  ('Chrome Azzaro',34.85,'Azzaro','Men','100ML','C',"Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s"),
  ('Club De Nuit',36.55,'Sillage','Unisex','100ML','C',"Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s"),
@@ -144,7 +145,7 @@ INSERT INTO perfume(perfume_name,price,brand_name,category_name,mili,fsletter,de
  ('Casual',40.75,'Origplale','Women','120ML','C',"Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s"),
  ('Navy',20.35,'Navy','Women','45ML','N',"Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s"),
  ('Memoire 01',20.35,'Cacharel','Unisex','100ML','M',"Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s"),
- ('Jovan Musk',78.35,'Jovan','Men','236ML','J',"Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s"),
+ ('Jovan Musk',78.35,'Jovan','Men','236ML','J',"Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s")
  ('Eternity',98.35,'Calvin Klein','Men','100ML','E',"Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s"),
  ('Acqua Di Parma',58.35,'Fico Di Amalfi','Unisex','75ML','A',"Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s"),
  ('Brit',68.34,'Burbettry','Women','100ML','B',"Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s"),

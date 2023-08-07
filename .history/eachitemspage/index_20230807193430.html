@@ -10,6 +10,12 @@
 
 </head>
 
+<style>
+   #modal {
+    display: none;
+   }
+</style>
+
 <body class="w-srceen overflow-x-hidden">
 
   <!-- Start Header  -->
@@ -254,13 +260,13 @@
 
 
   <!-- modal  -->
-  <section class="w-full h-screen fixed top-0 left-0">
-    <div
+  <section id="modal" class="w-full h-screen fixed top-0 left-0">
+    <div id="modaldialog"
       class="w-full h-full bg-[linear-gradient(rgba(0,0,0,.5),rgba(0,0,0,.5))] flex justify-center items-center  absolute inset-0 modalcontainer">
-      <div class="w-[500px] h-[300px] bg-stone-100 modal">
-        <div class="w-full flex justify-end items-center">
+      <div class="w-[500px] h-[300px] bg-stone-200 modal">
+        <div class="w-full flex justify-end items-center" onclick="crossx()">
           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-            stroke="currentColor" class="w-6 h-6 mr-5 mt-3">
+            stroke="currentColor" class="w-6 h-6 text-gray-600 mr-5 mt-3">
             <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
           </svg>
 
@@ -319,7 +325,20 @@
 
 
   <script type="text/javascript">
-    const writereview = document.getElementById('writereview');
+    const modal = document.getElementById('modal');
+    const review = document.getElementById('writereview');
+
+  
+    
+
+    function writereview() {
+      modal.style.display = "block";
+
+    }
+
+    function crossx() {
+      modal.style.display = "none";
+    }
   </script>
 </body>
 
