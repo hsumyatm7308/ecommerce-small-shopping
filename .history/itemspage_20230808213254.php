@@ -144,7 +144,7 @@ require_once "eachitemspage/bkfunction.php";
                         // Calculate the average rating
                         $averageRating = ($totalRowCount > 0) ? $totalRatingSum / $totalRowCount : 0;
 
-                        echo $averageRating;
+                        echo "Average Rating: " . $averageRating;
 
                       } catch (Exception $e) {
                         echo "Error Found : " . $e->getMessage();

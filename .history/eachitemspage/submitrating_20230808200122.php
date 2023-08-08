@@ -6,7 +6,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $userreview = $_POST['userreview'];
     $rating_data = $_POST['rating_data'];
     $id = $_GET['items'];
-    $datetime = date(' Y-m-d h:i:s');
+    $datetime = date(' Y-m-d h:i:s A');
     
     $conn = new PDO("mysql:host=localhost;dbname=perumdej", "root", "");
     $conn->exec("SET time_zone = '+06:30'");

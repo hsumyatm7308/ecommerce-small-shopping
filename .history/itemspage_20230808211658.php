@@ -124,35 +124,7 @@ require_once "eachitemspage/bkfunction.php";
             </div>
             <div class="mb-3">
               <div>
-                <span class="text-xl text-yellow-500 font-semibold"><span id="averagerating">
-                    <?php
-                    require_once "database.php";
-                    if (isset($_GET['items'])) {
-                      $id = $_GET['items'];
-                      try {
-                        $stmt = $conn->prepare("SELECT * FROM reviewtable WHERE perfume_id = :id");
-                        $stmt->bindParam(':id', $id);
-                        $stmt->execute();
-
-                        $totalRowCount = $stmt->rowCount();
-                        $totalRatingSum = 0;
-
-                        while ($row = $stmt->fetch()) {
-                          $totalRatingSum += $row['userrating'];
-                        }
-
-                        // Calculate the average rating
-                        $averageRating = ($totalRowCount > 0) ? $totalRatingSum / $totalRowCount : 0;
-
-                        echo $averageRating;
-
-                      } catch (Exception $e) {
-                        echo "Error Found : " . $e->getMessage();
-                      }
-                    }
-                    ?>
-
-                  </span>/5.0</span>
+                <span class="text-xl text-yellow-500 font-semibold"><span id="averagerating">0</span>/5.0</span>
               </div>
               <div class="flex  items-center">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
@@ -195,37 +167,7 @@ require_once "eachitemspage/bkfunction.php";
 
 
                 <div class=" w-48 h-3 bg-stone-100 border ml-2 rounded progress-container">
-                  <!-- <div class="w-12 h-3 bg-yellow-500 rounded-tl rounded-bl progress" id="one-star-progresss"></div> -->
-                  <?php
-                  require_once "database.php";
-                  if (isset($_GET['items'])) {
-                    $id = $_GET['items'];
-                    $ratingValue = 1;
-
-                    try {
-                      $stmt = $conn->prepare("SELECT * FROM reviewtable WHERE perfume_id = :id");
-                      $stmt->bindParam(':id', $id);
-
-                      $ratingStmt = $conn->prepare("SELECT * FROM reviewtable WHERE perfume_id = :id AND userrating = :rating");
-                      $ratingStmt->bindParam(':id', $id);
-                      $ratingStmt->bindParam(':rating', $ratingValue);
-                      $ratingStmt->execute();
-
-                      $stmt->execute();
-
-                      $totalRowCount = $stmt->rowCount();
-                      $fiveStarCount = $ratingStmt->rowCount();
-                      $percentageWidth = ($totalRowCount > 0) ? ($fiveStarCount / $totalRowCount) * 100 : 0;
-
-                      // echo $percentageWidth;
-                  
-                      echo '<div class="w-[' . $percentageWidth . '%] h-3 bg-yellow-500 rounded-tl rounded-bl progress" id="five-star-progresss"></div>';
-
-                    } catch (Exception $e) {
-                      echo "Error Found : " . $e->getMessage();
-                    }
-                  }
-                  ?>
+                  <div class="w-12 h-3 bg-yellow-500 rounded-tl rounded-bl progress" id="one-star-progresss"></div>
                 </div>
                 <div class="progress-label-right">(<span id="total_one_star_review">
                     <?php
@@ -259,37 +201,7 @@ require_once "eachitemspage/bkfunction.php";
                     d="M11.48 3.499a.562.562 0 011.04 0l2.125 5.111a.563.563 0 00.475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 00-.182.557l1.285 5.385a.562.562 0 01-.84.61l-4.725-2.885a.563.563 0 00-.586 0L6.982 20.54a.562.562 0 01-.84-.61l1.285-5.386a.562.562 0 00-.182-.557l-4.204-3.602a.563.563 0 01.321-.988l5.518-.442a.563.563 0 00.475-.345L11.48 3.5z" />
                 </svg>
                 <div class=" w-48 h-3 bg-stone-100 border ml-2 rounded progress-container">
-                  <!-- <div class="w-12 h-3 bg-yellow-500 rounded-tl rounded-bl progress" id="two-star-progresss"></div> -->
-                  <?php
-                  require_once "database.php";
-                  if (isset($_GET['items'])) {
-                    $id = $_GET['items'];
-                    $ratingValue = 2;
-
-                    try {
-                      $stmt = $conn->prepare("SELECT * FROM reviewtable WHERE perfume_id = :id");
-                      $stmt->bindParam(':id', $id);
-
-                      $ratingStmt = $conn->prepare("SELECT * FROM reviewtable WHERE perfume_id = :id AND userrating = :rating");
-                      $ratingStmt->bindParam(':id', $id);
-                      $ratingStmt->bindParam(':rating', $ratingValue);
-                      $ratingStmt->execute();
-
-                      $stmt->execute();
-
-                      $totalRowCount = $stmt->rowCount();
-                      $fiveStarCount = $ratingStmt->rowCount();
-                      $percentageWidth = ($totalRowCount > 0) ? ($fiveStarCount / $totalRowCount) * 100 : 0;
-
-                      // echo $percentageWidth;
-                  
-                      echo '<div class="w-[' . $percentageWidth . '%] h-3 bg-yellow-500 rounded-tl rounded-bl progress" id="five-star-progresss"></div>';
-
-                    } catch (Exception $e) {
-                      echo "Error Found : " . $e->getMessage();
-                    }
-                  }
-                  ?>
+                  <div class="w-12 h-3 bg-yellow-500 rounded-tl rounded-bl progress" id="two-star-progresss"></div>
                 </div>
                 <div class="progress-label-right">(<span id="total_two_star_review">
                     <?php
@@ -323,37 +235,7 @@ require_once "eachitemspage/bkfunction.php";
                     d="M11.48 3.499a.562.562 0 011.04 0l2.125 5.111a.563.563 0 00.475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 00-.182.557l1.285 5.385a.562.562 0 01-.84.61l-4.725-2.885a.563.563 0 00-.586 0L6.982 20.54a.562.562 0 01-.84-.61l1.285-5.386a.562.562 0 00-.182-.557l-4.204-3.602a.563.563 0 01.321-.988l5.518-.442a.563.563 0 00.475-.345L11.48 3.5z" />
                 </svg>
                 <div class=" w-48 h-3 bg-stone-100 border ml-2 rounded progress-container">
-                  <!-- <div class="w-[30%] h-3 bg-yellow-500 rounded-tl rounded-bl progress" id="three-star-progresss"></div> -->
-                  <?php
-                  require_once "database.php";
-                  if (isset($_GET['items'])) {
-                    $id = $_GET['items'];
-                    $ratingValue = 3;
-
-                    try {
-                      $stmt = $conn->prepare("SELECT * FROM reviewtable WHERE perfume_id = :id");
-                      $stmt->bindParam(':id', $id);
-
-                      $ratingStmt = $conn->prepare("SELECT * FROM reviewtable WHERE perfume_id = :id AND userrating = :rating");
-                      $ratingStmt->bindParam(':id', $id);
-                      $ratingStmt->bindParam(':rating', $ratingValue);
-                      $ratingStmt->execute();
-
-                      $stmt->execute();
-
-                      $totalRowCount = $stmt->rowCount();
-                      $fiveStarCount = $ratingStmt->rowCount();
-                      $percentageWidth = ($totalRowCount > 0) ? ($fiveStarCount / $totalRowCount) * 100 : 0;
-
-                      // echo $percentageWidth;
-                  
-                      echo '<div class="w-[' . $percentageWidth . '%] h-3 bg-yellow-500 rounded-tl rounded-bl progress" id="five-star-progresss"></div>';
-
-                    } catch (Exception $e) {
-                      echo "Error Found : " . $e->getMessage();
-                    }
-                  }
-                  ?>
+                  <div class="w-[30%] h-3 bg-yellow-500 rounded-tl rounded-bl progress" id="three-star-progresss"></div>
                 </div>
                 <div class="progress-label-right">(<span id="total_three_star_review">
                     <?php
@@ -387,37 +269,7 @@ require_once "eachitemspage/bkfunction.php";
                     d="M11.48 3.499a.562.562 0 011.04 0l2.125 5.111a.563.563 0 00.475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 00-.182.557l1.285 5.385a.562.562 0 01-.84.61l-4.725-2.885a.563.563 0 00-.586 0L6.982 20.54a.562.562 0 01-.84-.61l1.285-5.386a.562.562 0 00-.182-.557l-4.204-3.602a.563.563 0 01.321-.988l5.518-.442a.563.563 0 00.475-.345L11.48 3.5z" />
                 </svg>
                 <div class=" w-48 h-3 bg-stone-100 border ml-2 rounded progress-container">
-                  <!-- <div class="w-[50%] h-3 bg-yellow-500 rounded-tl rounded-bl progress" id="four-star-progresss"></div> -->
-                  <?php
-                  require_once "database.php";
-                  if (isset($_GET['items'])) {
-                    $id = $_GET['items'];
-                    $ratingValue = 4;
-
-                    try {
-                      $stmt = $conn->prepare("SELECT * FROM reviewtable WHERE perfume_id = :id");
-                      $stmt->bindParam(':id', $id);
-
-                      $ratingStmt = $conn->prepare("SELECT * FROM reviewtable WHERE perfume_id = :id AND userrating = :rating");
-                      $ratingStmt->bindParam(':id', $id);
-                      $ratingStmt->bindParam(':rating', $ratingValue);
-                      $ratingStmt->execute();
-
-                      $stmt->execute();
-
-                      $totalRowCount = $stmt->rowCount();
-                      $fiveStarCount = $ratingStmt->rowCount();
-                      $percentageWidth = ($totalRowCount > 0) ? ($fiveStarCount / $totalRowCount) * 100 : 0;
-
-                      // echo $percentageWidth;
-                  
-                      echo '<div class="w-[' . $percentageWidth . '%] h-3 bg-yellow-500 rounded-tl rounded-bl progress" id="five-star-progresss"></div>';
-
-                    } catch (Exception $e) {
-                      echo "Error Found : " . $e->getMessage();
-                    }
-                  }
-                  ?>
+                  <div class="w-[50%] h-3 bg-yellow-500 rounded-tl rounded-bl progress" id="four-star-progresss"></div>
                 </div>
                 <div class="progress-label-right">(<span id="total_four_star_review">
                     <?php
@@ -471,10 +323,10 @@ require_once "eachitemspage/bkfunction.php";
 
                       $totalRowCount = $stmt->rowCount();
                       $fiveStarCount = $ratingStmt->rowCount();
-                      $percentageWidth = ($totalRowCount > 0) ? ($fiveStarCount / $totalRowCount) * 100 : 0;
+                      $percentageWidth = ($fiveStarCount / $totalRowCount) * 100;
 
                       // echo $percentageWidth;
-                  
+
                       echo '<div class="w-[' . $percentageWidth . '%] h-3 bg-yellow-500 rounded-tl rounded-bl progress" id="five-star-progresss"></div>';
 
                     } catch (Exception $e) {
@@ -654,7 +506,7 @@ require_once "eachitemspage/bkfunction.php";
       $("#submitreview").click(function () {
         var username = $('#username').val();
         var userreview = $('#userreview').val();
-        var items = <?php echo $_GET['items']; ?>;
+        var items  = <?php echo $_GET['items']; ?>;
 
 
 

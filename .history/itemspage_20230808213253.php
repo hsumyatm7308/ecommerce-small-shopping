@@ -125,34 +125,34 @@ require_once "eachitemspage/bkfunction.php";
             <div class="mb-3">
               <div>
                 <span class="text-xl text-yellow-500 font-semibold"><span id="averagerating">
-                    <?php
-                    require_once "database.php";
-                    if (isset($_GET['items'])) {
-                      $id = $_GET['items'];
-                      try {
-                        $stmt = $conn->prepare("SELECT * FROM reviewtable WHERE perfume_id = :id");
-                        $stmt->bindParam(':id', $id);
-                        $stmt->execute();
+                <?php
+require_once "database.php";
+if (isset($_GET['items'])) {
+    $id = $_GET['items'];
+    try {
+        $stmt = $conn->prepare("SELECT * FROM reviewtable WHERE perfume_id = :id");
+        $stmt->bindParam(':id', $id);
+        $stmt->execute();
 
-                        $totalRowCount = $stmt->rowCount();
-                        $totalRatingSum = 0;
+        $totalRowCount = $stmt->rowCount();
+        $totalRatingSum = 0;
 
-                        while ($row = $stmt->fetch()) {
-                          $totalRatingSum += $row['userrating'];
-                        }
+        while ($row = $stmt->fetch()) {
+            $totalRatingSum += $row['userrating'];
+        }
 
-                        // Calculate the average rating
-                        $averageRating = ($totalRowCount > 0) ? $totalRatingSum / $totalRowCount : 0;
+        // Calculate the average rating
+        $averageRating = ($totalRowCount > 0) ? $totalRatingSum / $totalRowCount : 0;
 
-                        echo $averageRating;
+        echo "Average Rating: " . $averageRating;
 
-                      } catch (Exception $e) {
-                        echo "Error Found : " . $e->getMessage();
-                      }
-                    }
-                    ?>
+    } catch (Exception $e) {
+        echo "Error Found : " . $e->getMessage();
+    }
+}
+?>
 
-                  </span>/5.0</span>
+                </span>/5.0</span>
               </div>
               <div class="flex  items-center">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
@@ -218,7 +218,7 @@ require_once "eachitemspage/bkfunction.php";
                       $percentageWidth = ($totalRowCount > 0) ? ($fiveStarCount / $totalRowCount) * 100 : 0;
 
                       // echo $percentageWidth;
-                  
+
                       echo '<div class="w-[' . $percentageWidth . '%] h-3 bg-yellow-500 rounded-tl rounded-bl progress" id="five-star-progresss"></div>';
 
                     } catch (Exception $e) {
@@ -282,7 +282,7 @@ require_once "eachitemspage/bkfunction.php";
                       $percentageWidth = ($totalRowCount > 0) ? ($fiveStarCount / $totalRowCount) * 100 : 0;
 
                       // echo $percentageWidth;
-                  
+
                       echo '<div class="w-[' . $percentageWidth . '%] h-3 bg-yellow-500 rounded-tl rounded-bl progress" id="five-star-progresss"></div>';
 
                     } catch (Exception $e) {
@@ -346,7 +346,7 @@ require_once "eachitemspage/bkfunction.php";
                       $percentageWidth = ($totalRowCount > 0) ? ($fiveStarCount / $totalRowCount) * 100 : 0;
 
                       // echo $percentageWidth;
-                  
+
                       echo '<div class="w-[' . $percentageWidth . '%] h-3 bg-yellow-500 rounded-tl rounded-bl progress" id="five-star-progresss"></div>';
 
                     } catch (Exception $e) {
@@ -410,7 +410,7 @@ require_once "eachitemspage/bkfunction.php";
                       $percentageWidth = ($totalRowCount > 0) ? ($fiveStarCount / $totalRowCount) * 100 : 0;
 
                       // echo $percentageWidth;
-                  
+
                       echo '<div class="w-[' . $percentageWidth . '%] h-3 bg-yellow-500 rounded-tl rounded-bl progress" id="five-star-progresss"></div>';
 
                     } catch (Exception $e) {
@@ -474,7 +474,7 @@ require_once "eachitemspage/bkfunction.php";
                       $percentageWidth = ($totalRowCount > 0) ? ($fiveStarCount / $totalRowCount) * 100 : 0;
 
                       // echo $percentageWidth;
-                  
+
                       echo '<div class="w-[' . $percentageWidth . '%] h-3 bg-yellow-500 rounded-tl rounded-bl progress" id="five-star-progresss"></div>';
 
                     } catch (Exception $e) {
@@ -654,7 +654,7 @@ require_once "eachitemspage/bkfunction.php";
       $("#submitreview").click(function () {
         var username = $('#username').val();
         var userreview = $('#userreview').val();
-        var items = <?php echo $_GET['items']; ?>;
+        var items  = <?php echo $_GET['items']; ?>;
 
 
 
