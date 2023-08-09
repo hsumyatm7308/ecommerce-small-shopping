@@ -41,8 +41,8 @@ require_once "eachitemspage/bkfunction.php";
 
     <div class="grid grid-cols-2">
       <div class="flex justify-center items-center">
-        <div class="w-[500px] h-[570px] border flex justify-center items-center">
-          <img src="./assets/img/perfume/men/men1.jpg" alt="" width="500px">
+        <div class="w-[500px] h-[550px] border flex justify-center items-center">
+          <img src="../assets/img/perfume/men/men1.jpg" alt="" width="500px">
         </div>
       </div>
       <div>
@@ -58,34 +58,32 @@ require_once "eachitemspage/bkfunction.php";
             if ($itemId === $row['id']) {
               echo <<<HTML
               <h1 class="text-3xl">{$row['perfume_name']} by {$row['brand_name']} EDT 3.3 OZ {$row['mili']} spray for {$row['category_name']}</h1>
-              <p class="mt-3 mb-3 text-sm">Available <span>(In stock)</span></p>
+              <p class="mt-5 mb-3">Available <span>(In stock)</span></p>
               <span class="text-green-600 font-semibold text-3xl">$ {$row['price']}</span>
               
-        
-              <div class="flex items-center mt-3">
-                  <span id="decrease" class="bg-gray-100 border px-2 py-1 m-1">
+          <div class="flex">
+          <div class="flex items-center mt-5">
+                  <span class="bg-gray-100 shadow px-2 py-1 m-1">
                       <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4">
                           <path stroke-linecap="round" stroke-linejoin="round" d="M18 12H6" />
                       </svg>
                   </span>
           
-                  <span class="w-8 h-8 bg-gray-100 text-[#000] font-semibold shadow drop-shadow-md flex justify-center items-center">
-                      <input type="text" id="valueInput" class="w-8 bg-gray-100 focus:outline-none" value=" 1" style="text-align:center;">
+                  <span class="w-8 h-8 bg-gray-100 text-[#000] font-semibold shadow flex justify-center items-center">
+                      1
                   </span>
           
-                  <span id="increase" class="bg-gray-100 border px-2 py-1 m-1">
+                  <span class="bg-gray-100 shadow px-2 py-1 m-1">
                       <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4">
                           <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v12m6-6H6" />
                       </svg>
                   </span>
               </div>
 
-              
-    
-
-               <div class="  flex  items-center mt-3">
-                   <p class="w-32 text-gray-100 bg-gray-500 flex justify-center items-center drop-shadow-lg p-1">Add to cart</p>
+              <div class="w-26  bg-gray-500 flex justify-center items-center">
+               <p>Add to cart</p>
               </div>
+          </div>
           
               <div class="mt-5">
                   <h3 class="font-semibold">Description</h3>
@@ -101,30 +99,12 @@ require_once "eachitemspage/bkfunction.php";
           }
           ?>
 
-          <script>
-            const decreaseButton = document.getElementById('decrease');
-            const increaseButton = document.getElementById('increase');
-            const valueInput = document.getElementById('valueInput');
 
-            decreaseButton.addEventListener('click', () => {
-              let currentValue = parseInt(valueInput.value);
-              if (!isNaN(currentValue)) {
-                valueInput.value = Math.max(currentValue - 1, 0);
-              }
-            });
-
-            increaseButton.addEventListener('click', () => {
-              let currentValue = parseInt(valueInput.value);
-              if (!isNaN(currentValue)) {
-                valueInput.value = currentValue + 1;
-              }
-            });
-          </script>
 
 
 
           <!-- Rating  -->
-          <div class="mt-2">
+          <div class="mt-5">
             <div class="flex items-center">
               <h3 class="font-semibold ">Rating</h3>
               <span id="writereview" class="m-3 cursor-pointer" onclick="writereviewfun()">Write review <span>(
@@ -204,7 +184,7 @@ require_once "eachitemspage/bkfunction.php";
 
 
                     for ($i = 1; $i <= 5; $i++) {
-                      echo '<div class="flex  items-center ">
+                      echo ' <div class="flex  items-center">
                           <svg xmlns="http://www.w3.org/2000/svg" fill=" ' . (($i <= $averageRating) ? 'yellow' : 'gray') . '" viewBox="0 0 24 24" stroke-width="1.5"
                                 stroke="currentColor" class="w-4 h-4  mainstar" style="color: ' . (($i <= $averageRating) ? 'rgb(234 179 8)' : 'gray') . '">
                                 <path stroke-linecap="round" stroke-linejoin="round"
@@ -728,6 +708,219 @@ require_once "eachitemspage/bkfunction.php";
     });
 
   </script>
+
+
+  <script>
+
+  </script>
+
+
+
+  <!-- <script type="text/javascript">
+
+
+
+
+
+
+
+    $(document).ready(function () {
+
+
+
+
+      $('#writereview').click(function () {
+        $('#modal').css("display", 'block');
+      });
+
+      var rating_data = 0;
+
+      $(document).on('mouseenter', '.submit-star', function () {
+        var rating = $(this).data('rating');
+        resetbackground();
+        for (var i = 0; i <= rating; i++) {
+          $('#submit-star-' + i).attr('fill', 'yellow');
+        }
+      });
+
+      function resetbackground() {
+        for (var i = 0; i <= 5; i++) {
+          $('#submit-star-' + i).attr('fill', 'none');
+        }
+      }
+
+      $(document).on('mouseleave', '.submit-star', function () {
+        resetbackground();
+        for (var count = 1; count <= rating_data; count++) {
+          $('#submit-star-' + count).attr('fill', 'yellow');
+        }
+      });
+
+      $(document).on('click', '.submit-star', function () {
+        rating_data = $(this).data('rating');
+      });
+
+      $("#submitreview").click(function () {
+        var username = $('#username').val();
+        var userreview = $('#userreview').val();
+        if (!username || !userreview) {
+          alert('Please fill all the fields');
+        } else {
+          $.ajax({
+            url: "./eachitemspage/submitrating.php",
+            method: "POST",
+            data: {
+              rating_data: rating_data,
+              username: username,
+              userreview: userreview
+            },
+            success: function (data) {
+              // Uncomment the following lines if needed
+              // $(modal).css("display", 'none');
+              // load_rating_data();
+              // alert(data);
+              console.log('hello');
+
+              // Here you can process the data received from the server (if any)
+              console.log(data); // Display the response data in the browser console
+            },
+            error: function (xhr, status, error) {
+              console.error(error);
+            }
+          });
+
+        }
+      });
+
+
+
+
+      $('#crossx').click(function () {
+        $('#modal').css("display", 'none');
+        var username = $('#username').val('');
+        var userreview = $('#userreview').val('');
+        resetbackground();
+      });
+
+
+      // load_rating_data();
+
+      // function load_rating_data(){
+      //   console.log("hello")
+      // }
+
+    })
+
+
+
+
+
+
+
+
+
+      // function load_rating_data() {
+      //   $.ajax({
+      //     type: "POST",
+      //     dataType: 'json',
+      //     url: "./eachitemspage/submitrating.php",
+      //     data: { action: 'load_data' },
+      //     success: function (data) {
+      //       $('#averagerating').text('data.averagerating');
+      //       $('#totalreview').text('data.totalreview');
+
+      //       var countstar = 0;
+
+      //       $('.mainstar').each(function () {
+      //         if (Math.ceil(data.averagerating) >= countstar) {
+      //           $(this).attr('fill', 'yellow');
+      //           // $(this).attr('fill', 'none');
+      //         }
+      //       })
+
+
+
+      //       $('#total_five_star_review').text(data.fivestarreview);
+
+      //       $('#total_four_star_review').text(data.fourstarreview);
+
+      //       $('#total_three_star_review').text(data.threestarreview);
+
+      //       $('#total_two_star_review').text(data.twostarreview);
+
+      //       $('#total_one_star_review').text(data.onestarreview);
+
+      //       $('#five_star_progress').css('width', (data.fivestarreview / data.totalreview) * 100 + '%');
+
+      //       $('#four_star_progress').css('width', (data.four_starreview / data.totalreview) * 100 + '%');
+
+      //       $('#three_star_progress').css('width', (data.threestarreview / data.totalreview) * 100 + '%');
+
+      //       $('#two_star_progress').css('width', (data.twostarreview / data.totalreview) * 100 + '%');
+
+      //       $('#one_star_progress').css('width', (data.onestarreview / data.totalreview) * 100 + '%');
+
+
+
+      //       if(data.reviewdata.length > 0)
+      //           {
+      //               var html = '';
+
+      //               for(var count = 0; count < data.reviewdata.length; count++)
+      //               {
+      //                   html += '<div class="row mb-3">';
+
+      //                   html += '<div class="col-sm-1"><div class="rounded-circle bg-danger text-white pt-2 pb-2"><h3 class="text-center">'+data.reviewdata[count].user_name.charAt(0)+'</h3></div></div>';
+
+      //                   html += '<div class="col-sm-11">';
+
+      //                   html += '<div class="card">';
+
+      //                   html += '<div class="card-header"><b>'+data.reviewdata[count].username+'</b></div>';
+
+      //                   html += '<div class="card-body">';
+
+      //                   for(var star = 1; star <= 5; star++)
+      //                   {
+      //                       var classname = '';
+
+      //                       if(data.reviewdata[count].rating >= star)
+      //                       {
+      //                           classname = 'text-warning';
+      //                       }
+      //                       else
+      //                       {
+      //                           classname = 'star-light';
+      //                       }
+
+      //                       html += '<i class="fas fa-star '+classname+' mr-1"></i>';
+      //                   }
+
+      //                   html += '<br />';
+
+      //                   html += data.reviewdata[count].userreview;
+
+      //                   html += '</div>';
+
+      //                   html += '<div class="card-footer text-right">On '+data.reviewdata[count].datetime+'</div>';
+
+      //                   html += '</div>';
+
+      //                   html += '</div>';
+
+      //                   html += '</div>';
+      //               }
+
+      //               $('#review_content').html(html);
+
+      //     }
+      //   }
+      //   })
+      // }
+
+
+
+  </script> -->
 
 
 

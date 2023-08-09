@@ -70,7 +70,7 @@ require_once "eachitemspage/bkfunction.php";
                   </span>
           
                   <span class="w-8 h-8 bg-gray-100 text-[#000] font-semibold shadow drop-shadow-md flex justify-center items-center">
-                      <input type="text" id="valueInput" class="w-8 bg-gray-100 focus:outline-none" value=" 1" style="text-align:center;">
+                      <input type="text"  class="w-8 bg-gray-100 focus:outline-none" value=" 1" style="text-align:center;">
                   </span>
           
                   <span id="increase" class="bg-gray-100 border px-2 py-1 m-1">
@@ -101,25 +101,7 @@ require_once "eachitemspage/bkfunction.php";
           }
           ?>
 
-          <script>
-            const decreaseButton = document.getElementById('decrease');
-            const increaseButton = document.getElementById('increase');
-            const valueInput = document.getElementById('valueInput');
 
-            decreaseButton.addEventListener('click', () => {
-              let currentValue = parseInt(valueInput.value);
-              if (!isNaN(currentValue)) {
-                valueInput.value = Math.max(currentValue - 1, 0);
-              }
-            });
-
-            increaseButton.addEventListener('click', () => {
-              let currentValue = parseInt(valueInput.value);
-              if (!isNaN(currentValue)) {
-                valueInput.value = currentValue + 1;
-              }
-            });
-          </script>
 
 
 
@@ -150,7 +132,7 @@ require_once "eachitemspage/bkfunction.php";
             </div>
             <div class="mb-3">
               <div>
-                <span class="text-xl text-yellow-500 font-semibold"><span id="averagerating">
+                <span class="text-xl text-yellow-500 font-semibold"><span id="averagerating"> 
                     <?php
                     require_once "database.php";
                     if (isset($_GET['items'])) {
@@ -730,7 +712,7 @@ require_once "eachitemspage/bkfunction.php";
   </script>
 
 
-
+ 
 
 </body>
 
