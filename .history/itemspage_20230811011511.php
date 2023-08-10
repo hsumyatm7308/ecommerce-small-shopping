@@ -54,47 +54,49 @@ require_once "eachitemspage/bkfunction.php";
             $itemId = intval($_GET['items']);
 
 
-
+          
 
             if ($itemId === $row['id']) {
-              echo <<<HTML
-              <h1 class="text-3xl">{$row['perfume_name']} by {$row['brand_name']} EDT 3.3 OZ {$row['mili']} spray for {$row['category_name']}</h1>
-              <p class="mt-3 mb-3 text-sm">Available <span>(In stock)</span></p>
-              <span class="text-green-600 font-semibold text-3xl">$ {$row['price']}</span>
-              
-        
-              <div class="flex items-center mt-3">
-                  <span id="decrease" class="bg-gray-100 border px-2 py-1 m-1">
-                      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4">
-                          <path stroke-linecap="round" stroke-linejoin="round" d="M18 12H6" />
-                      </svg>
-                  </span>
-          
-                  <span class="w-8 h-8 bg-gray-100 text-[#000] font-semibold shadow drop-shadow-md flex justify-center items-center">
-                      <input type="text" id="valueInput" class="w-8 bg-gray-100 focus:outline-none" value=" 1" style="text-align:center;">
-                  </span>
-          
-                  <span id="increase" class="bg-gray-100 border px-2 py-1 m-1">
-                      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4">
-                          <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v12m6-6H6" />
-                      </svg>
-                  </span>
-              </div>
+              echo '<h1 class="text-3xl" data-perfume-name="' . $row['perfume_name'] . '" data-brand-name="' . $row['brand_name'] . '">';
+              echo $row['perfume_name'] . ' by ' . $row['brand_name'] . ' EDT 3.3 OZ ' . $row['mili'] . ' spray for ' . $row['category_name'];
+              echo '</h1>';
 
-              
-    
 
-               <div class="  flex  items-center mt-3">
-                   <p class="w-32 text-gray-100 bg-gray-500 flex justify-center items-center drop-shadow-lg p-1" id="addtocartbtn">Add to cart</p>
-              </div>
-          
-              <div class="mt-5">
-                  <h3 class="font-semibold">Description</h3>
-                  <p>{$row['description']}</p>
-              </div>
-          HTML;
+              echo '<p class="mt-3 mb-3 text-sm">Available <span>(In stock)</span></p>';
+              echo '<span class="text-green-600 font-semibold text-3xl">$ ' . $row['price'] . '</span>';
+      
+              echo '<div class="flex items-center mt-3">';
+              echo '<span id="decrease" class="bg-gray-100 border px-2 py-1 m-1">';
+              echo '<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4">';
+              echo '<path stroke-linecap="round" stroke-linejoin="round" d="M18 12H6" />';
+              echo '</svg>';
+              echo '</span>';
+      
+              echo '<span class="w-8 h-8 bg-gray-100 text-[#000] font-semibold shadow drop-shadow-md flex justify-center items-center">';
+              echo '<input type="text" id="valueInput" class="w-8 bg-gray-100 focus:outline-none" value=" 1" style="text-align:center;">';
+              echo '</span>';
+      
+              echo '<span id="increase" class="bg-gray-100 border px-2 py-1 m-1">';
+              echo '<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4">';
+              echo '<path stroke-linecap="round" stroke-linejoin="round" d="M12 6v12m6-6H6" />';
+              echo '</svg>';
+              echo '</span>';
+              echo '</div>';
+      
+              echo '<div class="flex items-center mt-3">';
+              echo '<button class="w-32 text-gray-100 bg-gray-500 flex justify-center items-center drop-shadow-lg p-1" id="addtocartbtn">Add to cart</button>';
+              echo '</div>';
+      
+              echo '<div class="mt-5">';
+              echo '<h3 class="font-semibold">Description</h3>';
+              echo '<p>' . $row['description'] . '</p>';
+              echo '</div>';
 
             }
+
+
+
+
           }
           ?>
 
@@ -729,41 +731,37 @@ require_once "eachitemspage/bkfunction.php";
         }
       });
 
+      const perfumename = $('h1').data('perfume-name');
+        const brandname = $('h1').data('brand-name');
 
-        const perfumename = $('h1').attr('data-perfume-name');
-        const brandname = $('h1').attr('data-brand-name');
+        console.log(perfumename);
 
-        // Your addtocartbtn.click() event handler
-        $("#addtocartbtn").click(function () {
-          var quantity = valueInput.val();
-          var items = <?php echo $_GET['items']; ?>;
-          var csrfToken = $('meta[name="csrf-token"]').attr('content');
+      addtocartbtn.click(function () {
+        var quantity = valueInput.val();
+        var items = <?php echo $_GET['items']; ?>;
+     
 
-          $.ajax({
-            url: "cart.php?items=" + items,
-            method: "POST",
-            data: {
-              quantity: quantity,
-              perfumeName: perfumename,
-              brandName: brandname,
-              _token: csrfToken
-            },
-            success: function (data) {
-              console.log('Data sent successfully:', data);
-            },
-            error: function (xhr, status, error) {
-              console.error('Error:', error);
-            }
-          });
+        var csrfToken = $('meta[name="csrf-token"]').attr('content');
+
+        $.ajax({
+          url: "cart.php?items=" + items,
+          method: "POST",
+          data: {
+            quantity: quantity,
+            perfumename: perfumename,
+            brandname: brandname,
+            _token: csrfToken
+
+          },
+          success: function (data) {
+            console.log('Data sent successfully:', data);
+          },
+          error: function (xhr, status, error) {
+            console.error('Error:', error);
+          }
         });
       });
-
-
-
-
-
-
-
+    });
 
 
 

@@ -55,10 +55,11 @@ require_once "eachitemspage/bkfunction.php";
 
 
 
-
             if ($itemId === $row['id']) {
               echo <<<HTML
-              <h1 class="text-3xl">{$row['perfume_name']} by {$row['brand_name']} EDT 3.3 OZ {$row['mili']} spray for {$row['category_name']}</h1>
+                <h1 class="text-3xl" data-perfume-name="{$row['perfume_name']}" data-brand-name="{$row['brand_name']}">
+                {$row['perfume_name']} by {$row['brand_name']} EDT 3.3 OZ {$row['mili']} spray for {$row['category_name']}
+              </h1>
               <p class="mt-3 mb-3 text-sm">Available <span>(In stock)</span></p>
               <span class="text-green-600 font-semibold text-3xl">$ {$row['price']}</span>
               
@@ -85,7 +86,7 @@ require_once "eachitemspage/bkfunction.php";
     
 
                <div class="  flex  items-center mt-3">
-                   <p class="w-32 text-gray-100 bg-gray-500 flex justify-center items-center drop-shadow-lg p-1" id="addtocartbtn">Add to cart</p>
+                   <button class="w-32 text-gray-100 bg-gray-500 flex justify-center items-center drop-shadow-lg p-1" id="addtocartbtn">Add to cart</button>
               </div>
           
               <div class="mt-5">
@@ -95,6 +96,10 @@ require_once "eachitemspage/bkfunction.php";
           HTML;
 
             }
+
+
+
+
           }
           ?>
 
@@ -729,41 +734,34 @@ require_once "eachitemspage/bkfunction.php";
         }
       });
 
+      addtocartbtn.click(function () {
+        var quantity = valueInput.val();
+        var items = <?php echo $_GET['items']; ?>;
+        const perfumename = $('h1').data('perfume-name');
+        const brandname = $('h1').data('brand-name');
 
-        const perfumename = $('h1').attr('data-perfume-name');
-        const brandname = $('h1').attr('data-brand-name');
+        console.log(items);
+        var csrfToken = $('meta[name="csrf-token"]').attr('content');
 
-        // Your addtocartbtn.click() event handler
-        $("#addtocartbtn").click(function () {
-          var quantity = valueInput.val();
-          var items = <?php echo $_GET['items']; ?>;
-          var csrfToken = $('meta[name="csrf-token"]').attr('content');
+        $.ajax({
+          url: "cart.php?items=" + items,
+          method: "POST",
+          data: {
+            quantity: quantity,
+            perfumename: perfumename,
+            brandname: brandname,
+            _token: csrfToken
 
-          $.ajax({
-            url: "cart.php?items=" + items,
-            method: "POST",
-            data: {
-              quantity: quantity,
-              perfumeName: perfumename,
-              brandName: brandname,
-              _token: csrfToken
-            },
-            success: function (data) {
-              console.log('Data sent successfully:', data);
-            },
-            error: function (xhr, status, error) {
-              console.error('Error:', error);
-            }
-          });
+          },
+          success: function (data) {
+            console.log('Data sent successfully:', data);
+          },
+          error: function (xhr, status, error) {
+            console.error('Error:', error);
+          }
         });
       });
-
-
-
-
-
-
-
+    });
 
 
 

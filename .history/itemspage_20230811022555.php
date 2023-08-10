@@ -85,7 +85,7 @@ require_once "eachitemspage/bkfunction.php";
     
 
                <div class="  flex  items-center mt-3">
-                   <p class="w-32 text-gray-100 bg-gray-500 flex justify-center items-center drop-shadow-lg p-1" id="addtocartbtn">Add to cart</p>
+                   <p class="w-32 text-gray-100 bg-gray-500 flex justify-center items-center drop-shadow-lg p-1">Add to cart</p>
               </div>
           
               <div class="mt-5">

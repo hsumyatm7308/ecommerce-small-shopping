@@ -55,7 +55,6 @@ require_once "eachitemspage/bkfunction.php";
 
 
 
-
             if ($itemId === $row['id']) {
               echo <<<HTML
               <h1 class="text-3xl">{$row['perfume_name']} by {$row['brand_name']} EDT 3.3 OZ {$row['mili']} spray for {$row['category_name']}</h1>
@@ -85,7 +84,7 @@ require_once "eachitemspage/bkfunction.php";
     
 
                <div class="  flex  items-center mt-3">
-                   <p class="w-32 text-gray-100 bg-gray-500 flex justify-center items-center drop-shadow-lg p-1" id="addtocartbtn">Add to cart</p>
+                   <button class="w-32 text-gray-100 bg-gray-500 flex justify-center items-center drop-shadow-lg p-1" id="addtocartbtn">Add to cart</button>
               </div>
           
               <div class="mt-5">
@@ -95,9 +94,81 @@ require_once "eachitemspage/bkfunction.php";
           HTML;
 
             }
+
+
+
+
           }
           ?>
 
+          <script class="text/javascript">
+            $(document).ready(function () {
+              const valueInput = $('#valueInput');
+              const decreaseButton = $('#decrease');
+              const increaseButton = $('#increase');
+
+              decreaseButton.click(function () {
+                let currentValue = parseInt(valueInput.val());
+                if (!isNaN(currentValue)) {
+                  valueInput.val(Math.max(currentValue - 1, 0));
+                }
+              });
+
+              increaseButton.click(function () {
+                let currentValue = parseInt(valueInput.val());
+                if (!isNaN(currentValue)) {
+                  valueInput.val(currentValue + 1);
+                }
+              });
+
+
+              const valueInput = document.getElementById('valueInput');
+              const addtocartbtn = document.getElementById('addtocartbtn');
+
+
+              console.log("hi"); // This won't work since qty is not accessible here
+
+
+              $(addtocartbtn).click(function () {
+
+
+                var qty = valueInput.val();
+                console.log(qty)
+
+                // $.ajax({
+                //   url: "shopcartpage.php",
+                //   method: "POST",
+                //   data: {
+                //     qty: qty,
+                //     _token: csrfToken
+                //   },
+                //   success: function (data) {
+                //     console.log('Data sent successfully:', data);
+                //   },
+                //   error: function (xhr, status, error) {
+                //     console.error('Error:', error);
+                //   }
+                // });
+
+
+
+              })
+
+            });
+
+
+
+             
+
+
+ 
+
+
+
+
+
+
+          </script>
 
 
 
@@ -706,77 +777,6 @@ require_once "eachitemspage/bkfunction.php";
     });
 
   </script>
-
-
-  <script class="text/javascript">
-    $(document).ready(function () {
-      const valueInput = $('#valueInput');
-      const decreaseButton = $('#decrease');
-      const increaseButton = $('#increase');
-      const addtocartbtn = $('#addtocartbtn');
-
-      decreaseButton.click(function () {
-        let currentValue = parseInt(valueInput.val());
-        if (!isNaN(currentValue)) {
-          valueInput.val(Math.max(currentValue - 1, 0));
-        }
-      });
-
-      increaseButton.click(function () {
-        let currentValue = parseInt(valueInput.val());
-        if (!isNaN(currentValue)) {
-          valueInput.val(currentValue + 1);
-        }
-      });
-
-
-        const perfumename = $('h1').attr('data-perfume-name');
-        const brandname = $('h1').attr('data-brand-name');
-
-        // Your addtocartbtn.click() event handler
-        $("#addtocartbtn").click(function () {
-          var quantity = valueInput.val();
-          var items = <?php echo $_GET['items']; ?>;
-          var csrfToken = $('meta[name="csrf-token"]').attr('content');
-
-          $.ajax({
-            url: "cart.php?items=" + items,
-            method: "POST",
-            data: {
-              quantity: quantity,
-              perfumeName: perfumename,
-              brandName: brandname,
-              _token: csrfToken
-            },
-            success: function (data) {
-              console.log('Data sent successfully:', data);
-            },
-            error: function (xhr, status, error) {
-              console.error('Error:', error);
-            }
-          });
-        });
-      });
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  </script>
-
 
 
 

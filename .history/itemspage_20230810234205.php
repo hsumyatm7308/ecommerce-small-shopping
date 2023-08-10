@@ -55,7 +55,6 @@ require_once "eachitemspage/bkfunction.php";
 
 
 
-
             if ($itemId === $row['id']) {
               echo <<<HTML
               <h1 class="text-3xl">{$row['perfume_name']} by {$row['brand_name']} EDT 3.3 OZ {$row['mili']} spray for {$row['category_name']}</h1>
@@ -85,7 +84,7 @@ require_once "eachitemspage/bkfunction.php";
     
 
                <div class="  flex  items-center mt-3">
-                   <p class="w-32 text-gray-100 bg-gray-500 flex justify-center items-center drop-shadow-lg p-1" id="addtocartbtn">Add to cart</p>
+                   <button class="w-32 text-gray-100 bg-gray-500 flex justify-center items-center drop-shadow-lg p-1" id="addtocartbtn">Add to cart</button>
               </div>
           
               <div class="mt-5">
@@ -95,6 +94,10 @@ require_once "eachitemspage/bkfunction.php";
           HTML;
 
             }
+
+
+
+
           }
           ?>
 
@@ -709,61 +712,45 @@ require_once "eachitemspage/bkfunction.php";
 
 
   <script class="text/javascript">
-    $(document).ready(function () {
-      const valueInput = $('#valueInput');
-      const decreaseButton = $('#decrease');
-      const increaseButton = $('#increase');
-      const addtocartbtn = $('#addtocartbtn');
+ $(document).ready(function () {
+    const valueInput = $('#valueInput');
+    const decreaseButton = $('#decrease');
+    const increaseButton = $('#increase');
+    const addtocartbtn = $('#addtocartbtn');
 
-      decreaseButton.click(function () {
+    decreaseButton.click(function () {
         let currentValue = parseInt(valueInput.val());
         if (!isNaN(currentValue)) {
-          valueInput.val(Math.max(currentValue - 1, 0));
+            valueInput.val(Math.max(currentValue - 1, 0));
         }
-      });
+    });
 
-      increaseButton.click(function () {
+    increaseButton.click(function () {
         let currentValue = parseInt(valueInput.val());
         if (!isNaN(currentValue)) {
-          valueInput.val(currentValue + 1);
+            valueInput.val(currentValue + 1);
         }
-      });
+    });
 
+    addtocartbtn.click(function () {
+        var quantity = valueInput.val(); // Use 'quantity' instead of 'qty'
+        console.log(quantity);
 
-        const perfumename = $('h1').attr('data-perfume-name');
-        const brandname = $('h1').attr('data-brand-name');
-
-        // Your addtocartbtn.click() event handler
-        $("#addtocartbtn").click(function () {
-          var quantity = valueInput.val();
-          var items = <?php echo $_GET['items']; ?>;
-          var csrfToken = $('meta[name="csrf-token"]').attr('content');
-
-          $.ajax({
-            url: "cart.php?items=" + items,
+        $.ajax({
+            url: "shoppage.php", // Corrected URL
             method: "POST",
             data: {
-              quantity: quantity,
-              perfumeName: perfumename,
-              brandName: brandname,
-              _token: csrfToken
+                quantity: quantity, // Use 'quantity' instead of 'qty'
             },
             success: function (data) {
-              console.log('Data sent successfully:', data);
+                console.log('Data sent successfully:', data);
             },
             error: function (xhr, status, error) {
-              console.error('Error:', error);
+                console.error('Error:', error);
             }
-          });
         });
-      });
-
-
-
-
-
-
-
+    });
+});
 
 
 
