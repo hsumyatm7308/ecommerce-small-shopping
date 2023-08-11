@@ -53,8 +53,6 @@ if (isset($_POST['addtocart'])) {
 ?>
 
 
-
-
 <!DOCTYPE html>
 <html>
 
@@ -103,8 +101,6 @@ if (isset($_POST['addtocart'])) {
 
                         <?php
 
-                        $total = 0;
-
                         if (!empty($_SESSION['cart'])) {
                             foreach ($_SESSION['cart'] as $key => $value) {
                                 echo '
@@ -152,7 +148,7 @@ if (isset($_POST['addtocart'])) {
                             </div>
 
                             <div class="flex justify-center items-center">
-                                <p class="totalprice">$' . number_format($value['quantity'] * $value['price'], 2) . '</p>
+                                <p class="totalprice">$' . number_format($value['quantity'] * $value['price']) . '</p>
                             </div>
 
                             <div class="flex justify-center items-center">
@@ -161,23 +157,9 @@ if (isset($_POST['addtocart'])) {
                                 </a>
                             </div>
 
-                           
-
                         </div>';
-                                $total = $total + ($value['quantity'] * $value['price']);
-
                             }
-
-                            echo '
-                            <div class="flex justify-center items-center">
-                            <a href="shopcartpage.php?action=clearall" >
-                            <button class="px-3 py-1 bg-gray-100">Clear </button>
-                            </a>
-                        </div>
-                            ';
-
                         }
-
 
                         ?>
 
@@ -193,10 +175,11 @@ if (isset($_POST['addtocart'])) {
                             <?php
 
                             if (!empty($_SESSION['cart'])) {
-                                echo '
-                                        <h1 class="text-black mr-7">Subtotal : $' . number_format($total, 2) . '</h1>
+                                foreach ($_SESSION['cart'] as $key => $value) {
+                                    echo '
+                                        <h1 class="text-black mr-7">Subtotal : $100</h1>
                                          ';
-
+                                }
                             }
                             ?>
                         </div>
@@ -237,24 +220,7 @@ if (isset($_POST['addtocart'])) {
         </div>
     </section>
 
-    <?php
 
-    if (isset($_GET['action']) && $_GET['action'] === "remove") {
-        foreach ($_SESSION["cart"] as $key => $value) {
-            if ($value['id'] === $_GET['id']) {
-                unset($_SESSION["cart"][$key]); 
-                break; 
-            }
-        }
-    }
-
-    if (isset($_GET['action']) && $_GET['action'] === "clearall") {
-       
-                unset($_SESSION["cart"]); // Use $key as the key to unset
-           
-    }
-
-    ?>
 
 
     <script>

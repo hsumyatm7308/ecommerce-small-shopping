@@ -7,7 +7,7 @@
 $cartstmt = null;
 
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
-    if (isset($_POST["quantity"]) && isset($_GET['items'])) {
+    if (isset($_POST["quantity"])) {
         $quantity = $_POST["quantity"];
         $id = $_GET['items'];
         // $perfumename = $_POST["perfumeName"];
@@ -19,11 +19,11 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             $conn = new PDO("mysql:host=localhost;dbname=perumdej", "root", "");
 
             $cartstmt = $conn->prepare("SELECT * FROM perfume WHERE id = :id");
-
-            $cartstmt->bindParam(':id', $id);
+          
+                $cartstmt->bindParam(':id', $id);
             $cartstmt->execute();
 
-            $row = $cartstmt->fetch();
+
 
         } catch (PDOException $e) {
             echo "PDOException: " . $e->getMessage();
@@ -37,12 +37,11 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
 
 
-
     <div class=" grid grid-cols-6 justify-center items-center border-b mb-4">
         <div class="col-span-2 flex justify-center items-center">
             <img src="./assets/img/perfume/men/men1.jpg" alt="" class="" width="100px">
             <span class="ml-10">
-                <?php echo $row['perfume_name'] ?>
+              
             </span>
         </div>
 

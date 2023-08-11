@@ -242,8 +242,8 @@ if (isset($_POST['addtocart'])) {
     if (isset($_GET['action']) && $_GET['action'] === "remove") {
         foreach ($_SESSION["cart"] as $key => $value) {
             if ($value['id'] === $_GET['id']) {
-                unset($_SESSION["cart"][$key]); 
-                break; 
+                unset($_SESSION["cart"][$key]); // Use $key as the key to unset
+                break; // Assuming each item has a unique id, you can break the loop once you find the item to remove
             }
         }
     }

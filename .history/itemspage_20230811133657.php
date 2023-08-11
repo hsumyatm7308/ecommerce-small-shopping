@@ -1,52 +1,19 @@
 <?php
-
+session_start();
 require_once "eachitemspage/bkfunction.php";
 
-// $conn = new PDO("mysql:host=localhost;dbname=perumdej", "root", "");
+$conn = new PDO("mysql:host=localhost;dbname=perumdej", "root", "");
 
-// if (isset($_POST['addtocart'])) {
-//     if (isset($_SESSION['cart'])) {
-//         $sessionarrayid = array_column($_SESSION['cart'], "id");
+if(isset($_POST['addtocart'])){
+    if(isset($_SESSION['cart'])){
 
-//         if (!in_array($_POST['id'], $sessionarrayid)) { 
+    }else{
+      
+    }
+}
 
-//             $id = $_POST['id'];
-
-//             $sessionarray = array(
-//                 "id" => $id,
-//                 "name" => $_POST['name'],
-//                 "brandname" => $_POST['brandname'],
-//                 "category" => $_POST['categoryname'],
-//                 "quantity" => $_POST['quantity']
-//             );
-
-//             $_SESSION['cart'][] = $sessionarray;
-//             echo "After setting cart: ";
-//         }
-//     } else {
-//         $id = $_POST['id'];
-
-//         $sessionarray = array(
-//             "id" => $id,
-//             "name" => $_POST['name'],
-//             "brandname" => $_POST['brandname'],
-//             "category" => $_POST['categoryname'],
-//             "quantity" => $_POST['quantity']
-//         );
-
-//         $_SESSION['cart'][] = $sessionarray;
-//         echo "After setting cart: ";
-//         var_dump($_SESSION['cart']);
-//     }
-// }
-?>
-
-
-
-<?php
 
 ?>
-
 
 <!DOCTYPE html>
 <html lang="en">
@@ -104,7 +71,7 @@ require_once "eachitemspage/bkfunction.php";
 
             if ($itemId === $row['id']) {
               echo <<<HTML
-              <form action="shopcartpage.php?items={$row['id']}" method="post">
+              <form action="">
               <h1 class="text-3xl">{$row['perfume_name']} by {$row['brand_name']} EDT 3.3 OZ {$row['mili']} spray for {$row['category_name']}</h1>
               <p class="mt-3 mb-3 text-sm">Available <span>(In stock)</span></p>
               <span class="text-green-600 font-semibold text-3xl">$ {$row['price']}</span>
@@ -118,7 +85,7 @@ require_once "eachitemspage/bkfunction.php";
                   </span>
           
                   <span class="w-8 h-8 bg-gray-100 text-[#000] font-semibold shadow drop-shadow-md flex justify-center items-center">
-                      <input type="text" name="quantity" id="valueInput" class="w-8 bg-gray-100 focus:outline-none" value=" 1" style="text-align:center;">
+                      <input type="text" id="valueInput" class="w-8 bg-gray-100 focus:outline-none" value=" 1" style="text-align:center;">
                   </span>
           
                   <span id="increase" class="bg-gray-100 border px-2 py-1 m-1">
@@ -128,13 +95,7 @@ require_once "eachitemspage/bkfunction.php";
                   </span>
               </div>
 
-              <input type="hidden" name="id" value="{$row['id']}">
-               <input type="hidden" name="name" value="{$row['perfume_name']}">
-               <input type="hidden" name="brandname" value="{$row['brand_name']}">
-               <input type="hidden" name="categoryname" value="{$row['category_name']}">
-               <input type="hidden" name="price" value="{$row['price']}">
-
-
+              
     
 
                <div class="  flex  items-center mt-3">
@@ -153,7 +114,6 @@ require_once "eachitemspage/bkfunction.php";
           ?>
 
 
-         
 
 
           <!-- Rating  -->
@@ -785,33 +745,33 @@ require_once "eachitemspage/bkfunction.php";
       });
 
 
-      const perfumename = $('h1').attr('data-perfume-name');
-      const brandname = $('h1').attr('data-brand-name');
+        const perfumename = $('h1').attr('data-perfume-name');
+        const brandname = $('h1').attr('data-brand-name');
 
-      // Your addtocartbtn.click() event handler
-      $("#addtocartbtn").click(function () {
-        var quantity = valueInput.val();
-        var items = <?php echo $_GET['items']; ?>;
-        var csrfToken = $('meta[name="csrf-token"]').attr('content');
+        // Your addtocartbtn.click() event handler
+        $("#addtocartbtn").click(function () {
+          var quantity = valueInput.val();
+          var items = <?php echo $_GET['items']; ?>;
+          var csrfToken = $('meta[name="csrf-token"]').attr('content');
 
-        $.ajax({
-          url: "cart.php?items=" + items,
-          method: "POST",
-          data: {
-            quantity: quantity,
-            perfumeName: perfumename,
-            brandName: brandname,
-            _token: csrfToken
-          },
-          success: function (data) {
-            console.log('Data sent successfully:', data);
-          },
-          error: function (xhr, status, error) {
-            console.error('Error:', error);
-          }
+          $.ajax({
+            url: "cart.php?items=" + items,
+            method: "POST",
+            data: {
+              quantity: quantity,
+              perfumeName: perfumename,
+              brandName: brandname,
+              _token: csrfToken
+            },
+            success: function (data) {
+              console.log('Data sent successfully:', data);
+            },
+            error: function (xhr, status, error) {
+              console.error('Error:', error);
+            }
+          });
         });
       });
-    });
 
 
 

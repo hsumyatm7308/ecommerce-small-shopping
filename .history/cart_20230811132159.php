@@ -42,7 +42,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         <div class="col-span-2 flex justify-center items-center">
             <img src="./assets/img/perfume/men/men1.jpg" alt="" class="" width="100px">
             <span class="ml-10">
-                <?php echo $row['perfume_name'] ?>
+                <?php $row['perfume_name'] ?>
             </span>
         </div>
 

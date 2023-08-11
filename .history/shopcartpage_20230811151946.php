@@ -53,8 +53,6 @@ if (isset($_POST['addtocart'])) {
 ?>
 
 
-
-
 <!DOCTYPE html>
 <html>
 
@@ -103,8 +101,6 @@ if (isset($_POST['addtocart'])) {
 
                         <?php
 
-                        $total = 0;
-
                         if (!empty($_SESSION['cart'])) {
                             foreach ($_SESSION['cart'] as $key => $value) {
                                 echo '
@@ -115,7 +111,7 @@ if (isset($_POST['addtocart'])) {
                             </div>
 
                             <div class="flex justify-center items-center">
-                                <p> $' . $value['price'] . '</p>
+                                <p>' . $value['price'] . '</p>
                             </div>
 
                             <div class=" flex justify-center items-center">
@@ -134,7 +130,7 @@ if (isset($_POST['addtocart'])) {
                                             <span
                                                 class="w-8 h-8 bg-gray-100 text-[#000] font-semibold shadow drop-shadow-md flex justify-center items-center">
                                                 <input type="text" class="w-8 bg-gray-100 focus:outline-none valueInput"
-                                                    value="' . $value['quantity'] . '" style="text-align:center;">
+                                                    value="'.$value['quantity'] .'" style="text-align:center;">
                                             </span>
 
                                             <span id="increase" class="bg-gray-100 border px-2 py-1 m-1 increase">
@@ -152,32 +148,16 @@ if (isset($_POST['addtocart'])) {
                             </div>
 
                             <div class="flex justify-center items-center">
-                                <p class="totalprice">$' . number_format($value['quantity'] * $value['price'], 2) . '</p>
+                                <p>$30</p>
                             </div>
 
                             <div class="flex justify-center items-center">
-                                <a href="shopcartpage.php?action=remove&id=' . $value['id'] . '" >
-                                <button class="px-3 py-1 bg-gray-100">Remove </button>
-                                </a>
+                                <button class="px-3 py-1 bg-gray-100">Remove</button>
                             </div>
-
-                           
 
                         </div>';
-                                $total = $total + ($value['quantity'] * $value['price']);
-
                             }
-
-                            echo '
-                            <div class="flex justify-center items-center">
-                            <a href="shopcartpage.php?action=clearall" >
-                            <button class="px-3 py-1 bg-gray-100">Clear </button>
-                            </a>
-                        </div>
-                            ';
-
                         }
-
 
                         ?>
 
@@ -189,16 +169,7 @@ if (isset($_POST['addtocart'])) {
                     <div class="w-[400px] min-h-[300px] bg-gray-100 mt-10 flex  items-center flex-col px-5 py-7">
                         <div class="w-full h-10 bg-gray-200 flex justify-between items-center">
                             <h1 class="text-lg ml-4">Product list</h1>
-
-                            <?php
-
-                            if (!empty($_SESSION['cart'])) {
-                                echo '
-                                        <h1 class="text-black mr-7">Subtotal : $' . number_format($total, 2) . '</h1>
-                                         ';
-
-                            }
-                            ?>
+                            <h1 class="text-black mr-7">Subtotal : $100</h1>
                         </div>
                         <div class="w-[85%] flex items-center flex-col mt-3">
 
@@ -237,24 +208,7 @@ if (isset($_POST['addtocart'])) {
         </div>
     </section>
 
-    <?php
 
-    if (isset($_GET['action']) && $_GET['action'] === "remove") {
-        foreach ($_SESSION["cart"] as $key => $value) {
-            if ($value['id'] === $_GET['id']) {
-                unset($_SESSION["cart"][$key]); 
-                break; 
-            }
-        }
-    }
-
-    if (isset($_GET['action']) && $_GET['action'] === "clearall") {
-       
-                unset($_SESSION["cart"]); // Use $key as the key to unset
-           
-    }
-
-    ?>
 
 
     <script>
@@ -264,7 +218,6 @@ if (isset($_POST['addtocart'])) {
             const decreaseButton = item.querySelector('.decrease');
             const increaseButton = item.querySelector('.increase');
             const valueInput = item.querySelector('.valueInput');
-            const totalprice = item.querySelector('.totalprice');
 
 
             decreaseButton.addEventListener('click', () => {

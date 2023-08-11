@@ -241,7 +241,7 @@ if (isset($_POST['addtocart'])) {
 
     if (isset($_GET['action']) && $_GET['action'] === "remove") {
         foreach ($_SESSION["cart"] as $key => $value) {
-            if ($value['id'] === $_GET['id']) {
+            if ($value['id'] === $_POST['id']) {
                 unset($_SESSION["cart"][$key]); 
                 break; 
             }

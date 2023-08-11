@@ -1,44 +1,46 @@
 <?php
 
+session_start();
 require_once "eachitemspage/bkfunction.php";
 
-// $conn = new PDO("mysql:host=localhost;dbname=perumdej", "root", "");
+$conn = new PDO("mysql:host=localhost;dbname=perumdej", "root", "");
 
-// if (isset($_POST['addtocart'])) {
-//     if (isset($_SESSION['cart'])) {
-//         $sessionarrayid = array_column($_SESSION['cart'], "id");
+if (isset($_POST['addtocart'])) {
+    if (isset($_SESSION['cart'])) {
+        $sessionarrayid = array_column($_SESSION['cart'], "id");
 
-//         if (!in_array($_POST['id'], $sessionarrayid)) { 
+        if (!in_array($_POST['id'], $sessionarrayid)) { 
 
-//             $id = $_POST['id'];
+            $id = $_POST['id'];
 
-//             $sessionarray = array(
-//                 "id" => $id,
-//                 "name" => $_POST['name'],
-//                 "brandname" => $_POST['brandname'],
-//                 "category" => $_POST['categoryname'],
-//                 "quantity" => $_POST['quantity']
-//             );
+            $sessionarray = array(
+                "id" => $id,
+                "name" => $_POST['name'],
+                "brandname" => $_POST['brandname'],
+                "category" => $_POST['categoryname'],
+                "quantity" => $_POST['quantity']
+            );
 
-//             $_SESSION['cart'][] = $sessionarray;
-//             echo "After setting cart: ";
-//         }
-//     } else {
-//         $id = $_POST['id'];
+            $_SESSION['cart'][] = $sessionarray;
+            echo "After setting cart: ";
+            var_dump($_SESSION['cart']);
+        }
+    } else {
+        $id = $_POST['id'];
 
-//         $sessionarray = array(
-//             "id" => $id,
-//             "name" => $_POST['name'],
-//             "brandname" => $_POST['brandname'],
-//             "category" => $_POST['categoryname'],
-//             "quantity" => $_POST['quantity']
-//         );
+        $sessionarray = array(
+            "id" => $id,
+            "name" => $_POST['name'],
+            "brandname" => $_POST['brandname'],
+            "category" => $_POST['categoryname'],
+            "quantity" => $_POST['quantity']
+        );
 
-//         $_SESSION['cart'][] = $sessionarray;
-//         echo "After setting cart: ";
-//         var_dump($_SESSION['cart']);
-//     }
-// }
+        $_SESSION['cart'][] = $sessionarray;
+        echo "After setting cart: ";
+        var_dump($_SESSION['cart']);
+    }
+}
 ?>
 
 
@@ -104,7 +106,7 @@ require_once "eachitemspage/bkfunction.php";
 
             if ($itemId === $row['id']) {
               echo <<<HTML
-              <form action="shopcartpage.php?items={$row['id']}" method="post">
+              <form action="itemspage.php?items={$row['id']}" method="post">
               <h1 class="text-3xl">{$row['perfume_name']} by {$row['brand_name']} EDT 3.3 OZ {$row['mili']} spray for {$row['category_name']}</h1>
               <p class="mt-3 mb-3 text-sm">Available <span>(In stock)</span></p>
               <span class="text-green-600 font-semibold text-3xl">$ {$row['price']}</span>

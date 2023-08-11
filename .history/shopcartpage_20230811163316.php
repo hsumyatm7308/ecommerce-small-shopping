@@ -168,14 +168,6 @@ if (isset($_POST['addtocart'])) {
 
                             }
 
-                            echo '
-                            <div class="flex justify-center items-center">
-                            <a href="shopcartpage.php?action=clearall" >
-                            <button class="px-3 py-1 bg-gray-100">Clear </button>
-                            </a>
-                        </div>
-                            ';
-
                         }
 
 
@@ -239,20 +231,14 @@ if (isset($_POST['addtocart'])) {
 
     <?php
 
-    if (isset($_GET['action']) && $_GET['action'] === "remove") {
-        foreach ($_SESSION["cart"] as $key => $value) {
-            if ($value['id'] === $_GET['id']) {
-                unset($_SESSION["cart"][$key]); 
-                break; 
-            }
+if (isset($_GET['action']) && $_GET['action'] === "remove") {
+    foreach ($_SESSION["cart"] as $key => $value) {
+        if ($value['id'] === $_GET['id']) {
+            unset($_SESSION["cart"][$key]); // Use $key as the key to unset
+            break; // Assuming each item has a unique id, you can break the loop once you find the item to remove
         }
     }
-
-    if (isset($_GET['action']) && $_GET['action'] === "clearall") {
-       
-                unset($_SESSION["cart"]); // Use $key as the key to unset
-           
-    }
+}
 
     ?>
 

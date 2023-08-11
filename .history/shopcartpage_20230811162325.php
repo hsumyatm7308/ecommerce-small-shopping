@@ -161,20 +161,16 @@ if (isset($_POST['addtocart'])) {
                                 </a>
                             </div>
 
-                           
+                            <div class="flex justify-center items-center">
+                            <a href="shopcartpage.php?action=remove&id=' . $value['id'] . '" >
+                            <button class="px-3 py-1 bg-gray-100">Clear </button>
+                            </a>
+                        </div>
 
                         </div>';
                                 $total = $total + ($value['quantity'] * $value['price']);
 
                             }
-
-                            echo '
-                            <div class="flex justify-center items-center">
-                            <a href="shopcartpage.php?action=clearall" >
-                            <button class="px-3 py-1 bg-gray-100">Clear </button>
-                            </a>
-                        </div>
-                            ';
 
                         }
 
@@ -239,19 +235,14 @@ if (isset($_POST['addtocart'])) {
 
     <?php
 
-    if (isset($_GET['action']) && $_GET['action'] === "remove") {
-        foreach ($_SESSION["cart"] as $key => $value) {
-            if ($value['id'] === $_GET['id']) {
-                unset($_SESSION["cart"][$key]); 
-                break; 
+    if (isset($_GET['action'])) {
+        if (isset($_GET['action']) === "remove") {
+            foreach ($_SESSION["cart"] as $key => $value) {
+                if ($value['id'] === $_POST['id']) {
+                    unset($_SESSION["cart"]["key"]);
+                }
             }
         }
-    }
-
-    if (isset($_GET['action']) && $_GET['action'] === "clearall") {
-       
-                unset($_SESSION["cart"]); // Use $key as the key to unset
-           
     }
 
     ?>

@@ -104,7 +104,7 @@ require_once "eachitemspage/bkfunction.php";
 
             if ($itemId === $row['id']) {
               echo <<<HTML
-              <form action="shopcartpage.php?items={$row['id']}" method="post">
+              <form action="itemspage.php?items={$row['id']}" method="post">
               <h1 class="text-3xl">{$row['perfume_name']} by {$row['brand_name']} EDT 3.3 OZ {$row['mili']} spray for {$row['category_name']}</h1>
               <p class="mt-3 mb-3 text-sm">Available <span>(In stock)</span></p>
               <span class="text-green-600 font-semibold text-3xl">$ {$row['price']}</span>

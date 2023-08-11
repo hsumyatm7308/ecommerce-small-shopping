@@ -10,23 +10,32 @@ if (isset($_POST['addtocart'])) {
     if (isset($_SESSION['cart'])) {
         // echo "Session cart exists. ";
 
-        $sessionarrayid = array_column($_SESSION['cart'], "id");
+        // $sessionarrayid = array_column($_SESSION['cart'], "id");
 
-        if (!in_array($_POST['id'], $sessionarrayid)) {
-            $id = $_POST['id'];
+        // if (!in_array($_POST['id'], $sessionarrayid)) {
+        //     $id = $_POST['id'];
 
-            $sessionarray = array(
-                "id" => $id,
-                "name" => $_POST['name'],
-                "brandname" => $_POST['brandname'],
-                "price" => $_POST['price'],
-                "category" => $_POST['categoryname'],
-                "quantity" => $_POST['quantity']
-            );
-            $_SESSION['cart'][] = $sessionarray;
-            var_dump($_SESSION['cart']);
-        }
+        //     $sessionarray = array(
+        //         "id" => $id,
+        //         "name" => $_POST['name'],
+        //         "brandname" => $_POST['brandname'],
+        //         "category" => $_POST['categoryname'],
+        //         "quantity" => $_POST['quantity']
+        //     );
 
+        //     $_SESSION['cart'][] = $sessionarray;
+        //     echo "After setting cart: ";
+        // }
+        $id = $_POST['id'];
+
+        $sessionarray = array(
+            "id" => $id,
+            "name" => $_POST['name'],
+            "brandname" => $_POST['brandname'],
+            "category" => $_POST['categoryname'],
+            "quantity" => $_POST['quantity']
+        );
+        var_dump($sessionarray);
 
     } else {
         echo "Session cart doesn't exist. ";
@@ -37,22 +46,19 @@ if (isset($_POST['addtocart'])) {
             "id" => $id,
             "name" => $_POST['name'],
             "brandname" => $_POST['brandname'],
-            "price" => $_POST['price'],
             "category" => $_POST['categoryname'],
             "quantity" => $_POST['quantity']
         );
 
 
         echo "After setting cart: ";
-        $_SESSION['cart'][] = $sessionarray;
-        var_dump($_SESSION['cart']);
+        var_dump($sessionarray);
+
     }
     echo "hello";
 
 }
 ?>
-
-
 
 
 <!DOCTYPE html>
@@ -101,21 +107,14 @@ if (isset($_POST['addtocart'])) {
 
                     <div class="w-[90%] mt-10">
 
-                        <?php
-
-                        $total = 0;
-
-                        if (!empty($_SESSION['cart'])) {
-                            foreach ($_SESSION['cart'] as $key => $value) {
-                                echo '
-                            <div class=" grid grid-cols-6 justify-center items-center border-b mb-4">
+                        <div class=" grid grid-cols-6 justify-center items-center border-b mb-4">
                             <div class="col-span-2 flex justify-center items-center">
                                 <img src="./assets/img/perfume/men/men1.jpg" alt="" class="" width="100px">
-                                <span class="ml-10">' . $value['name'] . ' by ' . $value['brandname'] . ' EDT 3.3 OZ 45ML spray for Women</span>
+                                <span class="ml-10">Navy by Navy EDT 3.3 OZ 45ML spray for Women</span>
                             </div>
 
                             <div class="flex justify-center items-center">
-                                <p> $' . $value['price'] . '</p>
+                                <p>$30</p>
                             </div>
 
                             <div class=" flex justify-center items-center">
@@ -134,7 +133,7 @@ if (isset($_POST['addtocart'])) {
                                             <span
                                                 class="w-8 h-8 bg-gray-100 text-[#000] font-semibold shadow drop-shadow-md flex justify-center items-center">
                                                 <input type="text" class="w-8 bg-gray-100 focus:outline-none valueInput"
-                                                    value="' . $value['quantity'] . '" style="text-align:center;">
+                                                    value=" 1" style="text-align:center;">
                                             </span>
 
                                             <span id="increase" class="bg-gray-100 border px-2 py-1 m-1 increase">
@@ -152,35 +151,74 @@ if (isset($_POST['addtocart'])) {
                             </div>
 
                             <div class="flex justify-center items-center">
-                                <p class="totalprice">$' . number_format($value['quantity'] * $value['price'], 2) . '</p>
+                                <p>$30</p>
                             </div>
 
                             <div class="flex justify-center items-center">
-                                <a href="shopcartpage.php?action=remove&id=' . $value['id'] . '" >
-                                <button class="px-3 py-1 bg-gray-100">Remove </button>
-                                </a>
+                                <button class="px-3 py-1 bg-gray-100">Remove</button>
                             </div>
 
-                           
-
-                        </div>';
-                                $total = $total + ($value['quantity'] * $value['price']);
-
-                            }
-
-                            echo '
-                            <div class="flex justify-center items-center">
-                            <a href="shopcartpage.php?action=clearall" >
-                            <button class="px-3 py-1 bg-gray-100">Clear </button>
-                            </a>
                         </div>
-                            ';
 
-                        }
+                        <div class=" grid grid-cols-6 justify-center items-center border-b mb-4">
+                            <div class="col-span-2 flex justify-center items-center">
+                                <img src="./assets/img/perfume/men/men1.jpg" alt="" class="" width="100px">
+                                <span class="ml-10">Davidoff Cool Water by Aidonull EDT 3.3 OZ 200ML spray for
+                                    Men</span>
+                            </div>
 
+                            <div class="flex justify-center items-center">
+                                <p>$30</p>
+                            </div>
+
+                            <div class=" flex justify-center items-center">
+
+                                <div class="  flex justify-center items-center p-1">
+
+                                    <div class="item flex justify-center items-center p-1">
+                                        <div class="flex items-center">
+                                            <span id="decrease" class="bg-gray-100 border px-2 py-1 m-1 decrease">
+                                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                                    stroke-width="1.5" stroke="currentColor" class="w-4 h-4">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" d="M18 12H6" />
+                                                </svg>
+                                            </span>
+
+                                            <span
+                                                class="w-8 h-8 bg-gray-100 text-[#000] font-semibold shadow drop-shadow-md flex justify-center items-center">
+                                                <input type="text" class="w-8 bg-gray-100 focus:outline-none valueInput"
+                                                    value=" 1" style="text-align:center;">
+                                            </span>
+
+                                            <span id="increase" class="bg-gray-100 border px-2 py-1 m-1 increase">
+                                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                                    stroke-width="1.5" stroke="currentColor" class="w-4 h-4">
+                                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                                        d="M12 6v12m6-6H6" />
+                                                </svg>
+                                            </span>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                            <div class="flex justify-center items-center">
+                                <p>$30</p>
+                            </div>
+
+                            <div class="flex justify-center items-center">
+                                <button class="px-3 py-1 bg-gray-100">Remove</button>
+                            </div>
+
+                        </div>
+
+
+
+                        <?php
 
                         ?>
-
 
 
                     </div>
@@ -189,16 +227,7 @@ if (isset($_POST['addtocart'])) {
                     <div class="w-[400px] min-h-[300px] bg-gray-100 mt-10 flex  items-center flex-col px-5 py-7">
                         <div class="w-full h-10 bg-gray-200 flex justify-between items-center">
                             <h1 class="text-lg ml-4">Product list</h1>
-
-                            <?php
-
-                            if (!empty($_SESSION['cart'])) {
-                                echo '
-                                        <h1 class="text-black mr-7">Subtotal : $' . number_format($total, 2) . '</h1>
-                                         ';
-
-                            }
-                            ?>
+                            <h1 class="text-black mr-7">Subtotal : $100</h1>
                         </div>
                         <div class="w-[85%] flex items-center flex-col mt-3">
 
@@ -237,24 +266,7 @@ if (isset($_POST['addtocart'])) {
         </div>
     </section>
 
-    <?php
 
-    if (isset($_GET['action']) && $_GET['action'] === "remove") {
-        foreach ($_SESSION["cart"] as $key => $value) {
-            if ($value['id'] === $_GET['id']) {
-                unset($_SESSION["cart"][$key]); 
-                break; 
-            }
-        }
-    }
-
-    if (isset($_GET['action']) && $_GET['action'] === "clearall") {
-       
-                unset($_SESSION["cart"]); // Use $key as the key to unset
-           
-    }
-
-    ?>
 
 
     <script>
@@ -264,7 +276,6 @@ if (isset($_POST['addtocart'])) {
             const decreaseButton = item.querySelector('.decrease');
             const increaseButton = item.querySelector('.increase');
             const valueInput = item.querySelector('.valueInput');
-            const totalprice = item.querySelector('.totalprice');
 
 
             decreaseButton.addEventListener('click', () => {

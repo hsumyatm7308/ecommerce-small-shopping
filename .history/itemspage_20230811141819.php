@@ -1,50 +1,39 @@
 <?php
+session_start();
 
 require_once "eachitemspage/bkfunction.php";
 
-// $conn = new PDO("mysql:host=localhost;dbname=perumdej", "root", "");
+$conn = new PDO("mysql:host=localhost;dbname=perumdej", "root", "");
 
-// if (isset($_POST['addtocart'])) {
-//     if (isset($_SESSION['cart'])) {
-//         $sessionarrayid = array_column($_SESSION['cart'], "id");
+if (isset($_POST['addtocart'])) {
+    if (isset($_SESSION['cart'])) {
 
-//         if (!in_array($_POST['id'], $sessionarrayid)) { 
+    } else {
+        $id = $_GET['items'];
 
-//             $id = $_POST['id'];
+        // Fetch the details associated with the provided id
+        $itemQuery = $conn->prepare("SELECT * FROM perfume WHERE id = :id");
+        $itemQuery->bindParam(':id', $id);
+        $itemQuery->execute();
+        $row = $itemQuery->fetch();
 
-//             $sessionarray = array(
-//                 "id" => $id,
-//                 "name" => $_POST['name'],
-//                 "brandname" => $_POST['brandname'],
-//                 "category" => $_POST['categoryname'],
-//                 "quantity" => $_POST['quantity']
-//             );
+        $sessionarray = array(
+            "id" => $id,
+            "name" => $row['perfume_name'],    // Use the correct column name from your database
+            "brandname" => $row['brand_name'], // Use the correct column name from your database
+            "category" => $row['category_name'], // Use the correct column name from your database
+            "quantity" => $_POST['quantity']
+        );
 
-//             $_SESSION['cart'][] = $sessionarray;
-//             echo "After setting cart: ";
-//         }
-//     } else {
-//         $id = $_POST['id'];
-
-//         $sessionarray = array(
-//             "id" => $id,
-//             "name" => $_POST['name'],
-//             "brandname" => $_POST['brandname'],
-//             "category" => $_POST['categoryname'],
-//             "quantity" => $_POST['quantity']
-//         );
-
-//         $_SESSION['cart'][] = $sessionarray;
-//         echo "After setting cart: ";
-//         var_dump($_SESSION['cart']);
-//     }
-// }
+        $_SESSION['cart'][] = $sessionarray;
+    }
+}
 ?>
 
 
-
 <?php
-
+var_dump($_SESSION['cart']) ;
+echo "<br>"
 ?>
 
 
@@ -104,7 +93,7 @@ require_once "eachitemspage/bkfunction.php";
 
             if ($itemId === $row['id']) {
               echo <<<HTML
-              <form action="shopcartpage.php?items={$row['id']}" method="post">
+              <form action="itemspage.php?items={$row['id']}" method="post">
               <h1 class="text-3xl">{$row['perfume_name']} by {$row['brand_name']} EDT 3.3 OZ {$row['mili']} spray for {$row['category_name']}</h1>
               <p class="mt-3 mb-3 text-sm">Available <span>(In stock)</span></p>
               <span class="text-green-600 font-semibold text-3xl">$ {$row['price']}</span>
@@ -128,7 +117,6 @@ require_once "eachitemspage/bkfunction.php";
                   </span>
               </div>
 
-              <input type="hidden" name="id" value="{$row['id']}">
                <input type="hidden" name="name" value="{$row['perfume_name']}">
                <input type="hidden" name="brandname" value="{$row['brand_name']}">
                <input type="hidden" name="categoryname" value="{$row['category_name']}">
