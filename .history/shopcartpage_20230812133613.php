@@ -266,18 +266,18 @@ if (isset($_POST['addtocart'])) {
                             // }
                         });';
                 echo '</script>';
-
+            
                 unset($_SESSION['cart'][$key]);
                 break;
 
             }
 
-
-
+            
+           
         }
 
-
-
+      
+       
     }
 
 
@@ -292,10 +292,6 @@ if (isset($_POST['addtocart'])) {
 
     <script>
         document.addEventListener("DOMContentLoaded", function () {
-          
-            const subtotalPrice = document.querySelector('.subtotalPrice');
-            const baseSubtotal = <?= $total ?>;
-
             const items = document.querySelectorAll('.cart-item');
 
             items.forEach(item => {
@@ -304,9 +300,10 @@ if (isset($_POST['addtocart'])) {
                 const quantityInput = item.querySelector(".valueInput");
                 const price = <?= $value['price'] ?>;
                 const totalpriceInput = item.querySelector(".totalprice");
-            
+                const subtotal = <?= $total ?>;
+                const subtotalPrice =document.querySelector('.subtotalPrice');
 
-
+              
 
                 const savedQuantity = localStorage.getItem(`qty-${item.id}`);
                 const savedPrice = localStorage.getItem(`price-${item.id}`);
@@ -322,7 +319,6 @@ if (isset($_POST['addtocart'])) {
                         quantityInput.value--;
                         updateTotalPrice();
                         saveQuantityToLocalStorage();
-                        updateSubtotal();
                     }
                 });
 
@@ -330,27 +326,16 @@ if (isset($_POST['addtocart'])) {
                     quantityInput.value++;
                     updateTotalPrice();
                     saveQuantityToLocalStorage();
-                    updateSubtotal();
                 });
 
                 quantityInput.addEventListener("input", function () {
                     updateTotalPrice();
                     saveQuantityToLocalStorage();
-                    updateSubtotal()
                 });
 
                 function updateTotalPrice() {
                     totalpriceInput.value = "$" + (quantityInput.value * price).toFixed(2);
-
-                }
-
-                function updateSubtotal() {
-                    let newSubtotal = baseSubtotal;
-                    items.forEach(item => {
-                        const itemTotalPrice = parseFloat(item.querySelector(".totalprice").value.substring(1));
-                        newSubtotal += itemTotalPrice;
-                    });
-                    subtotalPrice.textContent = "$" + newSubtotal.toFixed(2);
+                    console.log(subtotalPrice.innerHTML = "$" + $total + (quantityInput.value * price))
                 }
 
                 function saveQuantityToLocalStorage() {
@@ -370,13 +355,13 @@ if (isset($_POST['addtocart'])) {
         document.querySelectorAll('.remove-item').forEach(button => {
             button.addEventListener('click', function () {
 
-
+        
                 this.closest('form').submit();
 
             });
         });
 
-
+        
     </script>
 
 

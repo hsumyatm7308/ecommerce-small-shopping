@@ -292,11 +292,9 @@ if (isset($_POST['addtocart'])) {
 
     <script>
         document.addEventListener("DOMContentLoaded", function () {
-          
-            const subtotalPrice = document.querySelector('.subtotalPrice');
-            const baseSubtotal = <?= $total ?>;
-
             const items = document.querySelectorAll('.cart-item');
+            const subtotalPrice = document.querySelector('.subtotalPrice');
+            const baseSubtotal = <?= $total ?>; /
 
             items.forEach(item => {
                 const decreaseButton = item.querySelector(".decrease");
@@ -304,9 +302,6 @@ if (isset($_POST['addtocart'])) {
                 const quantityInput = item.querySelector(".valueInput");
                 const price = <?= $value['price'] ?>;
                 const totalpriceInput = item.querySelector(".totalprice");
-            
-
-
 
                 const savedQuantity = localStorage.getItem(`qty-${item.id}`);
                 const savedPrice = localStorage.getItem(`price-${item.id}`);
@@ -322,7 +317,6 @@ if (isset($_POST['addtocart'])) {
                         quantityInput.value--;
                         updateTotalPrice();
                         saveQuantityToLocalStorage();
-                        updateSubtotal();
                     }
                 });
 
@@ -330,50 +324,33 @@ if (isset($_POST['addtocart'])) {
                     quantityInput.value++;
                     updateTotalPrice();
                     saveQuantityToLocalStorage();
-                    updateSubtotal();
                 });
 
                 quantityInput.addEventListener("input", function () {
                     updateTotalPrice();
                     saveQuantityToLocalStorage();
-                    updateSubtotal()
                 });
 
                 function updateTotalPrice() {
-                    totalpriceInput.value = "$" + (quantityInput.value * price).toFixed(2);
-
-                }
-
-                function updateSubtotal() {
-                    let newSubtotal = baseSubtotal;
-                    items.forEach(item => {
-                        const itemTotalPrice = parseFloat(item.querySelector(".totalprice").value.substring(1));
-                        newSubtotal += itemTotalPrice;
-                    });
-                    subtotalPrice.textContent = "$" + newSubtotal.toFixed(2);
+                    const itemTotalPrice = quantityInput.value * price;
+                    totalpriceInput.value = "$" + itemTotalPrice.toFixed(2);
+                    updateSubtotal(); 
                 }
 
                 function saveQuantityToLocalStorage() {
                     localStorage.setItem(`qty-${item.id}`, quantityInput.value);
                     localStorage.setItem(`price-${item.id}`, totalpriceInput.value);
                 }
-
-
             });
-        });
 
-    </script>
-
-
-
-    <script>
-        document.querySelectorAll('.remove-item').forEach(button => {
-            button.addEventListener('click', function () {
-
-
-                this.closest('form').submit();
-
-            });
+            function updateSubtotal() {
+                let newSubtotal = baseSubtotal;
+                items.forEach(item => {
+                    const itemTotalPrice = parseFloat(item.querySelector(".totalprice").value.substring(1)); // Remove the "$" sign
+                    newSubtotal += itemTotalPrice;
+                });
+                subtotalPrice.textContent = "$" + newSubtotal.toFixed(2);
+            }
         });
 
 

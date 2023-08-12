@@ -42,7 +42,7 @@ if (isset($_POST['addtocart'])) {
         );
 
 
-        echo "After setting cart: ";
+        // echo "After setting cart: ";
         $_SESSION['cart'][] = $sessionarray;
         // var_dump($_SESSION['cart']);
     }
@@ -116,7 +116,7 @@ if (isset($_POST['addtocart'])) {
                         if (!empty($_SESSION['cart'])) {
                             foreach ($_SESSION['cart'] as $key => $value) {
                                 echo '
-                        <form action="shopcartpage.php" method="post">
+                        
                             <div id="' . $value['id'] . '" class="cart-item grid grid-cols-6 justify-center items-center border-b mb-4">
                             <div class="col-span-2 flex justify-center items-center">
                                 <img src="./assets/img/perfume/men/men1.jpg" alt="" class="" width="100px">
@@ -161,12 +161,20 @@ if (isset($_POST['addtocart'])) {
 
                             <div class="flex justify-center items-center">
 
-                               <input type="text" id="totalprice-' . $value['id'] . '" class="w-20 p-1 focus:outline-none totalprice" value="$' . number_format($value['quantity'] * $value['price'], 2) . '" readonly>
+                               <input type="text" id="totalprice-' . $value['id'] . '" class="w-20 p-1 totalprice" value="$' . number_format($value['quantity'] * $value['price'], 2) . '" readonly>
                             </div>
 
                             <div class="flex justify-center items-center">
                                 <div class="flex justify-center items-center">
-                                    <button type="submit" name="remove" class="remove-item" data-item-id="' . $value['id'] . '">Remove</button>
+
+                             <div class="flex justify-center items-center">
+                                <div class="flex justify-center items-center">
+                                    <a href="shopcartpage.php?action=remove&id='.$value['id'].'" >
+                                       <button type="submit" name="remove" class="remove-item" data-item-id="' . $value['id'] . '">Remove</button>
+                                    </a>
+                                 </div>
+                             </div>
+
                                  </div>
                              </div>
                         
@@ -179,8 +187,16 @@ if (isset($_POST['addtocart'])) {
 
                         </div>
                         
-                        </form>
+                    
                         ';
+
+                                echo '  <div class="flex justify-center items-center">
+                         <div class="flex justify-center items-center">
+                             <a href="shopcartpage.php?action=clearall" >
+                                <button type="submit" name="remove" class="remove-item" data-item-id="' . $value['id'] . '">Remove</button>
+                             </a>
+                          </div>
+                      </div>';
                                 $total = $total + ($value['quantity'] * $value['price']);
 
 
@@ -203,7 +219,7 @@ if (isset($_POST['addtocart'])) {
                             <?php
                             if (!empty($_SESSION['cart'])) {
 
-                                echo '<h1 class="text-black mr-7 ">Subtotal : <span class="subtotalPrice">$' . number_format($total, 2) . ' </span></h1>';
+                                echo '<h1 class="text-black mr-7">Subtotal : $' . number_format($total, 2) . '</h1>';
                             }
                             ?>
 
@@ -245,6 +261,20 @@ if (isset($_POST['addtocart'])) {
         </div>
     </section>
 
+
+    <?php
+    if (isset($_POST['action']) && $_POST['action'] == "clearall") {
+        unset($_SESSION['cart']);
+    }
+
+    echo '<div class="flex justify-center items-center">
+    <div class="flex justify-center items-center">
+        <a href="shopcartpage.php?action=clearall">
+            <span class="remove-link" data-item-id="' . $value['id'] . '">Remove</span>
+        </a>
+    </div>
+    </div>';
+    ?>
     <?php
 
     if (isset($_POST['remove']) && isset($_POST['id'])) {
@@ -252,32 +282,25 @@ if (isset($_POST['addtocart'])) {
 
         foreach ($_SESSION['cart'] as $key => $value) {
             if ($value['id'] === $removeItemId) {
+                unset($_SESSION['cart'][$key]);
 
                 echo '<script>';
                 echo '  const removeButton = document.querySelector(".remove-item[data-item-id=\'' . $removeItemId . '\']");';
                 echo '  removeButton.addEventListener("click", function () { 
-                            localStorage.removeItem("qty-' . $removeItemId . '");
-                            localStorage.removeItem("price-' . $removeItemId . '");
-            
-                            const item = removeButton.closest(".cart-item");
-                            // if (item) {
-                            //     item.remove();
-                            //     updateSubtotal();
-                            // }
-                        });';
+                    localStorage.removeItem("qty-' . $removeItemId . '");
+        
+                    // Remove the item from the cart visually
+                    const item = removeButton.closest(".cart-item");
+                    if (item) {
+                        item.remove();
+                        updateSubtotal();
+                    }
+                });';
                 echo '</script>';
 
-                unset($_SESSION['cart'][$key]);
                 break;
-
             }
-
-
-
         }
-
-
-
     }
 
 
@@ -292,10 +315,6 @@ if (isset($_POST['addtocart'])) {
 
     <script>
         document.addEventListener("DOMContentLoaded", function () {
-          
-            const subtotalPrice = document.querySelector('.subtotalPrice');
-            const baseSubtotal = <?= $total ?>;
-
             const items = document.querySelectorAll('.cart-item');
 
             items.forEach(item => {
@@ -304,17 +323,11 @@ if (isset($_POST['addtocart'])) {
                 const quantityInput = item.querySelector(".valueInput");
                 const price = <?= $value['price'] ?>;
                 const totalpriceInput = item.querySelector(".totalprice");
-            
 
-
-
+                // Retrieve quantity from localStorage on page load
                 const savedQuantity = localStorage.getItem(`qty-${item.id}`);
-                const savedPrice = localStorage.getItem(`price-${item.id}`);
                 if (savedQuantity !== null) {
                     quantityInput.value = savedQuantity;
-                }
-                if (savedPrice !== null) {
-                    totalpriceInput.value = savedPrice;
                 }
 
                 decreaseButton.addEventListener("click", function () {
@@ -322,7 +335,6 @@ if (isset($_POST['addtocart'])) {
                         quantityInput.value--;
                         updateTotalPrice();
                         saveQuantityToLocalStorage();
-                        updateSubtotal();
                     }
                 });
 
@@ -330,32 +342,19 @@ if (isset($_POST['addtocart'])) {
                     quantityInput.value++;
                     updateTotalPrice();
                     saveQuantityToLocalStorage();
-                    updateSubtotal();
                 });
 
                 quantityInput.addEventListener("input", function () {
                     updateTotalPrice();
                     saveQuantityToLocalStorage();
-                    updateSubtotal()
                 });
 
                 function updateTotalPrice() {
                     totalpriceInput.value = "$" + (quantityInput.value * price).toFixed(2);
-
-                }
-
-                function updateSubtotal() {
-                    let newSubtotal = baseSubtotal;
-                    items.forEach(item => {
-                        const itemTotalPrice = parseFloat(item.querySelector(".totalprice").value.substring(1));
-                        newSubtotal += itemTotalPrice;
-                    });
-                    subtotalPrice.textContent = "$" + newSubtotal.toFixed(2);
                 }
 
                 function saveQuantityToLocalStorage() {
                     localStorage.setItem(`qty-${item.id}`, quantityInput.value);
-                    localStorage.setItem(`price-${item.id}`, totalpriceInput.value);
                 }
 
 
@@ -369,14 +368,10 @@ if (isset($_POST['addtocart'])) {
     <script>
         document.querySelectorAll('.remove-item').forEach(button => {
             button.addEventListener('click', function () {
-
-
                 this.closest('form').submit();
 
             });
         });
-
-
     </script>
 
 

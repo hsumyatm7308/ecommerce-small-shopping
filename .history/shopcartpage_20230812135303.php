@@ -292,9 +292,8 @@ if (isset($_POST['addtocart'])) {
 
     <script>
         document.addEventListener("DOMContentLoaded", function () {
-          
-            const subtotalPrice = document.querySelector('.subtotalPrice');
-            const baseSubtotal = <?= $total ?>;
+            const items = document.querySelectorAll('.cart-item');
+         
 
             const items = document.querySelectorAll('.cart-item');
 

@@ -292,10 +292,10 @@ if (isset($_POST['addtocart'])) {
 
     <script>
         document.addEventListener("DOMContentLoaded", function () {
-          
+            const items = document.querySelectorAll('.cart-item');
             const subtotalPrice = document.querySelector('.subtotalPrice');
             const baseSubtotal = <?= $total ?>;
-
+            
             const items = document.querySelectorAll('.cart-item');
 
             items.forEach(item => {
@@ -304,7 +304,8 @@ if (isset($_POST['addtocart'])) {
                 const quantityInput = item.querySelector(".valueInput");
                 const price = <?= $value['price'] ?>;
                 const totalpriceInput = item.querySelector(".totalprice");
-            
+                const subtotal = <?= $total ?>;
+                const subtotalPrice = document.querySelector('.subtotalPrice');
 
 
 
