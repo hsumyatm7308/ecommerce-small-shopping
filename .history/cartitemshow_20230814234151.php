@@ -14,8 +14,6 @@ try {
         $stmt->bindParam(':id', $id);
         $stmt->execute();
 
-       
-
         header("Location: shopcartpage.php");
         exit;
     }
@@ -99,7 +97,7 @@ try {
         <form action="shopcartpage.php?remove=<?= $row['perfume_id'] ?>" method="post">
             <div class="flex justify-center items-center">
                 <div class="flex justify-center items-center">
-                    <button type="submit" name="remove" id="remove-<?= $row['perfume_id'] ?>" class="px-3 py-1 bg-gray-100 remove-item"
+                    <button type="submit" name="remove" class="px-3 py-1 bg-gray-100 remove-item"
                         data-item-id="<?= $row['perfume_id'] ?>">Remove</button>
                 </div>
             </div>
@@ -129,7 +127,6 @@ try {
                 qtyinput<?= $row['perfume_id'] ?>.value++;
                 updateTotalPrice<?= $row['perfume_id'] ?>();
                 savetolocalstorage<?= $row['perfume_id'] ?>();
-                savepricetolocalstorage<?= $row['perfume_id'] ?>()
             });
 
             decreasebtn<?= $row['perfume_id'] ?>.addEventListener('click', function () {
@@ -137,7 +134,6 @@ try {
                     qtyinput<?= $row['perfume_id'] ?>.value--;
                     updateTotalPrice<?= $row['perfume_id'] ?>();
                     savetolocalstorage<?= $row['perfume_id'] ?>();
-                    savepricetolocalstorage<?= $row['perfume_id'] ?>()
                 }
             });
 
@@ -150,17 +146,8 @@ try {
             }
 
             function savepricetolocalstorage<?= $row['perfume_id'] ?>() {
-                localStorage.setItem(`price-<?= $row['perfume_id'] ?>`, totalpriceinput<?= $row['perfume_id'] ?>.value);
+                localStorage.setItem(`qty-<?= $row['perfume_id'] ?>`, totalpriceinput<?= $row['perfume_id'] ?>.value);
             }
-
-
-
-            const removeitem<?= $row['perfume_id'] ?>  =document.querySelector('#remove-<?= $row['perfume_id'] ?>');
-            removeitem<?= $row['perfume_id'] ?>.addEventListener('click',function(){
-                localStorage.removeItem(`price-<?= $row['perfume_id'] ?>`);
-                localStorage.removeItem(`qty-<?= $row['perfume_id'] ?>`);
-
-            })
         </script>
 
 

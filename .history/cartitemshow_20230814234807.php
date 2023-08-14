@@ -156,11 +156,10 @@ try {
 
 
             const removeitem<?= $row['perfume_id'] ?>  =document.querySelector('#remove-<?= $row['perfume_id'] ?>');
-            removeitem<?= $row['perfume_id'] ?>.addEventListener('click',function(){
-                localStorage.removeItem(`price-<?= $row['perfume_id'] ?>`);
-                localStorage.removeItem(`qty-<?= $row['perfume_id'] ?>`);
+            removeitem<?= $row['perfume_id'] ?>.addEventListener('click',function()){
+                localStorage.setItem(`price-<?= $row['perfume_id'] ?>`, totalpriceinput<?= $row['perfume_id'] ?>.value);
 
-            })
+            }
         </script>
 
 

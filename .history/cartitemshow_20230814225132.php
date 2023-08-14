@@ -7,18 +7,6 @@ try {
     $stmt = $conn->prepare('SELECT * FROM addtocart');
     $stmt->execute();
 
-    if (isset($_POST['remove'])) {
-        $id = $_GET['remove'];
-        echo $id;
-        $stmt = $conn->prepare('DELETE FROM addtocart WHERE perfume_id = :id');
-        $stmt->bindParam(':id', $id);
-        $stmt->execute();
-
-       
-
-        header("Location: shopcartpage.php");
-        exit;
-    }
 
 
 } catch (Exception $e) {
@@ -36,7 +24,7 @@ try {
     ?>
 
 
-    <div id="<?= $row['perfume_id'] ?>" class="cart-item grid grid-cols-6 justify-center items-center border-b mb-4">
+    <div id="" class="cart-item grid grid-cols-6 justify-center items-center border-b mb-4">
         <div class="col-span-2 flex justify-center items-center">
             <img src="./assets/img/perfume/men/men1.jpg" alt="" class="" width="100px">
             <span class="ml-10">
@@ -96,11 +84,10 @@ try {
                 value="$<?= $row['totalprice'] ?>" readonly>
         </div>
 
-        <form action="shopcartpage.php?remove=<?= $row['perfume_id'] ?>" method="post">
+        <form action="" method="post">
             <div class="flex justify-center items-center">
                 <div class="flex justify-center items-center">
-                    <button type="submit" name="remove" id="remove-<?= $row['perfume_id'] ?>" class="px-3 py-1 bg-gray-100 remove-item"
-                        data-item-id="<?= $row['perfume_id'] ?>">Remove</button>
+                    <button type="submit" name="remove" class="remove-item" data-item-id="' . $id . '">Remove</button>
                 </div>
             </div>
         </form>
@@ -114,54 +101,23 @@ try {
             const increasebtn<?= $row['perfume_id'] ?> = document.querySelector("#increase-<?= $row['perfume_id'] ?>");
             const decreasebtn<?= $row['perfume_id'] ?> = document.querySelector("#decrease-<?= $row['perfume_id'] ?>");
 
-            const savedquantity<?= $row['perfume_id'] ?> = localStorage.getItem(`qty-<?= $row['perfume_id'] ?>`);
-            const savedprice<?= $row['perfume_id'] ?> = localStorage.getItem(`price-<?= $row['perfume_id'] ?>`);
-
-            if (savedquantity<?= $row['perfume_id'] ?> !== null) {
-                qtyinput<?= $row['perfume_id'] ?>.value = savedquantity<?= $row['perfume_id'] ?>;
-            }
-
-            if (savedprice<?= $row['perfume_id'] ?> !== null) {
-                totalpriceinput<?= $row['perfume_id'] ?>.value = savedprice<?= $row['perfume_id'] ?>;
-            }
-
             increasebtn<?= $row['perfume_id'] ?>.addEventListener('click', function () {
                 qtyinput<?= $row['perfume_id'] ?>.value++;
                 updateTotalPrice<?= $row['perfume_id'] ?>();
-                savetolocalstorage<?= $row['perfume_id'] ?>();
-                savepricetolocalstorage<?= $row['perfume_id'] ?>()
             });
 
             decreasebtn<?= $row['perfume_id'] ?>.addEventListener('click', function () {
                 if (qtyinput<?= $row['perfume_id'] ?>.value > 1) {
                     qtyinput<?= $row['perfume_id'] ?>.value--;
                     updateTotalPrice<?= $row['perfume_id'] ?>();
-                    savetolocalstorage<?= $row['perfume_id'] ?>();
-                    savepricetolocalstorage<?= $row['perfume_id'] ?>()
                 }
             });
-
-            function savetolocalstorage<?= $row['perfume_id'] ?>() {
-                localStorage.setItem(`qty-<?= $row['perfume_id'] ?>`, qtyinput<?= $row['perfume_id'] ?>.value);
-            }
 
             function updateTotalPrice<?= $row['perfume_id'] ?>() {
                 totalpriceinput<?= $row['perfume_id'] ?>.value = "$" + (qtyinput<?= $row['perfume_id'] ?>.value * price<?= $row['perfume_id'] ?>).toFixed(2);
             }
-
-            function savepricetolocalstorage<?= $row['perfume_id'] ?>() {
-                localStorage.setItem(`price-<?= $row['perfume_id'] ?>`, totalpriceinput<?= $row['perfume_id'] ?>.value);
-            }
-
-
-
-            const removeitem<?= $row['perfume_id'] ?>  =document.querySelector('#remove-<?= $row['perfume_id'] ?>');
-            removeitem<?= $row['perfume_id'] ?>.addEventListener('click',function(){
-                localStorage.removeItem(`price-<?= $row['perfume_id'] ?>`);
-                localStorage.removeItem(`qty-<?= $row['perfume_id'] ?>`);
-
-            })
         </script>
+
 
 
     </div>
