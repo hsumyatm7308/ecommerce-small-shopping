@@ -34,7 +34,7 @@ if (isset($_POST['action']) && $_POST['action'] === "data") {
 
             $cartstmt->execute();
 
-         
+            header("Location: itemspage.php");
         }
 
     }

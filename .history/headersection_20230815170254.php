@@ -132,31 +132,29 @@
 
 
 
-                <div id="bag-container" class=" flex justify-center items-center">
-                    <a href="shopcartpage.php" class=" flex justify-center items-center p-2">
+                <div id="bag-container" class="flex justify-center items-center">
+                    <div>
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                            stroke="currentColor" class="w-6 h-6 text-gray-600 cursor-pointer">
+                            stroke="currentColor" class="w-6 h-6 text-blue-600 cursor-pointer">
                             <path stroke-linecap="round" stroke-linejoin="round"
                                 d="M2.25 3h1.386c.51 0 .955.343 1.087.835l.383 1.437M7.5 14.25a3 3 0 00-3 3h15.75m-12.75-3h11.218c1.121-2.3 2.1-4.684 2.924-7.138a60.114 60.114 0 00-16.536-1.84M7.5 14.25L5.106 5.272M6 20.25a.75.75 0 11-1.5 0 .75.75 0 011.5 0zm12.75 0a.75.75 0 11-1.5 0 .75.75 0 011.5 0z" />
                         </svg>
+                    </div>
+                    <sup id="bag-count" class="text-red-500">
+                        <?php
+                        require_once "database.php";
 
-                        <sup id="bag-count" class="bg-gray-500  font-semibold px-2 py-2 rounded-full">
-                            <span class="text-gray-100">
-                                <?php
-                                require_once "database.php";
+                        try {
+                            $bagstmt = $conn->prepare("SELECT * FROM addtocart");
+                            $bagstmt->execute();
+                            echo $bagstmt->rowCount();
+                        } catch (Exception $e) {
+                            echo "Error Found : " . $e->getMessage();
+                        }
+                        ?>
+                    </sup>
 
-                                try {
-                                    $bagstmt = $conn->prepare("SELECT * FROM addtocart");
-                                    $bagstmt->execute();
-                                    echo $bagstmt->rowCount();
-                                } catch (Exception $e) {
-                                    echo "Error Found : " . $e->getMessage();
-                                }
-                                ?>
-                            </span>
-                        </sup>
-                    </a>
-
+                    <a href="shopcartpage.php" class="ml-3 text-blue-600 cursor-pointer">Bag</a>
                 </div>
             </div>
 

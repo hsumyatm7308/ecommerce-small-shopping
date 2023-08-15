@@ -34,7 +34,11 @@ if (isset($_POST['action']) && $_POST['action'] === "data") {
 
             $cartstmt->execute();
 
-         
+            echo '<script>
+            setTimeout(function() {
+                window.location.href = "itemspage.php";
+            }, 2000); // Adjust the delay as needed (in milliseconds)
+            </script>';
         }
 
     }

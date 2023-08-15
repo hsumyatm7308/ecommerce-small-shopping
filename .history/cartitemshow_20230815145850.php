@@ -3,7 +3,6 @@
 require_once "database.php";
 
 try {
-    global $conn;
 
     $stmt = $conn->prepare('SELECT * FROM addtocart');
     $stmt->execute();
@@ -175,3 +174,41 @@ try {
 
 
 
+/*
+ * Complete the 'flippingMatrix' function below.
+ *
+ * The function is expected to return an INTEGER.
+ * The function accepts 2D_INTEGER_ARRAY matrix as parameter.
+ */
+
+// function flippingMatrix($matrix) {
+//     $count = count($matrix);
+    
+//     $n = $count / 2;
+//     $sum = 0;
+    
+//     for ($i = 0; $i < $n; $i++) {
+//         for ($j = 0; $j < $n; $j++) {
+//             $maxValue = max(
+//                 $matrix[$i][$j],
+//                 $matrix[$i][$count - 1 - $j],
+//                 $matrix[$count - 1 - $i][$j],
+//                 $matrix[$count - 1 - $i][$count - 1 - $j]
+//             );
+//             $sum += $maxValue;
+//         }
+//     }
+    
+//     return $sum;
+// }
+
+// // Given input matrix
+// $matrix = [
+//     [112, 42, 83, 119],
+//     [56, 125, 56, 49],
+//     [15, 78, 101, 43],
+//     [62, 98, 114, 108]
+// ];
+
+// $result = flippingMatrix($matrix);
+// echo $result . "\n";

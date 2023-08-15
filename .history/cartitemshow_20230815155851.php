@@ -3,7 +3,6 @@
 require_once "database.php";
 
 try {
-    global $conn;
 
     $stmt = $conn->prepare('SELECT * FROM addtocart');
     $stmt->execute();

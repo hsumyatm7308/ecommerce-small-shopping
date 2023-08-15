@@ -109,19 +109,20 @@ require_once "eachitemspage/bkfunction.php";
 
                <div class="  flex  items-center mt-3">
                 
-                   <button type="button" name="addtocart" class="w-32 text-gray-100 bg-gray-500 flex justify-center items-center drop-shadow-lg p-1 hover:drop-shadow-[0_7px_7px_#d4d4d8] hover:opacity-90" id="addtocart" >Add to cart</button>
+                   <button type="button" name="addtocart" class="w-32 text-gray-100 bg-gray-500 flex justify-center items-center drop-shadow-lg p-1 hover:drop-shadow-[0_7px_7px_#d4d4d8] hover:bg-gray-400" id="addtocart" >Add to cart</button>
               </div>
 
-              <div id="alertcart" class="w-96  bg-green-100 flex justify-between items-center mt-3 p-2">
-              <span class="flex justify-start items-center p-1">
+              <div class="w-96  bg-green-100 flex justify-between items-center mt-3 p-2">
+                <span class="flex justify-start items-center p-1">
+
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 ml-4">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m9-.75a9 9 0 11-18 0 9 9 0 0118 0zm-9 3.75h.008v.008H12v-.008z" />
-                </svg>
-                <span>Item added to the cart</span>
-            </span>
-            <a href="shopcartpage.php" class="text-indigo-500 mr-4 hover:text-indigo-700">
-                View cart
-            </a>
+                <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m9-.75a9 9 0 11-18 0 9 9 0 0118 0zm-9 3.75h.008v.008H12v-.008z" /></svg>
+  
+                <span>Item added to the cart</span></span>
+
+                <a href="shopcartpage.php" class="text-indigo-500 mr-4 hover:text-indigo-700">
+                  View cart
+                </a>
               </div>
           
               <div class="mt-3">
@@ -800,9 +801,6 @@ require_once "eachitemspage/bkfunction.php";
           success: function (data) {
             console.log('Data sent successfully:', data);
             window.location.reload();
-            $('#alertcart').html(`
-           
-             `);
           },
         })
 
