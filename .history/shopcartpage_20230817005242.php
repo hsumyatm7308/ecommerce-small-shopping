@@ -88,6 +88,7 @@
                             }
                             ?>
                         </div>
+                          <hr>
 
                         <div class="w-[85%] flex items-center flex-col mt-3">
 
@@ -117,8 +118,6 @@
                             ?>
 
                         </div>
-                        <span>--------------------------------------------------</span>
-
                     </div>
 
                     <div class="w-[400px] h-16 bg-gray-200 flex justify-center items-center mt-10 ">

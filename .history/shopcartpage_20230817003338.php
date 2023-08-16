@@ -64,7 +64,9 @@
                         <div class="w-full h-10 bg-gray-200 flex justify-between items-center">
                             <h1 class="text-lg ml-4">Product list</h1>
 
+
                             <?php
+
                             require_once "database.php";
 
                             try {
@@ -73,52 +75,57 @@
                                 $stmt = $conn->prepare('SELECT * FROM addtocart');
                                 $stmt->execute();
 
-                                $totalamount = 0;
+                                if (isset($_POST['remove'])) {
+                                    $id = $_GET['remove'];
+                                    echo $id;
+                                    $stmt = $conn->prepare('DELETE FROM addtocart WHERE perfume_id = :id');
+                                    $stmt->bindParam(':id', $id);
+                                    $stmt->execute();
 
-                                while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
-                                    $subtotal = $row['quantity'] * $row['perfumeprice'];
-                                    $totalamount += $subtotal;
 
+
+                                    header("Location: shopcartpage.php");
+                                    exit;
                                 }
 
-                                echo '<h1 class="text-black mr-7">Subtotal: <span class="text-indigo-500 ml-2 totalAmount">' . $totalamount . ' $</span></h1>';
 
                             } catch (Exception $e) {
-                                echo 'Error: ' . $e->getMessage();
+                                echo 'Error:' . $e->getMessage();
                             }
-                            ?>
-                        </div>
 
+                            ?>
+
+                            <h1 class="text-black mr-7 ">Subtotal : <span class="subtotalPrice">
+                                    <?= $row['perfumeprice'] ?>
+                                </span></h1>';
+
+
+                        </div>
                         <div class="w-[85%] flex items-center flex-col mt-3">
 
+                            <li class="w-full flex justify-between mb-2"><span>Navy</span> <span>$30</span></li>
+                            <li class="w-full flex justify-between  mb-2"><span>Davidoff Cool Water</span>
+                                <span>$50</span>
+                            </li>
+                            <li class="w-full flex justify-between  mb-2"><span>Navy</span> <span>$30</span></li>
+                            <li class="w-full flex justify-between  mb-2"><span>Davidoff Cool Water</span>
+                                <span>$50</span>
+                            </li>
+                            <li class="w-full flex justify-between  mb-2"><span>Navy</span> <span>$30</span></li>
+                            <li class="w-full flex justify-between  mb-2"><span>Davidoff Cool Water</span>
+                                <span>$50</span>
+                            </li>
+                            <li class="w-full flex justify-between  mb-2"><span>Davidoff Cool Water</span>
+                                <span>$50</span>
+                            </li>
+                            <li class="w-full flex justify-between  mb-2"><span>Navy</span> <span>$30</span></li>
+                            <li class="w-full flex justify-between  mb-2"><span>Davidoff Cool Water</span>
+                                <span>$50</span>
+                            </li>
 
-                            <?php
-                            require_once "database.php";
 
-                            try {
-                                global $conn;
-
-                                $stmt = $conn->prepare('SELECT * FROM addtocart');
-                                $stmt->execute();
-
-                                $totalamount = 0;
-
-                                while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
-                                    $total = $row['quantity'] * $row['perfumeprice'];
-                                    // $totalamount += $subtotal;
-                                echo '<li class="w-full flex justify-between mb-2"><span>'.$row['perfumename'].'</span> <span>'.$total.' $</span></li>';
-
-                                }
-
-
-                            } catch (Exception $e) {
-                                echo 'Error: ' . $e->getMessage();
-                            }
-                            ?>
 
                         </div>
-                        <span>--------------------------------------------------</span>
-
                     </div>
 
                     <div class="w-[400px] h-16 bg-gray-200 flex justify-center items-center mt-10 ">

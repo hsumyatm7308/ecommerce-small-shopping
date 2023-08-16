@@ -117,8 +117,6 @@
                             ?>
 
                         </div>
-                        <span>--------------------------------------------------</span>
-
                     </div>
 
                     <div class="w-[400px] h-16 bg-gray-200 flex justify-center items-center mt-10 ">

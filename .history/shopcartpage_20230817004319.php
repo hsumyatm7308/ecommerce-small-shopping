@@ -73,52 +73,49 @@
                                 $stmt = $conn->prepare('SELECT * FROM addtocart');
                                 $stmt->execute();
 
-                                $totalamount = 0;
-
+                                $totalamount = 0; // Initialize total amount
+                            
                                 while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
-                                    $subtotal = $row['quantity'] * $row['perfumeprice'];
-                                    $totalamount += $subtotal;
-
+                                    $subtotal = $row['quantity'] * $row['perfumeprice']; 
+                                    $totalAmount += $subtotal; 
+                            
                                 }
 
-                                echo '<h1 class="text-black mr-7">Subtotal: <span class="text-indigo-500 ml-2 totalAmount">' . $totalamount . ' $</span></h1>';
+                                // Display total amount
+                                echo '<h1 class="text-black mr-7">Total Amount: <span class="totalAmount">' . $totalAmount . '</span></h1>';
 
                             } catch (Exception $e) {
                                 echo 'Error: ' . $e->getMessage();
                             }
                             ?>
                         </div>
+
 
                         <div class="w-[85%] flex items-center flex-col mt-3">
 
+                            <li class="w-full flex justify-between mb-2"><span>Navy</span> <span>$30</span></li>
+                            <li class="w-full flex justify-between  mb-2"><span>Davidoff Cool Water</span>
+                                <span>$50</span>
+                            </li>
+                            <li class="w-full flex justify-between  mb-2"><span>Navy</span> <span>$30</span></li>
+                            <li class="w-full flex justify-between  mb-2"><span>Davidoff Cool Water</span>
+                                <span>$50</span>
+                            </li>
+                            <li class="w-full flex justify-between  mb-2"><span>Navy</span> <span>$30</span></li>
+                            <li class="w-full flex justify-between  mb-2"><span>Davidoff Cool Water</span>
+                                <span>$50</span>
+                            </li>
+                            <li class="w-full flex justify-between  mb-2"><span>Davidoff Cool Water</span>
+                                <span>$50</span>
+                            </li>
+                            <li class="w-full flex justify-between  mb-2"><span>Navy</span> <span>$30</span></li>
+                            <li class="w-full flex justify-between  mb-2"><span>Davidoff Cool Water</span>
+                                <span>$50</span>
+                            </li>
 
-                            <?php
-                            require_once "database.php";
 
-                            try {
-                                global $conn;
-
-                                $stmt = $conn->prepare('SELECT * FROM addtocart');
-                                $stmt->execute();
-
-                                $totalamount = 0;
-
-                                while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
-                                    $total = $row['quantity'] * $row['perfumeprice'];
-                                    // $totalamount += $subtotal;
-                                echo '<li class="w-full flex justify-between mb-2"><span>'.$row['perfumename'].'</span> <span>'.$total.' $</span></li>';
-
-                                }
-
-
-                            } catch (Exception $e) {
-                                echo 'Error: ' . $e->getMessage();
-                            }
-                            ?>
 
                         </div>
-                        <span>--------------------------------------------------</span>
-
                     </div>
 
                     <div class="w-[400px] h-16 bg-gray-200 flex justify-center items-center mt-10 ">
