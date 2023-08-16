@@ -272,7 +272,7 @@ require_once "eachitemspage/bkfunction.php";
               echo <<<HTML
               <!-- <form action="" method="post"> -->
               <h1 class="text-3xl">{$perfumename} by {$brandname} EDT 3.3 OZ {$mili} spray for {$categoryname}</h1>
-              <p class="mt-3 mb-3 text-sm">Available (<span class="text-green-600">
+              <p class="mt-3 mb-3 text-sm">Available <span>(
               HTML;
 
                 try {
@@ -282,7 +282,7 @@ require_once "eachitemspage/bkfunction.php";
                 
                     if ($instock->rowCount() > 0) {
                         $status = $instock->fetchColumn();
-                        echo  $status ;
+                        echo '(' . $status . ')';
                     }
                 } catch (Exception $e) {
                     echo "Error Found : " . $e->getMessage();
@@ -290,7 +290,7 @@ require_once "eachitemspage/bkfunction.php";
                 
                 echo <<<HTML
                 
-              </span>)</p>
+                )</span></p>
               <span class="text-green-600 font-semibold text-3xl">$ {$price}</span>
               
         

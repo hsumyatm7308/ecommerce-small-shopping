@@ -14,7 +14,7 @@ if (isset($_POST['action']) && $_POST['action'] === "data") {
     $totalprice = $quantity * $price;
 
 
-
+   
 
     if ($id) {
 
@@ -43,6 +43,13 @@ if (isset($_POST['action']) && $_POST['action'] === "data") {
             echo "item_added";
 
 
+ $selectqty = $conn->prepare("SELECT qty FROM perfume WHERE id = :pfid");
+    $selectqty->bindParam(':pfid', $id);
+    $selectqty->execute();
+
+    $pfqty = $selectqty->fetch();
+
+    echo $pfqty;
 
         }
 

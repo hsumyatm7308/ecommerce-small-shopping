@@ -13,16 +13,15 @@ if (isset($_POST['action']) && $_POST['action'] === "data") {
 
     $totalprice = $quantity * $price;
 
-
-
-
     if ($id) {
 
         $checkstmt = $conn->prepare("SELECT id FROM addtocart WHERE perfume_id = :id");
         $checkstmt->bindParam(':id', $id);
         $checkstmt->execute();
 
-
+        $selectqty = $conn->prepare("SELECT qty FROM perfume WHERE id = :pfqtyid");
+        $checkstmt->bindParam(':pfqtyid', $id);
+        $checkstmt->execute();
 
         if ($checkstmt->rowCount() > 0) {
             //already added 
@@ -40,7 +39,19 @@ if (isset($_POST['action']) && $_POST['action'] === "data") {
             $cartstmt->bindParam(':id', $id);
 
             $cartstmt->execute();
+
+            
+ 
+            $pefumeqty =  - $quantity;
+
+            $stockstmt = $conn->prepare("UPDATE perfume SET qty = :pfqty WHERE id = :pfid");
+            $stockstmt->bindParam(":pfqty",);
+            $stockstmt->bindParam(":pfid",);
+            $stockstmt->execute();
+
+
             echo "item_added";
+
 
 
 

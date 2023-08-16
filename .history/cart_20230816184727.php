@@ -14,7 +14,7 @@ if (isset($_POST['action']) && $_POST['action'] === "data") {
     $totalprice = $quantity * $price;
 
 
-
+   
 
     if ($id) {
 
@@ -41,6 +41,7 @@ if (isset($_POST['action']) && $_POST['action'] === "data") {
 
             $cartstmt->execute();
             echo "item_added";
+
 
 
 

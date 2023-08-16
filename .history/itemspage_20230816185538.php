@@ -272,25 +272,16 @@ require_once "eachitemspage/bkfunction.php";
               echo <<<HTML
               <!-- <form action="" method="post"> -->
               <h1 class="text-3xl">{$perfumename} by {$brandname} EDT 3.3 OZ {$mili} spray for {$categoryname}</h1>
-              <p class="mt-3 mb-3 text-sm">Available (<span class="text-green-600">
-              HTML;
+              <p class="mt-3 mb-3 text-sm">Available <span>(<?php 
+                try{
+                  $checkstmt = $conn->prepare("SELECT status FROM perfume WHERE id = :id");
+                   $checkstmt->bindParam(':id', $id);
+                   $checkstmt->execute();
 
-                try {
-                    $instock = $conn->prepare("SELECT status FROM perfume WHERE id = :id");
-                    $instock->bindParam(':id', $row['id']);
-                    $instock->execute();
-                
-                    if ($instock->rowCount() > 0) {
-                        $status = $instock->fetchColumn();
-                        echo  $status ;
-                    }
-                } catch (Exception $e) {
-                    echo "Error Found : " . $e->getMessage();
+                }catch(Exception $e){
+                  echo "Error Found : ".$e->getMessage();
                 }
-                
-                echo <<<HTML
-                
-              </span>)</p>
+                ?>)</span></p>
               <span class="text-green-600 font-semibold text-3xl">$ {$price}</span>
               
         

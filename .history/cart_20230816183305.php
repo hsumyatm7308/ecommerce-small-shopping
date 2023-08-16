@@ -13,16 +13,11 @@ if (isset($_POST['action']) && $_POST['action'] === "data") {
 
     $totalprice = $quantity * $price;
 
-
-
-
     if ($id) {
 
         $checkstmt = $conn->prepare("SELECT id FROM addtocart WHERE perfume_id = :id");
         $checkstmt->bindParam(':id', $id);
         $checkstmt->execute();
-
-
 
         if ($checkstmt->rowCount() > 0) {
             //already added 
@@ -43,6 +38,7 @@ if (isset($_POST['action']) && $_POST['action'] === "data") {
             echo "item_added";
 
 
+            
 
         }
 
