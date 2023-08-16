@@ -261,13 +261,30 @@ require_once "eachitemspage/bkfunction.php";
       });
 
 
-      var count = localStorage.getItem('countitem');
-      $(".countcart").text(count);
 
     });
   </script>
 
+  <script>
+    $(document).ready(function () {
+      <?php
+      // if ($_SERVER['REQUEST_METHOD'] === "POST") {
+      //     if (isset($_POST['action']) && $_POST['action'] === "count" && isset($_POST['itemscount'])) {
+      //         $itemcount = $_POST['itemscount'];
+      //         echo "<p>Success</p>";
+      //     } else {
+      //         echo "Invalid data received";
+      //     }
+      // }
+      ?>
+      // var count = localStorage.getItem('countitem');
+      // $(".countcart").text(count);
 
+
+
+
+    });
+  </script>
 
 
 
@@ -1027,42 +1044,39 @@ require_once "eachitemspage/bkfunction.php";
           },
           success: function (data) {
             console.log('Data sent successfully:', data);
-
             var count = localStorage.getItem('countitem');
-            // console.log('Current count:', count);
 
-            if (data.trim() === "item_added") {
+            if (return === 100){
+          count = parseInt(count) || 0;
+          localStorage.setItem('countitem', count + 1);
+          $(".countcart").text(count + 1);
+        }
 
-              count = parseInt(count) || 0;
-              localStorage.setItem('countitem', count + 1);
-              $(".countcart").text(count + 1);
-              // console.log('New count:', count + 1);
-
-            } else if (data.trim() === "already_added") {
-
-              localStorage.setItem('countitem', count);
-              $(".countcart").text(count);
-              // console.log('New count:', count + 0);
-            }
-
-
-          },
-
+      },
         });
 
+    // var count = localStorage.getItem('countitem');
+
+    // if (data === "item_added") {
+    //   count = parseInt(count) || 0;
+    //   localStorage.setItem('countitem', count + 1);
+    //   $(".countcart").text(count + 1);
+    //   $(".countcart").text(data);
+    // } else if (data === "already_added") {
+    //   $(".countcart").text(count);
+    // }
 
 
 
 
+    <?php
+    require_once "database.php";
+    $alert = $conn->prepare("SELECT id FROM addtocart WHERE perfume_id = :id");
+    $alert->bindParam(':id', $_GET['items']);
+    $alert->execute();
 
-        <?php
-        require_once "database.php";
-        $alert = $conn->prepare("SELECT id FROM addtocart WHERE perfume_id = :id");
-        $alert->bindParam(':id', $_GET['items']);
-        $alert->execute();
-
-        if ($alert->rowCount() > 0) {
-          echo '
+    if ($alert->rowCount() > 0) {
+      echo '
         $("#alertcart").html(`
             <span class="flex justify-start items-center p-1">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 ml-4">
@@ -1076,8 +1090,8 @@ require_once "eachitemspage/bkfunction.php";
         `);
        ';
 
-        } else {
-          echo '
+    } else {
+      echo '
           $("#alertcart").html(`
               <span class="flex justify-start items-center p-1">
                   <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 ml-4">
@@ -1092,8 +1106,8 @@ require_once "eachitemspage/bkfunction.php";
         ';
 
 
-        }
-        ?>
+    }
+    ?>
 
 
 

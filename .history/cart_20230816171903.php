@@ -22,6 +22,7 @@ if (isset($_POST['action']) && $_POST['action'] === "data") {
         if ($checkstmt->rowCount() > 0) {
             //already added 
             echo "already_added";
+            return 100;
 
         } else {
             $cartstmt = $conn->prepare("INSERT INTO addtocart(perfumename,brandname,mili,category,perfumeprice,quantity,totalprice,perfume_id) VALUES (:name,:brand,:mili,:ctg,:price,:qty,:ttprice,:id)");
@@ -37,9 +38,10 @@ if (isset($_POST['action']) && $_POST['action'] === "data") {
             $cartstmt->execute();
             echo "item_added";
 
+             return 200;
         }
 
-
+       
 
     }
 

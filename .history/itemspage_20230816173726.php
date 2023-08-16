@@ -1029,20 +1029,20 @@ require_once "eachitemspage/bkfunction.php";
             console.log('Data sent successfully:', data);
 
             var count = localStorage.getItem('countitem');
-            // console.log('Current count:', count);
+            console.log('Current count:', count);
 
             if (data.trim() === "item_added") {
 
               count = parseInt(count) || 0;
               localStorage.setItem('countitem', count + 1);
               $(".countcart").text(count + 1);
-              // console.log('New count:', count + 1);
+              console.log('New count:', count + 1);
 
             } else if (data.trim() === "already_added") {
 
               localStorage.setItem('countitem', count);
               $(".countcart").text(count);
-              // console.log('New count:', count + 0);
+              console.log('New count:', count + 0);
             }
 
 
