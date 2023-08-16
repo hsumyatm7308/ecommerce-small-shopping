@@ -39,7 +39,7 @@ require_once "eachitemspage/bkfunction.php";
 
   <!-- Start Header  -->
   <?php
-  // require_once "./headersection.php";
+  require_once "./headersection.php";
   ?>
   <style>
     input[type=search]::-ms-clear {
@@ -71,7 +71,7 @@ require_once "eachitemspage/bkfunction.php";
 
 
 
-  <header class="navbgmarker ">
+<header class="navbgmarker ">
     <!-- start nav  -->
     <nav class="w-screen h-auto  flex items-center grid grid-cols-4 p-3">
       <a href="" class="flex justify-center items-center">
@@ -1045,17 +1045,15 @@ require_once "eachitemspage/bkfunction.php";
           success: function (data) {
             console.log('Data sent successfully:', data);
 
+            if(data === "item_added"){
+
+            }
+
             var count = localStorage.getItem('countitem');
             count = parseInt(count) || 0;
             localStorage.setItem('countitem', count + 1);
-              $(".countcart").text(count + 1);
-            // if (data === "item_added") {
-            
-            // } else if (data === "already_added") {
-            //   $(".countcart").text(count);
-            // }
 
-
+            $(".countcart").text(count + 1);
 
           },
         });

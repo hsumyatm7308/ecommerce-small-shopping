@@ -120,18 +120,14 @@
             var itemscount = itemscontainer.childElementCount;
             console.log(itemscount);
 
-            localStorage.setItem("countitem",itemscount);
-
-            // $.ajax({
-            //     url: "headersection.php",
-            //     method: 'POST',
-            //     data: { itemscount: itemscount, action: "count" }, 
-            //     success: function (data) {
-
-            //         console.log('successful:', data);
-                   
-            //     }
-            // });
+            $.ajax({
+                url: "itemspage.php",
+                method: 'POST',
+                data: { itemscount: itemscount, action: "count" }, // Make sure action is "count"
+                success: function (data) {
+                    console.log('successful:', data);
+                }
+            });
 
         });
 

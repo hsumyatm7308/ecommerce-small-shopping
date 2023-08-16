@@ -120,7 +120,7 @@
             var itemscount = itemscontainer.childElementCount;
             console.log(itemscount);
 
-            localStorage.setItem("countitem",itemscount);
+            
 
             // $.ajax({
             //     url: "headersection.php",

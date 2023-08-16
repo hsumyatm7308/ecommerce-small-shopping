@@ -1045,15 +1045,17 @@ require_once "eachitemspage/bkfunction.php";
           success: function (data) {
             console.log('Data sent successfully:', data);
 
-            var count = localStorage.getItem('countitem');
-            count = parseInt(count) || 0;
-            localStorage.setItem('countitem', count + 1);
+            if (data === "item_added") {
+              var count = localStorage.getItem('countitem');
+              count = parseInt(count) || 0;
+              localStorage.setItem('countitem', count + 1);
+
               $(".countcart").text(count + 1);
-            // if (data === "item_added") {
-            
-            // } else if (data === "already_added") {
-            //   $(".countcart").text(count);
-            // }
+            }elseif(data === "already_added"){
+               var count = 0;
+              $(".countcart").text(count);
+
+            }
 
 
 
