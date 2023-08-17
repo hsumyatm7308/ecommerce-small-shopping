@@ -1,4 +1,4 @@
-<!-- <?php
+<?php
 
 require_once "database.php";
 
@@ -163,11 +163,19 @@ try {
 
             })
         </script>
-       
 
+        <script>
+            var totprice = localStorage.getItem('qty-<?= $row['perfume_id'] ?>');
+            var eachvalue = totalpriceinput<?= $row['perfume_id'] ?>.value;
+            console.log(parseInt(totprice));
+            console.log( (qtyinput<?= $row['perfume_id'] ?>.value * price<?= $row['perfume_id'] ?>).toFixed(2));
+
+
+        </script>
     </div>
 
 
 <?php endwhile; ?>
 
- -->
+
+<?php

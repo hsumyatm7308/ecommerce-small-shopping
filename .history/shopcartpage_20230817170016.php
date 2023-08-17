@@ -350,45 +350,31 @@
 
 
                             <?php endwhile; ?>
+
                             <script>
+
                                 var qtyinput = document.querySelectorAll('.valueinput');
                                 var totalprice = document.querySelectorAll('.totalprice');
-                                var subtotal = document.getElementById('subtotal');
-
-                                var increase = document.querySelectorAll('.increase');
-                                var decrease = document.querySelectorAll('.decrease');
-
-
+                                var subtotalist = 0;
+                                // subtotalist += total;
 
 
                                 var subtotalist = 0;
 
-
-
-
                                 for (var i = 0; i < totalprice.length; i++) {
 
-                                    increase[i].addEventListener('click', function () {
-
-
-                                    })
 
                                     var curqty = qtyinput[i].value;
-                                        var curprice = totalprice[i].value;
+                                    var curprice = totalprice[i].value;
 
-                                        var curpricevalue = parseFloat(curprice.replace('$', ''));
+                                    var curpricevalue = parseFloat(curprice.replace('$', ''));
 
-                                        subtotalist += curpricevalue;
+                                    console.log(curpricevalue)
 
-                                        subtotal.value = "$" + subtotalist.toFixed(2, 0);
                                 }
 
 
-
-
-
                             </script>
-
 
 
                         </div>

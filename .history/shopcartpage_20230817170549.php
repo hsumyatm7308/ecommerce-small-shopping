@@ -353,39 +353,16 @@
                             <script>
                                 var qtyinput = document.querySelectorAll('.valueinput');
                                 var totalprice = document.querySelectorAll('.totalprice');
-                                var subtotal = document.getElementById('subtotal');
-
-                                var increase = document.querySelectorAll('.increase');
-                                var decrease = document.querySelectorAll('.decrease');
-
-
-
-
                                 var subtotalist = 0;
 
-
-
-
                                 for (var i = 0; i < totalprice.length; i++) {
-
-                                    increase[i].addEventListener('click', function () {
-
-
-                                    })
-
                                     var curqty = qtyinput[i].value;
-                                        var curprice = totalprice[i].value;
+                                    var curprice = totalprice[i].value;
 
-                                        var curpricevalue = parseFloat(curprice.replace('$', ''));
+                                    var curpricevalue = parseFloat(curprice.replace('$', ''));
+                                    console.log(curpricevalue);
 
-                                        subtotalist += curpricevalue;
-
-                                        subtotal.value = "$" + subtotalist.toFixed(2, 0);
                                 }
-
-
-
-
 
                             </script>
 

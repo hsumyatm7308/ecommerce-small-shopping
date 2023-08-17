@@ -367,20 +367,23 @@
 
 
                                 for (var i = 0; i < totalprice.length; i++) {
-
                                     increase[i].addEventListener('click', function () {
-
-
-                                    })
-
-                                    var curqty = qtyinput[i].value;
-                                        var curprice = totalprice[i].value;
-
+                                        var curItemIndex = Array.from(increase).indexOf(this); // Get the index of the clicked button
+                                        var curqty = parseInt(qtyinput[curItemIndex].value);
+                                        var curprice = totalprice[curItemIndex].value;
                                         var curpricevalue = parseFloat(curprice.replace('$', ''));
 
-                                        subtotalist += curpricevalue;
+                                        subtotalist += curpricevalue; // Update the subtotal
 
-                                        subtotal.value = "$" + subtotalist.toFixed(2, 0);
+                                        subtotal.value = "$" + subtotalist.toFixed(2);
+                                    });
+
+                                    var curqty = qtyinput[i].value;
+                                    var curprice = totalprice[i].value;
+
+                                    var curpricevalue = parseFloat(curprice.replace('$', ''));
+
+                                    subtotalist += curpricevalue;
                                 }
 
 

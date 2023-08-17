@@ -265,7 +265,7 @@
                                         <?php echo $row['perfumename']; ?>
                                     </span>
                                     <input type="text" id="totallist-<?php echo $row['perfume_id']; ?>"
-                                        class="w-20 p-1 focus:outline-none " value="$ <?php echo $total; ?>" readonly>
+                                        class="w-20 p-1 focus:outline-none " value="$<?php echo $total; ?>" readonly>
                                 </li>
 
 
@@ -347,48 +347,30 @@
                                 </script>
 
 
+                                <script>
+
+                                    var qtyinput = document.querySelectorAll('.valueinput');
+                                    var totalprice = document.querySelectorAll('.totalprice');
+                                    var subtotalist = 0;
+                                    // var total = qtyinput.value * price;
+                                    // subtotalist += total;
+
+
+                                    // document.getElementById('subtotal').value = "$" + subtotalist.toFixed(2);
+                                    var totalpriceInputs = document.querySelectorAll('.totalprice'); // Select all elements with the class .totalprice
+
+                                    for (var i = 0; i < totalpriceInputs.length; i++) {
+                                        var totalpriceInput = totalpriceInputs[i]; // Get the current total price input element
+                                        var totalPriceValue = parseFloat(totalpriceInput.value.replace('$', '')); // Extract the numeric value
+
+                                        console.log(totalPriceValue);
+                                        // You can perform further operations with totalPriceValue if needed
+                                    }
+
+                                </script>
 
 
                             <?php endwhile; ?>
-                            <script>
-                                var qtyinput = document.querySelectorAll('.valueinput');
-                                var totalprice = document.querySelectorAll('.totalprice');
-                                var subtotal = document.getElementById('subtotal');
-
-                                var increase = document.querySelectorAll('.increase');
-                                var decrease = document.querySelectorAll('.decrease');
-
-
-
-
-                                var subtotalist = 0;
-
-
-
-
-                                for (var i = 0; i < totalprice.length; i++) {
-
-                                    increase[i].addEventListener('click', function () {
-
-
-                                    })
-
-                                    var curqty = qtyinput[i].value;
-                                        var curprice = totalprice[i].value;
-
-                                        var curpricevalue = parseFloat(curprice.replace('$', ''));
-
-                                        subtotalist += curpricevalue;
-
-                                        subtotal.value = "$" + subtotalist.toFixed(2, 0);
-                                }
-
-
-
-
-
-                            </script>
-
 
 
                         </div>

@@ -354,40 +354,34 @@
                                 var qtyinput = document.querySelectorAll('.valueinput');
                                 var totalprice = document.querySelectorAll('.totalprice');
                                 var subtotal = document.getElementById('subtotal');
-
-                                var increase = document.querySelectorAll('.increase');
-                                var decrease = document.querySelectorAll('.decrease');
-
-
-
+                                var increase = document.querySelectorAll('.increase'); // Corrected the selector for the increase buttons
 
                                 var subtotalist = 0;
 
-
-
-
                                 for (var i = 0; i < totalprice.length; i++) {
+                                    var curqty = parseInt(qtyinput[i].value); // Parse the quantity as an integer
+                                    var curprice = totalprice[i].value;
+                                    var curpricevalue = parseFloat(curprice.replace('$', ''));
 
-                                    increase[i].addEventListener('click', function () {
-
-
-                                    })
-
-                                    var curqty = qtyinput[i].value;
-                                        var curprice = totalprice[i].value;
-
-                                        var curpricevalue = parseFloat(curprice.replace('$', ''));
-
-                                        subtotalist += curpricevalue;
-
-                                        subtotal.value = "$" + subtotalist.toFixed(2, 0);
+                                    subtotalist += curqty * curpricevalue;
                                 }
 
+                                subtotal.value = "$" + subtotalist.toFixed(2);
 
+                                for (var i = 0; i < increase.length; i++) {
+                                    increase[i].addEventListener('click', function () {
+                                        var curItemIndex = Array.from(increase).indexOf(this); // Get the index of the clicked button
+                                        var curqty = parseInt(qtyinput[curItemIndex].value);
+                                        var curprice = totalprice[curItemIndex].value;
+                                        var curpricevalue = parseFloat(curprice.replace('$', ''));
 
+                                        subtotalist += curpricevalue; // Update the subtotal
 
-
+                                        subtotal.value = "$" + subtotalist.toFixed(2);
+                                    });
+                                }
                             </script>
+
 
 
 

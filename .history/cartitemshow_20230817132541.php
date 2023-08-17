@@ -1,4 +1,4 @@
-<!-- <?php
+<?php
 
 require_once "database.php";
 
@@ -170,4 +170,4 @@ try {
 
 <?php endwhile; ?>
 
- -->
+

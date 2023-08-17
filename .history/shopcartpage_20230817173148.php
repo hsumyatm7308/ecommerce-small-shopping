@@ -374,13 +374,13 @@
                                     })
 
                                     var curqty = qtyinput[i].value;
-                                        var curprice = totalprice[i].value;
+                                    var curprice = totalprice[i].value;
 
-                                        var curpricevalue = parseFloat(curprice.replace('$', ''));
+                                    var curpricevalue = parseFloat(curprice.replace('$', ''));
 
-                                        subtotalist += curpricevalue;
+                                    subtotalist += curpricevalue;
 
-                                        subtotal.value = "$" + subtotalist.toFixed(2, 0);
+                                    subtotal.value = "$" + subtotalist.toFixed(2, 0);
                                 }
 
 

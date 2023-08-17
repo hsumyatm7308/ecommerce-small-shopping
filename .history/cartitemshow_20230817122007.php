@@ -1,4 +1,4 @@
-<!-- <?php
+<?php
 
 require_once "database.php";
 
@@ -163,11 +163,15 @@ try {
 
             })
         </script>
-       
 
+        <script>
+            var totalofeach = "<?php $totalamount ?>";
+            console.log(totalofeach);
+        </script>
     </div>
 
 
 <?php endwhile; ?>
 
- -->
+
+<?php

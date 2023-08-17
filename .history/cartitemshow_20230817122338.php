@@ -1,4 +1,4 @@
-<!-- <?php
+<?php
 
 require_once "database.php";
 
@@ -163,11 +163,14 @@ try {
 
             })
         </script>
-       
 
+        <script>
+            console.log(totalpriceinput<?= $row['perfume_id'] ?>);
+        </script>
     </div>
 
 
 <?php endwhile; ?>
 
- -->
+
+<?php

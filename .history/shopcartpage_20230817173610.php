@@ -367,20 +367,32 @@
 
 
                                 for (var i = 0; i < totalprice.length; i++) {
-
                                     increase[i].addEventListener('click', function () {
-
-
-                                    })
-
-                                    var curqty = qtyinput[i].value;
-                                        var curprice = totalprice[i].value;
-
+                                        var curItemIndex = Array.from(increase).indexOf(this);
+                                        var curqty = parseInt(qtyinput[curItemIndex].value);
+                                        var curprice = totalprice[curItemIndex].value;
                                         var curpricevalue = parseFloat(curprice.replace('$', ''));
 
                                         subtotalist += curpricevalue;
+                                        subtotal.value = "$" + subtotalist.toFixed(2);
+                                    });
 
-                                        subtotal.value = "$" + subtotalist.toFixed(2, 0);
+                                    decrease[i].addEventListener('click', function () {
+                                        var curItemIndex = Array.from(decrease).indexOf(this);
+                                        var curqty = parseInt(qtyinput[curItemIndex].value);
+                                        var curprice = totalprice[curItemIndex].value;
+                                        var curpricevalue = parseFloat(curprice.replace('$', ''));
+
+                                        subtotalist -= curpricevalue; 
+                                        subtotal.value = "$" + subtotalist.toFixed(2);
+                                    });
+
+                                    var curqty = qtyinput[i].value;
+                                    var curprice = totalprice[i].value;
+
+                                    var curpricevalue = parseFloat(curprice.replace('$', ''));
+
+                                    subtotalist += curpricevalue;
                                 }
 
 

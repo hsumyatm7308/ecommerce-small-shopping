@@ -371,14 +371,14 @@
                                     increase[i].addEventListener('click', function () {
 
 
-                                    })
-
-                                    var curqty = qtyinput[i].value;
+                                        var curqty = qtyinput[i].value;
                                         var curprice = totalprice[i].value;
 
                                         var curpricevalue = parseFloat(curprice.replace('$', ''));
 
                                         subtotalist += curpricevalue;
+
+                                    })
 
                                         subtotal.value = "$" + subtotalist.toFixed(2, 0);
                                 }

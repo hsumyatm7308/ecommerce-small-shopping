@@ -355,36 +355,37 @@
                                 var totalprice = document.querySelectorAll('.totalprice');
                                 var subtotal = document.getElementById('subtotal');
 
-                                var increase = document.querySelectorAll('.increase');
-                                var decrease = document.querySelectorAll('.decrease');
+                                var increase = document.querySelectorAll('increase');
+                                var decrease = document.querySelectorAll('decrease');
 
 
 
 
                                 var subtotalist = 0;
 
-
-
-
                                 for (var i = 0; i < totalprice.length; i++) {
 
-                                    increase[i].addEventListener('click', function () {
 
+
+                                    var curqty = qtyinput[i].value;
+                                    var curprice = totalprice[i].value;
+
+                                    var curpricevalue = parseFloat(curprice.replace('$', ''));
+
+                                    subtotalist += curpricevalue;
+
+                                }
+
+                                subtotal.value = "$" + subtotalist.toFixed(2, 0);
+
+                                for (var i of increase) {
+                                    increase[i].addEventListener('click', function () {
+                                        subtotal.value = "$" + subtotalist.toFixed(2, 0);
 
                                     })
 
-                                    var curqty = qtyinput[i].value;
-                                        var curprice = totalprice[i].value;
 
-                                        var curpricevalue = parseFloat(curprice.replace('$', ''));
-
-                                        subtotalist += curpricevalue;
-
-                                        subtotal.value = "$" + subtotalist.toFixed(2, 0);
                                 }
-
-
-
 
 
                             </script>

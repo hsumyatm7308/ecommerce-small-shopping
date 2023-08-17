@@ -1,4 +1,4 @@
-<!-- <?php
+<?php
 
 require_once "database.php";
 
@@ -163,11 +163,12 @@ try {
 
             })
         </script>
-       
 
+       
     </div>
 
 
 <?php endwhile; ?>
 
- -->
+
+<?php

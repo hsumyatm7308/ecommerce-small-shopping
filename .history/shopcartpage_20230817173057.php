@@ -365,26 +365,27 @@
 
 
 
-
-                                for (var i = 0; i < totalprice.length; i++) {
-
+                                for (var i of increase) {
                                     increase[i].addEventListener('click', function () {
 
+                                        for (var i = 0; i < totalprice.length; i++) {
 
-                                    })
 
-                                    var curqty = qtyinput[i].value;
-                                        var curprice = totalprice[i].value;
 
-                                        var curpricevalue = parseFloat(curprice.replace('$', ''));
+                                            var curqty = qtyinput[i].value;
+                                            var curprice = totalprice[i].value;
 
-                                        subtotalist += curpricevalue;
+                                            var curpricevalue = parseFloat(curprice.replace('$', ''));
+
+                                            subtotalist += curpricevalue;
+
+                                        }
 
                                         subtotal.value = "$" + subtotalist.toFixed(2, 0);
+                                    })
+
+
                                 }
-
-
-
 
 
                             </script>

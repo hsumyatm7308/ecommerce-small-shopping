@@ -226,7 +226,7 @@
 
                             <?php endwhile; ?>
                             <h1 class="text-black mr-7">Subtotal: <span class="text-indigo-500 ml-2 totalmount">
-                                    <input type="text" id="subtotal" class="w-20 p-1 focus:outline-none "
+                                    <input type="text" id="subtotal" class="w-20 p-1 focus:outline-none totalprice"
                                         value="$<?php echo $totalamount; ?>" readonly>
                                 </span>
                             </h1>
@@ -265,7 +265,8 @@
                                         <?php echo $row['perfumename']; ?>
                                     </span>
                                     <input type="text" id="totallist-<?php echo $row['perfume_id']; ?>"
-                                        class="w-20 p-1 focus:outline-none " value="$ <?php echo $total; ?>" readonly>
+                                        class="w-20 p-1 focus:outline-none totalprice" value="$<?php echo $total; ?>"
+                                        readonly>
                                 </li>
 
 
@@ -347,47 +348,20 @@
                                 </script>
 
 
+                                <script>
+
+
+                                    var subtotalist = 0;
+                                    var total = qtyinput.value * price;
+                                    subtotalist += total;
+
+
+                                    document.getElementById('subtotal').value = "$" + subtotalist.toFixed(2);
+
+                                </script>
 
 
                             <?php endwhile; ?>
-                            <script>
-                                var qtyinput = document.querySelectorAll('.valueinput');
-                                var totalprice = document.querySelectorAll('.totalprice');
-                                var subtotal = document.getElementById('subtotal');
-
-                                var increase = document.querySelectorAll('.increase');
-                                var decrease = document.querySelectorAll('.decrease');
-
-
-
-
-                                var subtotalist = 0;
-
-
-
-
-                                for (var i = 0; i < totalprice.length; i++) {
-
-                                    increase[i].addEventListener('click', function () {
-
-
-                                    })
-
-                                    var curqty = qtyinput[i].value;
-                                        var curprice = totalprice[i].value;
-
-                                        var curpricevalue = parseFloat(curprice.replace('$', ''));
-
-                                        subtotalist += curpricevalue;
-
-                                        subtotal.value = "$" + subtotalist.toFixed(2, 0);
-                                }
-
-
-
-
-
-                            </script>
 
 
 

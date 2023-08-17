@@ -1,4 +1,4 @@
-<!-- <?php
+<?php
 
 require_once "database.php";
 
@@ -163,11 +163,15 @@ try {
 
             })
         </script>
-       
 
+        <script>
+            // const totalpriceinput<?= $row['perfume_id'] ?> = document.querySelector('#totalprice-<?= $row['perfume_id'] ?>');
+            console.log(totalpriceinput<?= $row['perfume_id'] ?>);
+        </script>
     </div>
 
 
 <?php endwhile; ?>
 
- -->
+
+<?php

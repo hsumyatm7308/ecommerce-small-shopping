@@ -1,4 +1,4 @@
-<!-- <?php
+<?php
 
 require_once "database.php";
 
@@ -163,11 +163,17 @@ try {
 
             })
         </script>
-       
 
+        <script>
+            var totprice = localStorage.getItem('qty-<?= $row['perfume_id'] ?>');
+            console.log(totalpriceinput<?= $row['perfume_id'] ?>.value );
+            console.log(parseInt(totprice))
+
+        </script>
     </div>
 
 
 <?php endwhile; ?>
 
- -->
+
+<?php

@@ -355,8 +355,8 @@
                                 var totalprice = document.querySelectorAll('.totalprice');
                                 var subtotal = document.getElementById('subtotal');
 
-                                var increase = document.querySelectorAll('.increase');
-                                var decrease = document.querySelectorAll('.decrease');
+                                var increase = document.querySelectorAll('increase');
+                                var decrease = document.querySelectorAll('decrease');
 
 
 
@@ -365,26 +365,27 @@
 
 
 
-
-                                for (var i = 0; i < totalprice.length; i++) {
-
+                                for (var i of increase) {
                                     increase[i].addEventListener('click', function () {
+                                        
+                                        for (var i = 0; i < totalprice.length; i++) {
 
 
-                                    })
 
-                                    var curqty = qtyinput[i].value;
-                                        var curprice = totalprice[i].value;
+                                            var curqty = qtyinput[i].value;
+                                            var curprice = totalprice[i].value;
 
-                                        var curpricevalue = parseFloat(curprice.replace('$', ''));
+                                            var curpricevalue = parseFloat(curprice.replace('$', ''));
 
-                                        subtotalist += curpricevalue;
+                                            subtotalist += curpricevalue;
+
+                                        }
 
                                         subtotal.value = "$" + subtotalist.toFixed(2, 0);
+                                    })
+
+
                                 }
-
-
-
 
 
                             </script>
