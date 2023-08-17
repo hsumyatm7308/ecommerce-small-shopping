@@ -34,25 +34,13 @@
                         <li class="p-1 ">Payment</li>
                     </ul>
                 </div>
-
-
             </div>
 
-
-
-        </div>
-        <div class="flex justify-start items-center ml-20 mt-10">
-
-            <a href="index.php?page=1" class="flex justify-start items-center uppercase text-sm">
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                    stroke="currentColor" class="w-6 h-6">
-                    <path stroke-linecap="round" stroke-linejoin="round"
-                        d="M18.75 19.5l-7.5-7.5 7.5-7.5m-6 15L5.25 12l7.5-7.5" />
-                </svg>
-                Back to shop ||</a>
         </div>
 
-
+        <div>
+            <a href="index.php?page=1" class="ml-10">back to shop</a>
+        </div>
     </section>
 
     <section>
@@ -134,7 +122,7 @@
                                             <div class="item flex justify-center items-center p-1">
                                                 <div class="flex items-center">
                                                     <span id="decrease-<?= $row['perfume_id'] ?>"
-                                                        class="bg-gray-100 border px-2 py-1 m-1 decrease shadow hover:bg-gray-200">
+                                                        class="bg-gray-100 border px-2 py-1 m-1 decrease hover:shadow">
                                                         <svg xmlns="http://www.w3.org/2000/svg" fill="none"
                                                             viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
                                                             class="w-4 h-4">
@@ -153,7 +141,7 @@
 
                                                     <button type="submit" name="increase"
                                                         id="increase-<?= $row['perfume_id'] ?>"
-                                                        class="bg-gray-100 border px-2 py-1 m-1 increase hover:bg-gray-200">
+                                                        class="bg-gray-100 border px-2 py-1 m-1 increase">
                                                         <svg xmlns="http://www.w3.org/2000/svg" fill="none"
                                                             viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
                                                             class="w-4 h-4">
@@ -180,7 +168,7 @@
                                     <div class="flex justify-center items-center">
                                         <div class="flex justify-center items-center">
                                             <button type="submit" name="remove" id="remove-<?= $row['perfume_id'] ?>"
-                                                class="px-3 py-1 bg-gray-400 rounded-md shadow remove-item hover:text-white"
+                                                class="px-3 py-1 bg-gray-400 rounded-md shadow remove-item hover:text-white" 
                                                 data-item-id="<?= $row['perfume_id'] ?>">Remove</button>
                                         </div>
                                     </div>
@@ -201,17 +189,9 @@
 
 
                     </div>
-
-
-
-
                 </div>
-
-
-
                 <div class="w-full flex justify-start items-center flex-col">
-                    <div
-                        class="w-[400px] min-h-[300px] bg-gray-100 mt-10 flex shadow shadow-lg border items-center flex-col px-5 py-7">
+                    <div class="w-[400px] min-h-[300px] bg-gray-100 mt-10 flex  items-center flex-col px-5 py-7">
                         <div class="w-full h-10 bg-gray-200 flex justify-between items-center">
                             <h1 class="text-lg ml-4">Product list</h1>
 
@@ -285,8 +265,7 @@
                                         <?php echo $row['perfumename']; ?>
                                     </span>
                                     <input type="text" id="totallist-<?php echo $row['perfume_id']; ?>"
-                                        class="w-20 p-1 bg-transparent focus:outline-none " value="$ <?php echo $total; ?>"
-                                        readonly>
+                                        class="w-20 p-1 bg-transparent focus:outline-none " value="$ <?php echo $total; ?>" readonly>
                                 </li>
 
 
@@ -421,8 +400,7 @@
 
                     </div>
 
-                    <div
-                        class="w-[400px] h-16 bg-gray-200 flex justify-center items-center mt-10   border hover:border-2">
+                    <div class="w-[400px] h-16 bg-gray-200 flex justify-center items-center mt-10 ">
                         <a href="./informationpage.html" class="text-xl">Checkout</a>
                     </div>
                 </div>

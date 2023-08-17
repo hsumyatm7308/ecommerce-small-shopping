@@ -41,20 +41,18 @@
 
 
         </div>
-        <div class="flex justify-start items-center ml-20 mt-10">
-
-            <a href="index.php?page=1" class="flex justify-start items-center uppercase text-sm">
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                    stroke="currentColor" class="w-6 h-6">
-                    <path stroke-linecap="round" stroke-linejoin="round"
-                        d="M18.75 19.5l-7.5-7.5 7.5-7.5m-6 15L5.25 12l7.5-7.5" />
-                </svg>
-                Back to shop ||</a>
-        </div>
 
 
     </section>
+    <div class="flex justify-start items-center ml-14">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
+            class="w-6 h-6">
+            <path stroke-linecap="round" stroke-linejoin="round"
+                d="M18.75 19.5l-7.5-7.5 7.5-7.5m-6 15L5.25 12l7.5-7.5" />
+        </svg>
 
+        <a href="index.php?page=1" class="uppercase text-sm">Back to shop</a>
+    </div>
     <section>
         <div class="w-full p-8">
             <div class="grid grid-cols-3">
@@ -201,14 +199,7 @@
 
 
                     </div>
-
-
-
-
                 </div>
-
-
-
                 <div class="w-full flex justify-start items-center flex-col">
                     <div
                         class="w-[400px] min-h-[300px] bg-gray-100 mt-10 flex shadow shadow-lg border items-center flex-col px-5 py-7">
