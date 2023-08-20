@@ -397,21 +397,19 @@ require_once "checkout.php";
 
 
                                 <script>
-                                    var qtyinputvalue<?= $row['perfume_id'] ?> = qtyinput<?= $row['perfume_id'] ?>.value;
-                                    var pricevalue<?= $row['perfume_id'] ?> = totalpriceinput<?= $row['perfume_id'] ?>.value;
-                                    console.log(qtyinputvalue<?= $row['perfume_id'] ?>, pricevalue<?= $row['perfume_id'] ?>)
+                                    var qtyinputvalue = qtyinput<?= $row['perfume_id'] ?>.value;
+                                    var pricevalue = totalpriceinput<?= $row['perfume_id'] ?>.value;
+                                    console.log(qtyinputvalue, pricevalue)
 
                                     $(document).ready(function () {
-
-                                      console.log($('#checkout'))
 
                                         $.ajax({
                                             url: "checkout.php",
                                             type: "POST",
                                             data: {
-                                                perfumeid: <?= $row["perfume_id"] ?>,
-                                                qtyvalue: qtyinputvalue<?= $row['perfume_id'] ?>,
-                                                pricevalue: pricevalue<?= $row['perfume_id'] ?>,
+                                                perfumeId: <?= $row["perfume_id"] ?>,
+                                                qtyvalue: qtyinputvalue,
+                                                pricevalue: pricevalue,
                                                 action : 'update'
                                             },
                                             success:function(data){
@@ -475,8 +473,8 @@ require_once "checkout.php";
 
                     <div
                         class="w-[400px] h-16 bg-[#01115f] text-white flex justify-center items-center mt-10 border hover:border-2">
-                        <form action="" method="post">
-                            <button type="" id="checkout" name="checkout" class="text-xl">Checkout</button>
+                        <form action="shopcartpage.php" method="post">
+                            <button type="submit" name="checkout" class="text-xl">Checkout</button>
                         </form>
                     </div>
 

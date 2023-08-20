@@ -403,8 +403,6 @@ require_once "checkout.php";
 
                                     $(document).ready(function () {
 
-                                      console.log($('#checkout'))
-
                                         $.ajax({
                                             url: "checkout.php",
                                             type: "POST",
@@ -475,8 +473,8 @@ require_once "checkout.php";
 
                     <div
                         class="w-[400px] h-16 bg-[#01115f] text-white flex justify-center items-center mt-10 border hover:border-2">
-                        <form action="" method="post">
-                            <button type="" id="checkout" name="checkout" class="text-xl">Checkout</button>
+                        <form action="shopcartpage.php" method="post">
+                            <button type="" name="checkout" class="text-xl">Checkout</button>
                         </form>
                     </div>
 

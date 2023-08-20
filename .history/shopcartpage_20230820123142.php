@@ -1,7 +1,3 @@
-<?php
-require_once "checkout.php";
-?>
-
 <!DOCTYPE html>
 <html>
 
@@ -396,31 +392,6 @@ require_once "checkout.php";
                                 </script>
 
 
-                                <script>
-                                    var qtyinputvalue<?= $row['perfume_id'] ?> = qtyinput<?= $row['perfume_id'] ?>.value;
-                                    var pricevalue<?= $row['perfume_id'] ?> = totalpriceinput<?= $row['perfume_id'] ?>.value;
-                                    console.log(qtyinputvalue<?= $row['perfume_id'] ?>, pricevalue<?= $row['perfume_id'] ?>)
-
-                                    $(document).ready(function () {
-
-                                      console.log($('#checkout'))
-
-                                        $.ajax({
-                                            url: "checkout.php",
-                                            type: "POST",
-                                            data: {
-                                                perfumeid: <?= $row["perfume_id"] ?>,
-                                                qtyvalue: qtyinputvalue<?= $row['perfume_id'] ?>,
-                                                pricevalue: pricevalue<?= $row['perfume_id'] ?>,
-                                                action : 'update'
-                                            },
-                                            success:function(data){
-                                                console.log('success',data);
-                                            }
-                                        })
-                                    });
-
-                                </script>
 
 
 
@@ -472,14 +443,12 @@ require_once "checkout.php";
 
                     </div>
 
-
                     <div
-                        class="w-[400px] h-16 bg-[#01115f] text-white flex justify-center items-center mt-10 border hover:border-2">
-                        <form action="" method="post">
-                            <button type="" id="checkout" name="checkout" class="text-xl">Checkout</button>
+                        class="w-[400px] h-16 bg-[#01125f] text-white flex justify-center items-center mt-10   border hover:border-2">
+                        <form action="">
+                            <a href="./informationpage.html" class="text-xl">Checkout</a>
                         </form>
                     </div>
-
                 </div>
 
             </div>

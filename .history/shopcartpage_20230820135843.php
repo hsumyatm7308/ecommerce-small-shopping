@@ -403,8 +403,6 @@ require_once "checkout.php";
 
                                     $(document).ready(function () {
 
-                                      console.log($('#checkout'))
-
                                         $.ajax({
                                             url: "checkout.php",
                                             type: "POST",

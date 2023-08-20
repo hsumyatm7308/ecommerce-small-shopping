@@ -1,3 +1,4 @@
+
 <?php
 require_once "checkout.php";
 ?>
@@ -397,28 +398,9 @@ require_once "checkout.php";
 
 
                                 <script>
-                                    var qtyinputvalue<?= $row['perfume_id'] ?> = qtyinput<?= $row['perfume_id'] ?>.value;
-                                    var pricevalue<?= $row['perfume_id'] ?> = totalpriceinput<?= $row['perfume_id'] ?>.value;
-                                    console.log(qtyinputvalue<?= $row['perfume_id'] ?>, pricevalue<?= $row['perfume_id'] ?>)
-
-                                    $(document).ready(function () {
-
-                                      console.log($('#checkout'))
-
-                                        $.ajax({
-                                            url: "checkout.php",
-                                            type: "POST",
-                                            data: {
-                                                perfumeid: <?= $row["perfume_id"] ?>,
-                                                qtyvalue: qtyinputvalue<?= $row['perfume_id'] ?>,
-                                                pricevalue: pricevalue<?= $row['perfume_id'] ?>,
-                                                action : 'update'
-                                            },
-                                            success:function(data){
-                                                console.log('success',data);
-                                            }
-                                        })
-                                    });
+                                    var qtyinputvalue = qtyinput<?= $row['perfume_id'] ?>.value;
+                                    var priceinputvalue = price<?= $row['perfume_id'] ?>.value;
+                                    console.log()
 
                                 </script>
 
@@ -472,11 +454,11 @@ require_once "checkout.php";
 
                     </div>
 
-
+                  
                     <div
                         class="w-[400px] h-16 bg-[#01115f] text-white flex justify-center items-center mt-10 border hover:border-2">
-                        <form action="" method="post">
-                            <button type="" id="checkout" name="checkout" class="text-xl">Checkout</button>
+                        <form action="shopcartpage.php" method="post">
+                            <button type="submit" name="checkout" class="text-xl">Checkout</button>
                         </form>
                     </div>
 
