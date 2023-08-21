@@ -85,9 +85,7 @@ require_once "checkout.php";
                         try {
                             global $conn;
 
-                          
-
-                            $stmt = $conn->prepare('SELECT * FROM addtocart WHERE temporaryid');
+                            $stmt = $conn->prepare('SELECT * FROM addtocart');
                             $stmt->execute();
 
 
@@ -108,7 +106,7 @@ require_once "checkout.php";
                             ?>
 
 
-                            <div id="<?= $row['perfume_id'] ?>"
+                            <div id="<?= $row['temporaryid'] ?>"
                                 class="cart-item grid grid-cols-6 justify-center items-center border-b mb-4">
                                 <div class="col-span-2 flex justify-center items-center">
                                     <img src="./assets/img/perfume/men/men1.jpg" alt="" class="" width="100px">
@@ -126,7 +124,7 @@ require_once "checkout.php";
                                     </p>
                                 </div>
 
-                                <input type="hidden" name="perfume_id" value="<?= $row['perfume_id'] ?>">
+                                <input type="hidden" name="temporaryid" value="<?= $row['temporaryid'] ?>">
                                 <div class=" flex justify-center items-center">
 
 
@@ -134,7 +132,7 @@ require_once "checkout.php";
                                         <div class="flex justify-center items-center p-1">
                                             <div class="item flex justify-center items-center p-1">
                                                 <div class="flex items-center">
-                                                    <span id="decrease-<?= $row['perfume_id'] ?>"
+                                                    <span id="decrease-<?= $row['temporaryid'] ?>"
                                                         class="bg-gray-100 border px-2 py-1 m-1 decrease shadow hover:bg-gray-200">
                                                         <svg xmlns="http://www.w3.org/2000/svg" fill="none"
                                                             viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
@@ -146,14 +144,14 @@ require_once "checkout.php";
 
                                                     <span
                                                         class="w-8 h-8 bg-gray-100 text-[#000] font-semibold shadow drop-shadow-md flex justify-center items-center">
-                                                        <input type="text" id="quantity-<?= $row['perfume_id'] ?>"
+                                                        <input type="text" id="quantity-<?= $row['temporaryid'] ?>"
                                                             class="w-8 bg-gray-100 focus:outline-none valueinput "
                                                             name="quantity" value="<?= $row['quantity'] ?>"
                                                             style="text-align:center;">
                                                     </span>
 
                                                     <button type="submit" name="increase"
-                                                        id="increase-<?= $row['perfume_id'] ?>"
+                                                        id="increase-<?= $row['temporaryid'] ?>"
                                                         class="bg-gray-100 border px-2 py-1 m-1 increase hover:bg-gray-200">
                                                         <svg xmlns="http://www.w3.org/2000/svg" fill="none"
                                                             viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
@@ -172,7 +170,7 @@ require_once "checkout.php";
 
                                 <div class="flex justify-center items-center">
 
-                                    <input type="text" id="totalprice-<?= $row['perfume_id'] ?>"
+                                    <input type="text" id="totalprice-<?= $row['temporaryid'] ?>"
                                         class="w-20 p-1 focus:outline-none totalprice" value="$<?= $row['totalprice'] ?>"
                                         readonly>
                                 </div>
@@ -181,7 +179,7 @@ require_once "checkout.php";
                                     <div class="flex justify-center items-center">
                                         <button type="submit" name="" id=""
                                             class="px-3 py-1 bg-gray-400  shadow removeitem hover:text-white"
-                                            data-item-id="<?= $row['perfume_id'] ?>">Remove</button>
+                                            data-item-id="<?= $row['temporaryid'] ?>">Remove</button>
                                     </div>
                                 </div>
 
@@ -324,72 +322,72 @@ require_once "checkout.php";
                                     <span>
                                         <?php echo $row['perfumename']; ?>
                                     </span>
-                                    <input type="text" id="totallist-<?php echo $row['perfume_id']; ?>"
+                                    <input type="text" id="totallist-<?php echo $row['temporaryid']; ?>"
                                         class="w-20 p-1 bg-transparent focus:outline-none " value="$ <?php echo $total; ?>"
                                         readonly>
                                 </li>
 
 
                                 <script type="text/javascript">
-                                    const qtyinput<?= $row['perfume_id'] ?> = document.querySelector("#quantity-<?= $row['perfume_id'] ?>");
-                                    const price<?= $row['perfume_id'] ?> = <?= $row['perfumeprice'] ?>;
-                                    const totalpriceinput<?= $row['perfume_id'] ?> = document.querySelector('#totalprice-<?= $row['perfume_id'] ?>');
+                                    const qtyinput<?= $row['temporaryid'] ?> = document.querySelector("#quantity-<?= $row['temporaryid'] ?>");
+                                    const price<?= $row['temporaryid'] ?> = <?= $row['perfumeprice'] ?>;
+                                    const totalpriceinput<?= $row['temporaryid'] ?> = document.querySelector('#totalprice-<?= $row['temporaryid'] ?>');
 
-                                    var totallist<?php echo $row['perfume_id']; ?> = document.getElementById("totallist-<?php echo $row['perfume_id']; ?>");
+                                    var totallist<?php echo $row['temporaryid']; ?> = document.getElementById("totallist-<?php echo $row['temporaryid']; ?>");
 
 
 
-                                    const increasebtn<?= $row['perfume_id'] ?> = document.querySelector("#increase-<?= $row['perfume_id'] ?>");
-                                    const decreasebtn<?= $row['perfume_id'] ?> = document.querySelector("#decrease-<?= $row['perfume_id'] ?>");
+                                    const increasebtn<?= $row['temporaryid'] ?> = document.querySelector("#increase-<?= $row['temporaryid'] ?>");
+                                    const decreasebtn<?= $row['temporaryid'] ?> = document.querySelector("#decrease-<?= $row['temporaryid'] ?>");
 
-                                    const savedquantity<?= $row['perfume_id'] ?> = localStorage.getItem(`qty-<?= $row['perfume_id'] ?>`);
-                                    const savedprice<?= $row['perfume_id'] ?> = localStorage.getItem(`price-<?= $row['perfume_id'] ?>`);
+                                    const savedquantity<?= $row['temporaryid'] ?> = localStorage.getItem(`qty-<?= $row['temporaryid'] ?>`);
+                                    const savedprice<?= $row['temporaryid'] ?> = localStorage.getItem(`price-<?= $row['temporaryid'] ?>`);
 
-                                    if (savedquantity<?= $row['perfume_id'] ?> !== null) {
-                                        qtyinput<?= $row['perfume_id'] ?>.value = savedquantity<?= $row['perfume_id'] ?>;
+                                    if (savedquantity<?= $row['temporaryid'] ?> !== null) {
+                                        qtyinput<?= $row['temporaryid'] ?>.value = savedquantity<?= $row['temporaryid'] ?>;
                                     }
 
-                                    if (savedprice<?= $row['perfume_id'] ?> !== null) {
-                                        totalpriceinput<?= $row['perfume_id'] ?>.value = savedprice<?= $row['perfume_id'] ?>;
-                                        totallist<?php echo $row['perfume_id']; ?>.value = savedprice<?= $row['perfume_id'] ?>;
+                                    if (savedprice<?= $row['temporaryid'] ?> !== null) {
+                                        totalpriceinput<?= $row['temporaryid'] ?>.value = savedprice<?= $row['temporaryid'] ?>;
+                                        totallist<?php echo $row['temporaryid']; ?>.value = savedprice<?= $row['temporaryid'] ?>;
                                     }
 
-                                    increasebtn<?= $row['perfume_id'] ?>.addEventListener('click', function () {
-                                        qtyinput<?= $row['perfume_id'] ?>.value++;
-                                        updateTotalPrice<?= $row['perfume_id'] ?>();
-                                        savetolocalstorage<?= $row['perfume_id'] ?>();
-                                        savepricetolocalstorage<?= $row['perfume_id'] ?>();
+                                    increasebtn<?= $row['temporaryid'] ?>.addEventListener('click', function () {
+                                        qtyinput<?= $row['temporaryid'] ?>.value++;
+                                        updateTotalPrice<?= $row['temporaryid'] ?>();
+                                        savetolocalstorage<?= $row['temporaryid'] ?>();
+                                        savepricetolocalstorage<?= $row['temporaryid'] ?>();
 
                                         window.location.reload();
 
 
                                     });
 
-                                    decreasebtn<?= $row['perfume_id'] ?>.addEventListener('click', function () {
-                                        if (qtyinput<?= $row['perfume_id'] ?>.value > 1) {
-                                            qtyinput<?= $row['perfume_id'] ?>.value--;
-                                            updateTotalPrice<?= $row['perfume_id'] ?>();
-                                            savetolocalstorage<?= $row['perfume_id'] ?>();
-                                            savepricetolocalstorage<?= $row['perfume_id'] ?>();
+                                    decreasebtn<?= $row['temporaryid'] ?>.addEventListener('click', function () {
+                                        if (qtyinput<?= $row['temporaryid'] ?>.value > 1) {
+                                            qtyinput<?= $row['temporaryid'] ?>.value--;
+                                            updateTotalPrice<?= $row['temporaryid'] ?>();
+                                            savetolocalstorage<?= $row['temporaryid'] ?>();
+                                            savepricetolocalstorage<?= $row['temporaryid'] ?>();
                                             window.location.reload();
 
                                         }
                                     });
 
-                                    function savetolocalstorage<?= $row['perfume_id'] ?>() {
-                                        localStorage.setItem(`qty-<?= $row['perfume_id'] ?>`, qtyinput<?= $row['perfume_id'] ?>.value);
+                                    function savetolocalstorage<?= $row['temporaryid'] ?>() {
+                                        localStorage.setItem(`qty-<?= $row['temporaryid'] ?>`, qtyinput<?= $row['temporaryid'] ?>.value);
                                     }
 
-                                    function updateTotalPrice<?= $row['perfume_id'] ?>() {
-                                        totalpriceinput<?= $row['perfume_id'] ?>.value = "$" + (qtyinput<?= $row['perfume_id'] ?>.value * price<?= $row['perfume_id'] ?>).toFixed(2);
-                                        totallist<?= $row['perfume_id'] ?>.value = "$" + (qtyinput<?= $row['perfume_id'] ?>.value * price<?= $row['perfume_id'] ?>).toFixed(2);
+                                    function updateTotalPrice<?= $row['temporaryid'] ?>() {
+                                        totalpriceinput<?= $row['temporaryid'] ?>.value = "$" + (qtyinput<?= $row['temporaryid'] ?>.value * price<?= $row['temporaryid'] ?>).toFixed(2);
+                                        totallist<?= $row['temporaryid'] ?>.value = "$" + (qtyinput<?= $row['temporaryid'] ?>.value * price<?= $row['temporaryid'] ?>).toFixed(2);
 
 
                                     }
 
-                                    function savepricetolocalstorage<?= $row['perfume_id'] ?>() {
-                                        localStorage.setItem(`price-<?= $row['perfume_id'] ?>`, totalpriceinput<?= $row['perfume_id'] ?>.value);
-                                        localStorage.setItem(`price-<?= $row['perfume_id'] ?>`, totallist<?= $row['perfume_id'] ?>.value);
+                                    function savepricetolocalstorage<?= $row['temporaryid'] ?>() {
+                                        localStorage.setItem(`price-<?= $row['temporaryid'] ?>`, totalpriceinput<?= $row['temporaryid'] ?>.value);
+                                        localStorage.setItem(`price-<?= $row['temporaryid'] ?>`, totallist<?= $row['temporaryid'] ?>.value);
                                     }
 
 
@@ -399,25 +397,25 @@ require_once "checkout.php";
 
 
                                 <script>
-                                    var qtyinputvalue<?= $row['perfume_id'] ?> = qtyinput<?= $row['perfume_id'] ?>.value;
-                                    var pricevalue<?= $row['perfume_id'] ?> = totalpriceinput<?= $row['perfume_id'] ?>.value;
-                                    console.log(qtyinputvalue<?= $row['perfume_id'] ?>, pricevalue<?= $row['perfume_id'] ?>)
+                                    var qtyinputvalue<?= $row['temporaryid'] ?> = qtyinput<?= $row['temporaryid'] ?>.value;
+                                    var pricevalue<?= $row['temporaryid'] ?> = totalpriceinput<?= $row['temporaryid'] ?>.value;
+                                    console.log(qtyinputvalue<?= $row['temporaryid'] ?>, pricevalue<?= $row['temporaryid'] ?>)
 
                                     $(document).ready(function () {
 
-                                        console.log($('#checkout'))
+                                      console.log($('#checkout'))
 
                                         $.ajax({
                                             url: "checkout.php",
                                             type: "POST",
                                             data: {
-                                                perfumeid: <?= $row["perfume_id"] ?>,
-                                                qtyvalue: qtyinputvalue<?= $row['perfume_id'] ?>,
-                                                pricevalue: pricevalue<?= $row['perfume_id'] ?>,
-                                                action: 'update'
+                                                perfumeid: <?= $row["temporaryid"] ?>,
+                                                qtyvalue: qtyinputvalue<?= $row['temporaryid'] ?>,
+                                                pricevalue: pricevalue<?= $row['temporaryid'] ?>,
+                                                action : 'update'
                                             },
-                                            success: function (data) {
-                                                console.log('success', data);
+                                            success:function(data){
+                                                console.log('success',data);
                                             }
                                         })
                                     });

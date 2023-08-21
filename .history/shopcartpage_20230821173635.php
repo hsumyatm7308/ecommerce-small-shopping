@@ -85,9 +85,7 @@ require_once "checkout.php";
                         try {
                             global $conn;
 
-                          
-
-                            $stmt = $conn->prepare('SELECT * FROM addtocart WHERE temporaryid');
+                            $stmt = $conn->prepare('SELECT * FROM addtocart');
                             $stmt->execute();
 
 
@@ -108,7 +106,7 @@ require_once "checkout.php";
                             ?>
 
 
-                            <div id="<?= $row['perfume_id'] ?>"
+                            <div id="<?= $row['temporaryid'] ?>"
                                 class="cart-item grid grid-cols-6 justify-center items-center border-b mb-4">
                                 <div class="col-span-2 flex justify-center items-center">
                                     <img src="./assets/img/perfume/men/men1.jpg" alt="" class="" width="100px">
@@ -126,7 +124,7 @@ require_once "checkout.php";
                                     </p>
                                 </div>
 
-                                <input type="hidden" name="perfume_id" value="<?= $row['perfume_id'] ?>">
+                                <input type="hidden" name="temporaryid" value="<?= $row['temporaryid'] ?>">
                                 <div class=" flex justify-center items-center">
 
 
@@ -134,7 +132,7 @@ require_once "checkout.php";
                                         <div class="flex justify-center items-center p-1">
                                             <div class="item flex justify-center items-center p-1">
                                                 <div class="flex items-center">
-                                                    <span id="decrease-<?= $row['perfume_id'] ?>"
+                                                    <span id="decrease-<?= $row['temporaryid'] ?>"
                                                         class="bg-gray-100 border px-2 py-1 m-1 decrease shadow hover:bg-gray-200">
                                                         <svg xmlns="http://www.w3.org/2000/svg" fill="none"
                                                             viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
@@ -146,14 +144,14 @@ require_once "checkout.php";
 
                                                     <span
                                                         class="w-8 h-8 bg-gray-100 text-[#000] font-semibold shadow drop-shadow-md flex justify-center items-center">
-                                                        <input type="text" id="quantity-<?= $row['perfume_id'] ?>"
+                                                        <input type="text" id="quantity-<?= $row['temporaryid'] ?>"
                                                             class="w-8 bg-gray-100 focus:outline-none valueinput "
                                                             name="quantity" value="<?= $row['quantity'] ?>"
                                                             style="text-align:center;">
                                                     </span>
 
                                                     <button type="submit" name="increase"
-                                                        id="increase-<?= $row['perfume_id'] ?>"
+                                                        id="increase-<?= $row['temporaryid'] ?>"
                                                         class="bg-gray-100 border px-2 py-1 m-1 increase hover:bg-gray-200">
                                                         <svg xmlns="http://www.w3.org/2000/svg" fill="none"
                                                             viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
@@ -172,7 +170,7 @@ require_once "checkout.php";
 
                                 <div class="flex justify-center items-center">
 
-                                    <input type="text" id="totalprice-<?= $row['perfume_id'] ?>"
+                                    <input type="text" id="totalprice-<?= $row['temporaryid'] ?>"
                                         class="w-20 p-1 focus:outline-none totalprice" value="$<?= $row['totalprice'] ?>"
                                         readonly>
                                 </div>
@@ -405,7 +403,7 @@ require_once "checkout.php";
 
                                     $(document).ready(function () {
 
-                                        console.log($('#checkout'))
+                                      console.log($('#checkout'))
 
                                         $.ajax({
                                             url: "checkout.php",
@@ -414,10 +412,10 @@ require_once "checkout.php";
                                                 perfumeid: <?= $row["perfume_id"] ?>,
                                                 qtyvalue: qtyinputvalue<?= $row['perfume_id'] ?>,
                                                 pricevalue: pricevalue<?= $row['perfume_id'] ?>,
-                                                action: 'update'
+                                                action : 'update'
                                             },
-                                            success: function (data) {
-                                                console.log('success', data);
+                                            success:function(data){
+                                                console.log('success',data);
                                             }
                                         })
                                     });

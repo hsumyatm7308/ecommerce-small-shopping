@@ -185,6 +185,7 @@ CREATE TABLE IF NOT EXISTS addtocart (
     perfume_id INT,
     temporaryid INT,
     FOREIGN KEY (perfume_id) REFERENCES perfume(id) ON UPDATE CASCADE  ON  DELETE CASCADE,
+    FOREIGN KEY (order_id) REFERENCES orders(id) ON UPDATE CASCADE  ON  DELETE CASCADE,
     status INT DEFAULT 0
     
    

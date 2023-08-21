@@ -1,3 +1,18 @@
+<?php
+
+require_once "database.php";
+
+try {
+
+    $stmt = $conn->prepare("SELECT * FROM addtocart");
+    $stmt->execute();
+} catch (Exception $e) {
+    echo "error found: " . $e->getMessage();
+}
+
+?>
+
+
 <!DOCTYPE html>
 <html>
 
@@ -49,16 +64,18 @@
 
 
                         <div class="w-[80%]">
-                           <div class="flex  mb-4">
-                            <h1>Information</h1>  
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
-                              </svg>
-                           </div>
-                              
+                            <div class="flex  mb-4">
+                                <h1>Information</h1>
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                    stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                        d="M8.25 4.5l7.5 7.5-7.5 7.5" />
+                                </svg>
+                            </div>
+
                             <div class="w-full border border-2 p-5">
                                 <div class="w-full bg-gray-100 mb-3">
-                                    <h1 class="p-2">As a guest</h1>
+                                    <h1 class="p-2">Customer</h1>
                                 </div>
                                 <form action="">
                                     <div class="w-full border-b ">
@@ -113,56 +130,47 @@
 
                 <div class="w-full border-b  mt-[6px]">
 
-                    <div class="w-full h-auto takenitems px-5">
-                        <div class="grid grid-cols-3 border-b border-b-solid border-b-gray-300">
-                            <div class="col-span-2 flex justify-between items-center">
-                                <div class="w-[100px] h-[100px]  flex justify-center items-center ml-4">
-                                    <img src="./assets/img/perfume/men/men1.jpg" alt="" width="150px">
+                    <?php while ($row = $stmt->fetch()): ?>
+
+                        <div class="w-full h-auto takenitems px-5">
+                            <div class="grid grid-cols-3 border-b border-b-solid border-b-gray-300">
+                                <div class="col-span-2 flex justify-between items-center">
+                                    <div class="w-[100px] h-[100px]  flex justify-center items-center ml-4 relative">
+                                        <img src="./assets/img/perfume/men/men1.jpg" alt="" width="150px">
+                                        <span class="w-5 h-5 absolute -right-3 top-3 text-sm bg-gray-400 flex justify-center items-center rounded-full">
+                                            <span class="text-white"><?= $row['quantity'] ?></span>
+                                        </span>
+                                    </div>
+
+
+                                    <div class="flex justify-center items-center ml-5">
+                                        <p>
+                                            <?= $row['perfumename'] ?>by
+                                            <?= $row['brandname'] ?> EDT 3.3 OZ
+                                            <?= $row['mili'] ?> spray for
+                                            <?= $row['category'] ?>
+                                        </p>
+                                    </div>
 
                                 </div>
-
-                                <div class="flex justify-center items-center ml-5">
-                                    <p>Davidoff Cool Water by Aidonull EDT 3.3 OZ 200ML spray for Men</p>
+                                <div class="flex justify-center items-center">
+                                    <p class="font-semibold">$
+                                        <?= $row['totalprice'] ?>
+                                    </p>
                                 </div>
+                            </div>
 
-                            </div>
-                            <div class="flex justify-center items-center">
-                                <p> $30</p>
-                            </div>
                         </div>
 
-                    </div>
 
-
-                    <div class="w-full h-auto takenitems px-5">
-                        <div class="grid grid-cols-3 border-b border-b-solid border-b-gray-300">
-                            <div class="col-span-2 flex justify-between items-center">
-                                <div class="w-[100px] h-[100px]  flex justify-center items-center ml-4">
-                                    <img src="./assets/img/perfume/men/men1.jpg" alt="" width="150px">
-
-                                </div>
-
-                                <div class="flex justify-center items-center ml-5">
-                                    <p>Davidoff Cool Water by Aidonull EDT 3.3 OZ 200ML spray for Men</p>
-                                </div>
-
-                            </div>
-                            <div class="flex justify-center items-center">
-                                <p> $30</p>
-                            </div>
-                        </div>
-
-                    </div>
-
-
-
-
+                    <?php endwhile; ?>
 
                 </div>
 
                 <div class="flex justify-center items-center p-5">
                     <div class="w-full border-b border-b-solid border-b-gray-300 py-3">
-                        <input type="text" class="w-[70%] focus:outline-none ml-4  p-4" placeholder="Give card (remark)">
+                        <input type="text" class="w-[70%] focus:outline-none ml-4  p-4"
+                            placeholder="Give card (remark)">
                         <button class="bg-gray-300 uppercase text-sm ml-4 py-4 px-6">Apply</button>
                     </div>
                 </div>
@@ -203,3 +211,20 @@
 </body>
 
 </html>
+
+
+CREATE TABLE IF NOT EXISTS customers(
+    id INT AUTO_INCREMENT NOT NULL PRIMARY KEY,
+    name VARCHAR(255) NOT NULL,
+    email  VARCHAR(255) NOT NULL UNIQUE,
+    address VARCHAR(255) NOT NULL
+     
+)
+
+CREATE TABLE IF NOT EXISTS orders(
+    id INT AUTO_INCREMENT NOT NULL PRIMARY KEY,
+    customers_id INT,
+    FOREIGN KEY customers_id REFERENCES BY customers(id) ON CASCADE UPDATE ON CASCADE DELETE,
+    orderdate DATE DEFAULT CURRENT_DATE(),
+    
+)

@@ -1,9 +1,19 @@
 <?php
 require_once "database.php";
-require_once "temporaryid.php";
 
+session_start();
 
+if (isset($_SESSION['temp_customer_id'])) {
+    // Session variable 'temp_customer_id' exists.
+    $temp_customer_id = $_SESSION['temp_customer_id'];
+    echo "Temporary Customer ID: " . $temp_customer_id;
+} else {
+    echo "Temporary Customer ID is not set.";
+}
 
+foreach ($_SESSION as $key => $value) {
+    echo "Session variable '$key' has the value: $value<br>";
+}
 
 
 if (isset($_POST['action']) && $_POST['action'] === "data") {
@@ -21,33 +31,23 @@ if (isset($_POST['action']) && $_POST['action'] === "data") {
 
 
 
-if (isset($_SESSION['id'])) {
-    $temp_customer_id = $_SESSION['id'];
-
-    // echo $temp_customer_id  ."<br>";
-} else {
-    echo "Temporary Customer ID is not set.";
-}
-
-
     if ($id) {
 
-        $checkstmt = $conn->prepare("SELECT id FROM addtocart WHERE temporaryid = :id");
-        $checkstmt->bindParam(':id', $temp_customer_id );
+        $checkstmt = $conn->prepare("SELECT id FROM addtocart WHERE perfume_id = :id");
+        $checkstmt->bindParam(':id', $id);
         $checkstmt->execute();
 
 
 
         if ($checkstmt->rowCount() > 0) {
-            
+            //already added 
             echo "already_added";
 
         } else {
+            $temp_customer_id = $_SESSION['temp_customer_id'];
 
-            $temp_customer_id = $_SESSION['id'];
 
-
-            $cartstmt = $conn->prepare("INSERT INTO addtocart(perfumename,brandname,mili,category,perfumeprice,quantity,totalprice,perfume_id,temporaryid) VALUES (:name,:brand,:mili,:ctg,:price,:qty,:ttprice,:id,:tempid)");
+            $cartstmt = $conn->prepare("INSERT INTO addtocart(perfumename,brandname,mili,category,perfumeprice,quantity,totalprice,perfume_id,temporaryid) VALUES (:name,:brand,:mili,:ctg,:price,:qty,:ttprice,:id,:tmpid)");
             $cartstmt->bindParam(':name', $perfumename);
             $cartstmt->bindParam(':brand', $brandname);
             $cartstmt->bindParam(':mili', $mili);
@@ -56,7 +56,6 @@ if (isset($_SESSION['id'])) {
             $cartstmt->bindParam(':qty', $quantity);
             $cartstmt->bindParam(':ttprice', $totalprice);
             $cartstmt->bindParam(':id', $id);
-            $cartstmt->bindParam(':tempid', $temp_customer_id);
 
             $cartstmt->execute();
             echo "item_added";

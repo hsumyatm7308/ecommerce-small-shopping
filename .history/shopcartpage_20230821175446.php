@@ -88,6 +88,7 @@ require_once "checkout.php";
                           
 
                             $stmt = $conn->prepare('SELECT * FROM addtocart WHERE temporaryid');
+
                             $stmt->execute();
 
 

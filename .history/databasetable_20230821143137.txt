@@ -183,7 +183,7 @@ CREATE TABLE IF NOT EXISTS addtocart (
     quantity INT NOT NULL DEFAULT 1,
     totalprice FLOAT,
     perfume_id INT,
-    temporaryid INT,
+    order_id INT,
     FOREIGN KEY (perfume_id) REFERENCES perfume(id) ON UPDATE CASCADE  ON  DELETE CASCADE,
     status INT DEFAULT 0
     

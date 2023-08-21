@@ -85,9 +85,7 @@ require_once "checkout.php";
                         try {
                             global $conn;
 
-                          
-
-                            $stmt = $conn->prepare('SELECT * FROM addtocart WHERE temporaryid');
+                            $stmt = $conn->prepare('SELECT * FROM addtocart');
                             $stmt->execute();
 
 
@@ -126,7 +124,7 @@ require_once "checkout.php";
                                     </p>
                                 </div>
 
-                                <input type="hidden" name="perfume_id" value="<?= $row['perfume_id'] ?>">
+                                <input type="hidden" name="perfume_id" value="<?= $row['temporaryid'] ?>">
                                 <div class=" flex justify-center items-center">
 
 
@@ -134,7 +132,7 @@ require_once "checkout.php";
                                         <div class="flex justify-center items-center p-1">
                                             <div class="item flex justify-center items-center p-1">
                                                 <div class="flex items-center">
-                                                    <span id="decrease-<?= $row['perfume_id'] ?>"
+                                                    <span id="decrease-<?= $row['temporaryid'] ?>"
                                                         class="bg-gray-100 border px-2 py-1 m-1 decrease shadow hover:bg-gray-200">
                                                         <svg xmlns="http://www.w3.org/2000/svg" fill="none"
                                                             viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
@@ -405,7 +403,7 @@ require_once "checkout.php";
 
                                     $(document).ready(function () {
 
-                                        console.log($('#checkout'))
+                                      console.log($('#checkout'))
 
                                         $.ajax({
                                             url: "checkout.php",
@@ -414,10 +412,10 @@ require_once "checkout.php";
                                                 perfumeid: <?= $row["perfume_id"] ?>,
                                                 qtyvalue: qtyinputvalue<?= $row['perfume_id'] ?>,
                                                 pricevalue: pricevalue<?= $row['perfume_id'] ?>,
-                                                action: 'update'
+                                                action : 'update'
                                             },
-                                            success: function (data) {
-                                                console.log('success', data);
+                                            success:function(data){
+                                                console.log('success',data);
                                             }
                                         })
                                     });

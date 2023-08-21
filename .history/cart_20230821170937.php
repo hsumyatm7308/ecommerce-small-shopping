@@ -39,7 +39,6 @@ if (isset($_SESSION['id'])) {
 
 
         if ($checkstmt->rowCount() > 0) {
-            
             echo "already_added";
 
         } else {

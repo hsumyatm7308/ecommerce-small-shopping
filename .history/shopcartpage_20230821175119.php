@@ -81,13 +81,14 @@ require_once "checkout.php";
                         <?php
 
                         require_once "database.php";
+                        require_once "temporaryid.php";
 
                         try {
                             global $conn;
 
-                          
+                            $stmt = $conn->prepare('SELECT * FROM addtocart WHERE temporaryid = :tempid');
+                            $stmt->bindParam(':id', $temp_customer_id);
 
-                            $stmt = $conn->prepare('SELECT * FROM addtocart WHERE temporaryid');
                             $stmt->execute();
 
 

@@ -85,9 +85,7 @@ require_once "checkout.php";
                         try {
                             global $conn;
 
-                          
-
-                            $stmt = $conn->prepare('SELECT * FROM addtocart WHERE temporaryid');
+                            $stmt = $conn->prepare('SELECT * FROM addtocart');
                             $stmt->execute();
 
 
@@ -126,7 +124,7 @@ require_once "checkout.php";
                                     </p>
                                 </div>
 
-                                <input type="hidden" name="perfume_id" value="<?= $row['perfume_id'] ?>">
+                                <input type="hidden" name="perfume_id" value="<?= $row['temporaryid'] ?>">
                                 <div class=" flex justify-center items-center">
 
 
@@ -405,7 +403,7 @@ require_once "checkout.php";
 
                                     $(document).ready(function () {
 
-                                        console.log($('#checkout'))
+                                      console.log($('#checkout'))
 
                                         $.ajax({
                                             url: "checkout.php",
@@ -414,10 +412,10 @@ require_once "checkout.php";
                                                 perfumeid: <?= $row["perfume_id"] ?>,
                                                 qtyvalue: qtyinputvalue<?= $row['perfume_id'] ?>,
                                                 pricevalue: pricevalue<?= $row['perfume_id'] ?>,
-                                                action: 'update'
+                                                action : 'update'
                                             },
-                                            success: function (data) {
-                                                console.log('success', data);
+                                            success:function(data){
+                                                console.log('success',data);
                                             }
                                         })
                                     });

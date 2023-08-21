@@ -22,6 +22,7 @@ if (isset($_POST['action']) && $_POST['action'] === "data") {
 
 
 if (isset($_SESSION['id'])) {
+    // Session variable 'temp_customer_id' exists.
     $temp_customer_id = $_SESSION['id'];
 
     // echo $temp_customer_id  ."<br>";
@@ -39,7 +40,7 @@ if (isset($_SESSION['id'])) {
 
 
         if ($checkstmt->rowCount() > 0) {
-            
+            //already added 
             echo "already_added";
 
         } else {

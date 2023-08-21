@@ -85,9 +85,7 @@ require_once "checkout.php";
                         try {
                             global $conn;
 
-                          
-
-                            $stmt = $conn->prepare('SELECT * FROM addtocart WHERE temporaryid');
+                            $stmt = $conn->prepare('SELECT * FROM addtocart');
                             $stmt->execute();
 
 
@@ -180,7 +178,7 @@ require_once "checkout.php";
                                 <div class="flex justify-center items-center">
                                     <div class="flex justify-center items-center">
                                         <button type="submit" name="" id=""
-                                            class="px-3 py-1 bg-gray-400  shadow removeitem hover:text-white"
+                                            class="px-3 py-1 bg-gray-400 rounded-md shadow removeitem hover:text-white"
                                             data-item-id="<?= $row['perfume_id'] ?>">Remove</button>
                                     </div>
                                 </div>
@@ -405,7 +403,7 @@ require_once "checkout.php";
 
                                     $(document).ready(function () {
 
-                                        console.log($('#checkout'))
+                                      console.log($('#checkout'))
 
                                         $.ajax({
                                             url: "checkout.php",
@@ -414,10 +412,10 @@ require_once "checkout.php";
                                                 perfumeid: <?= $row["perfume_id"] ?>,
                                                 qtyvalue: qtyinputvalue<?= $row['perfume_id'] ?>,
                                                 pricevalue: pricevalue<?= $row['perfume_id'] ?>,
-                                                action: 'update'
+                                                action : 'update'
                                             },
-                                            success: function (data) {
-                                                console.log('success', data);
+                                            success:function(data){
+                                                console.log('success',data);
                                             }
                                         })
                                     });
@@ -476,7 +474,7 @@ require_once "checkout.php";
 
 
                     <div
-                        class="w-[400px] h-16 bg-gray-400 text-white flex justify-center items-center mt-10 border hover:border-2">
+                        class="w-[400px] h-16 bg-gray-200 text-white flex justify-center items-center mt-10 border hover:border-2">
                         <form action="" method="post">
                             <button type="" id="checkout" name="checkout" class="text-xl">Checkout</button>
                         </form>

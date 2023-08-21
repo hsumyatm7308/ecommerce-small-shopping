@@ -21,10 +21,11 @@ if (isset($_POST['action']) && $_POST['action'] === "data") {
 
 
 
-if (isset($_SESSION['id'])) {
-    $temp_customer_id = $_SESSION['id'];
+if (isset($_SESSION['temp_customer_id'])) {
+    // Session variable 'temp_customer_id' exists.
+    $temp_customer_id = $_SESSION['temp_customer_id'];
 
-    // echo $temp_customer_id  ."<br>";
+    // echo "Temporary Customer ID: " .$temp_customer_id;
 } else {
     echo "Temporary Customer ID is not set.";
 }
@@ -32,19 +33,19 @@ if (isset($_SESSION['id'])) {
 
     if ($id) {
 
-        $checkstmt = $conn->prepare("SELECT id FROM addtocart WHERE temporaryid = :id");
-        $checkstmt->bindParam(':id', $temp_customer_id );
+        $checkstmt = $conn->prepare("SELECT id FROM addtocart WHERE perfume_id = :id");
+        $checkstmt->bindParam(':id', $id);
         $checkstmt->execute();
 
 
 
         if ($checkstmt->rowCount() > 0) {
-            
+            //already added 
             echo "already_added";
 
         } else {
 
-            $temp_customer_id = $_SESSION['id'];
+            $temp_customer_id = $_SESSION['temp_customer_id'];
 
 
             $cartstmt = $conn->prepare("INSERT INTO addtocart(perfumename,brandname,mili,category,perfumeprice,quantity,totalprice,perfume_id,temporaryid) VALUES (:name,:brand,:mili,:ctg,:price,:qty,:ttprice,:id,:tempid)");
