@@ -32,7 +32,7 @@ if (isset($_SESSION['id'])) {
 
     if ($id) {
 
-        $checkstmt = $conn->prepare("SELECT id FROM addtocart WHERE perfume_id = :id AND temporaryid");
+        $checkstmt = $conn->prepare("SELECT id FROM addtocart WHERE perfume_id = :id");
         $checkstmt->bindParam(':id', $id );
         $checkstmt->execute();
 

@@ -32,8 +32,8 @@ if (isset($_SESSION['id'])) {
 
     if ($id) {
 
-        $checkstmt = $conn->prepare("SELECT id FROM addtocart WHERE perfume_id = :id AND temporaryid");
-        $checkstmt->bindParam(':id', $id );
+        $checkstmt = $conn->prepare("SELECT id FROM addtocart WHERE perfume_id = :id");
+        $checkstmt->bindParam(':id', $temp_customer_id );
         $checkstmt->execute();
 
 

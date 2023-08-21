@@ -1042,7 +1042,7 @@ require_once "eachitemspage/bkfunction.php";
 
         <?php
         require_once "database.php";
-        $alert = $conn->prepare("SELECT id FROM addtocart WHERE perfume_id = :id AND temporaryid");
+        $alert = $conn->prepare("SELECT id FROM addtocart WHERE perfume_id = :id AND ");
         $alert->bindParam(':id', $_GET['items']);
         $alert->execute();
 
