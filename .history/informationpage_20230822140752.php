@@ -1,8 +1,6 @@
 <?php
 
 require_once "database.php";
-require_once "temporaryid.php";
-
 
 try {
 
@@ -21,40 +19,23 @@ function textfilter($data)
 
 if ($_SERVER['REQUEST_METHOD'] === "POST") {
     if (isset($_POST['ctntoship'])) {
-        $name = textfilter($_POST['customername']);
-        $email = filter_var($_POST['customeremail'], FILTER_SANITIZE_EMAIL); 
-        $address = textfilter($_POST['customeraddress']);
-
-
-        $temp_customer_id = $_SESSION['id'];
-
-
-        try {
-
-            if ($name === '' || $email === '' || $address === '') {
-                echo "you need to fill";
-            } else {
-
-
-                $insertctm = $conn->prepare('INSERT INTO customerinfo (name,email,address,temporary_id) VALUES (:name,:email,:address,:tempid)');
-                $insertctm->bindParam(":name", $name);
-                $insertctm->bindParam(":email", $email);
-                $insertctm->bindParam(":address", $address);
-                $insertctm->bindParam(":tempid", $temp_customer_id);
-                $insertctm->execute();
-            }
-
-
-        } catch (Exception $e) {
-            die('Error:' . $e->getMessage());
+        if (isset($_POST['customername'])) {
+            $name = textfilter($_POST['customername']);
+        }
+        if (isset($_POST['customeremail'])) {
+            $email = filter_var($_POST['customeremail'], FILTER_SANITIZE_EMAIL);
+        }
+        if (isset($_POST['customeraddress'])) {
+            $address = textfilter($_POST['customeraddress']);
         }
 
+        // Rest of your code here
     }
+
 }
 
 
-
-// var_dump($_POST); // Add this line to see the contents of the $_POST array
+var_dump($_POST); // Add this line to see the contents of the $_POST array
 
 ?>
 
@@ -102,30 +83,30 @@ if ($_SERVER['REQUEST_METHOD'] === "POST") {
 
 
 
+                <form action="" method="post">
 
 
                 <section class="w-full flex justify-center ">
                     <div class="w-full min-h-[500px] flex justify-center items-center flex-col">
 
 
-                        <form action="" method="post" class="w-[80%]">
 
-                            <div class="w-full">
-                                <div class="flex  mb-4">
-                                    <h1>Information</h1>
-                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                        stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
-                                        <path stroke-linecap="round" stroke-linejoin="round"
-                                            d="M8.25 4.5l7.5 7.5-7.5 7.5" />
-                                    </svg>
+                        <div class="w-[80%]">
+                            <div class="flex  mb-4">
+                                <h1>Information</h1>
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                    stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                        d="M8.25 4.5l7.5 7.5-7.5 7.5" />
+                                </svg>
+                            </div>
+
+                            <div class="w-full border border-2 p-5">
+                                <div class="w-full bg-gray-100 mb-3">
+                                    <h1 class="p-2">Customer</h1>
                                 </div>
-
-                                <div class="w-full border border-2 p-5">
-                                    <div class="w-full bg-gray-100 mb-3">
-                                        <h1 class="p-2">Customer</h1>
-                                    </div>
-                                    <div class="w-full border-b border border-dashed	 border-red-500">
-                                        <input type="text" name="customername" class="w-full focus:outline-none p-4 "
+                                    <div class="w-full border-b ">
+                                        <input type="text" name="customername" class="w-full focus:outline-none p-4"
                                             placeholder="Name">
                                     </div>
                                     <div class="w-full border-b">
@@ -143,36 +124,40 @@ if ($_SERVER['REQUEST_METHOD'] === "POST") {
                                                 class="text-indigo-500"> Login</a></button>
                                     </div>
 
+                                    
+                                    <button type="submit" name="ctntoship" class="bg-gray-300 uppercase p-2">
+                                        <h1 class="text-sm p-1 rounded">Continue to shipping</h1>
+                                    </button>
 
-                                </div>
+                            </div>
+                        </div>
+
+
+
+                        <div class="w-[80%] flex justify-between items-center mt-5">
+                            <div class="flex justify-center items-center">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                    stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                        d="M18.75 19.5l-7.5-7.5 7.5-7.5m-6 15L5.25 12l7.5-7.5" />
+                                </svg>
+                                <span>Return to your cart</span>
                             </div>
 
-
-
-                            <div class="w-full flex justify-between items-center mt-5">
-                                <div class="flex justify-center items-center">
-                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                        stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
-                                        <path stroke-linecap="round" stroke-linejoin="round"
-                                            d="M18.75 19.5l-7.5-7.5 7.5-7.5m-6 15L5.25 12l7.5-7.5" />
-                                    </svg>
-                                    <span>Return to your cart</span>
-                                </div>
-
-                                <div class="">
-                                    <form action="" method="post">
-                                        <button type="submit" name="ctntoship" class="bg-gray-300 uppercase p-2">
-                                            <h1 class="text-sm p-1 rounded">Continue to shipping</h1>
-                                        </button>
-                                    </form>
-                                </div>
+                            <div class="">
+                                <form action="" method="post">
+                                    <button type="submit" name="ctntoship" class="bg-gray-300 uppercase p-2">
+                                        <h1 class="text-sm p-1 rounded">Continue to shipping</h1>
+                                    </button>
+                                </form>
                             </div>
+                        </div>
 
-                        </form>
 
                     </div>
                 </section>
 
+                </form>
 
 
             </div>
@@ -268,12 +253,11 @@ if ($_SERVER['REQUEST_METHOD'] === "POST") {
 </html>
 
 <!-- 
-CREATE TABLE IF NOT EXISTS customerinfo(
+CREATE TABLE IF NOT EXISTS customers(
     id INT AUTO_INCREMENT NOT NULL PRIMARY KEY,
     name VARCHAR(255) NOT NULL,
     email  VARCHAR(255) NOT NULL UNIQUE,
-    address VARCHAR(255) NOT NULL,
-    temporary_id INT ,
+    address VARCHAR(255) NOT NULL
      
 )
 

@@ -26,8 +26,7 @@ require_once "checkout.php";
     .modal-container {
         display: none;
     }
-
-    #shopcartempty {
+    #shopcartempty{
         display: none;
     }
 </style>
@@ -68,14 +67,6 @@ require_once "checkout.php";
 
 
     </section>
-
-
-    <div id="shopcartempty" class="w-full flex justify-center items-center flex-col absolute  ">
-        <div class="w-[1000px] h-[500px]  flex justify-center items-center flex-col">
-            <img src="./assets/img/icon/empty.jpg" alt="" width="200px">
-            <h1 class="text-2xl mt-3">Your shopping cart is empty.</h1>
-        </div>
-    </div>
 
 
     <section class="itemcontainer">
@@ -217,6 +208,10 @@ require_once "checkout.php";
                     </div>
 
 
+                    <div id="shopcartempty" class="w-full h-[400px] flex justify-center items-center flex-col absolute ">
+                        <img src="./assets/img/icon/empty.jpg" alt="" width="200px">
+                        <h1 class="text-2xl mt-3">Your shopping cart is empty.</h1>
+                    </div>
 
 
                     <section>
@@ -512,21 +507,19 @@ require_once "checkout.php";
             var itemscount = itemscontainer.childElementCount;
             console.log(itemscount);
 
-            if (itemscount === 0) {
-
-                $('#shopcartempty').css('display', 'block');
-            } else if (itemscount > 0) {
-                $('#shopcartempty').css('display', 'none');
-
-
-            }
-
             localStorage.setItem("countitem", itemscount);
 
 
 
 
+            if (itemscount === 0) {
+                console.log('i am 0')
+                $(shopcartempty).css('display','block');
+            } elseif(itemscount >= 1){
+                $('.shopcartempty').css('display','none');
 
+
+            }
 
             $('.cancel').click(function () {
                 $('.modal-container').css('display', 'none')

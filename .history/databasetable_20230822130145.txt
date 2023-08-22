@@ -173,7 +173,7 @@ INSERT INTO perfume(perfume_name,price,brand_name,category_name,mili,fsletter,de
 -->
 <!-- 
 CREATE TABLE IF NOT EXISTS addtocart (
-    id INT NOT NULL AUTO_INCREMENT ,
+    id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
     perfumeimg BLOB,
     perfumename VARCHAR(255),
     brandname VARCHAR(255),
@@ -183,76 +183,12 @@ CREATE TABLE IF NOT EXISTS addtocart (
     quantity INT NOT NULL DEFAULT 1,
     totalprice FLOAT,
     perfume_id INT,
-    temporaryid INT PRIMARY KEY, 
-    status INT DEFAULT 0,
-    customer_id INT, 
-    FOREIGN KEY (perfume_id) REFERENCES perfume(id) ON UPDATE CASCADE ON DELETE CASCADE,
-    FOREIGN KEY (customer_id) REFERENCES customers(id) -- Optional reference to customer
-);
-
- -->
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-CREATE TABLE IF NOT EXISTS customerinfo(
-    id INT AUTO_INCREMENT NOT NULL PRIMARY KEY,
-    name VARCHAR(255) NOT NULL,
-    email  VARCHAR(255) NOT NULL UNIQUE,
-    address VARCHAR(255) NOT NULL,
-    temporary_id INT ,
-     
-)
-
-CREATE TABLE IF NOT EXISTS orders (
-    id INT AUTO_INCREMENT NOT NULL PRIMARY KEY,
-    customer_id INT,
-    order_date DATE DEFAULT CURRENT_DATE(),
-    status ENUM('pending', 'processing', 'shipped') DEFAULT 'pending',
-    total_price FLOAT,
-    FOREIGN KEY (customer_id) REFERENCES customers(id) ON UPDATE CASCADE ON DELETE CASCADE
-); 
-
-
-CREATE TABLE IF NOT EXISTS ordersitem (
-    id INT AUTO_INCREMENT NOT NULL PRIMARY KEY,
-    order_id INT,
-    FOREIGN KEY(order_id)REFERENCES orders(id) ON UPDATE CASCADE ON DELETE CASCADE,
-    perfume_id INT,
-    FOREIGN KEY (perfume_id)REFERENCES perfume(id) ON UPDATE CASCADE ON DELETE CASCADE,
-    quantity INT,
-    price float
-)
-
-
-CREATE TABLE IF NOT EXISTS cart (
-    id INT AUTO_INCREMENT NOT NULL PRIMARY KEY,
-    customer_id INT,
-    FOREIGN KEY(customer_id) REFERENCES customers(id) ON UPDATE CASCADE ON DELETE CASCADE,
-    perfume_id INT,
-    FOREIGN KEY (perfume_id) REFERENCES perfume(id) ON UPDATE CASCADE ON DELETE CASCADE,
-    temporary_id INT,
-    FOREIGN KEY (temporary_id) REFERENCES addtocart(temporaryid) ON UPDATE CASCADE ON DELETE CASCADE,
-    quantity INT,
-    price float
-)
+    temporaryid INT PRIMARY key,
+    FOREIGN KEY (perfume_id) REFERENCES perfume(id) ON UPDATE CASCADE  ON  DELETE CASCADE,
+    status INT DEFAULT 0
+    
+   
+) -->
 
 
 

@@ -70,8 +70,8 @@ require_once "checkout.php";
     </section>
 
 
-    <div id="shopcartempty" class="w-full flex justify-center items-center flex-col absolute  ">
-        <div class="w-[1000px] h-[500px]  flex justify-center items-center flex-col">
+    <div id="shopcartempty" class="w-full flex justify-center items-center flex-col absolute ">
+        <div class="w-[900px] h-[500px]  flex justify-center items-center flex-col">
             <img src="./assets/img/icon/empty.jpg" alt="" width="200px">
             <h1 class="text-2xl mt-3">Your shopping cart is empty.</h1>
         </div>

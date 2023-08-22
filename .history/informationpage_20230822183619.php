@@ -124,7 +124,7 @@ if ($_SERVER['REQUEST_METHOD'] === "POST") {
                                     <div class="w-full bg-gray-100 mb-3">
                                         <h1 class="p-2">Customer</h1>
                                     </div>
-                                    <div class="w-full border-b border border-dashed	 border-red-500">
+                                    <div class="w-full border-b border border-red-500">
                                         <input type="text" name="customername" class="w-full focus:outline-none p-4 "
                                             placeholder="Name">
                                     </div>
