@@ -263,26 +263,25 @@ if ($_SERVER['REQUEST_METHOD'] === "POST") {
 
                 echo '
                 <script> 
-                document.addEventListener("DOMContentLoaded", function() {
-                    var ctntoshipbtn = document.querySelector(".ctntoshipbtn");
-                    var val = document.querySelectorAll(".val");
-                    var inputval = document.querySelectorAll(".inputval");
-                
-                    ctntoshipbtn.addEventListener("click", function(event) {
-                        var hasValue = false;
-                        for (var i = 0; i < val.length; i++) {
-                            if (val[i].value.trim() === "") {
-                                hasValue = true;
-                                inputval[i].classList.add("border", "border-dashed", "border-red-500");
-                            } else {
-                                inputval[i].classList.remove("border", "border-dashed", "border-red-500");
-                            }
+                var ctntoshipbtn = document.querySelector(".ctntoshipbtn");
+                var val = document.querySelectorAll(".val");
+                var inputval = document.querySelectorAll(".inputval");
+                // console.log(inputval)
+
+                ctntoshipbtn.addEventListener("click", function(event) {
+                    var hasValue = false;
+                    for (var i = 0; i < inputval.length; i++) {
+                        if (inputval[i].value.trim() === "") {
+                            hasValue = true;
+                            inputval[i].classList.add("border", "border-dashed", "border-red-500");
+                        } else {
+                            inputval[i].classList.remove("border", "border-dashed", "border-red-500");
                         }
+                    }
                 
-                        if (hasValue) {
-                            event.preventDefault();
-                        }
-                    });
+                    if (hasValue) {
+                        event.preventDefault();
+                    }
                 });
                 
 

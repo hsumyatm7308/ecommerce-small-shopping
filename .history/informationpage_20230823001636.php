@@ -86,17 +86,17 @@ try {
                                     <div class="w-full bg-gray-100 mb-3">
                                         <h1 class="p-2">Customer</h1>
                                     </div>
-                                    <div class="w-full border-b  	 inputval mb-2">
-                                        <input type="text" name="customername" class="w-full focus:outline-none p-4 val"
+                                    <div class="w-full border-b border 	 inputval">
+                                        <input type="text" name="customername" class="w-full focus:outline-none p-4 "
                                             placeholder="Name">
                                     </div>
-                                    <div class="w-full border-b inputval mb-2">
-                                        <input type="text" name="customeremail" class="w-full focus:outline-none p-4 val"
+                                    <div class="w-full border-b inputval">
+                                        <input type="text" name="customeremail" class="w-full focus:outline-none p-4 inputval"
                                             placeholder="Email">
                                     </div>
 
-                                    <div class="w-full border-b inputval mb-2">
-                                        <input type="text" name="customeraddress" class="w-full focus:outline-none p-4 val"
+                                    <div class="w-full border-b inputval">
+                                        <input type="text" name="customeraddress" class="w-full focus:outline-none p-4 "
                                             placeholder="Address">
                                     </div>
 
@@ -263,28 +263,26 @@ if ($_SERVER['REQUEST_METHOD'] === "POST") {
 
                 echo '
                 <script> 
-                document.addEventListener("DOMContentLoaded", function() {
-                    var ctntoshipbtn = document.querySelector(".ctntoshipbtn");
-                    var val = document.querySelectorAll(".val");
-                    var inputval = document.querySelectorAll(".inputval");
-                
-                    ctntoshipbtn.addEventListener("click", function(event) {
-                        var hasValue = false;
-                        for (var i = 0; i < val.length; i++) {
-                            if (val[i].value.trim() === "") {
-                                hasValue = true;
-                                inputval[i].classList.add("border", "border-dashed", "border-red-500");
-                            } else {
-                                inputval[i].classList.remove("border", "border-dashed", "border-red-500");
-                            }
-                        }
-                
-                        if (hasValue) {
-                            event.preventDefault();
-                        }
-                    });
-                });
-                
+                var ctntoshipbtn = document.querySelector(".ctntoshipbtn");
+                var inputval = document.querySelectorAll(".inputval");
+                // console.log(inputval)
+
+                ctntoshipbtn.addEventListener("click", function(event) {
+                    for (var i = 0; i < inputval.length; i++) {
+                        // if(inputval[i].value === ""){
+                        //     inputval[i].classList.add("border", "border-red-500");
+                        // }else{
+                        //     inputval[i].classList.remove("border", "border-red-500");
+
+                        // }
+
+                        console.log(inputval[i].childrend[i])
+                    }
+                    
+                   
+                        event.preventDefault();
+
+                })
 
              
                  </script>';
