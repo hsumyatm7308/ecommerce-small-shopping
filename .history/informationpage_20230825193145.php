@@ -318,38 +318,41 @@ if ($_SERVER['REQUEST_METHOD'] === "POST") {
             } else {
 
 
+                $select = $conn->prepare("SELECT temporary_id FROM customerinfo");
+                $select->execute();
 
-                try {
-                    $select = $conn->prepare("SELECT COUNT(*) FROM customerinfo");
-                    $select->execute();
-                    $rowCount = $select->fetchColumn();
+                // $row = $select->fetch();
+
+                // echo $temp_customer_id;
+
+                // while ($row = $select->fetch()) {
+                //     echo $row['temporary_id'];
+
+
+                    // $registerstmt = $conn->prepare('UPDATE customerinfo SET  email = :email WHERE temporary_id = :temp');
+                    // $registerstmt->bindParam(":email", $email);
+                    // $registerstmt->bindParam(":temp", $row['temporary_id']);
+                    // $registerstmt->execute();
+
+                    $registerstmt = $conn->prepare('UPDATE customerinfo SET  email = :email WHERE temporary_id');
+                    $registerstmt->bindParam(":email", $email);
+                    $registerstmt->execute();
+
+                    $rowCount = $registerstmt->rowCount();
 
                     if ($rowCount > 0) {
-
-
-                        $updateStmt = $conn->prepare('UPDATE customerinfo SET email = :email WHERE temporary_id = :tempid');
-                        $updateStmt->bindParam(":tempid", $temp_customer_id);
-
-                        $updateStmt->bindParam(":email", $email);
-                        $updateStmt->execute();
-
-
-                        echo "Updated $rowCount records with temporary ID:" . $temp_customer_id;
-
+                        // echo "Updated $rowCount records with temporary ID: $temp_customer_id";
                     } else {
-                        $insertStmt = $conn->prepare('INSERT INTO customerinfo (email, temporary_id) VALUES (:email, :tempid)');
-                        $insertStmt->bindParam(":email", $email);
-                        $insertStmt->bindParam(":tempid", $temp_customer_id);
-                        $insertStmt->execute();
 
-                        echo "Inserted a new record with temporary ID: $temp_customer_id";
+                        $insertctm = $conn->prepare('INSERT INTO customerinfo (email,temporary_id) VALUES (:email,:tempid)');
+                        $insertctm->bindParam(":email", $email);
+                        $insertctm->bindParam(":tempid", $temp_customer_id);
+                        $insertctm->execute();
+
+                        // echo "Inserted a new record with temporary ID: $temp_customer_id";
                     }
-                } catch (PDOException $e) {
-                    // Handle any database errors that occur
-                    echo "Database Error: " . $e->getMessage();
-                }
 
-
+                // }
 
 
 
@@ -376,9 +379,8 @@ CREATE TABLE IF NOT EXISTS customerinfo(
     id INT AUTO_INCREMENT NOT NULL PRIMARY KEY,
     name VARCHAR(255) NOT NULL,
     email  VARCHAR(255) NOT NULL UNIQUE,
-    password VARCHAR(255),
     address VARCHAR(255) NOT NULL,
-    temporary_id VARCHAR(255) UNIQUE
+    temporary_id INT UNIQUE,
      
 )
 

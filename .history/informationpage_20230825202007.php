@@ -318,12 +318,49 @@ if ($_SERVER['REQUEST_METHOD'] === "POST") {
             } else {
 
 
+                // $select = $conn->prepare("SELECT temporary_id FROM customerinfo");
+                // $select->execute();
+
+                // $row = $select->fetch();
+
+                // echo $temp_customer_id;
+
+                // while ($row = $select->fetch()) {
+                //     echo $row['temporary_id'];
+
+
+                // $registerstmt = $conn->prepare('UPDATE customerinfo SET  email = :email WHERE temporary_id = :temp');
+                // $registerstmt->bindParam(":email", $email);
+                // $registerstmt->bindParam(":temp", $row['temporary_id']);
+                // $registerstmt->execute();
+
+
+                // $rowCount = $registerstmt->rowCount();
+
+                // if ($rowCount > 0) {
+                // echo "Updated $rowCount records with temporary ID: $temp_customer_id";
+                // } else {
+
+                //     $insertctm = $conn->prepare('INSERT INTO customerinfo (email,temporary_id) VALUES (:email,:tempid)');
+                //     $insertctm->bindParam(":email", $email);
+                //     $insertctm->bindParam(":tempid", $temp_customer_id);
+                //     $insertctm->execute();
+
+                // echo "Inserted a new record with temporary ID: $temp_customer_id";
+                // }
+
+                // }
+
+
+
 
                 try {
                     $select = $conn->prepare("SELECT COUNT(*) FROM customerinfo");
                     $select->execute();
                     $rowCount = $select->fetchColumn();
 
+                    // echo $temp_customer_id;
+                    // Check if there are existing records
                     if ($rowCount > 0) {
 
 
