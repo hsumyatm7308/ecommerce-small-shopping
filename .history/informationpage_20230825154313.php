@@ -320,7 +320,7 @@ if ($_SERVER['REQUEST_METHOD'] === "POST") {
 
 
 
-                $registerstmt = $conn->prepare('UPDATE customerinfo SET  email = :email WHERE temporary_id');
+                $registerstmt = $conn->prepare('UPDATE customerinfo SET  email = :email WHERE temporary_id = :tempid');
                 $registerstmt->bindParam(":email", $email);
                 $registerstmt->execute();
 

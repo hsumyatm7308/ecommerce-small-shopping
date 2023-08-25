@@ -201,7 +201,7 @@ try {
 
                                 </div>
                                 <div class="flex justify-center items-center">
-                                    <p class="">$
+                                    <p class="font-semibold">$
                                         <?= $row['totalprice'] ?>
                                     </p>
                                 </div>

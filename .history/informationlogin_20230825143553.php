@@ -1,5 +1,5 @@
 <?php
-ini_set('display_errors', 0);
+
 require_once "database.php";
 require_once "temporaryid.php";
 
@@ -87,35 +87,40 @@ try {
                             <div class="w-full">
                                 <div class="flex  mb-5 mt-5">
                                     <h1>Information</h1>
-                                 
+
                                 </div>
 
-                                <div class="w-full border border-2 p-5 guestinfo">
+
+
+
+
+                                <div class="w-full border border-2 p-5">
                                     <div class="w-full bg-gray-100 mb-3">
-                                        <h1 class="p-2">Customer</h1>
+                                        <h1 class="p-2">Customer Login</h1>
                                     </div>
-                                    <!-- <div class="w-full border-b  	 inputval mb-2">
-                                        <input type="text" name="customername" class="w-full focus:outline-none p-4 val"
-                                            placeholder="Name">
-                                    </div> -->
 
                                     <div class="w-full border-b inputval mb-2">
-                                        <input type="text" name="customeremail"
-                                            class="w-full focus:outline-none p-4 val" placeholder="Email">
+                                        <input type="text" name="loginemail" class="w-full focus:outline-none p-4 val"
+                                            placeholder="Email">
                                     </div>
-<!-- 
-                                    <div class="w-full border-b inputval mb-2">
-                                        <input type="text" name="customeraddress"
-                                            class="w-full focus:outline-none p-4 val" placeholder="Address">
-                                    </div> -->
 
-                                    <div class="w-full">
-                                        <!-- <button id="loginbtn" class="w-full focus:outline-none p-4">Use your account
-                                            <span class="text-indigo-500"> Login</span>
-                                        </button> -->
-                                        <button class="w-full focus:outline-none p-4">Use your account
-                                            <a href="informationlogin.php" class="text-indigo-500"> Login</a>
+                                    <div class="w-full border-b inputval mb-2">
+                                        <input type="password" name="loginpassword"
+                                            class="w-full focus:outline-none p-4 val" placeholder="Password">
+                                    </div>
+
+                                    <div class="w-full flex justify-end items-center">
+                                        <button class=" focus:outline-none p-4">
+                                            <a href="informationregister.php" id="registerbtn"
+                                                class="text-indigo-500 registerbtn"> Register</a>
+
+
                                         </button>
+                                        <button class=" focus:outline-none p-4">
+                                            <a href="informationpage.php" class="text-indigo-500 gotoguest">Cancle</a>
+
+                                        </button>
+
                                     </div>
 
 
@@ -123,12 +128,9 @@ try {
 
 
 
-                             
 
 
 
-
-                               
 
 
 
@@ -201,7 +203,7 @@ try {
 
                                 </div>
                                 <div class="flex justify-center items-center">
-                                    <p class="">$
+                                    <p class="font-semibold">$
                                         <?= $row['totalprice'] ?>
                                     </p>
                                 </div>
@@ -231,7 +233,7 @@ try {
                             <h1 class="ml-4">Subtotal</h1>
                         </div>
                         <div class="flex justify-center items-center">
-                            <p class="font-semibold infosubtotal"> </p>
+                            <p> $30</p>
                         </div>
                     </div>
 
@@ -251,10 +253,6 @@ try {
     </section>
 
 
-    <script>
-        var infosubtotal = document.querySelector('.infosubtotal');
-        infosubtotal.innerHTML =localStorage.getItem('subtotal');
-    </script>
 
 
 
@@ -276,9 +274,10 @@ function textfilter($data)
 }
 
 if ($_SERVER['REQUEST_METHOD'] === "POST") {
-
     if (isset($_POST['ctntoship'])) {
-        $email = filter_var($_POST['customeremail'], FILTER_SANITIZE_EMAIL);
+
+        $email = filter_var($_POST['loginemail'], FILTER_SANITIZE_EMAIL);
+        $password = textfilter($_POST['loginpassword']);
 
 
         $temp_customer_id = $_SESSION['id'];
@@ -286,7 +285,7 @@ if ($_SERVER['REQUEST_METHOD'] === "POST") {
 
         try {
 
-            if ( $email === '') {
+            if ($email === '' || $password === '') {
                 // echo "you need to fill";
 
                 echo '
@@ -317,38 +316,32 @@ if ($_SERVER['REQUEST_METHOD'] === "POST") {
 
             } else {
 
+                $conn = $GLOBALS['conn'];
 
+                $bindemail = $email;
+                $bindpassword = $password;
 
+                $stmt = $conn->prepare('SELECT email, password FROM customerinfo WHERE email = :email AND password = :password');
+                $stmt->bindParam(":email", $bindemail);
+                $stmt->bindParam(":password", $bindpassword);
+                $stmt->execute();
 
-                $registerstmt = $conn->prepare('UPDATE customerinfo SET  email = :email WHERE temporary_id');
-                $registerstmt->bindParam(":email", $email);
-                $registerstmt->execute();
-
-                $rowCount = $registerstmt->rowCount();
-
-                if ($rowCount > 0) {
-                    // echo "Updated $rowCount records with temporary ID: $temp_customer_id";
+                if ($stmt->rowCount() === 0) {
+                    // echo "No Data";
+                    header("Location:./informationregister.php");
+                    exit;
                 } else {
-
-                    $insertctm = $conn->prepare('INSERT INTO customerinfo (email,temporary_id) VALUES (:email,:tempid)');
-                    $insertctm->bindParam(":email", $email);
-                    $insertctm->bindParam(":tempid", $temp_customer_id);
-                    $insertctm->execute();
-    
-                    // echo "Inserted a new record with temporary ID: $temp_customer_id";
+                    // echo "Yes Data";
+                    $_SESSION['loginemail'] = $bindemail;
                 }
 
-
-
-
-             
 
 
             }
 
 
         } catch (Exception $e) {
-            // die('Error:' . $e->getMessage());
+            die('Error:' . $e->getMessage());
         }
 
     }
@@ -365,7 +358,7 @@ CREATE TABLE IF NOT EXISTS customerinfo(
     name VARCHAR(255) NOT NULL,
     email  VARCHAR(255) NOT NULL UNIQUE,
     address VARCHAR(255) NOT NULL,
-    temporary_id INT UNIQUE,
+    temporary_id INT ,
      
 )
 

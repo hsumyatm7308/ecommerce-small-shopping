@@ -1,5 +1,5 @@
 <?php
-ini_set('display_errors', 0);
+
 require_once "database.php";
 require_once "temporaryid.php";
 
@@ -201,7 +201,7 @@ try {
 
                                 </div>
                                 <div class="flex justify-center items-center">
-                                    <p class="">$
+                                    <p class="font-semibold">$
                                         <?= $row['totalprice'] ?>
                                     </p>
                                 </div>
@@ -231,7 +231,7 @@ try {
                             <h1 class="ml-4">Subtotal</h1>
                         </div>
                         <div class="flex justify-center items-center">
-                            <p class="font-semibold infosubtotal"> </p>
+                            <p> $30</p>
                         </div>
                     </div>
 
@@ -251,10 +251,6 @@ try {
     </section>
 
 
-    <script>
-        var infosubtotal = document.querySelector('.infosubtotal');
-        infosubtotal.innerHTML =localStorage.getItem('subtotal');
-    </script>
 
 
 
@@ -320,22 +316,23 @@ if ($_SERVER['REQUEST_METHOD'] === "POST") {
 
 
 
-                $registerstmt = $conn->prepare('UPDATE customerinfo SET  email = :email WHERE temporary_id');
+                $registerstmt = $conn->prepare('UPDATE customerinfo SET name = :name, email = :email, password = :password WHERE temporary_id');
+                $registerstmt->bindParam(":name", $name);
                 $registerstmt->bindParam(":email", $email);
+                $registerstmt->bindParam(":password", $password);
                 $registerstmt->execute();
 
                 $rowCount = $registerstmt->rowCount();
 
                 if ($rowCount > 0) {
-                    // echo "Updated $rowCount records with temporary ID: $temp_customer_id";
+                    echo "Updated $rowCount records with temporary ID: $temp_customer_id";
                 } else {
-
                     $insertctm = $conn->prepare('INSERT INTO customerinfo (email,temporary_id) VALUES (:email,:tempid)');
                     $insertctm->bindParam(":email", $email);
                     $insertctm->bindParam(":tempid", $temp_customer_id);
                     $insertctm->execute();
     
-                    // echo "Inserted a new record with temporary ID: $temp_customer_id";
+                    echo "Inserted a new record with temporary ID: $temp_customer_id";
                 }
 
 
@@ -348,7 +345,7 @@ if ($_SERVER['REQUEST_METHOD'] === "POST") {
 
 
         } catch (Exception $e) {
-            // die('Error:' . $e->getMessage());
+            die('Error:' . $e->getMessage());
         }
 
     }

@@ -201,7 +201,7 @@ try {
 
                                 </div>
                                 <div class="flex justify-center items-center">
-                                    <p class="">$
+                                    <p class="font-semibold">$
                                         <?= $row['totalprice'] ?>
                                     </p>
                                 </div>
@@ -231,7 +231,7 @@ try {
                             <h1 class="ml-4">Subtotal</h1>
                         </div>
                         <div class="flex justify-center items-center">
-                            <p class="font-semibold infosubtotal"> </p>
+                            <p class="infosubtotal"> </p>
                         </div>
                     </div>
 
@@ -251,10 +251,6 @@ try {
     </section>
 
 
-    <script>
-        var infosubtotal = document.querySelector('.infosubtotal');
-        infosubtotal.innerHTML =localStorage.getItem('subtotal');
-    </script>
 
 
 

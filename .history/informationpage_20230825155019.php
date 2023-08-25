@@ -317,17 +317,26 @@ if ($_SERVER['REQUEST_METHOD'] === "POST") {
 
             } else {
 
+                $select = $conn->prepare('SELECT temporary_id FROM customerinfo WHERE email = :email');
+                $select->bindParam(":email", $user_identifier);
+                $select->execute();
+                
+                $tempRow = $select->fetch();
+                $temp_customer_id = $tempRow['temporary_id'];
+
+                echo $temp_customer_id;
+                
 
 
-
-                $registerstmt = $conn->prepare('UPDATE customerinfo SET  email = :email WHERE temporary_id');
+                $registerstmt = $conn->prepare('UPDATE customerinfo SET  email = :email WHERE temporary_id = :tempid');
                 $registerstmt->bindParam(":email", $email);
+                $registerstmt->bindParam(":tempid", $temp_customer_id);
                 $registerstmt->execute();
 
                 $rowCount = $registerstmt->rowCount();
 
                 if ($rowCount > 0) {
-                    // echo "Updated $rowCount records with temporary ID: $temp_customer_id";
+                    echo "Updated $rowCount records with temporary ID: $temp_customer_id";
                 } else {
 
                     $insertctm = $conn->prepare('INSERT INTO customerinfo (email,temporary_id) VALUES (:email,:tempid)');
@@ -335,7 +344,7 @@ if ($_SERVER['REQUEST_METHOD'] === "POST") {
                     $insertctm->bindParam(":tempid", $temp_customer_id);
                     $insertctm->execute();
     
-                    // echo "Inserted a new record with temporary ID: $temp_customer_id";
+                    echo "Inserted a new record with temporary ID: $temp_customer_id";
                 }
 
 

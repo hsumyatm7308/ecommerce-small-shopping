@@ -1,5 +1,5 @@
 <?php
-ini_set('display_errors', 0);
+
 require_once "database.php";
 require_once "temporaryid.php";
 
@@ -98,7 +98,7 @@ try {
                                         <input type="text" name="customername" class="w-full focus:outline-none p-4 val"
                                             placeholder="Name">
                                     </div> -->
-
+                                    
                                     <div class="w-full border-b inputval mb-2">
                                         <input type="text" name="customeremail"
                                             class="w-full focus:outline-none p-4 val" placeholder="Email">
@@ -201,7 +201,7 @@ try {
 
                                 </div>
                                 <div class="flex justify-center items-center">
-                                    <p class="">$
+                                    <p class="font-semibold">$
                                         <?= $row['totalprice'] ?>
                                     </p>
                                 </div>
@@ -231,7 +231,7 @@ try {
                             <h1 class="ml-4">Subtotal</h1>
                         </div>
                         <div class="flex justify-center items-center">
-                            <p class="font-semibold infosubtotal"> </p>
+                            <p> $30</p>
                         </div>
                     </div>
 
@@ -251,10 +251,6 @@ try {
     </section>
 
 
-    <script>
-        var infosubtotal = document.querySelector('.infosubtotal');
-        infosubtotal.innerHTML =localStorage.getItem('subtotal');
-    </script>
 
 
 
@@ -278,7 +274,9 @@ function textfilter($data)
 if ($_SERVER['REQUEST_METHOD'] === "POST") {
 
     if (isset($_POST['ctntoship'])) {
+        $name = textfilter($_POST['customername']);
         $email = filter_var($_POST['customeremail'], FILTER_SANITIZE_EMAIL);
+        $address = textfilter($_POST['customeraddress']);
 
 
         $temp_customer_id = $_SESSION['id'];
@@ -286,7 +284,7 @@ if ($_SERVER['REQUEST_METHOD'] === "POST") {
 
         try {
 
-            if ( $email === '') {
+            if ($name === '' || $email === '' || $address === '') {
                 // echo "you need to fill";
 
                 echo '
@@ -318,37 +316,20 @@ if ($_SERVER['REQUEST_METHOD'] === "POST") {
             } else {
 
 
+                $insertctm = $conn->prepare('INSERT INTO customerinfo (name,email,address,temporary_id) VALUES (:name,:email,:address,:tempid)');
+                $insertctm->bindParam(":name", $name);
+                $insertctm->bindParam(":email", $email);
+                $insertctm->bindParam(":address", $address);
+                $insertctm->bindParam(":tempid", $temp_customer_id);
+                $insertctm->execute();
 
-
-                $registerstmt = $conn->prepare('UPDATE customerinfo SET  email = :email WHERE temporary_id');
-                $registerstmt->bindParam(":email", $email);
-                $registerstmt->execute();
-
-                $rowCount = $registerstmt->rowCount();
-
-                if ($rowCount > 0) {
-                    // echo "Updated $rowCount records with temporary ID: $temp_customer_id";
-                } else {
-
-                    $insertctm = $conn->prepare('INSERT INTO customerinfo (email,temporary_id) VALUES (:email,:tempid)');
-                    $insertctm->bindParam(":email", $email);
-                    $insertctm->bindParam(":tempid", $temp_customer_id);
-                    $insertctm->execute();
-    
-                    // echo "Inserted a new record with temporary ID: $temp_customer_id";
-                }
-
-
-
-
-             
 
 
             }
 
 
         } catch (Exception $e) {
-            // die('Error:' . $e->getMessage());
+            die('Error:' . $e->getMessage());
         }
 
     }
