@@ -93,26 +93,30 @@ try {
 
 
 
-
                                 <div class="w-full border border-2 p-5">
                                     <div class="w-full bg-gray-100 mb-3">
-                                        <h1 class="p-2">Customer Login</h1>
+                                        <h1 class="p-2">Customer Register</h1>
                                     </div>
 
                                     <div class="w-full border-b inputval mb-2">
-                                        <input type="text" name="loginemail" class="w-full focus:outline-none p-4 val"
+                                        <input type="text" name="regname" class="w-full focus:outline-none p-4 val"
+                                            placeholder="Name">
+                                    </div>
+
+                                    <div class="w-full border-b inputval mb-2">
+                                        <input type="text" name="regemail" class="w-full focus:outline-none p-4 val"
                                             placeholder="Email">
                                     </div>
 
                                     <div class="w-full border-b inputval mb-2">
-                                        <input type="password" name="loginpassword"
+                                        <input type="password" name="regpassword"
                                             class="w-full focus:outline-none p-4 val" placeholder="Password">
                                     </div>
 
                                     <div class="w-full flex justify-end items-center">
                                         <button class=" focus:outline-none p-4">
-                                            <a href="informationregister.php" id="registerbtn"
-                                                class="text-indigo-500 registerbtn"> Register</a>
+                                            <a href="informationlogin.php" id="loginfromreg" class="text-indigo-500">
+                                                Login</a>
 
 
                                         </button>
@@ -125,12 +129,6 @@ try {
 
 
                                 </div>
-
-
-
-
-
-
 
 
 
@@ -152,7 +150,7 @@ try {
 
                                 <div class="">
                                     <form action="" method="post">
-                                        <button type="submit" name="loginctn"
+                                        <button type="submit" name="ctmregister"
                                             class="bg-gray-300 uppercase p-2 ctntoshipbtn">
                                             <h1 class="text-sm p-1 rounded">Continue to shipping</h1>
                                         </button>
@@ -282,18 +280,18 @@ if ($_SERVER['REQUEST_METHOD'] === "POST") {
 
 
 
-    if (isset($_POST['loginctn'])) {
 
-        $email = filter_var($_POST['loginemail'], FILTER_SANITIZE_EMAIL);
-        $password = textfilter($_POST['loginpassword']);
-
-
+    if (isset($_POST['ctmregister'])) {
+        $name = textfilter($_POST['regname']);
+        $email = filter_var($_POST['regemail'], FILTER_SANITIZE_EMAIL);
+        $password = textfilter($_POST['regpassword']);
         $temp_customer_id = $_SESSION['id'];
+
 
 
         try {
 
-            if ($email === '' || $password === '') {
+            if ($name === '' || $email === '' || $password === '') {
                 // echo "you need to fill";
 
                 echo '
@@ -324,22 +322,39 @@ if ($_SERVER['REQUEST_METHOD'] === "POST") {
 
             } else {
 
-                $conn = $GLOBALS['conn'];
+                $select = $conn->prepare("SELECT temporary_id FROM customerinfo");
+                $select->execute();
 
-                $bindemail = $email;
-                $bindpassword = $password;
+                $row = $select->fetch();
 
-                $stmt = $conn->prepare('SELECT email, password FROM customerinfo WHERE email = :email AND password = :password');
-                $stmt->bindParam(":email", $bindemail);
-                $stmt->bindParam(":password", $bindpassword);
-                $stmt->execute();
+                while ($row = $select->fetch()) {
 
-                if ($stmt->rowCount() === 0) {
-                    echo "No Data";
+                    $registerstmt = $conn->prepare('UPDATE customerinfo SET name = :name, email = :email, password = :password WHERE temporary_id = :temp');
+                    $registerstmt->bindParam(":name", $name);
+                    $registerstmt->bindParam(":email", $email);
+                    $registerstmt->bindParam(":password", $password);
+                    $registerstmt->bindParam(":password", $password);
+                    $registerstmt->execute();
 
-                } else {
-                    echo "Yes Data";
-                    $_SESSION['loginemail'] = $bindemail;
+                    $rowCount = $registerstmt->rowCount();
+
+                    if ($rowCount > 0) {
+                        echo "Updated $rowCount records with temporary ID: $temp_customer_id";
+                    } else {
+                        $insertStmt = $conn->prepare('INSERT INTO customerinfo (name, email, password, temporary_id) VALUES (:name, :email, :password, :tempid)');
+                        $insertStmt->bindParam(":name", $name);
+                        $insertStmt->bindParam(":email", $email);
+                        $insertStmt->bindParam(":password", $password);
+                        $insertStmt->bindParam(":tempid", $temp_customer_id);
+
+                        if ($insertStmt->execute()) {
+                            $_SESSION['regemail'] = $email;
+                            $_SESSION['regpassword'] = $password;
+                        }
+
+                        echo "Inserted a new record with temporary ID: $temp_customer_id";
+                    }
+
                 }
 
 
@@ -364,8 +379,9 @@ CREATE TABLE IF NOT EXISTS customerinfo(
     id INT AUTO_INCREMENT NOT NULL PRIMARY KEY,
     name VARCHAR(255) NOT NULL,
     email  VARCHAR(255) NOT NULL UNIQUE,
+    password VARCHAR(255),
     address VARCHAR(255) NOT NULL,
-    temporary_id INT ,
+    temporary_id INT UNIQUE
      
 )
 
