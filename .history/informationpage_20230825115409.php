@@ -85,9 +85,13 @@ try {
                         <form action="" method="post" class="w-[80%]">
 
                             <div class="w-full">
-                                <div class="flex  mb-5 mt-5">
+                                <div class="flex  mb-4">
                                     <h1>Information</h1>
-                                 
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                        stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                                        <path stroke-linecap="round" stroke-linejoin="round"
+                                            d="M8.25 4.5l7.5 7.5-7.5 7.5" />
+                                    </svg>
                                 </div>
 
                                 <div class="w-full border border-2 p-5 guestinfo">
@@ -253,6 +257,53 @@ try {
 
 
 
+    <script type="text/javascript">
+        var gotoguest = document.querySelectorAll('.gotoguest');
+        var registerinfo = document.querySelector('.registerinfo');
+        var logininfo = document.querySelector('.logininfo');
+        var guestinfo = document.querySelector('.guestinfo');
+        var loginbtn = document.getElementById('loginbtn');
+        var registerbtn =document.getElementById('registerbtn');
+        var loginfromreg =document.getElementById('loginfromreg');
+
+        for (var i = 0; i < gotoguest.length; i++) {
+            gotoguest[i].addEventListener('click', function () {
+                guestinfo.style.display = "block";
+                logininfo.style.display = "none";
+                registerinfo.style.display = "none";
+            })
+        }
+
+        loginbtn.addEventListener('click', function (event) {
+            console.log('hi');
+
+            event.preventDefault();
+            guestinfo.style.display = "none";
+            logininfo.style.display = "block";
+            registerinfo.style.display = "none";
+        })
+
+
+        
+        registerbtn.addEventListener('click', function (event) {
+            console.log('hi');
+
+            event.preventDefault();
+            guestinfo.style.display = "none";
+            logininfo.style.display = "none";
+            registerinfo.style.display = "block";
+        })
+
+
+        loginfromreg.addEventListener('click', function (event) {
+            console.log('hi');
+
+            event.preventDefault();
+            guestinfo.style.display = "none";
+            logininfo.style.display = "block";
+            registerinfo.style.display = "none";
+        })
+    </script>
 
 
 
@@ -271,7 +322,6 @@ function textfilter($data)
 }
 
 if ($_SERVER['REQUEST_METHOD'] === "POST") {
-
     if (isset($_POST['ctntoship'])) {
         $name = textfilter($_POST['customername']);
         $email = filter_var($_POST['customeremail'], FILTER_SANITIZE_EMAIL);
@@ -345,7 +395,7 @@ CREATE TABLE IF NOT EXISTS customerinfo(
     name VARCHAR(255) NOT NULL,
     email  VARCHAR(255) NOT NULL UNIQUE,
     address VARCHAR(255) NOT NULL,
-    temporary_id INT UNIQUE,
+    temporary_id INT ,
      
 )
 

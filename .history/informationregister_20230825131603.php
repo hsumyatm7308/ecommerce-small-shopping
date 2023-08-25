@@ -87,47 +87,48 @@ try {
                             <div class="w-full">
                                 <div class="flex  mb-5 mt-5">
                                     <h1>Information</h1>
-                                 
+
                                 </div>
 
-                                <div class="w-full border border-2 p-5 guestinfo">
+
+
+
+                                <div class="w-full border border-2 p-5">
                                     <div class="w-full bg-gray-100 mb-3">
-                                        <h1 class="p-2">Customer</h1>
+                                        <h1 class="p-2">Customer Register</h1>
                                     </div>
-                                    <div class="w-full border-b  	 inputval mb-2">
-                                        <input type="text" name="customername" class="w-full focus:outline-none p-4 val"
+
+                                    <div class="w-full border-b inputval mb-2">
+                                        <input type="text" name="regname" class="w-full focus:outline-none p-4 val"
                                             placeholder="Name">
                                     </div>
+
                                     <div class="w-full border-b inputval mb-2">
-                                        <input type="text" name="customeremail"
-                                            class="w-full focus:outline-none p-4 val" placeholder="Email">
+                                        <input type="text" name="regemail" class="w-full focus:outline-none p-4 val"
+                                            placeholder="Email">
                                     </div>
 
                                     <div class="w-full border-b inputval mb-2">
-                                        <input type="text" name="customeraddress"
-                                            class="w-full focus:outline-none p-4 val" placeholder="Address">
+                                        <input type="password" name="regpassword"
+                                            class="w-full focus:outline-none p-4 val" placeholder="Password">
                                     </div>
 
-                                    <div class="w-full">
-                                        <!-- <button id="loginbtn" class="w-full focus:outline-none p-4">Use your account
-                                            <span class="text-indigo-500"> Login</span>
-                                        </button> -->
-                                        <button class="w-full focus:outline-none p-4">Use your account
-                                            <a href="informationlogin.php" class="text-indigo-500"> Login</a>
+                                    <div class="w-full flex justify-end items-center">
+                                        <button class=" focus:outline-none p-4">
+                                            <a href="informationlogin.php" id="loginfromreg" class="text-indigo-500">
+                                                Login</a>
+
+
                                         </button>
+                                        <button class=" focus:outline-none p-4">
+                                            <a href="informationpage.php" class="text-indigo-500 gotoguest">Cancle</a>
+
+                                        </button>
+
                                     </div>
 
 
                                 </div>
-
-
-
-                             
-
-
-
-
-                               
 
 
 
@@ -149,7 +150,7 @@ try {
 
                                 <div class="">
                                     <form action="" method="post">
-                                        <button type="submit" name="ctntoship"
+                                        <button type="submit" name="ctmregister"
                                             class="bg-gray-300 uppercase p-2 ctntoshipbtn">
                                             <h1 class="text-sm p-1 rounded">Continue to shipping</h1>
                                         </button>
@@ -272,18 +273,20 @@ function textfilter($data)
 
 if ($_SERVER['REQUEST_METHOD'] === "POST") {
 
-    if (isset($_POST['ctntoship'])) {
-        $name = textfilter($_POST['customername']);
-        $email = filter_var($_POST['customeremail'], FILTER_SANITIZE_EMAIL);
-        $address = textfilter($_POST['customeraddress']);
 
 
+
+    if (isset($_POST['ctmregister'])) {
+        $name = textfilter($_POST['regname']);
+        $email = filter_var($_POST['regemail'], FILTER_SANITIZE_EMAIL);
+        $password = textfilter($_POST['regpassword']);
         $temp_customer_id = $_SESSION['id'];
+
 
 
         try {
 
-            if ($name === '' || $email === '' || $address === '') {
+            if ($name === '' || $email === '' || $password === '') {
                 // echo "you need to fill";
 
                 echo '
@@ -314,13 +317,30 @@ if ($_SERVER['REQUEST_METHOD'] === "POST") {
 
             } else {
 
+                $registerstmt = $conn->prepare('UPDATE customerinfo SET name = :name, email = :email, password = :password WHERE temporary_id = :tempid');
+                $registerstmt->bindParam(":name", $name);
+                $registerstmt->bindParam(":email", $email);
+                $registerstmt->bindParam(":password", $password);
+                $registerstmt->bindParam(":tempid", $temp_customer_id);
+                $registerstmt->execute();
 
-                $insertctm = $conn->prepare('INSERT INTO customerinfo (name,email,address,temporary_id) VALUES (:name,:email,:address,:tempid)');
-                $insertctm->bindParam(":name", $name);
-                $insertctm->bindParam(":email", $email);
-                $insertctm->bindParam(":address", $address);
-                $insertctm->bindParam(":tempid", $temp_customer_id);
-                $insertctm->execute();
+                // $rowCount = $registerstmt->rowCount();
+
+                // if ($rowCount > 0) {
+                //     echo "Updated $rowCount records with temporary ID: $temp_customer_id";
+                // } else {
+                //     // If no records were updated, insert a new record
+                    // $insertStmt = $conn->prepare('INSERT INTO customerinfo (name, email, password, temporary_id) VALUES (:name, :email, :password, :tempid)');
+                    // $insertStmt->bindParam(":name", $name);
+                    // $insertStmt->bindParam(":email", $email);
+                    // $insertStmt->bindParam(":password", $password);
+                    // $insertStmt->bindParam(":tempid", $temp_customer_id);
+                    // $insertStmt->execute();
+
+                //     echo "Inserted a new record with temporary ID: $temp_customer_id";
+                // }
+
+
 
 
 
@@ -344,8 +364,9 @@ CREATE TABLE IF NOT EXISTS customerinfo(
     id INT AUTO_INCREMENT NOT NULL PRIMARY KEY,
     name VARCHAR(255) NOT NULL,
     email  VARCHAR(255) NOT NULL UNIQUE,
+    password VARCHAR(255),
     address VARCHAR(255) NOT NULL,
-    temporary_id INT UNIQUE,
+    temporary_id INT UNIQUE
      
 )
 

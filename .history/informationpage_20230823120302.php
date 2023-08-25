@@ -14,22 +14,12 @@ try {
 
 
 
+
+
+// var_dump($_POST); // Add this line to see the contents of the $_POST array
+
 ?>
 
-
-<style>
-    .guestinfo {
-        /* display: none; */
-    }
-
-    .logininfo {
-        display: none;
-    }
-
-    .registerinfo {
-        display: none;
-    }
-</style>
 
 <!DOCTYPE html>
 <html>
@@ -85,12 +75,16 @@ try {
                         <form action="" method="post" class="w-[80%]">
 
                             <div class="w-full">
-                                <div class="flex  mb-5 mt-5">
+                                <div class="flex  mb-4">
                                     <h1>Information</h1>
-                                 
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                        stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                                        <path stroke-linecap="round" stroke-linejoin="round"
+                                            d="M8.25 4.5l7.5 7.5-7.5 7.5" />
+                                    </svg>
                                 </div>
 
-                                <div class="w-full border border-2 p-5 guestinfo">
+                                <div class="w-full border border-2 p-5">
                                     <div class="w-full bg-gray-100 mb-3">
                                         <h1 class="p-2">Customer</h1>
                                     </div>
@@ -109,30 +103,12 @@ try {
                                     </div>
 
                                     <div class="w-full">
-                                        <!-- <button id="loginbtn" class="w-full focus:outline-none p-4">Use your account
-                                            <span class="text-indigo-500"> Login</span>
-                                        </button> -->
-                                        <button class="w-full focus:outline-none p-4">Use your account
-                                            <a href="informationlogin.php" class="text-indigo-500"> Login</a>
-                                        </button>
+                                        <button class="w-full focus:outline-none p-4">Use your account <a href=""
+                                                class="text-indigo-500"> Login</a></button>
                                     </div>
 
 
                                 </div>
-
-
-
-                             
-
-
-
-
-                               
-
-
-
-
-
                             </div>
 
 
@@ -158,8 +134,6 @@ try {
                             </div>
 
                         </form>
-
-
 
                     </div>
                 </section>
@@ -254,12 +228,16 @@ try {
 
 
 
-
-
 </body>
 
 </html>
 
+<script type="text/javascript">
+    // const ctntoshipbtn = document.querySelector('.ctntoshipbtn');
+    // ctntoshipbtn.addEventListener('click',function(){
+    //     console.log('helo')
+    // })
+</script>
 
 
 <?php
@@ -271,7 +249,6 @@ function textfilter($data)
 }
 
 if ($_SERVER['REQUEST_METHOD'] === "POST") {
-
     if (isset($_POST['ctntoship'])) {
         $name = textfilter($_POST['customername']);
         $email = filter_var($_POST['customeremail'], FILTER_SANITIZE_EMAIL);
@@ -336,16 +313,13 @@ if ($_SERVER['REQUEST_METHOD'] === "POST") {
 
 ?>
 
-
-
-
 <!-- 
 CREATE TABLE IF NOT EXISTS customerinfo(
     id INT AUTO_INCREMENT NOT NULL PRIMARY KEY,
     name VARCHAR(255) NOT NULL,
     email  VARCHAR(255) NOT NULL UNIQUE,
     address VARCHAR(255) NOT NULL,
-    temporary_id INT UNIQUE,
+    temporary_id INT ,
      
 )
 

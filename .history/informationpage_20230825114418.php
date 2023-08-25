@@ -82,15 +82,18 @@ try {
                     <div class="w-full min-h-[500px] flex justify-center items-center flex-col">
 
 
-                        <form action="" method="post" class="w-[80%]">
-
+                        <form action="" method="post" class="w-[80%] guestinfo">
                             <div class="w-full">
-                                <div class="flex  mb-5 mt-5">
+                                <div class="flex  mb-4">
                                     <h1>Information</h1>
-                                 
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                        stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                                        <path stroke-linecap="round" stroke-linejoin="round"
+                                            d="M8.25 4.5l7.5 7.5-7.5 7.5" />
+                                    </svg>
                                 </div>
 
-                                <div class="w-full border border-2 p-5 guestinfo">
+                                <div class="w-full border border-2 p-5 ">
                                     <div class="w-full bg-gray-100 mb-3">
                                         <h1 class="p-2">Customer</h1>
                                     </div>
@@ -109,28 +112,13 @@ try {
                                     </div>
 
                                     <div class="w-full">
-                                        <!-- <button id="loginbtn" class="w-full focus:outline-none p-4">Use your account
+                                        <button id="loginbtn" class="w-full focus:outline-none p-4">Use your account
                                             <span class="text-indigo-500"> Login</span>
-                                        </button> -->
-                                        <button class="w-full focus:outline-none p-4">Use your account
-                                            <a href="informationlogin.php" class="text-indigo-500"> Login</a>
                                         </button>
                                     </div>
 
 
                                 </div>
-
-
-
-                             
-
-
-
-
-                               
-
-
-
 
 
                             </div>
@@ -160,99 +148,229 @@ try {
                         </form>
 
 
+                        <form action="" method="post" class="w-[80%] logininfo">
 
-                    </div>
-                </section>
+                            <div class="w-full">
+                                <div class="flex  mb-4">
+                                    <h1>Information</h1>
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                        stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                                        <path stroke-linecap="round" stroke-linejoin="round"
+                                            d="M8.25 4.5l7.5 7.5-7.5 7.5" />
+                                    </svg>
+                                </div>
 
 
 
-            </div>
 
 
-            <div class="col-span-2 w-full min-h-[100vh] bg-gray-200">
-
-                <div class="w-full border-b  mt-[6px]">
-
-                    <?php while ($row = $stmt->fetch()): ?>
-
-                        <div class="w-full h-auto takenitems px-5">
-                            <div class="grid grid-cols-3 border-b border-b-solid border-b-gray-300">
-                                <div class="col-span-2 flex justify-between items-center">
-                                    <div class="w-[100px] h-[100px]  flex justify-center items-center ml-4 relative">
-                                        <img src="./assets/img/perfume/men/men1.jpg" alt="" width="150px">
-                                        <span
-                                            class="w-5 h-5 absolute -right-3 top-3 text-sm bg-gray-400 flex justify-center items-center rounded-full">
-                                            <span class="text-white">
-                                                <?= $row['quantity'] ?>
-                                            </span>
-                                        </span>
+                                <div class="w-full border border-2 p-5 ">
+                                    <div class="w-full bg-gray-100 mb-3">
+                                        <h1 class="p-2">Customer</h1>
                                     </div>
 
-
-                                    <div class="flex justify-center items-center ml-5">
-                                        <p>
-                                            <?= $row['perfumename'] ?>by
-                                            <?= $row['brandname'] ?> EDT 3.3 OZ
-                                            <?= $row['mili'] ?> spray for
-                                            <?= $row['category'] ?>
-                                        </p>
+                                    <div class="w-full border-b inputval mb-2">
+                                        <input type="text" name="loginemail" class="w-full focus:outline-none p-4 val"
+                                            placeholder="Email">
                                     </div>
+
+                                    <div class="w-full border-b inputval mb-2">
+                                        <input type="password" name="loginpassword"
+                                            class="w-full focus:outline-none p-4 val" placeholder="Password">
+                                    </div>
+
+                                    <div class="w-full flex justify-end items-center">
+                                        <button class=" focus:outline-none p-4">
+                                            <span id="registerbtn" class="text-indigo-500 registerbtn"> Register</span>
+
+
+                                        </button>
+                                        <button class=" focus:outline-none p-4">
+                                            <span class="text-indigo-500 gotoguest">Cancle</span>
+
+                                        </button>
+
+                                    </div>
+
 
                                 </div>
+
+
+
+
+
+                            </div>
+                            <div class="w-full flex justify-between items-center mt-5">
                                 <div class="flex justify-center items-center">
-                                    <p class="font-semibold">$
-                                        <?= $row['totalprice'] ?>
-                                    </p>
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                        stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                                        <path stroke-linecap="round" stroke-linejoin="round"
+                                            d="M18.75 19.5l-7.5-7.5 7.5-7.5m-6 15L5.25 12l7.5-7.5" />
+                                    </svg>
+                                    <span>Return to your cart</span>
+                                </div>
+
+                                <div class="">
+                                    <form action="" method="post">
+                                        <button type="submit" name="ctntoship"
+                                            class="bg-gray-300 uppercase p-2 ctntoshipbtn">
+                                            <h1 class="text-sm p-1 rounded">Continue to shipping</h1>
+                                        </button>
+                                    </form>
                                 </div>
                             </div>
 
-                        </div>
+                        </form>
 
 
-                    <?php endwhile; ?>
 
-                </div>
 
-                <div class="flex justify-center items-center p-5">
-                    <div class="w-full border-b border-b-solid border-b-gray-300 py-3">
-                        <input type="text" class="w-[70%] focus:outline-none ml-4  p-4"
-                            placeholder="Give card (remark)">
-                        <button class="bg-gray-300 uppercase text-sm ml-4 py-4 px-6">Apply</button>
                     </div>
-                </div>
 
 
 
 
-                <div class="w-full h-auto  px-5">
-                    <div class="grid grid-cols-3 ">
+
+
+                  
+            </div>
+    </section>
+
+
+
+    </div>
+
+
+    <div class="col-span-2 w-full min-h-[100vh] bg-gray-200">
+
+        <div class="w-full border-b  mt-[6px]">
+
+            <?php while ($row = $stmt->fetch()): ?>
+
+                <div class="w-full h-auto takenitems px-5">
+                    <div class="grid grid-cols-3 border-b border-b-solid border-b-gray-300">
                         <div class="col-span-2 flex justify-between items-center">
-                            <h1 class="ml-4">Subtotal</h1>
+                            <div class="w-[100px] h-[100px]  flex justify-center items-center ml-4 relative">
+                                <img src="./assets/img/perfume/men/men1.jpg" alt="" width="150px">
+                                <span
+                                    class="w-5 h-5 absolute -right-3 top-3 text-sm bg-gray-400 flex justify-center items-center rounded-full">
+                                    <span class="text-white">
+                                        <?= $row['quantity'] ?>
+                                    </span>
+                                </span>
+                            </div>
+
+
+                            <div class="flex justify-center items-center ml-5">
+                                <p>
+                                    <?= $row['perfumename'] ?>by
+                                    <?= $row['brandname'] ?> EDT 3.3 OZ
+                                    <?= $row['mili'] ?> spray for
+                                    <?= $row['category'] ?>
+                                </p>
+                            </div>
+
                         </div>
                         <div class="flex justify-center items-center">
-                            <p> $30</p>
+                            <p class="font-semibold">$
+                                <?= $row['totalprice'] ?>
+                            </p>
                         </div>
                     </div>
 
                 </div>
 
-                <div>
 
-                </div>
-
-
-
-            </div>
-
-
+            <?php endwhile; ?>
 
         </div>
+
+        <div class="flex justify-center items-center p-5">
+            <div class="w-full border-b border-b-solid border-b-gray-300 py-3">
+                <input type="text" class="w-[70%] focus:outline-none ml-4  p-4" placeholder="Give card (remark)">
+                <button class="bg-gray-300 uppercase text-sm ml-4 py-4 px-6">Apply</button>
+            </div>
+        </div>
+
+
+
+
+        <div class="w-full h-auto  px-5">
+            <div class="grid grid-cols-3 ">
+                <div class="col-span-2 flex justify-between items-center">
+                    <h1 class="ml-4">Subtotal</h1>
+                </div>
+                <div class="flex justify-center items-center">
+                    <p> $30</p>
+                </div>
+            </div>
+
+        </div>
+
+        <div>
+
+        </div>
+
+
+
+    </div>
+
+
+
+    </div>
     </section>
 
 
 
 
 
+    <script type="text/javascript">
+        var gotoguest = document.querySelectorAll('.gotoguest');
+        var registerinfo = document.querySelector('.registerinfo');
+        var logininfo = document.querySelector('.logininfo');
+        var guestinfo = document.querySelector('.guestinfo');
+        var loginbtn = document.getElementById('loginbtn');
+        var registerbtn = document.getElementById('registerbtn');
+        var loginfromreg = document.getElementById('loginfromreg');
+
+        for (var i = 0; i < gotoguest.length; i++) {
+            gotoguest[i].addEventListener('click', function () {
+                guestinfo.style.display = "block";
+                logininfo.style.display = "none";
+                registerinfo.style.display = "none";
+            })
+        }
+
+        loginbtn.addEventListener('click', function (event) {
+            console.log('hi');
+
+            event.preventDefault();
+            guestinfo.style.display = "none";
+            logininfo.style.display = "block";
+            registerinfo.style.display = "none";
+        })
+
+
+
+        registerbtn.addEventListener('click', function (event) {
+            console.log('hi');
+
+            event.preventDefault();
+            guestinfo.style.display = "none";
+            logininfo.style.display = "none";
+            registerinfo.style.display = "block";
+        })
+
+
+        loginfromreg.addEventListener('click', function (event) {
+            console.log('hi');
+
+            event.preventDefault();
+            guestinfo.style.display = "none";
+            logininfo.style.display = "block";
+            registerinfo.style.display = "none";
+        })
+    </script>
 
 
 
@@ -271,7 +389,6 @@ function textfilter($data)
 }
 
 if ($_SERVER['REQUEST_METHOD'] === "POST") {
-
     if (isset($_POST['ctntoship'])) {
         $name = textfilter($_POST['customername']);
         $email = filter_var($_POST['customeremail'], FILTER_SANITIZE_EMAIL);
@@ -345,7 +462,7 @@ CREATE TABLE IF NOT EXISTS customerinfo(
     name VARCHAR(255) NOT NULL,
     email  VARCHAR(255) NOT NULL UNIQUE,
     address VARCHAR(255) NOT NULL,
-    temporary_id INT UNIQUE,
+    temporary_id INT ,
      
 )
 

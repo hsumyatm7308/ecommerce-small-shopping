@@ -85,7 +85,7 @@ try {
                         <form action="" method="post" class="w-[80%]">
 
                             <div class="w-full">
-                                <div class="flex  mb-5 mt-5">
+                                <div class="flex  mb-4">
                                     <h1>Information</h1>
                                  
                                 </div>
@@ -271,7 +271,6 @@ function textfilter($data)
 }
 
 if ($_SERVER['REQUEST_METHOD'] === "POST") {
-
     if (isset($_POST['ctntoship'])) {
         $name = textfilter($_POST['customername']);
         $email = filter_var($_POST['customeremail'], FILTER_SANITIZE_EMAIL);
@@ -345,7 +344,7 @@ CREATE TABLE IF NOT EXISTS customerinfo(
     name VARCHAR(255) NOT NULL,
     email  VARCHAR(255) NOT NULL UNIQUE,
     address VARCHAR(255) NOT NULL,
-    temporary_id INT UNIQUE,
+    temporary_id INT ,
      
 )
 

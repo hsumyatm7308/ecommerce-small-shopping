@@ -274,8 +274,6 @@ if (isset($_GET['letters'])) {
 
 
 
-
-
     <script type="text/javascript">
         var gotoguest = document.querySelectorAll('.gotoguest');
         var registerinfo = document.querySelector('.registerinfo');

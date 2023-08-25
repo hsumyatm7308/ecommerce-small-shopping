@@ -345,7 +345,7 @@ CREATE TABLE IF NOT EXISTS customerinfo(
     name VARCHAR(255) NOT NULL,
     email  VARCHAR(255) NOT NULL UNIQUE,
     address VARCHAR(255) NOT NULL,
-    temporary_id INT UNIQUE,
+    temporary_id INT ,
      
 )
 
