@@ -287,7 +287,6 @@ if ($_SERVER['REQUEST_METHOD'] === "POST") {
         $password = textfilter($_POST['regpassword']);
         $temp_customer_id = $_SESSION['id'];
 
-        $password = password_hash($password,PASSWORD_DEFAULT);
 
 
         try {
@@ -328,7 +327,7 @@ if ($_SERVER['REQUEST_METHOD'] === "POST") {
                     $select->execute();
                     $rowCount = $select->fetchColumn();
 
-
+                    
 
                     if ($rowCount > 0) {
                        
