@@ -8,7 +8,7 @@ $temp_customer_id = $_SESSION['id'];
 try {
 
     $stmt = $conn->prepare("SELECT * FROM addtocart WHERE temporaryid = :temp");
-    $stmt->bindParam(":temp", $temp_customer_id);
+    $stmt->bindParam(":temp",$temp_customer_id);
     $stmt->execute();
 } catch (Exception $e) {
     echo "error found: " . $e->getMessage();
@@ -57,12 +57,24 @@ try {
 <body>
 
     <section>
-        <div class="grid grid-cols-6">
+        <div class="grid grid-cols-5">
 
-            <div class="col-span-4 w-full flex justify-start items-center flex-col">
+            <div class="col-span-3 w-full flex justify-start items-center flex-col">
                 <!-- head  -->
-                <?php require_once "shiphead.php"; ?>
+                <div class="w-full h-52 bg-gray-100 flex justify-center items-center flex-col">
+                    <a href="index.php?page=1">
+                        <h1 class="text-4xl"> Your Shopping Cart</h1>
+                    </a>
 
+                    <div class="mt-4">
+                        <ul class="text-sm flex justify-center items-center">
+                            <li class="p-1">Items |</li>
+                            <li class="p-1 ">Information |</li>
+                            <li class="p-1">Shipping |</li>
+                            <li class="p-1 ">Payment</li>
+                        </ul>
+                    </div>
+                </div>
 
 
 
@@ -80,45 +92,45 @@ try {
 
                                 </div>
 
-
-
-
-                                <div class="w-full border border-2 p-5">
+                                <div class="w-full border border-2 p-5 guestinfo">
                                     <div class="w-full bg-gray-100 mb-3">
-                                        <h1 class="p-2">Customer Register</h1>
+                                        <h1 class="p-2">Customer</h1>
                                     </div>
-
-                                    <div class="w-full border-b inputval mb-2">
-                                        <input type="text" name="regname" class="w-full focus:outline-none p-4 val"
+                                    <!-- <div class="w-full border-b  	 inputval mb-2">
+                                        <input type="text" name="customername" class="w-full focus:outline-none p-4 val"
                                             placeholder="Name">
-                                    </div>
+                                    </div> -->
 
                                     <div class="w-full border-b inputval mb-2">
-                                        <input type="text" name="regemail" class="w-full focus:outline-none p-4 val"
-                                            placeholder="Email">
+                                        <input type="text" name="customeremail"
+                                            class="w-full focus:outline-none p-4 val" placeholder="Email">
                                     </div>
-
+                                    <!-- 
                                     <div class="w-full border-b inputval mb-2">
-                                        <input type="password" name="regpassword"
-                                            class="w-full focus:outline-none p-4 val" placeholder="Password">
-                                    </div>
+                                        <input type="text" name="customeraddress"
+                                            class="w-full focus:outline-none p-4 val" placeholder="Address">
+                                    </div> -->
 
-                                    <div class="w-full flex justify-end items-center">
-                                        <button class=" focus:outline-none p-4">
-                                            <a href="informationlogin.php" id="loginfromreg" class="text-indigo-500">
-                                                Login</a>
-
-
+                                    <div class="w-full">
+                                        <!-- <button id="loginbtn" class="w-full focus:outline-none p-4">Use your account
+                                            <span class="text-indigo-500"> Login</span>
+                                        </button> -->
+                                        <button class="w-full focus:outline-none p-4">Use your account
+                                            <a href="informationlogin.php" class="text-indigo-500"> Login</a>
                                         </button>
-                                        <button class=" focus:outline-none p-4">
-                                            <a href="informationpage.php" class="text-indigo-500 gotoguest">Cancle</a>
-
-                                        </button>
-
                                     </div>
 
 
                                 </div>
+
+
+
+
+
+
+
+
+
 
 
 
@@ -140,9 +152,9 @@ try {
 
                                 <div class="">
                                     <form action="" method="post">
-                                        <button type="submit" name="ctmregister"
-                                            class="bg-gray-500 uppercase p-2 ctntoshipbtn">
-                                            <h1 class="text-sm text-white p-1 rounded">Continue to shipping</h1>
+                                        <button type="submit" name="ctntoship"
+                                            class="bg-gray-300 uppercase p-2 ctntoshipbtn">
+                                            <h1 class="text-sm p-1 rounded">Continue to shipping</h1>
                                         </button>
                                     </form>
                                 </div>
@@ -160,9 +172,9 @@ try {
             </div>
 
 
-            <?php
-            require_once "orderinformation.php";
-            ?>
+          <?php
+               require_once "orderinformation.php";
+          ?>
 
 
 
@@ -170,13 +182,12 @@ try {
     </section>
 
 
-
-
-
     <script>
         var infosubtotal = document.querySelector('.infosubtotal');
         infosubtotal.innerHTML = localStorage.getItem('subtotal');
     </script>
+
+
 
 
 
@@ -197,21 +208,16 @@ function textfilter($data)
 
 if ($_SERVER['REQUEST_METHOD'] === "POST") {
 
+    if (isset($_POST['ctntoship'])) {
+        $email = filter_var($_POST['customeremail'], FILTER_SANITIZE_EMAIL);
 
 
-
-    if (isset($_POST['ctmregister'])) {
-        $name = textfilter($_POST['regname']);
-        $email = filter_var($_POST['regemail'], FILTER_SANITIZE_EMAIL);
-        $password = textfilter($_POST['regpassword']);
         $temp_customer_id = $_SESSION['id'];
-
-        $password = password_hash($password, PASSWORD_DEFAULT);
 
 
         try {
 
-            if ($name === '' || $email === '' || $password === '') {
+            if ($email === '') {
                 // echo "you need to fill";
 
                 echo '
@@ -244,35 +250,42 @@ if ($_SERVER['REQUEST_METHOD'] === "POST") {
 
 
 
+                try {
 
-                if ($temp_customer_id) {
-                    $selectStmt = $conn->prepare('SELECT COUNT(*) FROM customerinfo WHERE temporary_id = :tempid');
-                    $selectStmt->bindParam(":tempid", $temp_customer_id);
-                    $selectStmt->execute();
-                    $rowCount = $selectStmt->fetchColumn();
+                    if ($temp_customer_id) {
+                        $selectStmt = $conn->prepare('SELECT COUNT(*) FROM customerinfo WHERE temporary_id = :tempid');
+                        $selectStmt->bindParam(":tempid", $temp_customer_id);
+                        $selectStmt->execute();
+                        $rowCount = $selectStmt->fetchColumn();
 
-                    if ($rowCount > 0) {
-                        // Temporary ID exists in the database
-                        $registerstmt = $conn->prepare('UPDATE customerinfo SET name = :name, email = :email, password = :password WHERE temporary_id = :temp');
-                        $registerstmt->bindParam(":name", $name);
-                        $registerstmt->bindParam(":email", $email);
-                        $registerstmt->bindParam(":password", $password);
-                        $registerstmt->bindParam(":temp", $temp_customer_id);
-                        $registerstmt->execute();
-                    } else {
-                        // Temporary ID does not exist in the database
-                        $insertStmt = $conn->prepare('INSERT INTO customerinfo (name, email, password, temporary_id) VALUES (:name, :email, :password, :tempid)');
-                        $insertStmt->bindParam(":name", $name);
-                        $insertStmt->bindParam(":email", $email);
-                        $insertStmt->bindParam(":password", $password);
-                        $insertStmt->bindParam(":tempid", $temp_customer_id);
-
-                        if ($insertStmt->execute()) {
-                            $_SESSION['regemail'] = $email;
-                            $_SESSION['regpassword'] = $password;
+                        if ($rowCount > 0) {
+                            // Temporary ID exists in the database
+                            $updateStmt = $conn->prepare('UPDATE customerinfo SET email = :email WHERE temporary_id = :tempid');
+                            $updateStmt->bindParam(":tempid", $temp_customer_id);
+                            $updateStmt->bindParam(":email", $email);
+                            $updateStmt->execute();
+                            echo "Updated $rowCount records with temporary ID:" . $temp_customer_id;
+                            echo "Temporary ID $temp_customer_id already exists in the database.";
+                        } else {
+                            // Temporary ID does not exist in the database
+                            $insertStmt = $conn->prepare('INSERT INTO customerinfo (email, temporary_id) VALUES (:email, :tempid)');
+                            $insertStmt->bindParam(":email", $email);
+                            $insertStmt->bindParam(":tempid", $temp_customer_id);
+                            $insertStmt->execute();
+                            echo "Inserted a new record with temporary ID: $temp_customer_id";
                         }
                     }
+
+
+
+                } catch (PDOException $e) {
+                    // Handle any database errors that occur
+                    echo "Database Error: " . $e->getMessage();
                 }
+
+
+
+
 
 
 
@@ -281,7 +294,7 @@ if ($_SERVER['REQUEST_METHOD'] === "POST") {
 
 
         } catch (Exception $e) {
-            die('Error:' . $e->getMessage());
+            // die('Error:' . $e->getMessage());
         }
 
     }

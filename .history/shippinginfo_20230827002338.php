@@ -40,7 +40,7 @@ try {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Information</title>
+    <title>Shipping Information</title>
     <link rel="stylesheet" href="./css/style.css">
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"
@@ -57,9 +57,9 @@ try {
 <body>
 
     <section>
-        <div class="grid grid-cols-6">
+        <div class="grid grid-cols-5">
 
-            <div class="col-span-4 w-full flex justify-start items-center flex-col">
+            <div class="col-span-3 w-full flex justify-start items-center flex-col">
                 <!-- head  -->
                 <?php require_once "shiphead.php"; ?>
 
@@ -76,37 +76,57 @@ try {
 
                             <div class="w-full">
                                 <div class="flex  mb-5 mt-5">
-                                    <h1>Information</h1>
+                                    <h1>Shipping Address</h1>
 
                                 </div>
 
-                                <div class="w-full border border-2 p-5 guestinfo">
+                                <div class="w-full border-gray-400 border-2 p-5 guestinfo">
                                     <div class="w-full bg-gray-100 mb-3">
-                                        <h1 class="p-2">Customer</h1>
+                                        <!-- <h1 class="p-2">Customer</h1> -->
                                     </div>
-                                    <!-- <div class="w-full border-b  	 inputval mb-2">
-                                        <input type="text" name="customername" class="w-full focus:outline-none p-4 val"
-                                            placeholder="Name">
-                                    </div> -->
 
-                                    <div class="w-full border-b inputval mb-2">
-                                        <input type="text" name="customeremail"
-                                            class="w-full focus:outline-none p-4 val" placeholder="Email">
-                                    </div>
-                                    <!-- 
-                                    <div class="w-full border-b inputval mb-2">
-                                        <input type="text" name="customeraddress"
-                                            class="w-full focus:outline-none p-4 val" placeholder="Address">
-                                    </div> -->
+                                    <div class="w-full grid grid-cols-2 mb-5">
 
-                                    <div class="w-full">
-                                        <!-- <button id="loginbtn" class="w-full focus:outline-none p-4">Use your account
-                                            <span class="text-indigo-500"> Login</span>
-                                        </button> -->
-                                        <button class="w-full focus:outline-none p-4">Use your account
-                                            <a href="informationlogin.php" class="text-indigo-500"> Login</a>
-                                        </button>
+                                        <div class="w border-b-2 border-gray-400 inputval mb-2 mr-5">
+                                                <input type="text" name="firstname"
+                                                    class="w- focus:outline-none p-1 val" placeholder="First Name">
+                                        </div>
+
+                                        <div class="w border-b-2 border-gray-400 inputval mb-2 ml-5">
+                                            <input type="text" name="lastname" class="w- focus:outline-none p-1 val"
+                                                placeholder="Last Name">
+                                        </div>
+
                                     </div>
+
+
+                                    <div class="w-full border-b-2 border-gray-400 inputval mb-5">
+                                        <input type="text" name="company" class="w-full focus:outline-none p-1 val"
+                                            placeholder="Company (Option)">
+                                    </div>
+
+
+                                    <div class="w-full border-b-2 border-gray-400 inputval mb-5">
+                                        <input type="text" name="phone" class="w-full focus:outline-none p-1 val"
+                                            placeholder="Phone Number (Option)">
+                                    </div>
+
+
+                                    <div class="w-full border-b-2 border-gray-400 inputval mb-5">
+                                        <input type="text" name="address" class="w-full focus:outline-none p-1 val"
+                                            placeholder="Address">
+                                    </div>
+
+
+                                    <div class="w-full border-b-2 border-gray-400 inputval mb-5">
+                                        <input type="text" name="city" class="w-full focus:outline-none p-1 val"
+                                            placeholder="City">
+                                    </div>
+
+
+
+
+
 
 
                                 </div>
@@ -289,52 +309,3 @@ if ($_SERVER['REQUEST_METHOD'] === "POST") {
 }
 
 ?>
-
-
-
-
-<!-- 
-CREATE TABLE IF NOT EXISTS customerinfo(
-    id INT AUTO_INCREMENT NOT NULL PRIMARY KEY,
-    name VARCHAR(255) NOT NULL,
-    email  VARCHAR(255) NOT NULL UNIQUE,
-    password VARCHAR(255),
-    address VARCHAR(255) NOT NULL,
-    temporary_id VARCHAR(255) UNIQUE
-     
-)
-
-CREATE TABLE IF NOT EXISTS orders (
-    id INT AUTO_INCREMENT NOT NULL PRIMARY KEY,
-    customer_id INT,
-    order_date DATE DEFAULT CURRENT_DATE(),
-    status ENUM('pending', 'processing', 'shipped') DEFAULT 'pending',
-    total_price FLOAT,
-    FOREIGN KEY (customer_id) REFERENCES customers(id) ON UPDATE CASCADE ON DELETE CASCADE
-); 
-
-
-CREATE TABLE IF NOT EXISTS ordersitem (
-    id INT AUTO_INCREMENT NOT NULL PRIMARY KEY,
-    order_id INT,
-    FOREIGN KEY(order_id)REFERENCES orders(id) ON UPDATE CASCADE ON DELETE CASCADE,
-    perfume_id INT,
-    FOREIGN KEY (perfume_id)REFERENCES perfume(id) ON UPDATE CASCADE ON DELETE CASCADE,
-    quantity INT,
-    price float
-)
-
-
-CREATE TABLE IF NOT EXISTS cart (
-    id INT AUTO_INCREMENT NOT NULL PRIMARY KEY,
-    customer_id INT,
-    FOREIGN KEY(customer_id) REFERENCES customers(id) ON UPDATE CASCADE ON DELETE CASCADE,
-    perfume_id INT,
-    FOREIGN KEY (perfume_id) REFERENCES perfume(id) ON UPDATE CASCADE ON DELETE CASCADE,
-    temporary_id INT,
-    FOREIGN KEY (temporary_id) REFERENCES addtocart(temporaryid) ON UPDATE CASCADE ON DELETE CASCADE,
-    quantity INT,
-    price float
-)
-
--->

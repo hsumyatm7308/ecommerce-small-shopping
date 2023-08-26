@@ -57,12 +57,24 @@ try {
 <body>
 
     <section>
-        <div class="grid grid-cols-6">
+        <div class="grid grid-cols-5">
 
-            <div class="col-span-4 w-full flex justify-start items-center flex-col">
+            <div class="col-span-3 w-full flex justify-start items-center flex-col">
                 <!-- head  -->
-                <?php require_once "shiphead.php"; ?>
+                <div class="w-full h-52 bg-gray-100 flex justify-center items-center flex-col">
+                    <a href="index.php?page=1">
+                        <h1 class="text-4xl"> Your Shopping Cart</h1>
+                    </a>
 
+                    <div class="mt-4">
+                        <ul class="text-sm flex justify-center items-center">
+                            <li class="p-1">Items |</li>
+                            <li class="p-1 ">Information |</li>
+                            <li class="p-1">Shipping |</li>
+                            <li class="p-1 ">Payment</li>
+                        </ul>
+                    </div>
+                </div>
 
 
 
@@ -142,7 +154,7 @@ try {
                                     <form action="" method="post">
                                         <button type="submit" name="ctmregister"
                                             class="bg-gray-500 uppercase p-2 ctntoshipbtn">
-                                            <h1 class="text-sm text-white p-1 rounded">Continue to shipping</h1>
+                                            <h1 class="text-sm p-1 rounded">Continue to shipping</h1>
                                         </button>
                                     </form>
                                 </div>

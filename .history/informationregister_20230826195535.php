@@ -57,9 +57,9 @@ try {
 <body>
 
     <section>
-        <div class="grid grid-cols-6">
+        <div class="grid grid-cols-5">
 
-            <div class="col-span-4 w-full flex justify-start items-center flex-col">
+            <div class="col-span-3 w-full flex justify-start items-center flex-col">
                 <!-- head  -->
                 <?php require_once "shiphead.php"; ?>
 

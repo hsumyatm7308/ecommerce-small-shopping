@@ -20,7 +20,7 @@
 
                     <div class="flex justify-center items-center ml-5">
                         <p class="text-sm">
-                            <?= $row['perfumename'] ?> by
+                            <?= $row['perfumename'] ?>by
                             <?= $row['brandname'] ?> EDT 3.3 OZ
                             <?= $row['mili'] ?> spray for
                             <?= $row['category'] ?>
@@ -29,7 +29,7 @@
 
                 </div>
                 <div class="flex justify-center items-center">
-                    <p class="text-sm">$
+                    <p class="">$
                         <?= $row['totalprice'] ?>
                     </p>
                 </div>
@@ -72,17 +72,3 @@
 
 
 </div>
-
-
-<!-- CREATE TABLE IF NOT EXISTS shippingaddress (
-    id INT AUTO_INCREMENT PRIMARY KEY NOT NULL,
-    firstname VARCHAR(255),
-    lastname VARCHAR(255),
-    phone VARCHAR(30),
-    address VARCHAR(255),
-    city VARCHAR(255),
-    company VARCHAR(255),
-    temporaryid VARCHAR(255),
-    status ENUM('pending', 'shipping', 'shipped') DEFAULT 'pending'
-);
- -->

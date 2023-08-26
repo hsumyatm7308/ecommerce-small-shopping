@@ -57,12 +57,11 @@ try {
 <body>
 
     <section>
-        <div class="grid grid-cols-6">
+        <div class="grid grid-cols-5">
 
-            <div class="col-span-4 w-full flex justify-start items-center flex-col">
+            <div class="col-span-3 w-full flex justify-start items-center flex-col">
                 <!-- head  -->
-                <?php require_once "shiphead.php"; ?>
-
+               <?php require_once "shiphead.php"; ?>
 
 
 
@@ -83,30 +82,26 @@ try {
 
 
 
+
                                 <div class="w-full border border-2 p-5">
                                     <div class="w-full bg-gray-100 mb-3">
-                                        <h1 class="p-2">Customer Register</h1>
+                                        <h1 class="p-2">Customer Login</h1>
                                     </div>
 
                                     <div class="w-full border-b inputval mb-2">
-                                        <input type="text" name="regname" class="w-full focus:outline-none p-4 val"
-                                            placeholder="Name">
-                                    </div>
-
-                                    <div class="w-full border-b inputval mb-2">
-                                        <input type="text" name="regemail" class="w-full focus:outline-none p-4 val"
+                                        <input type="text" name="loginemail" class="w-full focus:outline-none p-4 val"
                                             placeholder="Email">
                                     </div>
 
                                     <div class="w-full border-b inputval mb-2">
-                                        <input type="password" name="regpassword"
+                                        <input type="password" name="loginpassword"
                                             class="w-full focus:outline-none p-4 val" placeholder="Password">
                                     </div>
 
                                     <div class="w-full flex justify-end items-center">
                                         <button class=" focus:outline-none p-4">
-                                            <a href="informationlogin.php" id="loginfromreg" class="text-indigo-500">
-                                                Login</a>
+                                            <a href="informationregister.php" id="registerbtn"
+                                                class="text-indigo-500 registerbtn"> Register</a>
 
 
                                         </button>
@@ -119,6 +114,12 @@ try {
 
 
                                 </div>
+
+
+
+
+
+
 
 
 
@@ -159,10 +160,10 @@ try {
 
             </div>
 
-
             <?php
             require_once "orderinformation.php";
             ?>
+
 
 
 
@@ -199,19 +200,21 @@ if ($_SERVER['REQUEST_METHOD'] === "POST") {
 
 
 
+    if (isset($_POST['loginctn'])) {
 
-    if (isset($_POST['ctmregister'])) {
-        $name = textfilter($_POST['regname']);
-        $email = filter_var($_POST['regemail'], FILTER_SANITIZE_EMAIL);
-        $password = textfilter($_POST['regpassword']);
+        $email = filter_var($_POST['loginemail'], FILTER_SANITIZE_EMAIL);
+        $password = textfilter($_POST['loginpassword']);
+
+
+
+
+
         $temp_customer_id = $_SESSION['id'];
-
-        $password = password_hash($password, PASSWORD_DEFAULT);
 
 
         try {
 
-            if ($name === '' || $email === '' || $password === '') {
+            if ($email === '' || $password === '') {
                 // echo "you need to fill";
 
                 echo '
@@ -242,38 +245,27 @@ if ($_SERVER['REQUEST_METHOD'] === "POST") {
 
             } else {
 
+                $conn = $GLOBALS['conn'];
 
 
 
-                if ($temp_customer_id) {
-                    $selectStmt = $conn->prepare('SELECT COUNT(*) FROM customerinfo WHERE temporary_id = :tempid');
-                    $selectStmt->bindParam(":tempid", $temp_customer_id);
-                    $selectStmt->execute();
-                    $rowCount = $selectStmt->fetchColumn();
+                $stmt = $conn->prepare('SELECT email, password FROM customerinfo WHERE email = :email');
+                $stmt->bindParam(":email", $email);
+                $stmt->execute();
 
-                    if ($rowCount > 0) {
-                        // Temporary ID exists in the database
-                        $registerstmt = $conn->prepare('UPDATE customerinfo SET name = :name, email = :email, password = :password WHERE temporary_id = :temp');
-                        $registerstmt->bindParam(":name", $name);
-                        $registerstmt->bindParam(":email", $email);
-                        $registerstmt->bindParam(":password", $password);
-                        $registerstmt->bindParam(":temp", $temp_customer_id);
-                        $registerstmt->execute();
+                if ($stmt->rowCount() === 0) {
+                    echo "No Data";
+                } else {
+                    $row = $stmt->fetch();
+                    $hashedPasswordFromDatabase = $row['password'];
+
+                    if (password_verify($password, $hashedPasswordFromDatabase)) {
+                        echo "Yes Data";
+                        $_SESSION['loginemail'] = $email;
                     } else {
-                        // Temporary ID does not exist in the database
-                        $insertStmt = $conn->prepare('INSERT INTO customerinfo (name, email, password, temporary_id) VALUES (:name, :email, :password, :tempid)');
-                        $insertStmt->bindParam(":name", $name);
-                        $insertStmt->bindParam(":email", $email);
-                        $insertStmt->bindParam(":password", $password);
-                        $insertStmt->bindParam(":tempid", $temp_customer_id);
-
-                        if ($insertStmt->execute()) {
-                            $_SESSION['regemail'] = $email;
-                            $_SESSION['regpassword'] = $password;
-                        }
+                        echo "Password is incorrect";
                     }
                 }
-
 
 
 
@@ -297,9 +289,8 @@ CREATE TABLE IF NOT EXISTS customerinfo(
     id INT AUTO_INCREMENT NOT NULL PRIMARY KEY,
     name VARCHAR(255) NOT NULL,
     email  VARCHAR(255) NOT NULL UNIQUE,
-    password VARCHAR(255),
     address VARCHAR(255) NOT NULL,
-    temporary_id VARCHAR(255) UNIQUE
+    temporary_id INT ,
      
 )
 

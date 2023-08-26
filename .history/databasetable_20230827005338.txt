@@ -194,7 +194,7 @@ CREATE TABLE IF NOT EXISTS addtocart (
 
 
 
-Shipping address 
+Shipping address
 
 
 
