@@ -1,5 +1,5 @@
 <?php
-ob_start();
+ob_clean();
 
 require_once "database.php";
 require_once "temporaryid.php";

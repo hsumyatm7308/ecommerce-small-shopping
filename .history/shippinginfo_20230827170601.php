@@ -1,5 +1,4 @@
 <?php
-ob_start();
 
 require_once "database.php";
 require_once "temporaryid.php";
@@ -282,16 +281,14 @@ if ($_SERVER['REQUEST_METHOD'] === "POST") {
                             $insertStmt->execute();
                             // echo "Inserted a new record with temporary ID: $temp_customer_id";
                         }
-
-                        header("Location: shippingpage.php");
-                        exit;
                     }
 
 
 
 
 
-                 
+                    header("Location: shippinginfo.php");
+                    exit;
 
 
 

@@ -1,3 +1,25 @@
+<?php
+ob_start(); 
+
+require_once "database.php";
+require_once "temporaryid.php";
+$temp_customer_id = $_SESSION['id'];
+
+
+try {
+
+    $stmt = $conn->prepare("SELECT * FROM addtocart WHERE temporaryid = :temp");
+    $stmt->bindParam(":temp", $temp_customer_id);
+    $stmt->execute();
+} catch (Exception $e) {
+    echo "error found: " . $e->getMessage();
+}
+
+
+
+?>
+
+
 <!DOCTYPE html>
 <html>
 
@@ -22,22 +44,11 @@
 <body>
 
     <section>
-        <div class="grid grid-cols-5">
+        <div class="grid grid-cols-6">
 
-            <div class="col-span-3 w-full flex justify-start items-center flex-col">
+            <div class="col-span-4 w-full flex justify-start items-center flex-col">
                 <!-- head  -->
-                <div class="w-full h-52 bg-gray-100 flex justify-center items-center flex-col">
-                    <h1 class="text-4xl"> Your Shopping Cart</h1>
-
-                    <div class="mt-4">
-                        <ul class="text-sm flex justify-center items-center">
-                            <li class="p-1">Items |</li>
-                            <li class="p-1 ">Information |</li>
-                            <li class="p-1">Shipping |</li>
-                            <li class="p-1 ">Payment</li>
-                        </ul>
-                    </div>
-                </div>
+                <?php require_once "shiphead.php" ?>
 
 
 
@@ -94,7 +105,7 @@
                                             class="grid grid-cols-4 border-b border-b-solid border-b-gray-300 px-3 py-2">
                                             <div class="col-span-3">
 
-                                                <input type="checkbox">
+                                                <input type="checkbox" name="free">
                                                 <label for="" class="">
                                                    <span> Fast shipping (Delivered in 5-10 Business Days,include 2-4 Days
                                                     processing)</span>
@@ -102,7 +113,7 @@
                                             </div>
 
                                             <div class="flex justify-center items-center">
-                                                <span>Free</span>
+                                                <span class="font-semibold text-lg">Free</span>
                                             </div>
 
 
@@ -115,7 +126,7 @@
                                         class="grid grid-cols-4 border-b border-b-solid border-b-gray-300 px-3 py-3">
                                         <div class="col-span-3">
 
-                                            <input type="checkbox">
+                                            <input type="checkbox" name="fast12">
                                             <label for="" class="">
                                                <span> Faster shipping (Delivered in 2 Business Days if Ordered by
                                                 12:30 EST)</span>
@@ -123,7 +134,7 @@
                                         </div>
 
                                         <div class="flex justify-center items-center">
-                                            <span>$12</span>
+                                            <span class="font-semibold">$ 12</span>
                                         </div>
 
 
@@ -134,7 +145,7 @@
                                     class="grid grid-cols-4  px-3 py-2">
                                     <div class="col-span-3">
 
-                                        <input type="checkbox">
+                                        <input type="checkbox" name="fastest25">
                                         <label for="" class="">
                                            <span> Fastest shipping (Delivered in 1 Business Days if Ordered by
                                             12:30 EST)</span>
@@ -142,7 +153,7 @@
                                     </div>
 
                                     <div class="flex justify-center items-center">
-                                        <span>$25</span>
+                                        <span class="font-semibold">$ 25</span>
                                     </div>
 
 
@@ -182,88 +193,7 @@
 
             </div>
 
-
-            <div class="col-span-2 w-full min-h-[100vh] bg-gray-200">
-
-                <div class="w-full border-b  mt-[6px]">
-
-                    <div class="w-full h-auto takenitems px-5">
-                        <div class="grid grid-cols-3 border-b border-b-solid border-b-gray-300">
-                            <div class="col-span-2 flex justify-between items-center">
-                                <div class="w-[100px] h-[100px]  flex justify-center items-center ml-4">
-                                    <img src="./assets/img/perfume/men/men1.jpg" alt="" width="150px">
-
-                                </div>
-
-                                <div class="flex justify-center items-center ml-5">
-                                    <p>Davidoff Cool Water by Aidonull EDT 3.3 OZ 200ML spray for Men</p>
-                                </div>
-
-                            </div>
-                            <div class="flex justify-center items-center">
-                                <p> $30</p>
-                            </div>
-                        </div>
-
-                    </div>
-
-
-                    <div class="w-full h-auto takenitems px-5">
-                        <div class="grid grid-cols-3 border-b border-b-solid border-b-gray-300">
-                            <div class="col-span-2 flex justify-between items-center">
-                                <div class="w-[100px] h-[100px]  flex justify-center items-center ml-4">
-                                    <img src="./assets/img/perfume/men/men1.jpg" alt="" width="150px">
-
-                                </div>
-
-                                <div class="flex justify-center items-center ml-5">
-                                    <p>Davidoff Cool Water by Aidonull EDT 3.3 OZ 200ML spray for Men</p>
-                                </div>
-
-                            </div>
-                            <div class="flex justify-center items-center">
-                                <p> $30</p>
-                            </div>
-                        </div>
-
-                    </div>
-
-
-
-
-
-                </div>
-
-                <div class="flex justify-center items-center p-5">
-                    <div class="w-full border-b border-b-solid border-b-gray-300 py-3">
-                        <input type="text" class="w-[70%] focus:outline-none ml-4  p-4"
-                            placeholder="Give card (remark)">
-                        <button class="bg-gray-300 uppercase text-sm ml-4 py-4 px-6">Apply</button>
-                    </div>
-                </div>
-
-
-
-
-                <div class="w-full h-auto  px-5">
-                    <div class="grid grid-cols-3 ">
-                        <div class="col-span-2 flex justify-between items-center">
-                            <h1 class="ml-4">Subtotal</h1>
-                        </div>
-                        <div class="flex justify-center items-center">
-                            <p> $30</p>
-                        </div>
-                    </div>
-
-                </div>
-
-                <div>
-
-                </div>
-
-
-
-            </div>
+             <?php require_once "orderinformation.php" ?>
 
 
 
@@ -273,8 +203,20 @@
 
 
 
+    <script>
+        var infosubtotal = document.querySelector('.infosubtotal');
+        infosubtotal.innerHTML = localStorage.getItem('subtotal');
+    </script>
+
 
 
 </body>
 
 </html>
+
+
+<?php
+
+
+
+?>

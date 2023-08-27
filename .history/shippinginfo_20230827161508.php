@@ -1,5 +1,4 @@
 <?php
-ob_start();
 
 require_once "database.php";
 require_once "temporaryid.php";
@@ -144,7 +143,7 @@ try {
                                         <path stroke-linecap="round" stroke-linejoin="round"
                                             d="M18.75 19.5l-7.5-7.5 7.5-7.5m-6 15L5.25 12l7.5-7.5" />
                                     </svg>
-                                    <a href="informationpage.php">Return to information</a>
+                                    <a href="shopcartpage.php">Return to information</a>
                                 </div>
 
                                 <div class="">
@@ -282,16 +281,13 @@ if ($_SERVER['REQUEST_METHOD'] === "POST") {
                             $insertStmt->execute();
                             // echo "Inserted a new record with temporary ID: $temp_customer_id";
                         }
-
-                        header("Location: shippingpage.php");
-                        exit;
                     }
 
 
 
 
 
-                 
+
 
 
 
@@ -305,6 +301,5 @@ if ($_SERVER['REQUEST_METHOD'] === "POST") {
 
     }
 }
-ob_end_flush(); 
 
 ?>
