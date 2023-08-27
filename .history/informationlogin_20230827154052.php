@@ -272,9 +272,6 @@ if ($_SERVER['REQUEST_METHOD'] === "POST") {
     }
 }
 
-
-ob_end_flush(); 
-
 ?>
 
 

@@ -150,7 +150,7 @@ try {
                                     <form action="" method="post">
                                         <button type="submit" name="shipaddress"
                                             class="bg-gray-500 uppercase p-2 ctntoshipbtn">
-                                            <h1 class="text-sm text-white p-1 rounded">Continue to shipping</h1>
+                                            <h1 class="text-sm text-white p-1 rounded">Continue to payment</h1>
                                         </button>
                                     </form>
                                 </div>
@@ -250,9 +250,10 @@ if ($_SERVER['REQUEST_METHOD'] === "POST") {
 
 
 
+                try {
 
                     if ($temp_customer_id) {
-                        $selectStmt = $conn->prepare('SELECT COUNT(*) FROM shippingaddress WHERE temporaryid = :tempid');
+                        $selectStmt = $conn->prepare('SELECT COUNT(*) FROM customerinfo WHERE temporary_id = :tempid');
                         $selectStmt->bindParam(":tempid", $temp_customer_id);
                         $selectStmt->execute();
                         $rowCount = $selectStmt->fetchColumn();
@@ -284,6 +285,10 @@ if ($_SERVER['REQUEST_METHOD'] === "POST") {
                     }
 
 
+
+                } catch (PDOException $e) {
+                    echo "Database Error: " . $e->getMessage();
+                }
 
 
 

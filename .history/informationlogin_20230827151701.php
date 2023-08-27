@@ -1,5 +1,4 @@
 <?php
-ob_start(); 
 
 require_once "database.php";
 require_once "temporaryid.php";
@@ -253,8 +252,6 @@ if ($_SERVER['REQUEST_METHOD'] === "POST") {
                     if (password_verify($password, $hashedPasswordFromDatabase)) {
                         // echo "Yes Data";
                         $_SESSION['loginemail'] = $email;
-                        header('Location: shippinginfo.php');
-                        exit;
                     } else {
                         echo "Password is incorrect";
                     }
@@ -271,9 +268,6 @@ if ($_SERVER['REQUEST_METHOD'] === "POST") {
 
     }
 }
-
-
-ob_end_flush(); 
 
 ?>
 

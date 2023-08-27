@@ -1,5 +1,4 @@
 <?php
-ob_start(); 
 
 require_once "database.php";
 require_once "temporaryid.php";
@@ -271,9 +270,6 @@ if ($_SERVER['REQUEST_METHOD'] === "POST") {
 
     }
 }
-
-
-ob_end_flush(); 
 
 ?>
 

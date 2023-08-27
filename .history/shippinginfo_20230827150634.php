@@ -150,7 +150,7 @@ try {
                                     <form action="" method="post">
                                         <button type="submit" name="shipaddress"
                                             class="bg-gray-500 uppercase p-2 ctntoshipbtn">
-                                            <h1 class="text-sm text-white p-1 rounded">Continue to shipping</h1>
+                                            <h1 class="text-sm text-white p-1 rounded">Continue to payment</h1>
                                         </button>
                                     </form>
                                 </div>
@@ -250,26 +250,22 @@ if ($_SERVER['REQUEST_METHOD'] === "POST") {
 
 
 
+                // try {
 
-                    if ($temp_customer_id) {
-                        $selectStmt = $conn->prepare('SELECT COUNT(*) FROM shippingaddress WHERE temporaryid = :tempid');
-                        $selectStmt->bindParam(":tempid", $temp_customer_id);
-                        $selectStmt->execute();
-                        $rowCount = $selectStmt->fetchColumn();
+                    // if ($temp_customer_id) {
+                    //     $selectStmt = $conn->prepare('SELECT COUNT(*) FROM customerinfo WHERE temporary_id = :tempid');
+                    //     $selectStmt->bindParam(":tempid", $temp_customer_id);
+                    //     $selectStmt->execute();
+                    //     $rowCount = $selectStmt->fetchColumn();
 
-                        if ($rowCount > 0) {
+                        // if ($rowCount > 0) {
                             // Temporary ID exists in the database
-                            $updateStmt = $conn->prepare('UPDATE shippingaddress SET firstname = :firstname,lastname = :lastname ,phone = :phone,address = :address ,city = :city,company = :company WHERE temporaryid = :tempid');
-                            $updateStmt->bindParam(":firstname", $firstname);
-                            $updateStmt->bindParam(":lastname", $lastname);
-                            $updateStmt->bindParam(":phone", $phone);
-                            $updateStmt->bindParam(":address", $address);
-                            $updateStmt->bindParam(":city", $city);
-                            $updateStmt->bindParam(":company", $company);
-                            $updateStmt->bindParam(":tempid", $temp_customer_id);
-                            $updateStmt->execute();
+                            // $updateStmt = $conn->prepare('UPDATE shippingaddress SET email = :email WHERE temporary_id = :tempid');
+                            // $updateStmt->bindParam(":tempid", $temp_customer_id);
+                            // $updateStmt->bindParam(":email", $email);
+                            // $updateStmt->execute();
                             // echo "Updated $rowCount records with temporary ID:" . $temp_customer_id;
-                        } else {
+                        // } else {
                             $insertStmt = $conn->prepare('INSERT INTO shippingaddress (firstname,lastname,phone,address,city,company, temporaryid) VALUES (:firstname,:lastname,:phone,:address,:city,:company, :tempid)');
                             $insertStmt->bindParam(":firstname", $firstname);
                             $insertStmt->bindParam(":lastname", $lastname);
@@ -279,11 +275,15 @@ if ($_SERVER['REQUEST_METHOD'] === "POST") {
                             $insertStmt->bindParam(":company", $company);
                             $insertStmt->bindParam(":tempid", $temp_customer_id);
                             $insertStmt->execute();
-                            // echo "Inserted a new record with temporary ID: $temp_customer_id";
+                            echo "Inserted a new record with temporary ID: $temp_customer_id";
                         }
-                    }
+                    // }
 
 
+
+                // } catch (PDOException $e) {
+                //     echo "Database Error: " . $e->getMessage();
+                // }
 
 
 

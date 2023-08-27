@@ -1,5 +1,4 @@
 <?php
-ob_start(); 
 
 require_once "database.php";
 require_once "temporaryid.php";
@@ -41,7 +40,7 @@ try {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Information</title>
+    <title>Shipping Information</title>
     <link rel="stylesheet" href="./css/style.css">
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"
@@ -62,7 +61,8 @@ try {
 
             <div class="col-span-4 w-full flex justify-start items-center flex-col">
                 <!-- head  -->
-               <?php require_once "shiphead.php"; ?>
+                <?php require_once "shiphead.php"; ?>
+
 
 
 
@@ -72,49 +72,65 @@ try {
                     <div class="w-full min-h-[500px] flex justify-center items-center flex-col">
 
 
-                        <form action="" method="post" class="w-[80%]">
+                        <form action="" method="post" class="w-[80%] ">
 
                             <div class="w-full">
                                 <div class="flex  mb-5 mt-5">
-                                    <h1>Information</h1>
+                                    <h1>Shipping Address</h1>
 
                                 </div>
 
-
-
-
-
-                                <div class="w-full border border-2 p-5">
+                                <div class="w-full border-gray-300 border p-5 flex justify-center items-center flex-col  guestinfo">
                                     <div class="w-full bg-gray-100 mb-3">
-                                        <h1 class="p-2">Customer Login</h1>
+                                        <!-- <h1 class="p-2">Customer</h1> -->
                                     </div>
 
-                                    <div class="w-full border-b inputval mb-2">
-                                        <input type="text" name="loginemail" class="w-full focus:outline-none p-4 val"
-                                            placeholder="Email">
-                                    </div>
+                                    <div class="w-full grid grid-cols-2 mb-8">
 
-                                    <div class="w-full border-b inputval mb-2">
-                                        <input type="password" name="loginpassword"
-                                            class="w-full focus:outline-none p-4 val" placeholder="Password">
-                                    </div>
+                                        <div class="w border-b-2 border-gray-300 inputval mb-2 mr-5">
+                                                <input type="text" name="firstname"
+                                                    class="w-full focus:outline-none p-2 val" placeholder="First Name">
+                                        </div>
 
-                                    <div class="w-full flex justify-end items-center">
-                                        <button class=" focus:outline-none p-4">
-                                            <a href="informationregister.php" id="registerbtn"
-                                                class="text-indigo-500 registerbtn"> Register</a>
-
-
-                                        </button>
-                                        <button class=" focus:outline-none p-4">
-                                            <a href="informationpage.php" class="text-indigo-500 gotoguest">Cancle</a>
-
-                                        </button>
+                                        <div class="w border-b-2 border-gray-300 inputval mb-2 ml-5">
+                                            <input type="text" name="lastname" class="w-full focus:outline-none p-1 val"
+                                                placeholder="Last Name">
+                                        </div>
 
                                     </div>
+
+
+                                    <div class="w-full border-b-2 border-gray-300 inputval mb-8">
+                                        <input type="text" name="company" class="w-full focus:outline-none p-2 "
+                                            placeholder="Company (Option)">
+                                    </div>
+
+
+                                    <div class="w-full border-b-2 border-gray-300 inputval mb-8">
+                                        <input type="text" name="phone" class="w-full focus:outline-none p-2 "
+                                            placeholder="Phone Number (Option)">
+                                    </div>
+
+
+                                    <div class="w-full border-b-2 border-gray-300 inputval mb-8">
+                                        <input type="text" name="address" class="w-full focus:outline-none p-2 val"
+                                            placeholder="Address">
+                                    </div>
+
+
+                                    <div class="w-full border-b-2 border-gray-300 inputval mb-8">
+                                        <input type="text" name="city" class="w-full focus:outline-none p-2 val"
+                                            placeholder="City">
+                                    </div>
+
+
+
+
+
 
 
                                 </div>
+
 
                             </div>
 
@@ -132,9 +148,9 @@ try {
 
                                 <div class="">
                                     <form action="" method="post">
-                                        <button type="submit" name="loginctn"
+                                        <button type="submit" name="shipaddress"
                                             class="bg-gray-500 uppercase p-2 ctntoshipbtn">
-                                            <h1 class="text-sm text-white p-1 rounded">Continue to shipping</h1>
+                                            <h1 class="text-sm text-white p-1 rounded">Continue to payment</h1>
                                         </button>
                                     </form>
                                 </div>
@@ -151,10 +167,10 @@ try {
 
             </div>
 
-            
 
-            <?php require_once "orderinformation.php"; ?>
-
+            <?php
+            require_once "orderinformation.php";
+            ?>
 
 
 
@@ -162,13 +178,12 @@ try {
     </section>
 
 
-
-
-
     <script>
         var infosubtotal = document.querySelector('.infosubtotal');
         infosubtotal.innerHTML = localStorage.getItem('subtotal');
     </script>
+
+
 
 
 
@@ -189,15 +204,7 @@ function textfilter($data)
 
 if ($_SERVER['REQUEST_METHOD'] === "POST") {
 
-
-
-    if (isset($_POST['loginctn'])) {
-
-        $email = filter_var($_POST['loginemail'], FILTER_SANITIZE_EMAIL);
-        $password = textfilter($_POST['loginpassword']);
-
-
-
+    if (isset($_POST['shipaddress'])) {
 
 
         $temp_customer_id = $_SESSION['id'];
@@ -205,7 +212,7 @@ if ($_SERVER['REQUEST_METHOD'] === "POST") {
 
         try {
 
-            if ($email === '' || $password === '') {
+            if ($email === '') {
                 // echo "you need to fill";
 
                 echo '
@@ -236,29 +243,43 @@ if ($_SERVER['REQUEST_METHOD'] === "POST") {
 
             } else {
 
-                $conn = $GLOBALS['conn'];
 
 
+                try {
 
-                $stmt = $conn->prepare('SELECT email, password FROM customerinfo WHERE email = :email');
-                $stmt->bindParam(":email", $email);
-                $stmt->execute();
+                    if ($temp_customer_id) {
+                        $selectStmt = $conn->prepare('SELECT COUNT(*) FROM customerinfo WHERE temporary_id = :tempid');
+                        $selectStmt->bindParam(":tempid", $temp_customer_id);
+                        $selectStmt->execute();
+                        $rowCount = $selectStmt->fetchColumn();
 
-                if ($stmt->rowCount() === 0) {
-                    // echo "No Data";
-                } else {
-                    $row = $stmt->fetch();
-                    $hashedPasswordFromDatabase = $row['password'];
-
-                    if (password_verify($password, $hashedPasswordFromDatabase)) {
-                        // echo "Yes Data";
-                        $_SESSION['loginemail'] = $email;
-                        header('Location: shippinginfo.php');
-                        exit;
-                    } else {
-                        echo "Password is incorrect";
+                        if ($rowCount > 0) {
+                            // Temporary ID exists in the database
+                            $updateStmt = $conn->prepare('UPDATE shippingaddress SET email = :email WHERE temporary_id = :tempid');
+                            $updateStmt->bindParam(":tempid", $temp_customer_id);
+                            $updateStmt->bindParam(":email", $email);
+                            $updateStmt->execute();
+                            echo "Updated $rowCount records with temporary ID:" . $temp_customer_id;
+                            echo "Temporary ID $temp_customer_id already exists in the database.";
+                        } else {
+                            $insertStmt = $conn->prepare('INSERT INTO shippingaddress (firstname,lastname,phone,address,city,company, temporaryid) VALUES (:firstname,,:lastname,:phone,:address,:city,:company, :tempid)');
+                            $insertStmt->bindParam(":firstname", $email);
+                            $insertStmt->bindParam(":tempid", $temp_customer_id);
+                            $insertStmt->execute();
+                            echo "Inserted a new record with temporary ID: $temp_customer_id";
+                        }
                     }
+
+
+
+                } catch (PDOException $e) {
+                    echo "Database Error: " . $e->getMessage();
                 }
+
+
+
+
+
 
 
 
@@ -266,61 +287,10 @@ if ($_SERVER['REQUEST_METHOD'] === "POST") {
 
 
         } catch (Exception $e) {
-            die('Error:' . $e->getMessage());
+            // die('Error:' . $e->getMessage());
         }
 
     }
 }
 
-
-ob_end_flush(); 
-
 ?>
-
-
-
-
-<!-- 
-CREATE TABLE IF NOT EXISTS customerinfo(
-    id INT AUTO_INCREMENT NOT NULL PRIMARY KEY,
-    name VARCHAR(255) NOT NULL,
-    email  VARCHAR(255) NOT NULL UNIQUE,
-    address VARCHAR(255) NOT NULL,
-    temporary_id INT ,
-     
-)
-
-CREATE TABLE IF NOT EXISTS orders (
-    id INT AUTO_INCREMENT NOT NULL PRIMARY KEY,
-    customer_id INT,
-    order_date DATE DEFAULT CURRENT_DATE(),
-    status ENUM('pending', 'processing', 'shipped') DEFAULT 'pending',
-    total_price FLOAT,
-    FOREIGN KEY (customer_id) REFERENCES customers(id) ON UPDATE CASCADE ON DELETE CASCADE
-); 
-
-
-CREATE TABLE IF NOT EXISTS ordersitem (
-    id INT AUTO_INCREMENT NOT NULL PRIMARY KEY,
-    order_id INT,
-    FOREIGN KEY(order_id)REFERENCES orders(id) ON UPDATE CASCADE ON DELETE CASCADE,
-    perfume_id INT,
-    FOREIGN KEY (perfume_id)REFERENCES perfume(id) ON UPDATE CASCADE ON DELETE CASCADE,
-    quantity INT,
-    price float
-)
-
-
-CREATE TABLE IF NOT EXISTS cart (
-    id INT AUTO_INCREMENT NOT NULL PRIMARY KEY,
-    customer_id INT,
-    FOREIGN KEY(customer_id) REFERENCES customers(id) ON UPDATE CASCADE ON DELETE CASCADE,
-    perfume_id INT,
-    FOREIGN KEY (perfume_id) REFERENCES perfume(id) ON UPDATE CASCADE ON DELETE CASCADE,
-    temporary_id INT,
-    FOREIGN KEY (temporary_id) REFERENCES addtocart(temporaryid) ON UPDATE CASCADE ON DELETE CASCADE,
-    quantity INT,
-    price float
-)
-
--->
