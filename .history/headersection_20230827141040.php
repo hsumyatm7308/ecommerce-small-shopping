@@ -144,11 +144,9 @@
                         <span class="text-gray-100 countcart">
                             <?php
                             require_once "database.php";
-                            require_once "temporaryid.php";
-                            $temp_customer_id = $_SESSION['id'];
                             try {
                                 $bagstmt = $conn->prepare("SELECT COUNT(*) FROM addtocart WHERE temporaryid = :temp");
-                                $bagstmt->bindParam(":temp",$temp_customer_id );
+                                $bagstmt->bindParam(":temp",);
                                 $bagstmt->execute();
                                 $cartItemCount = $bagstmt->fetchColumn();
                                 echo $cartItemCount;
