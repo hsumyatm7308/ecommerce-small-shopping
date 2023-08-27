@@ -1,5 +1,5 @@
 <?php
-ob_start();
+ob_start(); 
 
 require_once "database.php";
 require_once "temporaryid.php";
@@ -92,7 +92,7 @@ try {
                                             class="w-full focus:outline-none p-4 val" placeholder="Email">
                                     </div>
 
-                                    <span class="text-sm text-red-500 valid hidden">your email is already taken!!</span>
+                                    <span  class="text-sm text-red-500 valid hidden">your email is already taken!!</span>
 
                                     <div class="w-full">
 
@@ -239,7 +239,7 @@ if ($_SERVER['REQUEST_METHOD'] === "POST") {
 
                 if ($temp_customer_id) {
 
-
+                  
                     $selectStmt = $conn->prepare('SELECT COUNT(*) FROM customerinfo WHERE temporary_id = :tempid');
                     $selectStmt->bindParam(":tempid", $temp_customer_id);
                     $selectStmt->execute();
@@ -252,7 +252,7 @@ if ($_SERVER['REQUEST_METHOD'] === "POST") {
                         $updateStmt->bindParam(":email", $email);
                         $updateStmt->execute();
 
-
+                   
                         // echo "Updated $rowCount records with temporary ID:" . $temp_customer_id;
 
                     } else {
@@ -269,7 +269,7 @@ if ($_SERVER['REQUEST_METHOD'] === "POST") {
 
                     header("Location: shippinginfo.php");
                     exit;
-
+                    
                 }
 
 
@@ -284,24 +284,41 @@ if ($_SERVER['REQUEST_METHOD'] === "POST") {
 
 
         } catch (Exception $e) {
+            die('Error:' . $e->getMessage());
             echo '
-                <script> 
-                document.addEventListener("DOMContentLoaded", function() {
-                    var emailvalid = document.querySelector(".valid");
-                    emailvalid.classList.remove("hidden")
-                     
-                });
-                
+            <script> 
+            document.addEventListener("DOMContentLoaded", function() {
+                var ctntoshipbtn = document.querySelector(".ctntoshipbtn");
+                var val = document.querySelectorAll(".val");
+                var inputval = document.querySelectorAll(".inputval");
+            
+                    var hasValue = false;
+                    for (var i = 0; i < val.length; i++) {
+                        if (val[i].value.trim() === "") {
+                            hasValue = true;
+                            inputval[i].classList.add("border", "border-dashed", "border-red-500");
+                        } else {
+                            inputval[i].classList.remove("border", "border-dashed", "border-red-500");
+                        }
+                    }
+            
+                    if (hasValue) {
+                        event.preventDefault();
+                    }else{
+                        window.location.href = "shippinginfo.php";
+                    }
+            });
+            
 
-             
-                 </script>';
+         
+             </script>';
 
         }
 
     }
 }
 
-ob_end_flush();
+ob_end_flush(); 
 
 ?>
 

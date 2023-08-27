@@ -270,6 +270,8 @@ if ($_SERVER['REQUEST_METHOD'] === "POST") {
                             $updateStmt->bindParam(":tempid", $temp_customer_id);
                             $updateStmt->execute();
 
+                            header("Location: shippingpage.php");
+                            exit;
                             // echo "Updated $rowCount records with temporary ID:" . $temp_customer_id;
                         } else {
                             $insertStmt = $conn->prepare('INSERT INTO shippingaddress (firstname,lastname,phone,address,city,company, temporaryid) VALUES (:firstname,:lastname,:phone,:address,:city,:company, :tempid)');

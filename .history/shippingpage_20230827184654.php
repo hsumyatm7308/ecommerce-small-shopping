@@ -75,7 +75,7 @@ try {
 
                         <form action="" method="post" class="w-[80%]">
                             <div class="w-full">
-                                <div class="w-full border border-2 p-5 ">
+                                <div class="w-full border border-2 p-5">
                                     <div class="grid grid-cols-4 border-b border-b-solid border-b-gray-300 px-3 py-2">
                                         <div class="">
                                             <p class="text-gray-400">Contact</p>
@@ -114,52 +114,53 @@ try {
                                 <div class="mt-10">
                                     <h1 class="mb-3">Shipping method</h1>
 
-                                    <div class="w-full border border-2 p-5 shipmethodctn">
+                                    <div class="w-full border border-2 p-5">
 
 
-                                        <div
-                                            class="grid grid-cols-4 border-b border-b-solid border-b-gray-300 px-3 py-2">
-                                            <div class="col-span-3">
-                                                <input type="radio" name="shipcost" value="0" id="shipcost_free"
-                                                    class="mycheckbox">
-                                                <label for="shipcost_free">
-                                                    <span> Fast shipping (Delivered in 5-10 Business Days, include
-                                                        2-4 Days processing)</span>
-                                                </label>
+                                            <div
+                                                class="grid grid-cols-4 border-b border-b-solid border-b-gray-300 px-3 py-2">
+                                                <div class="col-span-3">
+                                                    <input type="radio" name="shipcost" value="0" id="shipcost_free"
+                                                        class="mycheckbox">
+                                                    <label for="shipcost_free">
+                                                        <span> Fast shipping (Delivered in 5-10 Business Days, include
+                                                            2-4 Days processing)</span>
+                                                    </label>
+                                                </div>
+                                                <div class="flex justify-center items-center">
+                                                    <span class="font-semibold text-lg">Free</span>
+                                                </div>
                                             </div>
-                                            <div class="flex justify-center items-center">
-                                                <span class="font-semibold text-lg">Free</span>
-                                            </div>
-                                        </div>
 
-                                        <div
-                                            class="grid grid-cols-4 border-b border-b-solid border-b-gray-300 px-3 py-3">
-                                            <div class="col-span-3">
-                                                <input type="radio" name="shipcost" value="12" id="shipcost_fast">
-                                                <label for="shipcost_fast">
-                                                    <span> Faster shipping (Delivered in 2 Business Days if Ordered
-                                                        by 12:30 EST)</span>
-                                                </label>
+                                            <div
+                                                class="grid grid-cols-4 border-b border-b-solid border-b-gray-300 px-3 py-3">
+                                                <div class="col-span-3">
+                                                    <input type="radio" name="shipcost" value="12" id="shipcost_fast">
+                                                    <label for="shipcost_fast">
+                                                        <span> Faster shipping (Delivered in 2 Business Days if Ordered
+                                                            by 12:30 EST)</span>
+                                                    </label>
+                                                </div>
+                                                <div class="flex justify-center items-center">
+                                                    <span class="font-semibold">$ 12</span>
+                                                </div>
                                             </div>
-                                            <div class="flex justify-center items-center">
-                                                <span class="font-semibold">$ 12</span>
-                                            </div>
-                                        </div>
 
-                                        <div class="grid grid-cols-4 px-3 py-2">
-                                            <div class="col-span-3">
-                                                <input type="radio" name="shipcost" value="25" id="shipcost_fastest">
-                                                <label for="shipcost_fastest">
-                                                    <span> Fastest shipping (Delivered in 1 Business Days if Ordered
-                                                        by 12:30 EST)</span>
-                                                </label>
+                                            <div class="grid grid-cols-4 px-3 py-2">
+                                                <div class="col-span-3">
+                                                    <input type="radio" name="shipcost" value="25"
+                                                        id="shipcost_fastest">
+                                                    <label for="shipcost_fastest">
+                                                        <span> Fastest shipping (Delivered in 1 Business Days if Ordered
+                                                            by 12:30 EST)</span>
+                                                    </label>
+                                                </div>
+                                                <div class="flex justify-center items-center">
+                                                    <span class="font-semibold">$ 25</span>
+                                                </div>
                                             </div>
-                                            <div class="flex justify-center items-center">
-                                                <span class="font-semibold">$ 25</span>
-                                            </div>
-                                        </div>
 
-
+                                    
 
 
 
@@ -170,7 +171,7 @@ try {
 
 
 
-                            <div class="w-full flex justify-between items-center mt-5">
+                            <div class="w-[80%] flex justify-between items-center mt-5">
                                 <div class="flex justify-center items-center">
                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                         stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
@@ -226,23 +227,12 @@ try {
 <?php
 if ($_SERVER['REQUEST_METHOD'] === "POST") {
     if (isset($_POST['ctnshipmethod'])) {
+        // Check if the 'shipcost' radio button is set in the POST data
         if (isset($_POST['shipcost'])) {
+            // Retrieve the selected value
             $selectedvalue = $_POST['shipcost'];
             echo $selectedvalue;
-        } else {
-            echo '
-            <script> 
-            document.addEventListener("DOMContentLoaded", function() {
-                var shipmethodctn = document.querySelector(".shipmethodctn");
-          
-                shipmethodctn.classList.add("border-red-200");
-            
-                 
-            });
-            
-
-         
-             </script>';        }
+        } 
     }
 }
 ?>

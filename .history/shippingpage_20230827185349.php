@@ -75,7 +75,7 @@ try {
 
                         <form action="" method="post" class="w-[80%]">
                             <div class="w-full">
-                                <div class="w-full border border-2 p-5 ">
+                                <div class="w-full border border-2 p-5">
                                     <div class="grid grid-cols-4 border-b border-b-solid border-b-gray-300 px-3 py-2">
                                         <div class="">
                                             <p class="text-gray-400">Contact</p>
@@ -114,7 +114,7 @@ try {
                                 <div class="mt-10">
                                     <h1 class="mb-3">Shipping method</h1>
 
-                                    <div class="w-full border border-2 p-5 shipmethodctn">
+                                    <div class="w-full border border-2 p-5">
 
 
                                         <div
@@ -170,7 +170,7 @@ try {
 
 
 
-                            <div class="w-full flex justify-between items-center mt-5">
+                            <div class="w-[80%] flex justify-between items-center mt-5">
                                 <div class="flex justify-center items-center">
                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                         stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
@@ -181,12 +181,12 @@ try {
                                 </div>
 
                                 <div class="">
-                                    <form action="" method="post">
+                                    <!-- <form action="" method="post"> -->
                                         <button type="submit" name="ctnshipmethod"
                                             class="bg-gray-500 uppercase p-2 ctntoshipbtn">
                                             <h1 class="text-sm text-white p-1 rounded">Continue to payment</h1>
                                         </button>
-                                    </form>
+                                    <!-- </form> -->
                                 </div>
                             </div>
 
@@ -233,9 +233,9 @@ if ($_SERVER['REQUEST_METHOD'] === "POST") {
             echo '
             <script> 
             document.addEventListener("DOMContentLoaded", function() {
-                var shipmethodctn = document.querySelector(".shipmethodctn");
-          
-                shipmethodctn.classList.add("border-red-200");
+                var ctntoshipbtn = document.querySelector(".ctntoshipbtn");
+                var val = document.querySelectorAll(".val");
+                var inputval = document.querySelectorAll(".inputval");
             
                  
             });

@@ -287,8 +287,8 @@ if ($_SERVER['REQUEST_METHOD'] === "POST") {
             echo '
                 <script> 
                 document.addEventListener("DOMContentLoaded", function() {
-                    var emailvalid = document.querySelector(".valid");
-                    emailvalid.classList.remove("hidden")
+                    var ctntoshipbtn = document.querySelector(".valid");
+                  
                      
                 });
                 

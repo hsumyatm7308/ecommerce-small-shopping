@@ -75,7 +75,7 @@ try {
 
                         <form action="" method="post" class="w-[80%]">
                             <div class="w-full">
-                                <div class="w-full border border-2 p-5 ">
+                                <div class="w-full border border-2 p-5">
                                     <div class="grid grid-cols-4 border-b border-b-solid border-b-gray-300 px-3 py-2">
                                         <div class="">
                                             <p class="text-gray-400">Contact</p>
@@ -114,55 +114,75 @@ try {
                                 <div class="mt-10">
                                     <h1 class="mb-3">Shipping method</h1>
 
-                                    <div class="w-full border border-2 p-5 shipmethodctn">
+                                    <div class="w-full border border-2 p-5">
+
+                                        <form action="" method="post">
+
+                                            <div
+                                                class="grid grid-cols-4 border-b border-b-solid border-b-gray-300 px-3 py-2">
+                                                <div class="col-span-3">
 
 
-                                        <div
-                                            class="grid grid-cols-4 border-b border-b-solid border-b-gray-300 px-3 py-2">
-                                            <div class="col-span-3">
-                                                <input type="radio" name="shipcost" value="0" id="shipcost_free"
-                                                    class="mycheckbox">
-                                                <label for="shipcost_free">
-                                                    <span> Fast shipping (Delivered in 5-10 Business Days, include
-                                                        2-4 Days processing)</span>
-                                                </label>
+                                                    <input type="checkbox" name="free" value="free" id="myCheckbox" checked>
+
+                                                    <label for="" class="">
+
+                                                        <span> Fast shipping (Delivered in 5-10 Business Days,include
+                                                            2-4 Days
+                                                            processing)</span>
+                                                    </label>
+                                                </div>
+
+                                                <div class="flex justify-center items-center">
+                                                    <span class="font-semibold text-lg">Free</span>
+                                                </div>
+
+
+
                                             </div>
-                                            <div class="flex justify-center items-center">
-                                                <span class="font-semibold text-lg">Free</span>
+
+
+
+                                            <div
+                                                class="grid grid-cols-4 border-b border-b-solid border-b-gray-300 px-3 py-3">
+                                                <div class="col-span-3">
+
+                                                    <input type="checkbox" name="fast12" value="fast">
+                                                    <label for="" class="">
+                                                        <span> Faster shipping (Delivered in 2 Business Days if Ordered
+                                                            by
+                                                            12:30 EST)</span>
+                                                    </label>
+                                                </div>
+
+                                                <div class="flex justify-center items-center">
+                                                    <span class="font-semibold">$ 12</span>
+                                                </div>
+
+
+
                                             </div>
-                                        </div>
 
-                                        <div
-                                            class="grid grid-cols-4 border-b border-b-solid border-b-gray-300 px-3 py-3">
-                                            <div class="col-span-3">
-                                                <input type="radio" name="shipcost" value="12" id="shipcost_fast">
-                                                <label for="shipcost_fast">
-                                                    <span> Faster shipping (Delivered in 2 Business Days if Ordered
-                                                        by 12:30 EST)</span>
-                                                </label>
+                                            <div class="grid grid-cols-4  px-3 py-2">
+                                                <div class="col-span-3">
+
+                                                    <input type="checkbox" name="fastest25" value="fastest">
+                                                    <label for="" class="">
+                                                        <span> Fastest shipping (Delivered in 1 Business Days if Ordered
+                                                            by
+                                                            12:30 EST)</span>
+                                                    </label>
+                                                </div>
+
+                                                <div class="flex justify-center items-center">
+                                                    <span class="font-semibold">$ 25</span>
+                                                </div>
+
+
+
                                             </div>
-                                            <div class="flex justify-center items-center">
-                                                <span class="font-semibold">$ 12</span>
-                                            </div>
-                                        </div>
 
-                                        <div class="grid grid-cols-4 px-3 py-2">
-                                            <div class="col-span-3">
-                                                <input type="radio" name="shipcost" value="25" id="shipcost_fastest">
-                                                <label for="shipcost_fastest">
-                                                    <span> Fastest shipping (Delivered in 1 Business Days if Ordered
-                                                        by 12:30 EST)</span>
-                                                </label>
-                                            </div>
-                                            <div class="flex justify-center items-center">
-                                                <span class="font-semibold">$ 25</span>
-                                            </div>
-                                        </div>
-
-
-
-
-
+                                        </form>
 
                                     </div>
                                 </div>
@@ -170,7 +190,7 @@ try {
 
 
 
-                            <div class="w-full flex justify-between items-center mt-5">
+                            <div class="w-[80%] flex justify-between items-center mt-5">
                                 <div class="flex justify-center items-center">
                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                         stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
@@ -182,7 +202,7 @@ try {
 
                                 <div class="">
                                     <form action="" method="post">
-                                        <button type="submit" name="ctnshipmethod"
+                                        <button type="submit" name="ctntoship"
                                             class="bg-gray-500 uppercase p-2 ctntoshipbtn">
                                             <h1 class="text-sm text-white p-1 rounded">Continue to payment</h1>
                                         </button>
@@ -216,6 +236,22 @@ try {
 
 
 
+    <script>
+        // Get the checkbox element
+        // Get the checkbox element
+        var checkbox = document.getElementById("myCheckbox");
+
+        // Get the checked state (true or false) of the checkbox
+        var isChecked = checkbox.checked;
+
+        // Use isChecked as needed
+        console.log(isChecked); // true if checked, false if unchecked
+
+        if(isChecked === true){
+            echo "hello";
+        }
+
+    </script>
 
 
 </body>
@@ -224,25 +260,13 @@ try {
 
 
 <?php
-if ($_SERVER['REQUEST_METHOD'] === "POST") {
-    if (isset($_POST['ctnshipmethod'])) {
-        if (isset($_POST['shipcost'])) {
-            $selectedvalue = $_POST['shipcost'];
-            echo $selectedvalue;
-        } else {
-            echo '
-            <script> 
-            document.addEventListener("DOMContentLoaded", function() {
-                var shipmethodctn = document.querySelector(".shipmethodctn");
-          
-                shipmethodctn.classList.add("border-red-200");
-            
-                 
-            });
-            
 
-         
-             </script>';        }
+if ($_SERVER['REQUEST_METHOD'] === "POST") {
+    if (isset($_POST['free'])) {
+        echo "feeeee";
     }
 }
+
+
+
 ?>
