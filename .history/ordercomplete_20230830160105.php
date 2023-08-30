@@ -1,4 +1,4 @@
-<!-- <?php -->
+<?php
 <!-- require_once "database.php";
 require_once "temporaryid.php";
 $tempid = $_SESSION['id'];
@@ -39,7 +39,7 @@ try {
 } catch (Exception $e) {
     echo "error found: " . $e->getMessage();
 } -->
-<!-- ?> -->
+// <!-- ?> -->
 
 <!DOCTYPE html>
 <html>
@@ -72,7 +72,7 @@ try {
 
             <div class="w-full mt-10 bg-[#ffffff] p-14 rounded shadow">
 
-
+              
 
             </div>
 
