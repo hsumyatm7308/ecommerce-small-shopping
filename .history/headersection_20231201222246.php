@@ -31,7 +31,7 @@
 <header class="navbgmarker ">
     <!-- start nav  -->
     <nav class="w-screen h-auto  flex items-center grid grid-cols-4 p-3">
-        <a href="http://localhost/perumdej/Perum-Dej/index.php" class="flex justify-center items-center">
+        <a href="" class="flex justify-center items-center">
             <img src="./assets/img/fav/perfumlogo.png" alt="" width="50px">
             <h1 class="font-[] text-xl">Perum Dej</h1>
 
@@ -128,7 +128,7 @@
 
                 <span class="ml-3 cursor-pointer">
                     <h1 class="accountbtn">Account</h1>
-                    <ul id="account-dropdown" class="w-36 bg-gray-200 border rounded-md hidden shadow-lg absolute p-2 mt-4">
+                    <ul id="account-dropdown" class="w-36 bg-gray-200 border rounded-md shadow-lg absolute p-2 mt-4">
                         <li class="p-2"><a href="">My Profile</a></li>
                         <div class="w-full h-[1px] bg-gray-100"></div>
                         <li class="p-2"><a href="">Log Out</a></li>
@@ -197,7 +197,8 @@
 
 
         $('.accountbtn').click(function(){
-            $('#account-dropdown').toggleClass('hidden')
+                console.log('hi')
+                $('#account-dropdown').toggleClass('hidden')
         })
 
 

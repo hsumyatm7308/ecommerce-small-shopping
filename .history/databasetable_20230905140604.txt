@@ -65,7 +65,7 @@ INSERT INTO category(id,categoryname)
      FOREIGN KEY (category_id,category_name) REFERENCES category(id,categoryname) ON UPDATE CASCADE ON DELETE CASCADE,
      description TEXT (255),
      qty INT,
-      status VARCHAR(255) DEFAULT  ("In stock")
+      status VARCHAR(255) DEFAULT  (In stock)
     )
  
 INSERT INTO perfume(perfume_name,price,brand_name,category_name,mili,fsletter,description,qty)

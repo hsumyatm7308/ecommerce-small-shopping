@@ -65,7 +65,7 @@ INSERT INTO category(id,categoryname)
      FOREIGN KEY (category_id,category_name) REFERENCES category(id,categoryname) ON UPDATE CASCADE ON DELETE CASCADE,
      description TEXT (255),
      qty INT,
-      status VARCHAR(255) DEFAULT  ("In stock")
+      status VARCHAR(255) DEFAULT  (In stock)
     )
  
 INSERT INTO perfume(perfume_name,price,brand_name,category_name,mili,fsletter,description,qty)
@@ -183,13 +183,12 @@ CREATE TABLE IF NOT EXISTS addtocart (
     quantity INT NOT NULL DEFAULT 1,
     totalprice FLOAT,
     perfume_id INT,
-    temporaryid INT, 
+    temporaryid VARCHAR(255), 
     status INT DEFAULT 0,
     FOREIGN KEY (perfume_id) REFERENCES perfume(id) ON UPDATE CASCADE ON DELETE CASCADE,
     FOREIGN KEY (temporaryid) REFERENCES tempidtable(id) ON UPDATE CASCADE ON DELETE CASCADE
     
 );
-
 
  -->
 

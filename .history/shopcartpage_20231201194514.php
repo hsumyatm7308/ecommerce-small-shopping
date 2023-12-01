@@ -42,7 +42,7 @@ $temp_customer_id = $_COOKIE["tempid" . $tempid];
     <section>
         <div class="w-full h-52 bg-gray-100 flex justify-center itmes-center">
             <div class="flex justify-center itmes-center flex-col">
-                <a href="index.php"><h1 class="text-4xl"> Your Shopping Cart</h1></a>
+                <a href="index.html"><h1 class="text-4xl"> Your Shopping Cart</h1></a>
 
                 <div class="mt-4">
                     <ul class="flex justify-center itmes-center text-sm">
