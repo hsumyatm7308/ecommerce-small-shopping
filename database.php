@@ -14,39 +14,28 @@ try {
 
     //     $stmt = $conn->prepare("UPDATE perfume SET imgurl = :imgurl WHERE id = :id");
 
-      
+
 
 
     //     $id = 180;
-        
+
+
 
 
     //     $stmt->bindParam(':id', $id, PDO::PARAM_INT);
     //     $stmt->bindParam(':imgurl', $imageData);
 
 
-   
+
+
     //     $stmt->execute();
 
     //     echo "Image inserted successfully.";
     // }
+
 } catch (PDOException $e) {
     echo "Error: " . $e->getMessage();
 }
-
-
-
-
-?>
-
-
-
-
-
-
-
-
-
 
 
 

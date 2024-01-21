@@ -64,6 +64,7 @@ try {
 
 <body class="bg-gray-100">
 
+
     <section>
 
         <div class="grid grid-cols-6">
@@ -91,8 +92,6 @@ try {
 
 
 
-
-
                                 <div
                                     class="w-full min-h-96 flex justify-center items-center flex-col bg-white px-10 py-5 mt-14">
 
@@ -101,25 +100,30 @@ try {
                                     <div class="w-full h-auto">
                                         <hr class="border-b border-dashed border-gray-400 mb-10">
 
+
                                         <div class="w-full border-b inputval mb-6">
                                             <label for="">Name</label>
-                                            <input type="text" name="regname" class="w-full border-2 border-gray-400 focus:outline-none p-4 mt-4 val"
+                                            <input type="text" name="regname"
+                                                class="w-full border-2 border-gray-400 focus:outline-none p-4 mt-4 val"
                                                 placeholder="Your Name">
                                         </div>
 
                                         <div class="w-full border-b inputval mb-6">
                                             <label for="">Email</label>
-                                            <input type="text" name="regemail" class="w-full border-2 border-gray-400 focus:outline-none p-4 mt-4 val"
+                                            <input type="text" name="regemail"
+                                                class="w-full border-2 border-gray-400 focus:outline-none p-4 mt-4 val"
                                                 placeholder="Your Email">
                                         </div>
 
                                         <div class="w-full border-b inputval mb-6">
                                             <label for="">Password</label>
                                             <input type="password" name="regpassword"
-                                                class="w-full border-2 border-gray-400 focus:outline-none p-4 mt-3 val" placeholder="Password">
+                                                class="w-full border-2 border-gray-400 focus:outline-none p-4 mt-3 val"
+                                                placeholder="Password">
                                         </div>
 
                                     </div>
+
 
 
                                     <div class="w-full flex justify-end items-center mt-5 mb-5">
@@ -139,6 +143,7 @@ try {
 
 
                                 </div>
+
 
 
 
@@ -197,6 +202,7 @@ try {
     <script>
         var infosubtotal = document.querySelector('.infosubtotal');
         infosubtotal.innerHTML = sessionStorage.getItem('subtotal');
+
     </script>
 
 
@@ -229,10 +235,12 @@ if ($_SERVER['REQUEST_METHOD'] === "POST") {
         $password = password_hash($password, PASSWORD_DEFAULT);
 
 
+
         try {
 
             if ($name === '' || $email === '' || $password === '') {
                 // echo "you need to fill";
+
 
                 echo '
                 <script> 
@@ -243,6 +251,7 @@ if ($_SERVER['REQUEST_METHOD'] === "POST") {
                 
                         var hasValue = false;
                         for (var i = 0; i < val.length; i++) {
+
                             if (val[i].value.trim() === "") {
                                 hasValue = true;
                                 inputval[i].classList.add("border", "border-dashed", "border-red-500");
@@ -260,7 +269,9 @@ if ($_SERVER['REQUEST_METHOD'] === "POST") {
              
                  </script>';
 
+
             } else {
+
 
 
 

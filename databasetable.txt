@@ -170,6 +170,7 @@ INSERT INTO perfume(perfume_name,price,brand_name,category_name,mili,fsletter,de
     FOREIGN KEY perfume_id REFERENCE  perfume(id)
 
 )
+
 -->
 <!-- 
 CREATE TABLE IF NOT EXISTS addtocart (
@@ -223,6 +224,7 @@ CREATE TABLE IF NOT EXISTS customerinfo(
     address VARCHAR(255) NOT NULL,
     temporary_id INT ,
     FOREIGN KEY (temporary_id) REFERENCES tempidtable(id) ON UPDATE CASCADE ON DELETE CASCADE,
+
      
 )
 
