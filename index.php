@@ -42,7 +42,7 @@ require_once "setcookie.php";
             <div class=" flex  justify-end ">
                 <div class="w-80">
 
-                    <!-- <div class="h-auto mb-5">
+                    <div class="h-auto mb-5">
                         <h1 class="font-[500] uppercase mb-1">Filter by</h1>
                         <div class=" flex flex-wrap leading-3">
                             <span
@@ -93,7 +93,7 @@ require_once "setcookie.php";
                             </span>
 
                         </div>
-                    </div> -->
+                    </div>
 
                     <div class="h-auto mb-5">
                         <h1 class="uppercase mb-1">Brand</h1>
