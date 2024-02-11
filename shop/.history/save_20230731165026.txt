@@ -1,0 +1,135 @@
+<?php
+require_once "database.php";
+
+
+
+
+try {
+    global $conn;
+
+    $menstmt = $conn->prepare("SELECT fsletter FROM perfume WHERE category_name IN ('Men','Unisex') ORDER BY fsletter ASC");
+    $menstmt->execute(); // Execute the query to fetch data
+
+
+    $shownLetters = array();
+
+} catch (Exception $e) {
+    echo "Error Found: " . $e->getMessage();
+}
+
+
+
+if (isset($_GET['letters'])) {
+    $letter = $_GET['letters'];
+    try {
+        global $conn;
+
+        // Modify your query to include the filtering based on the 'fsletter' column
+        $menstmt = $conn->prepare("SELECT id, perfume_name, brand_name, category_name, price, imgurl, mili FROM perfume WHERE category_name IN ('Men','Unisex') AND fsletter = :letter ORDER BY fsletter ASC");
+        $menstmt->bindParam(":letter", $letter);
+        $menstmt->execute();
+
+        // Rest of your code to display the filtered results...
+    } catch (Exception $e) {
+        echo "Error Found: " . $e->getMessage();
+    }
+}
+
+?>
+
+
+
+<?php while ($row = $menstmt->fetch()): ?>
+    <?php
+    if (!in_array($row['fsletter'], $shownLetters)) {
+        $shownLetters[] = $row['fsletter'];
+        ?>
+        <li class="w-7 h-7 flex justify-center items-center m-1 bg-stone-100">
+            <a href="menfrg.php?letters=<?php echo $row['fsletter'] ?>" data-value="<?php echo $row['fsletter'] ?>">
+                <?php echo $row['fsletter'] ?>
+            </a>
+        </li>
+
+    <?php } ?>
+<?php endwhile; ?>
+
+
+
+
+
+
+
+<div class="grid grid-cols-3">
+    <?php while ($row = $menstmt->fetch()): ?>
+        <div class="w-full m-5 flex justify-center items-center flex-col">
+            <?php
+            $binary_data = $row['imgurl'];
+            $base64_image = base64_encode($binary_data);
+            echo '<img src="data:image/jpeg;base64,' . $base64_image . '" alt="Image" style="max-width: 200px;" >';
+            ?>
+
+            <a href="" class="w-64 self-start">
+                <?php echo $row['perfume_name'] ?> by
+                <? echo $row['brand_name'] ?> EDT 3.3 OZ
+                <?= $row['mili'] ?> spray for
+                <?= $row['category_name'] ?>
+            </a>
+            <span class="self-start mt-2">$
+                <?php echo $row['price'] ?>
+            </span>
+        </div>
+    <?php endwhile; ?>
+</div>
+
+
+
+<div class="grid grid-cols-3">
+    <?php while ($row = $womenstmt->fetch()): ?>
+        <div class="w-full m-5 flex justify-center items-center flex-col">
+            <?php
+            $binary_data = $row['imgurl'];
+            $base64_image = base64_encode($binary_data);
+            echo '<img src="data:image/jpeg;base64,' . $base64_image . '" alt="Image" style="max-width: 200px;" >';
+            ?>
+
+            <a href="" class="w-64 self-start">
+                <?php echo $row['perfume_name'] ?> by
+                <? echo $row['brand_name'] ?> EDT 3.3 OZ
+                <?= $row['mili'] ?> spray for
+                <?= $row['category_name'] ?>
+            </a>
+            <span class="self-start mt-2">$
+                <?php echo $row['price'] ?>
+            </span>
+        </div>
+    <?php endwhile; ?>
+</div>
+
+
+
+
+
+ // if (isset($_GET['price']) && $_GET['price'] > 1) {
+        //     $prevMenPage = $_GET['price'] - 1;
+        //     echo '<a href="?startprice='.$startprice.'&endprice='.$endprice.`&price=` . $prevMenPage . '" class="text-red-500 border px-2 py-1 mr-10">Prev</a>';
+        // }
+    
+        // for ($x = 1; $x <= $totalpages; $x++) {
+        //     echo '<a href="?startprice='.$startprice.'&endprice='.$endprice.'&price=' . $x . '" class="w-6 h-7 border p-1 m-1 flex justify-center items-center active">' . $x . '</a>';
+        // }
+    
+        // if (isset($_GET['price'])) {
+        //     if ($_GET['price'] >= $totalpages) {
+        //         // echo '<a class="text-blue-500 border px-2 py-1 ml-10">Next</a>';
+        //     } else {
+        //         // $nextPage = $_GET['page'] + 1;
+    
+        //         if (isset($_GET['price']) && is_numeric($_GET['price'])) {
+        //             $nextPage = (int) $_GET['price'] + 1;
+        //             echo '<a href="?startprice='.$startprice.'&endprice='.$endprice.'&price=' . $nextPage . '" class="text-red-500 border px-2 py-1 ml-10">Next</a>';
+        //         }
+        //     }
+        // } else {
+        //     echo '<a href="?startprice='.$startprice.'&endprice='.$endprice.'&price=1 class="text-blue-500 border px-2 py-1 ml-10">Next</a>';
+        // }
+    

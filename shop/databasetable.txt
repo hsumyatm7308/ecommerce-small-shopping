@@ -1,0 +1,309 @@
+
+
+
+
+<!-- 
+CREATE TABLE IF NOT EXISTS brand(
+    
+    id INT AUTO_INCREMENT,
+    brandname  VARCHAR(255),
+    counrtyoforigin VARCHAR(255),
+    website VARCHAR(255),
+    
+    PRIMARY KEY(id,brandname)   
+)
+-->
+
+
+
+
+
+<!-- 
+INSERT INTO brand(brandname,counrtyoforigin,website)
+ VALUES ('Burbettry','british','burbettry.com'),
+ ('Calvin Klein','england','calvinklein.com'),
+ ('Royal','england','royal.com'),
+ ('Coldana','thai','coldana.com'),
+ ('Revlon','british','revolon.com'),
+ ('Calvin Klein','england','calvinklein.com')
+ -->
+
+
+
+<!-- 
+    
+CREATE TABLE IF NOT EXISTS category(
+    
+    id INT AUTO_INCREMENT,
+    categoryname VARCHAR(255),
+    PRIMARY KEY(id,categoryname)
+     
+) 
+
+
+
+INSERT INTO category(id,categoryname)
+ VALUES (1,'all'),
+ (2,'men'),
+ (3,'women'),
+ (4,'unisex')
+ -->
+
+<!--
+ CREATE TABLE IF NOT EXISTS perfume(
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    imgurl BLOB(512),
+    perfume_name VARCHAR (255),
+     price DECIMAL(10,2) NOT NULL,
+     mili VARCHAR(255),
+     fsletter VARCHAR(255),
+     brand_name VARCHAR(255),
+     brand_id INT,
+     category_name VARCHAR(255),
+     category_id INT,
+     FOREIGN KEY (brand_id,brand_name) REFERENCES brand(id,brandname) ON UPDATE CASCADE ON DELETE CASCADE,
+     FOREIGN KEY (category_id,category_name) REFERENCES category(id,categoryname) ON UPDATE CASCADE ON DELETE CASCADE,
+     description TEXT (255),
+     qty INT,
+      status VARCHAR(255) DEFAULT  ("In stock")
+    )
+ 
+INSERT INTO perfume(perfume_name,price,brand_name,category_name,mili,fsletter,description,qty)
+ VALUES('Brit',33.04,'Burbettry','Men','100ML','B',"Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s",30),
+ ('CK one',38.80,'Calvin Klein','Unisex','200ML','C',"Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s",20),
+ ('Eternity',34.04,'Calvin Klein','Women','100ML','E',"Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s",30),
+ ('Jovan White Musk',30.90,'Jovan','Women','96ML','J',"Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s",10),
+ ('Royal Copenhagen',40.99,'Royal','Men','240ML','R',"Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s",60),
+ ('CK be',45.02,'Calvin Klein','Unisex','200ML','C',"Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s",10),
+ ('CK all',48.05,'Calvin Klein','Unisex','200ML','C',"Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s",40),
+ ('Eternity',85.45,'Calvin Klein','Men','100ML','E',"Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s",15),
+ ('Charlie Blue',45.02,'Revlon','Women','100ML','C',"Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s",12),
+ ('CK be',48.05,'Calvin Klein','Women','200ML','C',"Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s",14),
+ ('CK One',43.05,'Calvin Klein','Unisex','100ML','C',"Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s",12),
+ ('Halston Z-14',58.58,'Colodgne','Men','236ML','H',"Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s",15),
+ ('Nautica Blue',47.18,'Vaporisateur','Men','100ML','N',"Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s",10),
+ ('CK one',87.18,'Calvin Klein','Unisex','75g','C',"Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s",16),
+ ('Elizabeth Arden Red Door',43.08,'Vaporisateur','Women','100ML','E',"Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s",12),
+ ('Jontue',63.88,'Aidonull','Women','100ML','J',"Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s",12),
+ ('Davidoff Cool Water',29.89,'Aidonull','Men','200ML','D',"Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s",12),
+ ('Classic',69.95,'Bananarepublic','Unisex','125ML','C',"Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s",11),
+ ('NYC',35.15,'Aidonull','Unisex','50ML','N',"Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s",23),
+ ('Sung Alfred',35.15,'Vaporisateur','Women','100ML','S',"Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s",12),
+ ('Royal Copenhagen',48.99,'Royal','Men','100ML','R',"Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s",12),
+ ('Anals',34.15,'Cacharel','Women','100ML','A',"Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s",40),
+ ('By The Sea 03',32.05,'Cacharel','Unisex','100ML','B',"Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s",12),
+ ('Chrome Azzaro',34.85,'Azzaro','Men','100ML','C',"Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s",12),
+ ('Club De Nuit',36.55,'Sillage','Unisex','100ML','C',"Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s",13),
+ ('Boucherron',39.75,'Boucherron','Women','100ML','B',"Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s",14),
+ ('Drkkar Noir',52.35,'Guy Larochce','Men','100ML','D',"Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s",15),
+ ('Boucherron',49.70,'Boucherron','Men','100ML','B',"Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s",16),
+ ('Bananarepublic',55.75,'Bananarepublic','Unisex','75ML','B',"Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s",10),
+ ('Passion',49.75,'ElizaBethtaylors','Women','75ML','P',"Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s",13),
+ ('Givenchy Gentleman',89.75,'Origplale','Men','100ML','G',"Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s",12),
+ ('Supermacy',78.35,'Afnan','Unisex','100ML','S',"Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s",12),
+ ('Casual',40.75,'Origplale','Women','120ML','C',"Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s",12),
+ ('Navy',20.35,'Navy','Women','45ML','N',"Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s",10),
+ ('Memoire 01',20.35,'Cacharel','Unisex','100ML','M',"Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s",20),
+ ('Jovan Musk',78.35,'Jovan','Men','236ML','J',"Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s",16),
+ ('Eternity',98.35,'Calvin Klein','Men','100ML','E',"Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s",12),
+ ('Acqua Di Parma',58.35,'Fico Di Amalfi','Unisex','75ML','A',"Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s",11),
+ ('Brit',68.34,'Burbettry','Women','100ML','B',"Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s",11),
+ ('CK all',98.36,'Calvin Klein','Women','200ML','C',"Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s",11),
+ ('Black Kawan Cacr',48.34,'Kawan Car','Men','100ML','B',"Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s",12),
+ ('Grassland',38.34,'Bananarepublic','Unisex','75ML','G',"Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s",11),
+ ('Claiborne',48.24,'liz','Women','100ML','C',"Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s",13),
+ ('Hei',32.08,'Alfreobung','Men','100ML','H',"Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s",13),
+ ('Oud Wood',82.98,'Tom Ford','Unisex','100ML','O',"Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s",11),
+ ('Neroli Woods',62.78,'Bananarepublic','Unisex','100ML','N',"Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s",11),
+ ('Explorer',82.38,'Mont Blanc','Men','100ML','E',"Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s",11),
+ ('Dolce Gabana',32.90,'Light Blue','Women','100ML','D',"Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s",12),
+ ('Polo',95.28,'Relphp Lauren','Men','175ML','P',"Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s",13),
+ ('Supermacy',32.58,'Afnan','Unisex','100ML','S',"Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s",14),
+ ('Anais',22.98,'Cacharel','Women','30ML','A',"Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s",11),
+ ('Promise Me',72.88,'Aeropostale','Women','100ML','P',"Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s",12),
+ ('Eternity',82.35,'Calvin Klein','Men','100ML','E',"Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s",11),
+ ('Cypress Cedar',65.38,'Bananarepublic','Unisex','75ML','C',"Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s",11),
+ ('Arrogant',55.38,'Aidonull','Men','100ML','A',"Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s",13),
+ ('Ser Hubbee',55.38,'Lattafe','Unisex','100ML','S',"Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s",13),
+ ('Movies',59.31,'Addidas','Women','30ML','M',"Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s",11),
+ ('Amarige',45.36,'Givenomy','Women','100ML','A',"Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s",14),
+ ('Clean',35.07,'Home Frangrances','Unisex','100ML','C',"Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s",11),
+ ('Halloween',35.07,'Hallween','Men','125ML','H',"Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s.",12); 
+ -->
+
+
+
+<!-- Review -->
+
+<!-- CREATE TABLE `reviewtable` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `username` varchar(200) NOT NULL,
+  `userrating` int(1) NOT NULL,
+  `userreview` text NOT NULL,
+  `datetime` DATETIME NOT NULL,
+  PRIMARY KEY (`id`),
+  perfume_id INT,
+  FOREIGN KEY (perfume_id) REFERENCES perfume(id) ON UPDATE CASCADE  ON  DELETE CASCADE
+) -->
+
+
+<!-- INSERT INTO `reviewtable` (`reviewid`, `username`, `userrating`, `userreview`, `datetime`) VALUES
+(6, 'John Smith', 4, 'Nice Product, Value for money', 1621935691),
+(7, 'Peter Parker', 5, 'Nice Product with Good Feature.', 1621939888),
+(8, 'Donna Hubber', 1, 'Worst Product, lost my money.', 1621940010); -->
+
+
+
+
+
+
+
+<!-- CREATE TABLE IF NOT EXISTS customers(
+
+    id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR (256),
+    email VARCHAR (255),
+    address VARCHAR(320),
+    payment ENUM('COD','Paypal'),
+    shipping ENUM('fast','faster','fastest'),
+    perfume_id INT,
+    FOREIGN KEY perfume_id REFERENCE  perfume(id)
+
+)
+
+-->
+<!-- 
+CREATE TABLE IF NOT EXISTS addtocart (
+    id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    perfumeimg BLOB,
+    perfumename VARCHAR(255),
+    brandname VARCHAR(255),
+    mili VARCHAR(255),
+    category VARCHAR(255),
+    perfumeprice FLOAT,
+    quantity INT NOT NULL DEFAULT 1,
+    totalprice FLOAT,
+    perfume_id INT,
+    temporaryid INT, 
+    status INT DEFAULT 0,
+    FOREIGN KEY (perfume_id) REFERENCES perfume(id) ON UPDATE CASCADE ON DELETE CASCADE,
+    FOREIGN KEY (temporaryid) REFERENCES tempidtable(id) ON UPDATE CASCADE ON DELETE CASCADE
+    
+);
+
+
+ -->
+
+
+
+Shipping address 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+CREATE TABLE IF NOT EXISTS customerinfo(
+    id INT AUTO_INCREMENT NOT NULL PRIMARY KEY,
+    name VARCHAR(255) NOT NULL,
+    email  VARCHAR(255) NOT NULL UNIQUE,
+    address VARCHAR(255) NOT NULL,
+    temporary_id INT ,
+    FOREIGN KEY (temporary_id) REFERENCES tempidtable(id) ON UPDATE CASCADE ON DELETE CASCADE,
+
+     
+)
+
+CREATE TABLE IF NOT EXISTS orders (
+    id INT AUTO_INCREMENT NOT NULL PRIMARY KEY,
+    customer_id INT,
+    order_date DATE DEFAULT CURRENT_DATE(),
+    status ENUM('pending', 'processing', 'shipped') DEFAULT 'pending',
+    total_price FLOAT,
+    FOREIGN KEY (customer_id) REFERENCES customers(id) ON UPDATE CASCADE ON DELETE CASCADE
+); 
+
+
+CREATE TABLE IF NOT EXISTS ordersitem (
+    id INT AUTO_INCREMENT NOT NULL PRIMARY KEY,
+    order_id INT,
+    FOREIGN KEY(order_id)REFERENCES orders(id) ON UPDATE CASCADE ON DELETE CASCADE,
+    perfume_id INT,
+    FOREIGN KEY (perfume_id)REFERENCES perfume(id) ON UPDATE CASCADE ON DELETE CASCADE,
+    quantity INT,
+    price float
+)
+
+
+CREATE TABLE IF NOT EXISTS cart (
+    id INT AUTO_INCREMENT NOT NULL PRIMARY KEY,
+    customer_id INT,
+    FOREIGN KEY(customer_id) REFERENCES customers(id) ON UPDATE CASCADE ON DELETE CASCADE,
+    perfume_id INT,
+    FOREIGN KEY (perfume_id) REFERENCES perfume(id) ON UPDATE CASCADE ON DELETE CASCADE,
+    temporary_id INT,
+    FOREIGN KEY (temporary_id) REFERENCES addtocart(temporaryid) ON UPDATE CASCADE ON DELETE CASCADE,
+    quantity INT,
+    price float
+)
+
+
+
+
+
+
+
+
+
+
+CREATE TABLE IF NOT EXISTS tempidtable (
+    id INT AUTO_INCREMENT PRIMARY KEY NOT NULL,
+    tempid VARCHAR(255)
+    )
+
+
+
+
+CREATE TABLE IF NOT EXISTS shippingaddress (
+    id INT AUTO_INCREMENT PRIMARY KEY NOT NULL,
+    firstname VARCHAR(255),
+    lastname VARCHAR(255),
+    phone VARCHAR(30),
+    address VARCHAR(255),
+    city VARCHAR(255),
+    company VARCHAR(255),
+    shipcost INT,
+    temporaryid INT,
+    status ENUM('pending', 'shipping', 'shipped') DEFAULT 'pending',
+    FOREIGN KEY (temporaryid) REFERENCES tempidtable(id) ON UPDATE CASCADE ON DELETE CASCADE
+
+);
+
+
+
+
+CREATE TABLE IF NOT EXISTS creditcard(
+    id INT AUTO_INCREMENT NOT NULL PRIMARY KEY,
+    name VARCHAR (250),
+    number VARCHAR(50) UNIQUE,
+    cvv VARCHAR(16),
+    expdate DATE,
+
+    temporary_id INT,
+    FOREIGN KEY (temporary_id) REFERENCES tempidtable(id) ON UPDATE CASCADE ON DELETE CASCADE 
+
+)

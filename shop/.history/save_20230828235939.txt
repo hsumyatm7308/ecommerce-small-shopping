@@ -1,0 +1,480 @@
+<?php
+require_once "database.php";
+
+
+
+
+try {
+    global $conn;
+
+    $menstmt = $conn->prepare("SELECT fsletter FROM perfume WHERE category_name IN ('Men','Unisex') ORDER BY fsletter ASC");
+    $menstmt->execute(); // Execute the query to fetch data
+
+
+    $shownLetters = array();
+
+} catch (Exception $e) {
+    echo "Error Found: " . $e->getMessage();
+}
+
+
+
+if (isset($_GET['letters'])) {
+    $letter = $_GET['letters'];
+    try {
+        global $conn;
+
+        // Modify your query to include the filtering based on the 'fsletter' column
+        $menstmt = $conn->prepare("SELECT id, perfume_name, brand_name, category_name, price, imgurl, mili FROM perfume WHERE category_name IN ('Men','Unisex') AND fsletter = :letter ORDER BY fsletter ASC");
+        $menstmt->bindParam(":letter", $letter);
+        $menstmt->execute();
+
+        // Rest of your code to display the filtered results...
+    } catch (Exception $e) {
+        echo "Error Found: " . $e->getMessage();
+    }
+}
+
+?>
+
+
+
+<?php while ($row = $menstmt->fetch()): ?>
+    <?php
+    if (!in_array($row['fsletter'], $shownLetters)) {
+        $shownLetters[] = $row['fsletter'];
+        ?>
+        <li class="w-7 h-7 flex justify-center items-center m-1 bg-stone-100">
+            <a href="menfrg.php?letters=<?php echo $row['fsletter'] ?>" data-value="<?php echo $row['fsletter'] ?>">
+                <?php echo $row['fsletter'] ?>
+            </a>
+        </li>
+
+    <?php } ?>
+<?php endwhile; ?>
+
+
+
+
+
+=>Men 
+
+<div class="grid grid-cols-3">
+    <?php while ($row = $menstmt->fetch()): ?>
+        <div class="w-full m-5 flex justify-center items-center flex-col">
+            <?php
+            $binary_data = $row['imgurl'];
+            $base64_image = base64_encode($binary_data);
+            echo '<img src="data:image/jpeg;base64,' . $base64_image . '" alt="Image" style="max-width: 200px;" >';
+            ?>
+
+            <a href="" class="w-64 self-start">
+                <?php echo $row['perfume_name'] ?> by
+                <? echo $row['brand_name'] ?> EDT 3.3 OZ
+                <?= $row['mili'] ?> spray for
+                <?= $row['category_name'] ?>
+            </a>
+            <span class="self-start mt-2">$
+                <?php echo $row['price'] ?>
+            </span>
+        </div>
+    <?php endwhile; ?>
+</div>
+
+
+=>Women
+
+<div class="grid grid-cols-3">
+    <?php while ($row = $womenstmt->fetch()): ?>
+        <div class="w-full m-5 flex justify-center items-center flex-col">
+            <?php
+            $binary_data = $row['imgurl'];
+            $base64_image = base64_encode($binary_data);
+            echo '<img src="data:image/jpeg;base64,' . $base64_image . '" alt="Image" style="max-width: 200px;" >';
+            ?>
+
+            <a href="" class="w-64 self-start">
+                <?php echo $row['perfume_name'] ?> by
+                <? echo $row['brand_name'] ?> EDT 3.3 OZ
+                <?= $row['mili'] ?> spray for
+                <?= $row['category_name'] ?>
+            </a>
+            <span class="self-start mt-2">$
+                <?php echo $row['price'] ?>
+            </span>
+        </div>
+    <?php endwhile; ?>
+</div>
+
+
+
+
+
+ // if (isset($_GET['price']) && $_GET['price'] > 1) {
+        //     $prevMenPage = $_GET['price'] - 1;
+        //     echo '<a href="?startprice='.$startprice.'&endprice='.$endprice.`&price=` . $prevMenPage . '" class="text-red-500 border px-2 py-1 mr-10">Prev</a>';
+        // }
+    
+        // for ($x = 1; $x <= $totalpages; $x++) {
+        //     echo '<a href="?startprice='.$startprice.'&endprice='.$endprice.'&price=' . $x . '" class="w-6 h-7 border p-1 m-1 flex justify-center items-center active">' . $x . '</a>';
+        // }
+    
+        // if (isset($_GET['price'])) {
+        //     if ($_GET['price'] >= $totalpages) {
+        //         // echo '<a class="text-blue-500 border px-2 py-1 ml-10">Next</a>';
+        //     } else {
+        //         // $nextPage = $_GET['page'] + 1;
+    
+        //         if (isset($_GET['price']) && is_numeric($_GET['price'])) {
+        //             $nextPage = (int) $_GET['price'] + 1;
+        //             echo '<a href="?startprice='.$startprice.'&endprice='.$endprice.'&price=' . $nextPage . '" class="text-red-500 border px-2 py-1 ml-10">Next</a>';
+        //         }
+        //     }
+        // } else {
+        //     echo '<a href="?startprice='.$startprice.'&endprice='.$endprice.'&price=1 class="text-blue-500 border px-2 py-1 ml-10">Next</a>';
+        // }
+    
+
+
+
+
+    =>letter 
+     <!-- <li class="w-7 h-7 flex justify-center items-center m-1 bg-stone-100">
+            <a href="womenfrg.php?letters=<?php echo $row['fsletter'] ?>"
+                onclick="handleLetterClick('<?php echo $row['fsletter'] ?>')">
+                <?php echo $row['fsletter'] ?>
+            </a>
+        </li> -->
+
+
+
+
+=>display 
+<div class="grid grid-cols-3">
+    <?php
+    if (isset($_GET['startprice']) && isset($_GET['endprice'])) {
+        // echo "hie";
+    
+        while ($row = $pricestmt->fetch()) {
+            echo '<div class="w-full m-5 flex justify-center items-center flex-col">';
+            $binary_data = $row['imgurl'];
+            $base64_image = base64_encode($binary_data);
+            echo '<img src="data:image/jpeg;base64,' . $base64_image . '" alt="Image" style="max-width: 200px;" >';
+            echo '<a href="" class="w-64 self-start">' . $row['perfume_name'] . ' by ' . $row['brand_name'] . ' EDT 3.3 OZ ' . $row['mili'] . ' spray for ' . $row['category_name'] . '</a>';
+            echo '<span class="self-start mt-2">$' . $row['price'] . '</span>';
+            echo '</div>';
+        }
+
+    } else {
+        while ($row = $stmt->fetch()) {
+            echo '<div class="w-full m-5 flex justify-center items-center flex-col">';
+            $binary_data = $row['imgurl'];
+            $base64_image = base64_encode($binary_data);
+            echo '<img src="data:image/jpeg;base64,' . $base64_image . '" alt="Image" style="max-width: 200px;" >';
+            echo '<a href="" class="w-64 self-start">' . $row['perfume_name'] . ' by ' . $row['brand_name'] . ' EDT 3.3 OZ ' . $row['mili'] . ' spray for ' . $row['category_name'] . '</a>';
+            echo '<span class="self-start mt-2">$' . $row['price'] . '</span>';
+            echo '</div>';
+        }
+    }
+    ?>
+</div>
+
+
+
+
+
+
+
+
+
+<?php while ($row = $stmt->fetch()): ?>
+    <?php
+    if (!in_array($row['fsletter'], $shownLetters)) {
+        $shownLetters[] = $row['fsletter'];
+        ?>
+        <?php
+      
+        $letter = $row['fsletter'];
+        if (isset($_GET['letters']) && $_GET['letters'] === $letter) {
+            $backgroundClass = "bg-gray-400 text-white";
+        } else {
+            $backgroundClass = "bg-gray-100"; 
+        }
+        ?>
+
+        <li class="w-7 h-7 flex justify-center items-center m-1 letter-link <?php echo $backgroundClass; ?>">
+            <a href="index.php?page=&letters=<?php echo urlencode($letter); ?>"><?php echo $letter; ?></a>
+        </li>
+
+
+    <?php
+
+
+
+
+    ?>
+    <?php } ?>
+
+
+
+
+<?php endwhile; ?>
+
+
+
+
+                                <a href="shopcartpage.php?action=remove&id=' . $value['id'] . '" >
+                                </a>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                                <section>
+                                    <div class="modal-container">
+                                        <div
+                                            class="modal w-full h-screen bg-[linear-gradient(rgba(0,0,0,.3),rgba(0,0,0,.3))] flex justify-center items-center fixed left-0 top-0 z-[100]">
+                                            <!-- Modal content  -->
+                                            <div
+                                                class="w-[500px] h-[300px] bg-stone-100 flex justify-center items-center flex-col  rounded-md">
+                                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                                    stroke-width="1.5" stroke="currentColor" class="w-12 h-12">
+                                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                                        d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126zM12 15.75h.007v.008H12v-.008z" />
+                                                </svg>
+                                                <span class="mt-2">Are you sure want to delete this item?</span>
+
+                                                <div class='flex justify-center items-center mt-6'>
+
+
+
+                                                    <button
+                                                        class="border-2 border-indigo-100 rounded-md px-5 py-1 m-1 hover:border-indigo-200 focus:ring-1 cancel">Cancle</button>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+
+
+                                </section>
+
+
+
+
+
+
+
+    <script type="text/javascript">
+        var gotoguest = document.querySelectorAll('.gotoguest');
+        var registerinfo = document.querySelector('.registerinfo');
+        var logininfo = document.querySelector('.logininfo');
+        var guestinfo = document.querySelector('.guestinfo');
+        var loginbtn = document.getElementById('loginbtn');
+        var registerbtn =document.getElementById('registerbtn');
+        var loginfromreg =document.getElementById('loginfromreg');
+
+        for (var i = 0; i < gotoguest.length; i++) {
+            gotoguest[i].addEventListener('click', function () {
+                guestinfo.style.display = "block";
+                logininfo.style.display = "none";
+                registerinfo.style.display = "none";
+            })
+        }
+
+        loginbtn.addEventListener('click', function (event) {
+            console.log('hi');
+
+            event.preventDefault();
+            guestinfo.style.display = "none";
+            logininfo.style.display = "block";
+            registerinfo.style.display = "none";
+        })
+
+
+        
+        registerbtn.addEventListener('click', function (event) {
+            console.log('hi');
+
+            event.preventDefault();
+            guestinfo.style.display = "none";
+            logininfo.style.display = "none";
+            registerinfo.style.display = "block";
+        })
+
+
+        loginfromreg.addEventListener('click', function (event) {
+            console.log('hi');
+
+            event.preventDefault();
+            guestinfo.style.display = "none";
+            logininfo.style.display = "block";
+            registerinfo.style.display = "none";
+        })
+    </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <body>
+
+    <section>
+        <?php require_once "shiphead.php"; ?>
+
+        <div class="grid grid-cols-6">
+
+            <div class="col-span-4 w-full flex justify-start items-center flex-col">
+                <!-- head  -->
+
+
+
+
+
+
+                <section class="w-full flex justify-center ">
+                    <div class="w-full min-h-[500px] flex justify-center items-center flex-col">
+
+
+                        <form action="" method="post" class="w-[80%] ">
+
+                            <div class="w-full">
+                                <div class="flex  mb-5 mt-5">
+                                    <h1>Shipping Address</h1>
+
+                                </div>
+
+                                <div
+                                    class="w-full border-gray-300 border p-5 flex justify-center items-center flex-col  guestinfo">
+                                    <div class="w-full bg-gray-100 mb-3">
+                                        <!-- <h1 class="p-2">Customer</h1> -->
+                                    </div>
+
+                                    <div class="w-full grid grid-cols-2 mb-8">
+
+                                        <div class="w border-b-2 border-gray-300 inputval mb-2 mr-5">
+                                            <input type="text" name="firstname"
+                                                class="w-full focus:outline-none focus:bg-transparent p-2 val"
+                                                placeholder="First Name">
+                                        </div>
+
+                                        <div class="w border-b-2 border-gray-300 inputval mb-2 ml-5">
+                                            <input type="text" name="lastname" class="w-full focus:outline-none p-2 val"
+                                                placeholder="Last Name">
+                                        </div>
+
+                                    </div>
+
+
+                                    <div class="w-full border-b-2 border-gray-300  mb-8">
+                                        <input type="text" name="company" class="w-full focus:outline-none p-2 "
+                                            placeholder="Company (Option)">
+                                    </div>
+
+
+                                    <div class="w-full border-b-2 border-gray-300  mb-8">
+                                        <input type="text" name="phone" class="w-full focus:outline-none p-2 "
+                                            placeholder="Phone Number (Option)">
+                                    </div>
+
+
+                                    <div class="w-full border-b-2 border-gray-300 inputval mb-8">
+                                        <input type="text" name="address" class="w-full focus:outline-none p-2 val"
+                                            placeholder="Address">
+                                    </div>
+
+
+                                    <div class="w-full border-b-2 border-gray-300 inputval mb-8">
+                                        <input type="text" name="city" class="w-full focus:outline-none p-2 val"
+                                            placeholder="City">
+                                    </div>
+
+
+
+
+
+
+
+                                </div>
+
+
+                            </div>
+
+
+
+                            <div class="w-full flex justify-between items-center mt-5">
+                                <div class="flex justify-center items-center">
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                        stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                                        <path stroke-linecap="round" stroke-linejoin="round"
+                                            d="M18.75 19.5l-7.5-7.5 7.5-7.5m-6 15L5.25 12l7.5-7.5" />
+                                    </svg>
+                                    <a href="informationpage.php">Return to information</a>
+                                </div>
+
+                                <div class="">
+                                    <form action="" method="post">
+                                        <button type="submit" name="shipaddress"
+                                            class="bg-gray-500 uppercase p-2 ctntoshipbtn">
+                                            <h1 class="text-sm text-white p-1 rounded">Continue to shipping</h1>
+                                        </button>
+                                    </form>
+                                </div>
+                            </div>
+
+                        </form>
+
+
+
+                    </div>
+                </section>
+
+
+
+            </div>
+
+
+            <!-- <?php require_once "orderinformation.php"; ?> -->
+
+
+
+
+
+
+        </div>
+    </section>
+
+
+    <script>
+        var infosubtotal = document.querySelector('.infosubtotal');
+        infosubtotal.innerHTML = sessionStorage.getItem('subtotal');
+    </script>
+
+
+
+
+
+
+</body>

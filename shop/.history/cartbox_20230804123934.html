@@ -1,0 +1,7 @@
+echo '<div class="w-full m-5 flex justify-center items-center flex-col">';
+    $binary_data = $row['imgurl'];
+    $base64_image = base64_encode($binary_data);
+    echo '<img src="data:image/jpeg;base64,' . $base64_image . '" alt="Image" style="max-width: 200px;" >';
+    echo '<a href="" class="w-64 self-start">' . $row['perfume_name'] . ' by ' . $row['brand_name'] . ' EDT 3.3 OZ ' . $row['mili'] . ' spray for ' . $row['category_name'] . '</a>';
+    echo '<span class="self-start mt-2">$' . $row['price'] . '</span>';
+    echo '</div>';

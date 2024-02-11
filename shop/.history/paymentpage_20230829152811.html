@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Payment</title>
+        <link rel="stylesheet" href="./css/style.css">
+        <script src="https://cdn.tailwindcss.com"></script>
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"
+            integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+            integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+            crossorigin="anonymous"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+            integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+            crossorigin="anonymous"></script>
+    
+    </head>
+  
+<body>
+
+    <section>
+    <!-- <?php require_once "shiphead.php"; ?> -->
+
+        <div class="grid grid-cols-6">
+
+            <div class="col-span-4 w-full flex justify-start items-center flex-col">
+                <!-- head  -->
+
+
+
+
+
+
+                <section class="w-full flex justify-center ">
+                    <div class="w-full min-h-[500px] flex justify-center items-center flex-col">
+
+
+                        <form action="" method="post" class="w-[80%]">
+
+                            <div class="w-full">
+                                <div class="flex  mb-5 mt-5">
+                                    <h1>Payment</h1>
+
+                                </div>
+
+
+
+
+                                <div class="w-full border border-2 p-5">
+                                    <div class="w-full bg-gray-100 mb-3">
+                                        <h1 class="p-2">Customer Register</h1>
+                                    </div>
+
+                                    <div class="w-full border-b inputval mb-2">
+                                        <input type="text" name="regname" class="w-full focus:outline-none p-4 val"
+                                            placeholder="Name">
+                                    </div>
+
+                                    <div class="w-full border-b inputval mb-2">
+                                        <input type="text" name="regemail" class="w-full focus:outline-none p-4 val"
+                                            placeholder="Email">
+                                    </div>
+
+                                    <div class="w-full border-b inputval mb-2">
+                                        <input type="password" name="regpassword"
+                                            class="w-full focus:outline-none p-4 val" placeholder="Password">
+                                    </div>
+
+                                    <div class="w-full flex justify-end items-center">
+                                        <button class=" focus:outline-none p-4">
+                                            <a href="informationlogin.php" id="loginfromreg" class="text-indigo-500">
+                                                Login</a>
+
+
+                                        </button>
+                                        <button class=" focus:outline-none p-4">
+                                            <a href="informationpage.php" class="text-indigo-500 gotoguest">Cancle</a>
+
+                                        </button>
+
+                                    </div>
+
+
+                                </div>
+
+
+
+
+
+                            </div>
+
+
+
+                            <div class="w-full flex justify-between items-center mt-5">
+                                <div class="flex justify-center items-center">
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                        stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                                        <path stroke-linecap="round" stroke-linejoin="round"
+                                            d="M18.75 19.5l-7.5-7.5 7.5-7.5m-6 15L5.25 12l7.5-7.5" />
+                                    </svg>
+                                    <a href="shopcartpage.php">Return to your cart</a>
+                                </div>
+
+                                <div class="">
+                                    <form action="" method="post">
+                                        <button type="submit" name="ctmregister"
+                                            class="bg-gray-500 uppercase p-2 ctntoshipbtn">
+                                            <h1 class="text-sm text-white p-1 rounded">Continue</h1>
+                                        </button>
+                                    </form>
+                                </div>
+                            </div>
+
+                        </form>
+
+
+
+                    </div>
+                </section>
+
+
+
+            </div>
+
+
+            <?php
+            require_once "orderinformation.php";
+            ?>
+
+
+
+        </div>
+    </section>
+
+
+
+
+
+    <script>
+        var infosubtotal = document.querySelector('.infosubtotal');
+        infosubtotal.innerHTML = sessionStorage.getItem('subtotal');
+    </script>
+
+
+
+
+</body>
+
+</html>
