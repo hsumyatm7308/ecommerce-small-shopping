@@ -188,7 +188,7 @@
 
 
 
-
+    <!-- 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
     <script type="text/javascript">
         $(document).ready(function () {
@@ -229,9 +229,9 @@
             // require_once "temporaryid.php";
             // require_once "database.php";
             
-            $temp_customer_id = $_SESSION['id'];
-
-            echo isset($_COOKIE['tempid' . $temp_customer_id]) ? 'true' : 'false';
+            // $temp_customer_id = $_SESSION['id'];
+            
+            // echo isset($_COOKIE['tempid' . $temp_customer_id]) ? 'true' : 'false';
             ?>
 
             if (getcookie) {
@@ -252,4 +252,4 @@
 
 
         });
-    </script>
+    </script> -->

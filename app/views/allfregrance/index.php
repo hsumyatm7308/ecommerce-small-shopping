@@ -1,5 +1,8 @@
 <?php require_once('/opt/lampp/htdocs/mvcshop/app/views/layouts/header.php'); ?>
-<?php require_once('/opt/lampp/htdocs/mvcshop/app/views/layouts/sidebar.php'); ?>
+<?php require_once('/opt/lampp/htdocs/mvcshop/app/views/layouts/sidebar.php');
+
+
+?>
 
 
 
@@ -23,86 +26,31 @@
     // require_once "./backendfunction/allfrg.php";
     // require_once "./filterby/allfilterprice.php";
     
-
     ?>
 
 
     <div class="grid grid-cols-4 gap-4">
 
-        <div class="w-full border p-3">
-            <div class="w-full h-[250px] bg-gray-100">
-                <img src="" alt="">
-            </div>
+        <?php foreach ($data['items'] as $item): ?>
 
-            <div class="w-full py-4">
-                <p class="mb-4">Royal Tom By Blueprint EDT</p>
-                <div class="w-full flex justify-between items-center">
-                    <span class="font-bold">$250</span>
-                    <button type="button" class="px-3 py-2 bg-yellow-600">Add</button>
+            <div class="w-full border p-3">
+                <div class="w-full h-[250px] bg-gray-100">
+                    <img src="" alt="">
+                </div>
+
+                <div class="w-full py-4">
+                    <p class="mb-4">
+                        <?php echo $item['name'] ?> By Blueprint EDT
+                    </p>
+                    <div class="w-full flex justify-between items-center">
+                        <span class="font-bold">$
+                            <?php echo $item['price'] ?>
+                        </span>
+                        <button type="button" class="px-3 py-2 bg-yellow-600">Add</button>
+                    </div>
                 </div>
             </div>
-        </div>
-
-
-        <div class="w-full border  p-3">
-            <div class="w-full h-[250px] bg-gray-100">
-                <img src="" alt="">
-            </div>
-
-            <div class="w-full py-4">
-                <p class="mb-4">Royal Tom By Blueprint EDT</p>
-                <div class="w-full flex justify-between items-center">
-                    <span class="font-bold">$250</span>
-                    <button type="button" class="px-3 py-2 bg-yellow-600">Add</button>
-                </div>
-            </div>
-        </div>
-
-        <div class="w-full border  p-3">
-            <div class="w-full h-[250px] bg-gray-100">
-                <img src="" alt="">
-            </div>
-
-            <div class="w-full py-4">
-                <p class="mb-4">Royal Tom By Blueprint EDT</p>
-                <div class="w-full flex justify-between items-center">
-                    <span class="font-bold">$250</span>
-                    <button type="button" class="px-3 py-2 bg-yellow-600">Add</button>
-                </div>
-            </div>
-        </div>
-
-
-        <div class="w-full border  p-3">
-            <div class="w-full h-[250px] bg-gray-100">
-                <img src="" alt="">
-            </div>
-
-            <div class="w-full py-4">
-                <p class="mb-4">Royal Tom By Blueprint EDT</p>
-                <div class="w-full flex justify-between items-center">
-                    <span class="font-bold">$250</span>
-                    <button type="button" class="px-3 py-2 bg-yellow-600">Add</button>
-                </div>
-            </div>
-        </div>
-
-
-        <div class="w-full border  p-3">
-            <div class="w-full h-[250px] bg-gray-100">
-                <img src="" alt="">
-            </div>
-
-            <div class="w-full py-4">
-                <p class="mb-4">Royal Tom By Blueprint EDT</p>
-                <div class="w-full flex justify-between items-center">
-                    <span class="font-bold">$250</span>
-                    <button type="button" class="px-3 py-2 bg-yellow-600">Add</button>
-                </div>
-            </div>
-        </div>
-
-
+        <?php endforeach; ?>
 
     </div>
 
@@ -110,8 +58,6 @@
 </div>
 
 </div>
-
-
 
 
 </div>
