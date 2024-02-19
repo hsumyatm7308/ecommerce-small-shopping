@@ -1,5 +1,6 @@
 <?php require_once('/opt/lampp/htdocs/mvcshop/app/views/layouts/header.php'); ?>
-<?php require_once('/opt/lampp/htdocs/mvcshop/app/views/layouts/sidebar.php');
+<?php
+require_once('/opt/lampp/htdocs/mvcshop/app/views/layouts/sidebar.php');
 
 
 ?>
@@ -31,7 +32,15 @@
 
     <div class="grid grid-cols-4 gap-4">
 
+        <?php
+
+
+
+        ?>
+
         <?php foreach ($data['items'] as $item): ?>
+
+
 
             <div class="w-full border p-3">
                 <div class="w-full h-[250px] bg-gray-100">

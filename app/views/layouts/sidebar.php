@@ -68,13 +68,16 @@
 
                         <?php
 
-                        $items = $data['items'];
+                        $items = $data['sidebaritems'];
+
+
                         $itemsnames = array_column($items, 'name', 'id');
                         sort($itemsnames);
 
                         $dublicate = array();
 
                         foreach ($itemsnames as $id => $item) {
+
                             $firstword = explode(' ', $item)[0];
                             $firstletter = $firstword[0];
 
@@ -83,16 +86,18 @@
                             } else {
                                 $dublicate[] = $firstletter;
 
+
                                 ?>
-                                <li class="w-7 h-7 bg-stone-100 flex justify-center items-center m-1 brand-letter"
-                                    data-letter=<?php echo $firstletter ?>>
+                                <li class="w-7 h-7 bg-stone-100 m-1 brand-letter" data-letter=<?php echo $firstletter ?>>
 
-
-
-                                    <form action="http://localhost/mvcshop/allfregrance" method="POST">
-                                        <input type="hidden" name="letters" value="<?php echo ucfirst($firstletter); ?>">
-                                        <button type="submit">
-                                            <?php echo ucfirst($firstletter); ?>
+                                    <form action="?letters=<?php echo $firstletter ?>" method="GET"
+                                        class="flex justify-center items-center">
+                                        <input type="hidden" name="letters" value="<?php echo $firstletter ?>">
+                                        <button type="submit"
+                                            class="text-center bg-stone-100 flex justify-center items-center ">
+                                            <?php
+                                            echo ucfirst($firstletter);
+                                            ?>
                                         </button>
                                     </form>
 
@@ -182,36 +187,36 @@
             var brandletters = document.querySelectorAll('.brand-letter');
 
 
-            // $(document).ready(function () {
-            //     $(document).on('click', '.brand-letter', function () {
+            $(document).ready(function () {
+                $(document).on('click', '.brand-letter', function () {
 
-            //         var letters = $(this).attr('data-letter');
+                    var letters = $(this).attr('data-letter');
 
-            // console.log(letters);
+                    console.log(letters);
 
-            // $.ajax({
-            //     method: "GET",
-            //     url: 'http://localhost/mvcshop/allfregrance',
-            //     data: { letters: letters },
-            //     dataType: "html"
-            // }).done((data, status, xhr) => {
-            //     console.log(data, status, xhr, " success");
-            // }).fail((xhr, status, error) => {
-            //     console.log('Error:', error);
-            // });
-
-            // var getcururl = window.location.href;
-
-            // Construct the new URL with the letters parameter
-            // var newUrl = getcururl.split('?')[0] + '?letters=' + letters;
-
-            // window.location.href = newUrl;s
+                    // $.ajax({
+                    //     method: "GET",
+                    //     url: 'http://localhost/mvcshop/allfregrance',
+                    //     data: { letters: letters },
+                    //     dataType: "html"
+                    // }).done((data, status, xhr) => {
+                    //     console.log(data, status, xhr, " success");
+                    // }).fail((xhr, status, error) => {
+                    //     console.log('Error:', error);
+                    // });
 
 
 
+                    // Construct the new URL with the letters parameter
+                    // window.location.href = window.location.href.split('?')[0] + '?letters=' + letters;
 
-            //     });
-            // });
+                    // var getcururl = window.location.href.split('?')[0];
+                    // console.log(getcururl);
+
+
+
+                });
+            });
 
 
 

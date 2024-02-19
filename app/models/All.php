@@ -11,20 +11,25 @@ class All
 
     }
 
-    public function items($letters = null)
+    public function items()
     {
-        if ($letters) {
 
-            $first = $letters;
+
+        $currenturl = $_SERVER['REQUEST_URI'];
+
+        $part = explode('=', $currenturl)[1];
+
+        print_r($part);
+
+        if ($part) {
 
             $this->db->dbquery('SELECT * FROM items WHERE name LIKE :name');
-            $this->db->dbbind(':name', '%' . $first . '%');
+            $this->db->dbbind(':name', '%' . $part . '%');
 
-            echo "yes";
         } else {
+            echo "no";
             $this->db->dbquery('SELECT * FROM items');
 
-            echo "no";
         }
 
 

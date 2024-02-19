@@ -4,10 +4,13 @@ class Allfregrance extends Controller
 {
 
     public $mainmodel;
+    public $sidebarmodel;
 
     public function __construct()
     {
         $this->mainmodel = $this->model('All');
+        $this->sidebarmodel = $this->model('Side');
+
     }
 
 
@@ -15,28 +18,29 @@ class Allfregrance extends Controller
     {
 
 
-        $letters = isset($_POST['letters']) ? $_POST['letters'] : null;
-
-        echo $letters;
-
-
-
-        $items = $this->mainmodel->items($letters);
+        $items = $this->mainmodel->items();
         $types = $this->mainmodel->types();
+        $sidebaritems = $this->sidebarmodel->sidebaritems();
 
         $data = [
             'title' => 'All',
             'items' => $items,
-            'types' => $types
+            'types' => $types,
+            'sidebaritems' => $sidebaritems,
+
         ];
+
+
 
         $this->view('allfregrance/index', $data);
 
-        // Continue with the rest of your code
 
 
 
     }
+
+
+
 
 
 

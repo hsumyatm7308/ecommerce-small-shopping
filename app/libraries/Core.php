@@ -24,7 +24,7 @@ class Core
             unset($url[0]);
         } else {
 
-            $this->curmethod = 'allfregrance';
+            $this->curmethod = 'sidebar';
             echo "no class";
         }
 
