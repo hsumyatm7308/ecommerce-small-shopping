@@ -1,7 +1,7 @@
 <?php
 
 define('APPNAME', 'Ecommence Dashboard');
-define('URLROOT', 'http://localhost/mvcshop/app/');
+define('URLROOT', 'http://localhost/mvcshop');
 define('APPROOT', dirname(dirname(__FILE__)));
 
 define('DB_HOST', 'localhost');

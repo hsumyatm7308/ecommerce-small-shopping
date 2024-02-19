@@ -88,13 +88,21 @@
 
 
                                 ?>
-                                <li class="w-7 h-7 bg-stone-100 m-1 brand-letter" data-letter=<?php echo $firstletter ?>>
+
+
+                                <?php
+                                $currenturl = $_SERVER['REQUEST_URI'];
+                                ?>
+
+
+
+                                <li class="w-7 h-7 bg-stone-100 <?php echo strpos($currenturl, $firstletter) !== false ? 'bg-stone-300' : 'bg-stone-100'; ?> m-1 brand-letter "
+                                    data-letter=<?php echo $firstletter ?>>
 
                                     <form action="?letters=<?php echo $firstletter ?>" method="GET"
                                         class="flex justify-center items-center">
                                         <input type="hidden" name="letters" value="<?php echo $firstletter ?>">
-                                        <button type="submit"
-                                            class="text-center bg-stone-100 flex justify-center items-center ">
+                                        <button type="submit" class="text-center flex justify-center items-center ">
                                             <?php
                                             echo ucfirst($firstletter);
                                             ?>
@@ -121,43 +129,27 @@
 
 
                 <div class="h-auto mb-10">
-                    <h1 class="font-[500] uppercase mb-1">Price</h1>
-                    <form action="index.php" method="get">
-                        <!-- <input type="text" name="startprice" placeholder=" Min" value="<?php
-                        // if (isset($_GET['startprice'])) {
-                        // echo $_GET['startprice'];
-                        // } 
-                        ?>" class="w-20 border border-2 rounded m-1 p-1 focus:ring-1 focus:outline-none">
+                    <h1 class="uppercase mb-1">Price</h1>
+                    <form action="" method="POST">
+                        <input type="text" name="minprice" placeholder="Min" value=""
+                            class="w-20 border border-2 rounded m-1 px-2 py-1 focus:ring-1 focus:outline-none">
 
-                        <input type="text" name="endprice" placeholder=" Max" value="<?php
-
-                        // if (isset($_GET['endprice'])) {
-                        // echo $_GET['endprice'];
-                        // } 
-                        ?>" class="w-20 border border-2 rounded m-1 p-1 focus:ring-1 focus:outline-none"> -->
+                        <input type="text" name="maxprice" placeholder="Max" value=""
+                            class="w-20 border border-2 rounded m-1 px-2 py-1 focus:ring-1 focus:outline-none">
 
 
 
-                        <script>
-                            // function updatePrice() {
-                            //     var startprice = document.getElementsByName('startprice')[0].value;
-                            //     var endprice = document.getElementsByName('endprice')[0].value;
-                            //     var updateURL = "index.php?page=1&startprice=" + startprice + "&endprice=" + endprice + "&price=1";
-                            //     document.getElementById('updateprice').href = updateURL;
-                            // }
-                        </script>
-
-                        <!-- <a href="#" type="text" id="updateprice" name="price" onclick="updatePrice()"
-                            class="w-24 border border-2 rounded m-1 p-1">UPDATE</a> -->
+                        <button type="submit"
+                            class="bg-gray-200 text-gray-700 uppercase border border-2 rounded px-2 py-1">Update</button>
 
                     </form>
-
+                    <?php print_r($data['sidebarprice']) ?>
 
                 </div>
 
 
                 <div>
-                    <h1 class="font-[500] uppercase mb-1">Type</h1>
+                    <h1 class="uppercase mb-1">Type</h1>
 
 
 

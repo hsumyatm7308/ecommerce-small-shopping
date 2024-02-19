@@ -58,31 +58,28 @@
 
             <div class="flex justify-start items-center">
                 <ul class="flex justify-start items-center text-[15px] uppercase cursor-pointer">
+
                     <?php
-                    $currentPage = $_GET['page'] ?? '';
-                    $currentMenPage = $_GET['menpage'] ?? '';
-                    $currentWomenPage = $_GET['womenpage'] ?? '';
-
-                    if (!empty($currentPage)) {
-                        echo '<li class="mr-5 border border-stone-300 px-2 py-2 rounded-full hover:bg-gray-100"><a href="index.php?page=1">All</a></li>';
-
-                    } else {
-                        echo '<li class="mr-5 px-2 py-2 hover:border hover:border-stone-100 hover:rounded-full"><a href="index.php?page=1">All</a></li>';
-
-                    }
-
-                    if (!empty($currentMenPage)) {
-                        echo '<li class="mr-5 border border-stone-300 px-2 py-2 rounded-full hover:bg-gray-100"><a href="menfrg.php?menpage=1">Men</a></li>';
-                    } else {
-                        echo '<li class="mr-5 px-2 py-2 hover:border hover:border-stone-100 hover:px-2 hover:py-2 hover:rounded-full"><a href="menfrg.php?menpage=1">Men</a></li>';
-                    }
-
-                    if (!empty($currentWomenPage)) {
-                        echo '<li class="mr-5 border border-stone-300 px-2 py-2 rounded-full hover:bg-gray-100 "><a href="womenfrg.php?womenpage=1">Women</a></li>';
-                    } else {
-                        echo '<li class="mr-5 px-2 py-2 hover:border hover:border-stone-100 hover:px-2 hover:py-2 hover:rounded-full"><a href="womenfrg.php?womenpage=1">Women</a></li>';
-                    }
+                    $currenturl = $_SERVER['REQUEST_URI'];
                     ?>
+
+
+                    <li
+                        class="mr-5 <?php echo strpos($currenturl, 'allfregrance') !== false ? 'border' : ''; ?>  px-2 py-2 rounded-full hover:bg-gray-100">
+                        <a href="<?php echo URLROOT; ?>/allfregrance">All</a>
+                    </li>
+
+                    <li
+                        class="mr-5 <?php echo strpos($currenturl, 'menfregrance') !== false ? 'border' : ''; ?> px-2 py-2 rounded-full hover:bg-gray-100">
+                        <a href="<?php echo URLROOT; ?>/menfregrance">Men</a>
+                    </li>
+
+                    <li
+                        class="mr-5 <?php echo strpos($currenturl, 'womenfregrance') !== false ? 'border' : ''; ?> px-2 py-2 rounded-full hover:bg-gray-100 ">
+                        <a href="<?php echo URLROOT; ?>/womenfregrance">Women</a>
+                    </li>
+
+
                 </ul>
             </div>
 

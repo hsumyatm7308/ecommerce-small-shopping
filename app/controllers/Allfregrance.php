@@ -22,6 +22,8 @@ class Allfregrance extends Controller
         $types = $this->mainmodel->types();
         $sidebaritems = $this->sidebarmodel->sidebaritems();
 
+
+
         $data = [
             'title' => 'All',
             'items' => $items,

@@ -16,6 +16,7 @@ class Core
 
         $this->curcontroller = isset($url[0]) ? ucwords($url[0]) : '';
 
+        // for class 
 
         if (file_exists('../app/controllers/' . $this->curcontroller . '.php')) {
             require_once('../app/controllers/' . $this->curcontroller . '.php');
@@ -31,12 +32,7 @@ class Core
 
 
 
-
-
-
-
-
-
+        // for method 
         if (isset($url[1])) {
             if (method_exists($this->curcontroller, $url[1])) {
                 $this->curmethod = $url[1];
@@ -47,6 +43,9 @@ class Core
         } else {
             $this->curmethod = 'index';
         }
+
+
+        // for parameter 
 
         $this->params = $url ? array_values($url) : [];
 
