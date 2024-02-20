@@ -15,8 +15,6 @@ class Side
     public function sidebaritems()
     {
 
-
-
         $this->db->dbquery('SELECT * FROM items');
 
         return $this->db->getmultidata();

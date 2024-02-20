@@ -143,8 +143,6 @@
                             class="bg-gray-200 text-gray-700 uppercase border border-2 rounded px-2 py-1">Update</button>
 
                     </form>
-                    <?php print_r($data['sidebarprice']) ?>
-
                 </div>
 
 
@@ -153,14 +151,20 @@
 
 
 
-                    <form id="" action="" method="post" class="mt-3">
+                    <form id="" action="" method="post" class="mt-3 flex flex-col">
                         <?php foreach ($data['types'] as $type): ?>
-
-                            <label for="type" class="flex items-center">
-                                <input type="checkbox" id="type" name="type" class="m-1">
-                                <?php echo $type['name']; ?>
-                            </label>
+                            <button type="submit">
+                                <label for="types_<?php echo $type['id']; ?>" class="flex items-center">
+                                    <input type="radio" id="types_<?php echo $type['id']; ?>" name="types[]"
+                                        class="m-1 types-radio" data-id="<?php echo $type['id']; ?>"
+                                        value="<?php echo $type['id']; ?>">
+                                    <?php echo $type['name']; ?>
+                                </label>
+                            </button>
                         <?php endforeach; ?>
+
+
+
 
                     </form>
                 </div>
@@ -180,35 +184,29 @@
 
 
             $(document).ready(function () {
-                $(document).on('click', '.brand-letter', function () {
+                $(document).on('click', 'input[type="radio"].types-radio', function () {
+                    var gettypeid = $(this).data('id');
 
-                    var letters = $(this).attr('data-letter');
+                    $.ajax({
+                        url: 'allfregrance',
+                        type: 'POST',
+                        dataType: 'json',
+                        data: { 'id': gettypeid },
+                        success: function (data) {
+                            console.log('success');
+                        },
+                        error: function (data) {
+                            console.log('error');
 
-                    console.log(letters);
+                        }
+                    })
 
-                    // $.ajax({
-                    //     method: "GET",
-                    //     url: 'http://localhost/mvcshop/allfregrance',
-                    //     data: { letters: letters },
-                    //     dataType: "html"
-                    // }).done((data, status, xhr) => {
-                    //     console.log(data, status, xhr, " success");
-                    // }).fail((xhr, status, error) => {
-                    //     console.log('Error:', error);
-                    // });
-
-
-
-                    // Construct the new URL with the letters parameter
-                    // window.location.href = window.location.href.split('?')[0] + '?letters=' + letters;
-
-                    // var getcururl = window.location.href.split('?')[0];
-                    // console.log(getcururl);
-
+                    // console.log(gettypeid) // it's okay 
 
 
                 });
             });
+
 
 
 

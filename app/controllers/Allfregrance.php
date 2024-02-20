@@ -24,6 +24,7 @@ class Allfregrance extends Controller
 
 
 
+
         $data = [
             'title' => 'All',
             'items' => $items,

@@ -73,6 +73,31 @@ class All
 
         }
 
+
+
+        if (isset($_POST['types'])) {
+            $types = $_POST['types'];
+
+            $typesstring = implode(', ', $types);
+
+
+            // echo $typesstring;
+
+            $this->db->dbquery('SELECT * FROM items WHERE category_id = :category');
+            $this->db->dbbind(':category', $typesstring);
+
+
+
+
+
+        }
+
+
+
+
+
+
+
         return $this->db->getmultidata();
 
 
