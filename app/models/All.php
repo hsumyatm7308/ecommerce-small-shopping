@@ -24,19 +24,32 @@ class All
 
         if ($this->letter) {
 
+
+
+
             // for price 
             if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
                 $minprice = $_POST['minprice'];
                 $maxprice = $_POST['maxprice'];
-                $this->db->dbquery('SELECT * FROM items WHERE name LIKE :name AND price BETWEEN :min AND :max');
+
+
+                $this->db->dbquery('SELECT * FROM items WHERE price BETWEEN :min AND :max AND name LIKE :name');
                 $this->db->dbbind(':min', $minprice);
                 $this->db->dbbind(':max', $maxprice);
+                $this->db->dbbind(':name', '%' . $this->letter . '%');
 
 
+                if (isset($_POST['types'])) {
+                    $types = $_POST['types'];
 
-                if ($this->db->rowcount() === 0) {
-                    die('No Data Found');
+                    $typesstring = implode(', ', $types);
+
+                    $this->db->dbquery('SELECT * FROM items WHERE category_id = :category AND name LIKE :name');
+                    $this->db->dbbind(':category', $typesstring);
+                    $this->db->dbbind(':name', '%' . $this->letter . '%');
+
+
                 }
 
 
@@ -44,10 +57,13 @@ class All
 
                 // for brands letter 
                 $this->db->dbquery('SELECT * FROM items WHERE name LIKE :name');
+                $this->db->dbbind(':name', '%' . $this->letter . '%');
+
+
+
 
             }
 
-            $this->db->dbbind(':name', '%' . $this->letter . '%');
 
 
         } else {
@@ -60,37 +76,44 @@ class All
                 $this->db->dbquery('SELECT * FROM items WHERE price  BETWEEN :min AND :max');
                 $this->db->dbbind(':min', $minprice);
                 $this->db->dbbind(':max', $maxprice);
+
+
+
+
+                if (isset($_POST['types'])) {
+                    $types = $_POST['types'];
+
+                    $typesstring = implode(', ', $types);
+
+
+                    // echo $typesstring;
+
+                    $this->db->dbquery('SELECT * FROM items WHERE category_id = :category');
+                    $this->db->dbbind(':category', $typesstring);
+
+
+
+
+
+                }
+
+
             } else {
 
                 // for brands letter 
                 $this->db->dbquery('SELECT * FROM items');
 
+
+
             }
 
 
 
-
-
         }
 
 
 
-        if (isset($_POST['types'])) {
-            $types = $_POST['types'];
 
-            $typesstring = implode(', ', $types);
-
-
-            // echo $typesstring;
-
-            $this->db->dbquery('SELECT * FROM items WHERE category_id = :category');
-            $this->db->dbbind(':category', $typesstring);
-
-
-
-
-
-        }
 
 
 

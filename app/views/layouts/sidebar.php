@@ -167,6 +167,8 @@
 
 
                     </form>
+
+
                 </div>
 
             </div>
@@ -183,29 +185,6 @@
             var brandletters = document.querySelectorAll('.brand-letter');
 
 
-            $(document).ready(function () {
-                $(document).on('click', 'input[type="radio"].types-radio', function () {
-                    var gettypeid = $(this).data('id');
-
-                    $.ajax({
-                        url: 'allfregrance',
-                        type: 'POST',
-                        dataType: 'json',
-                        data: { 'id': gettypeid },
-                        success: function (data) {
-                            console.log('success');
-                        },
-                        error: function (data) {
-                            console.log('error');
-
-                        }
-                    })
-
-                    // console.log(gettypeid) // it's okay 
-
-
-                });
-            });
 
 
 

@@ -65,6 +65,9 @@ class Core
         $url = explode('/', $url);
         return $url;
     }
+
+
+
 }
 
 
