@@ -27,7 +27,7 @@ class All
 
 
 
-            // for price 
+            // for price  if letters exit
             if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
                 $minprice = $_POST['minprice'];
@@ -40,17 +40,7 @@ class All
                 $this->db->dbbind(':name', '%' . $this->letter . '%');
 
 
-                if (isset($_POST['types'])) {
-                    $types = $_POST['types'];
 
-                    $typesstring = implode(', ', $types);
-
-                    $this->db->dbquery('SELECT * FROM items WHERE category_id = :category AND name LIKE :name');
-                    $this->db->dbbind(':category', $typesstring);
-                    $this->db->dbbind(':name', '%' . $this->letter . '%');
-
-
-                }
 
 
             } else {
@@ -59,16 +49,13 @@ class All
                 $this->db->dbquery('SELECT * FROM items WHERE name LIKE :name');
                 $this->db->dbbind(':name', '%' . $this->letter . '%');
 
-
-
-
             }
 
 
 
         } else {
 
-            // for price 
+            // for price if letter not exist
             if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
                 $minprice = $_POST['minprice'];
@@ -79,32 +66,10 @@ class All
 
 
 
-
-                if (isset($_POST['types'])) {
-                    $types = $_POST['types'];
-
-                    $typesstring = implode(', ', $types);
-
-
-                    // echo $typesstring;
-
-                    $this->db->dbquery('SELECT * FROM items WHERE category_id = :category');
-                    $this->db->dbbind(':category', $typesstring);
-
-
-
-
-
-                }
-
-
             } else {
 
                 // for brands letter 
                 $this->db->dbquery('SELECT * FROM items');
-
-
-
             }
 
 
@@ -113,7 +78,23 @@ class All
 
 
 
+        // for types 
+        $urlparts = parse_url($this->currenturl);
 
+        if (isset($urlparts['query'])) {
+            // Parse the query string into variables
+            parse_str($urlparts['query'], $queryparameters);
+
+            // Check if the 'types' parameter exists
+            if (isset($queryparameters['types'])) {
+                // echo $queryParameters['types'];
+
+
+                $this->db->dbquery('SELECT * FROM items WHERE category_id = :category');
+                $this->db->dbbind(':category', $queryparameters['types']);
+
+            }
+        }
 
 
 

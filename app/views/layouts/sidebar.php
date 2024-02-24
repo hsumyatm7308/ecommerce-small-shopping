@@ -1,3 +1,8 @@
+<?php
+$currenturl = $_SERVER['REQUEST_URI'];
+?>
+
+
 <section class="container mx-auto mt-20">
     <div class="grid grid-cols-4 gap-6">
         <div class=" flex  justify-end ">
@@ -90,10 +95,6 @@
                                 ?>
 
 
-                                <?php
-                                $currenturl = $_SERVER['REQUEST_URI'];
-                                ?>
-
 
 
                                 <li class="w-7 h-7 bg-stone-100 <?php echo strpos($currenturl, $firstletter) !== false ? 'bg-stone-300' : 'bg-stone-100'; ?> m-1 brand-letter "
@@ -148,25 +149,52 @@
 
                 <div>
                     <h1 class="uppercase mb-1">Type</h1>
+                    <form id="clothingForm" action="http://localhost/mvcshop/allfregrance?types=1" method="get"
+                        class="mt-3 flex flex-col">
 
-
-
-                    <form id="" action="" method="post" class="mt-3 flex flex-col">
                         <?php foreach ($data['types'] as $type): ?>
+
+
+                            <?php
+                            $urlparts = parse_url($currenturl);
+                            parse_str($urlparts['query'], $queryparameters);
+
+                            ?>
                             <button type="submit">
                                 <label for="types_<?php echo $type['id']; ?>" class="flex items-center">
-                                    <input type="radio" id="types_<?php echo $type['id']; ?>" name="types[]"
+                                    <input type="radio" id="types_<?php echo $type['id']; ?>" name="types"
                                         class="m-1 types-radio" data-id="<?php echo $type['id']; ?>"
-                                        value="<?php echo $type['id']; ?>">
+                                        value="<?php echo $type['id']; ?>" <?php echo $type['id'] == $queryparameters['types'] ? 'checked' : ''; ?>>
                                     <?php echo $type['name']; ?>
                                 </label>
                             </button>
+
+
+
                         <?php endforeach; ?>
 
+                    </form>
 
 
+
+                    <!-- 
+                        <div>
+                            <input type="radio" id="men" name="gender">
+                            <label for="men">Men</label>
+                        </div>
+
+                        <div>
+                            <input type="radio" id="women" name="gender">
+                            <label for="women">Women</label>
+                        </div>
+
+                        <div>
+                            <input type="radio" id="unisex" name="gender">
+                            <label for="unisex">Unisex</label>
+                        </div> -->
 
                     </form>
+
 
 
                 </div>
@@ -181,14 +209,12 @@
         <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 
         <script>
-
-            var brandletters = document.querySelectorAll('.brand-letter');
-
-
-
-
-
-
-
-
+            document.addEventListener("DOMContentLoaded", function () {
+                var radioButtons = document.querySelectorAll('input[type=radio]');
+                radioButtons.forEach(function (radioButton) {
+                    radioButton.addEventListener('click', function () {
+                        document.getElementById('clothingForm').submit();
+                    });
+                });
+            });
         </script>

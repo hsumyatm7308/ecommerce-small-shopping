@@ -1,0 +1,10 @@
+ <?php foreach ($data['types'] as $type): ?>
+                            <button type="submit">
+                                <label for="types_<?php echo $type['id']; ?>" class="flex items-center">
+                                    <input type="radio" id="types_<?php echo $type['id']; ?>" name="types[]"
+                                        class="m-1 types-radio" data-id="<?php echo $type['id']; ?>"
+                                        value="<?php echo $type['id']; ?>">
+                                    <?php echo $type['name']; ?>
+                                </label>
+                            </button>
+                        <?php endforeach; ?>

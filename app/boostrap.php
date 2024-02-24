@@ -8,6 +8,6 @@ spl_autoload_register(function ($class) {
 });
 
 
-
+echo $_GET['types'];
 
 ?>
