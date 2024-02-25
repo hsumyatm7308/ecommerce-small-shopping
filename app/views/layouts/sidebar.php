@@ -7,7 +7,7 @@ $currenturl = $_SERVER['REQUEST_URI'];
     <div class="grid grid-cols-4 gap-6">
         <div class=" flex  justify-end ">
             <div class="">
-
+                <!-- 
                 <div class="h-auto mb-10">
                     <h1 class="font-[500] uppercase mb-3">Filter by</h1>
                     <div class=" flex flex-wrap leading-3">
@@ -59,16 +59,12 @@ $currenturl = $_SERVER['REQUEST_URI'];
                         </span>
 
                     </div>
-                </div>
+                </div> -->
 
                 <div class="h-auto mb-10">
                     <h1 class="uppercase mb-3">Brand</h1>
                     <span class="text-sm text-blue-300 ml-10">Click a letter to find a perfume</span>
                     <ul class="w-80  flex-wrap flex justify-start items-center mt-2">
-
-                        <?php
-                        // include_once "./brandname/brandnameall.php" 
-                        ?>
 
 
                         <?php
@@ -174,24 +170,6 @@ $currenturl = $_SERVER['REQUEST_URI'];
                         <?php endforeach; ?>
 
                     </form>
-
-
-
-                    <!-- 
-                        <div>
-                            <input type="radio" id="men" name="gender">
-                            <label for="men">Men</label>
-                        </div>
-
-                        <div>
-                            <input type="radio" id="women" name="gender">
-                            <label for="women">Women</label>
-                        </div>
-
-                        <div>
-                            <input type="radio" id="unisex" name="gender">
-                            <label for="unisex">Unisex</label>
-                        </div> -->
 
                     </form>
 

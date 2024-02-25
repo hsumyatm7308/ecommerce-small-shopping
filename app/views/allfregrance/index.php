@@ -23,24 +23,8 @@ require_once('/opt/lampp/htdocs/mvcshop/app/views/layouts/sidebar.php');
     </div>
 
 
-
-
-
-    <?php
-
-    // require_once "./backendfunction/allfrg.php";
-    // require_once "./filterby/allfilterprice.php";
-    
-    ?>
-
-
     <div class="grid grid-cols-4 gap-4">
 
-        <?php
-
-
-
-        ?>
 
         <?php foreach ($data['items'] as $item): ?>
 
@@ -65,7 +49,33 @@ require_once('/opt/lampp/htdocs/mvcshop/app/views/layouts/sidebar.php');
             </div>
         <?php endforeach; ?>
 
+
+
+
     </div>
+
+    <!-- pagination  -->
+    <div class="flex justify-end items-center mt-10 mb-10 space-x-3">
+        <?php if ($data['currentPage'] > 1): ?>
+            <a href="?page=<?php echo $data['currentPage'] - 1; ?>"><span
+                    class="border-2 bg-gray-200 hover:bg-gray-300 px-4 py-2">Prev</span></a>
+        <?php endif; ?>
+
+        <?php for ($i = 1; $i <= $data['totalPages']; $i++): ?>
+            <a href="?page=<?php echo $i; ?>"><span
+                    class="border px-4 py-2 <?php echo $i == $data['currentPage'] ? 'bg-gray-200' : ''; ?>">
+                    <?php echo $i; ?>
+                </span></a>
+        <?php endfor; ?>
+
+        <?php if ($data['currentPage'] < $data['totalPages']): ?>
+            <a href="?page=<?php echo $data['currentPage'] + 1; ?>"><span
+                    class="border-2 bg-gray-200 hover:bg-gray-300 px-4 py-2">Next</span></a>
+        <?php endif; ?>
+    </div>
+
+
+
 
 
 </div>
