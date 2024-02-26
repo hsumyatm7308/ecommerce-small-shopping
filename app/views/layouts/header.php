@@ -61,12 +61,17 @@
 
                     <?php
                     $currenturl = $_SERVER['REQUEST_URI'];
+                    $param = explode('=', $currenturl)[1];
+
+                    isset($param) ? $param : 1;
+
+                    // echo $param;
                     ?>
 
 
                     <li
                         class="mr-5 <?php echo strpos($currenturl, 'allfregrance') !== false ? 'border' : ''; ?>  px-2 py-2 rounded-full hover:bg-gray-100">
-                        <a href="<?php echo URLROOT; ?>/allfregrance">All</a>
+                        <a href="<?php echo URLROOT; ?>/allfregrance?page=1">All</a>
                     </li>
 
                     <li

@@ -28,15 +28,14 @@ class All
 
         $page = explode('=', $querystring['query'])[0];
 
-        echo $page;
+        // echo $page;
 
         if ($page) {
 
-            $this->letter = explode('=', $this->currenturl)[1];
+            parse_str($querystring['query'], $letter);
 
 
-            // echo $this->letter;
-
+            // letters 
             if ($page == "letters") {
 
 
@@ -52,7 +51,7 @@ class All
                     $this->db->dbquery('SELECT * FROM items WHERE price BETWEEN :min AND :max AND name LIKE :name LIMIT :offset, :limit');
                     $this->db->dbbind(':min', $minprice);
                     $this->db->dbbind(':max', $maxprice);
-                    $this->db->dbbind(':name', '%' . $this->letter . '%');
+                    $this->db->dbbind(':name', '%' . $letter['letters'] . '%');
                     $this->db->dbbind(':offset', $offset);
                     $this->db->dbbind(':limit', $limit);
 
@@ -63,12 +62,12 @@ class All
 
                     // for brands letter 
                     $this->db->dbquery('SELECT * FROM items WHERE name LIKE :name LIMIT :offset, :limit');
-                    $this->db->dbbind(':name', '%' . $this->letter . '%');
+                    $this->db->dbbind(':name', '%' . $letter['letters'] . '%');
                     $this->db->dbbind(':offset', $offset);
                     $this->db->dbbind(':limit', $limit);
                 }
 
-                echo "yes letters";
+                // echo "yes letters";
 
 
 
@@ -93,32 +92,62 @@ class All
                     $this->db->dbbind(':limit', $limit);
 
 
+
+
                 }
 
 
-                echo "no letters";
-
-            }
 
 
 
-            // for types 
-            $urlparts = parse_url($this->currenturl);
+                // for types 
+                $urlparts = parse_url($this->currenturl);
 
-            if (isset($urlparts['query'])) {
-                // Parse the query string into variables
-                parse_str($urlparts['query'], $queryparameters);
+                if (isset($urlparts['query'])) {
+                    parse_str($urlparts['query'], $queryparameters);
 
-                // Check if the 'types' parameter exists
-                if (isset($queryparameters['types'])) {
-                    // echo $queryParameters['types'];
+                    if (isset($queryparameters['types'])) {
 
 
-                    $this->db->dbquery('SELECT * FROM items WHERE category_id = :category');
-                    $this->db->dbbind(':category', $queryparameters['types']);
 
+
+
+                        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+
+                            $minprice = $_POST['minprice'];
+                            $maxprice = $_POST['maxprice'];
+                            $this->db->dbquery('SELECT * FROM items WHERE price BETWEEN :min AND :max AND category_id = :category LIMIT :offset, :limit');
+                            $this->db->dbbind(':min', $minprice);
+                            $this->db->dbbind(':max', $maxprice);
+                            $this->db->dbbind(':category', $queryparameters['types']);
+
+                            $this->db->dbbind(':offset', $offset);
+                            $this->db->dbbind(':limit', $limit);
+
+
+                        } else {
+
+                            $this->db->dbquery('SELECT * FROM items WHERE category_id = :category LIMIT :offset, :limit');
+                            $this->db->dbbind(':category', $queryparameters['types']);
+                            $this->db->dbbind(':offset', $offset);
+                            $this->db->dbbind(':limit', $limit);
+
+                        }
+
+                    } else {
+
+
+
+
+                    }
                 }
+
+                // end types 
+
+                // echo "no letters";
+
             }
+            //  end letters 
 
 
 
@@ -148,20 +177,8 @@ class All
 
     public function countItems()
     {
-        $this->db->dbquery('SELECT COUNT(*) AS totalItems FROM items');
-        return $this->db->getsingledata()['totalItems'];
-
-
-
-        // $this->currenturl = $_SERVER['REQUEST_URI'];
-
-
-
-
-
-        // $querystring = parse_url($this->currenturl);
-
-        // $page = explode('=', $querystring['query'])[0];
+        // $this->db->dbquery('SELECT COUNT(*) AS totalItems FROM items');
+        // return $this->db->getsingledata()['totalItems'];
 
 
 
@@ -169,6 +186,114 @@ class All
 
 
 
+
+
+
+        $this->currenturl = $_SERVER['REQUEST_URI'];
+
+        $querystring = parse_url($this->currenturl);
+
+        $page = explode('=', $querystring['query'])[0];
+
+
+        if ($page) {
+
+
+            parse_str($querystring['query'], $letter);
+
+
+
+            if ($page == "letters") {
+
+
+
+
+                // for price  if letters exit
+                if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+
+                    $minprice = $_POST['minprice'];
+                    $maxprice = $_POST['maxprice'];
+
+
+                    $this->db->dbquery('SELECT COUNT(*) AS totalItems  FROM items WHERE price BETWEEN :min AND :max AND name LIKE :name');
+                    $this->db->dbbind(':min', $minprice);
+                    $this->db->dbbind(':max', $maxprice);
+                    $this->db->dbbind(':name', '%' . $letter['letters'] . '%');
+
+
+
+
+
+                } else {
+
+                    // for brands letter 
+                    $this->db->dbquery('SELECT COUNT(*) AS totalItems  FROM items WHERE name LIKE :name');
+                    $this->db->dbbind(':name', '%' . $letter['letters'] . '%');
+
+                }
+
+                // echo "yes letters";
+
+
+
+            } else {
+
+                // for price if letter not exist
+                if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+
+                    $minprice = $_POST['minprice'];
+                    $maxprice = $_POST['maxprice'];
+                    $this->db->dbquery('SELECT COUNT(*) AS totalItems  FROM items WHERE price  BETWEEN :min AND :max');
+                    $this->db->dbbind(':min', $minprice);
+                    $this->db->dbbind(':max', $maxprice);
+
+
+
+                } else {
+
+                    $this->db->dbquery('SELECT COUNT(*) AS totalItems  FROM items');
+
+
+                }
+
+
+                // echo "no letters";
+
+                // for types 
+                $urlparts = parse_url($this->currenturl);
+
+                if (isset($urlparts['query'])) {
+                    // Parse the query string into variables
+                    parse_str($urlparts['query'], $queryparameters);
+
+                    if (isset($queryparameters['types'])) {
+
+
+                        $this->db->dbquery('SELECT COUNT(*) AS totalItems  FROM items WHERE category_id = :category');
+                        $this->db->dbbind(':category', $queryparameters['types']);
+
+                    }
+                }
+
+
+                echo "page types" . $page;
+
+
+            }
+
+
+
+
+
+
+
+
+            return $this->db->getsingledata()['totalItems'];
+
+
+
+
+        }
 
 
 

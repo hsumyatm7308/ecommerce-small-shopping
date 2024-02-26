@@ -61,6 +61,8 @@ $currenturl = $_SERVER['REQUEST_URI'];
                     </div>
                 </div> -->
 
+
+                <!-- brand letters  -->
                 <div class="h-auto mb-10">
                     <h1 class="uppercase mb-3">Brand</h1>
                     <span class="text-sm text-blue-300 ml-10">Click a letter to find a perfume</span>
@@ -93,23 +95,24 @@ $currenturl = $_SERVER['REQUEST_URI'];
 
 
 
-                                <li class="w-7 h-7 bg-stone-100 <?php echo strpos($currenturl, $firstletter) !== false ? 'bg-stone-300' : 'bg-stone-100'; ?> m-1 brand-letter "
+                                <li class="w-7 h-7 bg-stone-100 <?php echo strpos($currenturl, $firstletter) !== false ? 'bg-stone-300' : 'bg-stone-100'; ?> m-1  "
                                     data-letter=<?php echo $firstletter ?>>
 
-                                    <form action="?letters=<?php echo $firstletter ?>" method="GET"
-                                        class="flex justify-center items-center">
+                                    <form id="brand_letter" action="" method="GET" class="flex justify-center items-center ">
                                         <input type="hidden" name="letters" value="<?php echo $firstletter ?>">
-                                        <button type="submit" class="text-center flex justify-center items-center ">
-                                            <?php
-                                            echo ucfirst($firstletter);
-                                            ?>
+                                        <button type="submit" class="text-center flex justify-center items-center letterbtn"
+                                            data-id=<?php echo $id ?>>
+                                            <?php echo ucfirst($firstletter); ?>
                                         </button>
+
                                     </form>
 
 
 
 
+
                                 </li>
+
 
                                 <?php
                             }
@@ -121,9 +124,21 @@ $currenturl = $_SERVER['REQUEST_URI'];
 
 
 
+
                     </ul>
                 </div>
+                <!-- end letters  -->
 
+
+                <!-- price  -->
+                <?php
+
+                $currenturl = $_SERVER['REQUEST_URI'];
+                $param = explode('=', $currenturl)[1];
+
+                isset($param) ? $param : 1;
+
+                ?>
 
                 <div class="h-auto mb-10">
                     <h1 class="uppercase mb-1">Price</h1>
@@ -141,8 +156,9 @@ $currenturl = $_SERVER['REQUEST_URI'];
 
                     </form>
                 </div>
+                <!-- end price  -->
 
-
+                <!-- types  -->
                 <div>
                     <h1 class="uppercase mb-1">Type</h1>
                     <form id="clothingForm" action="http://localhost/mvcshop/allfregrance?types=1" method="get"
@@ -176,7 +192,7 @@ $currenturl = $_SERVER['REQUEST_URI'];
 
 
                 </div>
-
+                <!-- end types  -->
             </div>
         </div>
 
@@ -195,4 +211,38 @@ $currenturl = $_SERVER['REQUEST_URI'];
                     });
                 });
             });
+
+
+        </script>
+
+        <script type="text/javascript">
+
+
+            // var brandletter = document.querySelector('#brand_letter');
+            // var letterbtns = document.querySelectorAll('.letterbtn');
+
+            // letterbtns.forEach(function (letterbtn) {
+            //     var dataId = letterbtn.getAttribute('data-id');
+
+            //     letterbtn.addEventListener('click', function () {
+
+            //         window.location.href = window.location.href + "?page=1&letters=A";
+
+
+
+
+            //         // this.setAttribute('type', 'submit');
+
+            //         // console.log(window.location.href + "?page=1")
+
+
+
+
+
+            //     });
+            // });
+
+
+
+
         </script>
