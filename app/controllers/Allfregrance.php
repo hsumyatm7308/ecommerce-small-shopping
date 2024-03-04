@@ -5,11 +5,13 @@ class Allfregrance extends Controller
 
     public $mainmodel;
     public $sidebarmodel;
+    public $pagination;
 
     public function __construct()
     {
         $this->mainmodel = $this->model('All');
         $this->sidebarmodel = $this->model('Side');
+        $this->pagination = new Pagination;
 
     }
 
@@ -24,24 +26,39 @@ class Allfregrance extends Controller
         parse_str($urlparts['query'], $parameter);
 
         $page = isset($parameter['page']) ? $parameter['page'] : 1;
-        $itemsPerPage = 4;
-        $offset = ($page - 1) * $itemsPerPage;
+        $itemsperpage = 4;
+        $offset = ($page - 1) * $itemsperpage;
 
-        $totalItems = $this->mainmodel->countItems();
-
-        echo $totalItems;
-
-
-        $totalPages = ceil($totalItems / $itemsPerPage);
-
-        $items = $this->mainmodel->items($offset, $itemsPerPage);
+        $totalitems = $this->mainmodel->countItems();
 
 
 
+        $totalPages = ceil($totalitems / $itemsperpage);
 
-
+        $items = $this->mainmodel->items($offset, $itemsperpage);
         $types = $this->mainmodel->types();
         $sidebaritems = $this->sidebarmodel->sidebaritems();
+
+
+        $minprice = $this->pagination->getparameter()['minprice'];
+        $maxprice = $this->pagination->getparameter()['maxprice'];
+
+
+
+        // session_start();
+
+        // if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($parameter['page'])) {
+
+        //     $_SESSION['minprice'] = $_POST['minprice'];
+        //     $_SESSION['maxprice'] = $_POST['maxprice'];
+
+        // } else {
+        //     session_destroy();
+        // }
+
+        // $minprice = isset($_SESSION['minprice']) ? $_SESSION['minprice'] : $_POST['minprice'];
+        // $maxprice = isset($_SESSION['maxprice']) ? $_SESSION['maxprice'] : $_POST['minprice'];
+
 
         $data = [
             'title' => 'All',
@@ -49,7 +66,10 @@ class Allfregrance extends Controller
             'types' => $types,
             'sidebaritems' => $sidebaritems,
             'currentPage' => $page,
-            'totalPages' => $totalPages
+            'totalPages' => $totalPages,
+            'totalitems' => $totalitems,
+            'minprice' => $minprice,
+            'maxprice' => $maxprice
         ];
 
 

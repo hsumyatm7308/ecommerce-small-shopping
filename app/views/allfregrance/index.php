@@ -24,30 +24,36 @@ require_once('/opt/lampp/htdocs/mvcshop/app/views/layouts/sidebar.php');
 
 
     <div class="grid grid-cols-4 gap-4">
-
-
-        <?php foreach ($data['items'] as $item): ?>
-
-
+        <?php if ($data['totalitems'] == 0): ?>
 
             <div class="w-full border p-3">
-                <div class="w-full h-[250px] bg-gray-100">
-                    <img src="" alt="">
-                </div>
+                <div>No Data</div>
+            </div>
 
-                <div class="w-full py-4">
-                    <p class="mb-4">
-                        <?php echo $item['name'] ?> By Blueprint EDT
-                    </p>
-                    <div class="w-full flex justify-between items-center">
-                        <span class="font-bold">$
-                            <?php echo $item['price'] ?>
-                        </span>
-                        <button type="button" class="px-3 py-2 bg-yellow-600">Add</button>
+
+        <?php else: ?>
+            <?php foreach ($data['items'] as $item): ?>
+
+                <div class="w-full border p-3">
+                    <div class="w-full h-[250px] bg-gray-100">
+                        <img src="" alt="">
+                    </div>
+
+                    <div class="w-full py-4">
+                        <p class="mb-4">
+                            <?php echo $item['name'] ?> By Blueprint EDT
+                        </p>
+                        <div class="w-full flex justify-between items-center">
+                            <span class="font-bold">$
+                                <?php echo $item['price'] ?>
+                            </span>
+                            <button type="button" class="px-3 py-2 bg-yellow-600">Add</button>
+                        </div>
                     </div>
                 </div>
-            </div>
-        <?php endforeach; ?>
+            <?php endforeach; ?>
+
+        <?php endif; ?>
 
 
 

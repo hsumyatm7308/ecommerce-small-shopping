@@ -3,6 +3,9 @@ $currenturl = $_SERVER['REQUEST_URI'];
 ?>
 
 
+
+
+
 <section class="container mx-auto mt-20">
     <div class="grid grid-cols-4 gap-6">
         <div class=" flex  justify-end ">
@@ -94,25 +97,18 @@ $currenturl = $_SERVER['REQUEST_URI'];
 
 
 
-
-                                <li class="w-7 h-7 bg-stone-100 <?php echo strpos($currenturl, $firstletter) !== false ? 'bg-stone-300' : 'bg-stone-100'; ?> m-1  "
-                                    data-letter=<?php echo $firstletter ?>>
-
-                                    <form id="brand_letter" action="" method="GET" class="flex justify-center items-center ">
+                                <li
+                                    class="w-7 h-7 bg-stone-100 <?php echo strpos($currenturl, $firstletter) !== false ? 'bg-stone-300' : 'bg-stone-100'; ?> m-1">
+                                    <form id="brand_letter_<?php echo $firstletter; ?>" action="" method="GET"
+                                        class="flex justify-center items-center">
                                         <input type="hidden" name="letters" value="<?php echo $firstletter ?>">
+                                        <input type="hidden" name="page" value="1">
                                         <button type="submit" class="text-center flex justify-center items-center letterbtn"
-                                            data-id=<?php echo $id ?>>
+                                            data-id="<?php echo $id ?>">
                                             <?php echo ucfirst($firstletter); ?>
                                         </button>
-
                                     </form>
-
-
-
-
-
                                 </li>
-
 
                                 <?php
                             }
@@ -138,17 +134,21 @@ $currenturl = $_SERVER['REQUEST_URI'];
 
                 isset($param) ? $param : 1;
 
+
+
+
                 ?>
 
                 <div class="h-auto mb-10">
                     <h1 class="uppercase mb-1">Price</h1>
-                    <form action="" method="POST">
-                        <input type="text" name="minprice" placeholder="Min" value=""
+                    <form id="price_form" action="" method="GET">
+                        <input type="text" name="minprice" placeholder="Min" value="<?php echo $data['minprice'] ?>"
                             class="w-20 border border-2 rounded m-1 px-2 py-1 focus:ring-1 focus:outline-none">
 
-                        <input type="text" name="maxprice" placeholder="Max" value=""
+                        <input type="text" name="maxprice" placeholder="Max" value="<?php echo $data['maxprice'] ?>"
                             class="w-20 border border-2 rounded m-1 px-2 py-1 focus:ring-1 focus:outline-none">
 
+                        <input type="hidden" name="page" value="1">
 
 
                         <button type="submit"
@@ -161,8 +161,7 @@ $currenturl = $_SERVER['REQUEST_URI'];
                 <!-- types  -->
                 <div>
                     <h1 class="uppercase mb-1">Type</h1>
-                    <form id="clothingForm" action="http://localhost/mvcshop/allfregrance?types=1" method="get"
-                        class="mt-3 flex flex-col">
+                    <form id="clothingForm" action="" method="get" class="mt-3 flex flex-col">
 
                         <?php foreach ($data['types'] as $type): ?>
 
@@ -178,16 +177,18 @@ $currenturl = $_SERVER['REQUEST_URI'];
                                         class="m-1 types-radio" data-id="<?php echo $type['id']; ?>"
                                         value="<?php echo $type['id']; ?>" <?php echo $type['id'] == $queryparameters['types'] ? 'checked' : ''; ?>>
                                     <?php echo $type['name']; ?>
+
                                 </label>
+
                             </button>
 
 
 
                         <?php endforeach; ?>
+                        <input type="hidden" name="page" value="1">
 
                     </form>
 
-                    </form>
 
 
 
@@ -219,6 +220,12 @@ $currenturl = $_SERVER['REQUEST_URI'];
 
 
             // var brandletter = document.querySelector('#brand_letter');
+
+            // if (brandletter.submit()) {
+            //     window.location.href = window.location.href + "page=1"
+            // }
+
+
             // var letterbtns = document.querySelectorAll('.letterbtn');
 
             // letterbtns.forEach(function (letterbtn) {
@@ -242,6 +249,40 @@ $currenturl = $_SERVER['REQUEST_URI'];
             //     });
             // });
 
+
+
+
+        </script>
+
+
+        <script>
+            document.addEventListener("DOMContentLoaded", function () {
+                var form = document.querySelectorAll("form");
+
+                for (var x = 0; x < form.length; x++) {
+                    form[x].addEventListener('submit', function (event) {
+
+                        var currenturl = window.location.href;
+
+                        currenturl = currenturl + "minprice=&maxprice";
+
+                        if (currenturl.indexOf('?') !== -1) {
+                            form.action = currenturl + "&page=1";
+
+
+                            console.log(currenturl);
+
+                        } else {
+                            form.action = currenturl + "?page=1";
+                        }
+
+                    });
+                }
+
+
+
+
+            });
 
 
 
