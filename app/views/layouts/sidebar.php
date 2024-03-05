@@ -74,6 +74,9 @@ $currenturl = $_SERVER['REQUEST_URI'];
 
                         <?php
 
+                        ini_set('display_errors', 1);
+
+
                         $items = $data['sidebaritems'];
 
 
@@ -86,6 +89,7 @@ $currenturl = $_SERVER['REQUEST_URI'];
 
                             $firstword = explode(' ', $item)[0];
                             $firstletter = $firstword[0];
+
 
                             if (in_array($firstletter, $dublicate)) {
                                 continue;
@@ -133,8 +137,6 @@ $currenturl = $_SERVER['REQUEST_URI'];
                 $param = explode('=', $currenturl)[1];
 
                 isset($param) ? $param : 1;
-
-
 
 
                 ?>
@@ -216,46 +218,10 @@ $currenturl = $_SERVER['REQUEST_URI'];
 
         </script>
 
-        <script type="text/javascript">
-
-
-            // var brandletter = document.querySelector('#brand_letter');
-
-            // if (brandletter.submit()) {
-            //     window.location.href = window.location.href + "page=1"
-            // }
-
-
-            // var letterbtns = document.querySelectorAll('.letterbtn');
-
-            // letterbtns.forEach(function (letterbtn) {
-            //     var dataId = letterbtn.getAttribute('data-id');
-
-            //     letterbtn.addEventListener('click', function () {
-
-            //         window.location.href = window.location.href + "?page=1&letters=A";
 
 
 
-
-            //         // this.setAttribute('type', 'submit');
-
-            //         // console.log(window.location.href + "?page=1")
-
-
-
-
-
-            //     });
-            // });
-
-
-
-
-        </script>
-
-
-        <script>
+        <!-- <script>
             document.addEventListener("DOMContentLoaded", function () {
                 var form = document.querySelectorAll("form");
 
@@ -267,17 +233,27 @@ $currenturl = $_SERVER['REQUEST_URI'];
                         currenturl = currenturl + "minprice=&maxprice";
 
                         if (currenturl.indexOf('?') !== -1) {
-                            form.action = currenturl + "&page=1";
+                            if (currenturl.includes('letters')) {
+                                currenturl += "&minprice=&maxprice";
+                            } else {
+                                currenturl += "&letters=A&minprice=&maxprice";
+                            }
 
-
-                            console.log(currenturl);
+                            // Add or update the page parameter
+                            currenturl += "&page=1";
 
                         } else {
                             form.action = currenturl + "?page=1";
                         }
 
+
+
+
+
+
                     });
                 }
+
 
 
 
@@ -286,4 +262,4 @@ $currenturl = $_SERVER['REQUEST_URI'];
 
 
 
-        </script>
+        </script> -->

@@ -44,22 +44,6 @@ class Allfregrance extends Controller
         $maxprice = $this->pagination->getparameter()['maxprice'];
 
 
-
-        // session_start();
-
-        // if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($parameter['page'])) {
-
-        //     $_SESSION['minprice'] = $_POST['minprice'];
-        //     $_SESSION['maxprice'] = $_POST['maxprice'];
-
-        // } else {
-        //     session_destroy();
-        // }
-
-        // $minprice = isset($_SESSION['minprice']) ? $_SESSION['minprice'] : $_POST['minprice'];
-        // $maxprice = isset($_SESSION['maxprice']) ? $_SESSION['maxprice'] : $_POST['minprice'];
-
-
         $data = [
             'title' => 'All',
             'items' => $items,
@@ -69,7 +53,7 @@ class Allfregrance extends Controller
             'totalPages' => $totalPages,
             'totalitems' => $totalitems,
             'minprice' => $minprice,
-            'maxprice' => $maxprice
+            'maxprice' => $maxprice,
         ];
 
 
