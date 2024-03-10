@@ -105,11 +105,11 @@
 
             <!-- <form action="" class=""> -->
 
-            <div class="h-full  flex justify-center items-center flex-col relative ">
-                <div class="flex justify-center items-center bg-gray-100 rounded-lg py-2 pl-1 pr-5 searchbox">
+            <div class="w-full h-full  flex justify-center items-center flex-col relative ">
+                <div class="w-full h-full flex justify-center items-center  rounded-lg py-3 pl-1 pr-5 searchbox">
                     <input type="search" name="search" id="search"
-                        class=" bg-gray-100 ml-4 pr-9 focus:outline-none placeholder-[#01125f]  placeholder-opacity-75 active:transparent "
-                        placeholder="Search...">
+                        class="w-full h-full bg-[#7c7e9d] ml-4 p-3 pr-9 rounded-md focus:outline-none placeholder-[#01125f]  placeholder-opacity-75 active:transparent "
+                        placeholder="Search..." autocomplete="off">
                     <button type="submit">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                             stroke="currentColor" class="w-6 h-6 text-gray-500 ml-5">

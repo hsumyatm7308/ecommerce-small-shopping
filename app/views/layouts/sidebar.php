@@ -73,7 +73,7 @@ $currenturl = $_SERVER['REQUEST_URI'];
                 <!-- brand letters  -->
                 <div class="h-auto mb-10">
                     <h1 class="text-[#4c5372] font-medium mb-3">Brand</h1>
-                    <span class="text-sm text-blue-300 ml-10">Click a letter to find a perfume</span>
+                    <span class="text-sm text-pink-400 ml-10">Click a letter to find a perfume</span>
                     <ul class="w-80  flex-wrap flex justify-start items-center mt-2">
 
 
@@ -106,7 +106,7 @@ $currenturl = $_SERVER['REQUEST_URI'];
 
 
                                 <li
-                                    class="w-7 h-7 bg-[#7c7e9d] <?php echo strpos($currenturl, $firstletter) !== false ? 'bg-[#7c7e9d] opacity-1 text-[#fffdf6]' : 'bg-bitstrong opacity-90'; ?> m-1">
+                                    class="w-7 h-7 bg-[#4c5372] <?php echo strpos($currenturl, $firstletter) !== false ? ' bg-[#4c5372]  text-[#fffdf6]' : 'bg-[#7c7e9d]  text-[#fffdf6]'; ?> m-1">
                                     <form id="brand_letter" action="" method="GET" class="flex justify-center items-center">
 
 
@@ -151,18 +151,18 @@ $currenturl = $_SERVER['REQUEST_URI'];
 
                 <div class="h-auto mb-10">
                     <h1 class="text-[#4c5372] font-medium mb-1">Price</h1>
-                    <form id="price_form" action="" method="GET">
+                    <form id="price_form" action="" method="GET" class="space-x-3">
                         <input type="text" name="minprice" placeholder="Min" value="<?php echo $data['minprice'] ?>"
-                            class="w-20 border border-[#7c7e9d] border-1 rounded m-1 px-2 py-1 focus:ring-1 focus:outline-none">
+                            class="w-20 border border-[#949ab1] border-1 rounded-md px-3 py-1 focus:ring-1 focus:outline-none">
 
                         <input type="text" name="maxprice" placeholder="Max" value="<?php echo $data['maxprice'] ?>"
-                            class="w-20 border border-[#7c7e9d] border-1 rounded m-1 px-2 py-1 focus:ring-1 focus:outline-none">
+                            class="w-20 border border-[#949ab1] border-1 rounded-md  px-3 py-1 focus:ring-1 focus:outline-none">
 
                         <input type="hidden" name="page" value="1">
 
 
                         <button type="submit"
-                            class="bg-[#4c5372] text-[#fffdf6] uppercase border border-2 rounded px-2 py-1">Update</button>
+                            class="bg-[#4c5372] text-[#fffdf6] uppercase border border-2 rounded-md px-3 py-1">Update</button>
 
                     </form>
                 </div>
