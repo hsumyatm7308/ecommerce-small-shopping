@@ -18,9 +18,24 @@ require_once('/opt/lampp/htdocs/mvcshop/app/views/layouts/sidebar.php');
 
 
 <div class="col-span-3">
-    <div class="mb-10">
-        <span class="uppercase text-xs">Home <span class="m-1">|</span> All's Fragrances</span>
+
+
+    <div class="flex justify-between items-center">
+        <div class="mb-10">
+            <span class="uppercase text-xs">Home <span class="m-1">|</span> All's Fragrances</span>
+        </div>
+
+        <div>
+            <form action="">
+                <section>
+                    <option value="">Price</option>
+                    <option value="">Review</option>
+                </section>
+            </form>
+        </div>
     </div>
+
+
 
 
     <div class="grid grid-cols-4 gap-4">

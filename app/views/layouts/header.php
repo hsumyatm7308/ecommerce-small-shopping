@@ -4,9 +4,22 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>shopping</title>
-    <link rel="stylesheet" href="./css/style.css">
     <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        beige: '#fffdf6',
+                        soft: '#949ab1';
+                        bitstrong: '#7c7e9d',
+                        actionbtn: '#4c5372',
+                        tenpercent: '#e2d4e0'
+                    }
+                }
+            }
+        }
+    </script>
 
 </head>
 
@@ -39,25 +52,25 @@
 </style>
 
 
-<body class="w-srceen ">
+<body class="w-srceen bg-[#fffdf6]">
 
 
 
 
 
-    <header class="navbgmarker ">
+    <header class=" ">
         <!-- start nav  -->
         <nav class="w-full h-auto  flex items-center grid grid-cols-4 gap-6">
 
-            <a href="http://localhost/perumdej/Perum-Dej/index.php" class="flex justify-center items-center">
-                <img src="./assets/img/fav/perfumlogo.png" alt="" width="50px">
-                <h1 class="font-[] text-xl">Perum Dej</h1>
+            <a href="http://localhost/perumdej/Perum-Dej/index.php" class="flex justify-center items-center ">
+                <!-- <img src="<?php echo URLROOT; ?>/public/assets/pflogo.png" alt="" width="50px"> -->
+                <h1 class="text-[#4c5372] font-bold text-2xl">Perum Dej</h1>
 
             </a>
 
 
             <div class="flex justify-start items-center">
-                <ul class="flex justify-start items-center text-[15px] uppercase cursor-pointer">
+                <ul class="flex justify-start items-center tracking-wide  cursor-pointer">
 
                     <?php
                     $currenturl = $_SERVER['REQUEST_URI'];
@@ -70,18 +83,18 @@
 
 
                     <li
-                        class="mr-5 <?php echo strpos($currenturl, 'allfregrance') !== false ? 'border' : ''; ?>  px-2 py-2 rounded-full hover:bg-gray-100">
-                        <a href="<?php echo URLROOT; ?>/allfregrance?page=1">All</a>
+                        class="mr-5 <?php echo strpos($currenturl, 'allfragrance') !== false ? 'border' : ''; ?>  px-2 py-2 rounded-full hover:bg-gray-100">
+                        <a href="<?php echo URLROOT; ?>/allfragrance?page=1">Fragrance</a>
                     </li>
 
                     <li
-                        class="mr-5 <?php echo strpos($currenturl, 'menfregrance') !== false ? 'border' : ''; ?> px-2 py-2 rounded-full hover:bg-gray-100">
-                        <a href="<?php echo URLROOT; ?>/menfregrance">Men</a>
+                        class="mr-5 <?php echo strpos($currenturl, 'lotion') !== false ? 'border' : ''; ?> px-2 py-2 rounded-full hover:bg-gray-100">
+                        <a href="<?php echo URLROOT; ?>/lotion">Lotion</a>
                     </li>
 
                     <li
                         class="mr-5 <?php echo strpos($currenturl, 'womenfregrance') !== false ? 'border' : ''; ?> px-2 py-2 rounded-full hover:bg-gray-100 ">
-                        <a href="<?php echo URLROOT; ?>/womenfregrance">Women</a>
+                        <a href="<?php echo URLROOT; ?>/womenfregrance">Makeup</a>
                     </li>
 
 
@@ -170,23 +183,12 @@
         </nav>
 
 
+
+
+
     </header>
 
 
-
-
-    <section class="container mx-auto mt-10">
-        <div class="flex justify-between">
-            <div class="flex justify-center">
-                <h1 class=" text-3xl">ALL's FRAGRANCES</h1>
-            </div>
-
-            <?php
-            //  require_once "sortingindex.php" 
-            ?>
-
-        </div>
-    </section>
 
 
 

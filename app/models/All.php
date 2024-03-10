@@ -25,15 +25,6 @@ class All
         $letter = $this->pagination->getparameter()['letter'];
 
 
-        // $this->currenturl = $_SERVER['REQUEST_URI'];
-        // $urlparts = parse_url($this->currenturl);
-        // parse_str($urlparts['query'], $queryparameters);
-
-        // $letter = $queryparameters['letters'];
-
-
-
-
 
 
 
@@ -46,36 +37,12 @@ class All
 
             // letters 
             if ($letter) {
-                // for price  if letters exit
-                // if ($min && $max && $letter) {
-                //     $this->db->dbquery('SELECT * FROM items WHERE price BETWEEN :min AND :max AND name LIKE :name LIMIT :offset, :limit');
-                //     $this->db->dbbind(':min', $min);
-                //     $this->db->dbbind(':max', $max);
-                //     $this->db->dbbind(':name', '%' . $letter . '%');
-                //     $this->db->dbbind(':offset', $offset);
-                //     $this->db->dbbind(':limit', $limit);
-
-                //     echo "yes letter";
-
-                // } else {
 
                 // for brands letter 
                 $this->db->dbquery('SELECT * FROM items WHERE name LIKE :name LIMIT :offset, :limit');
                 $this->db->dbbind(':name', '%' . $letter . '%');
                 $this->db->dbbind(':offset', $offset);
                 $this->db->dbbind(':limit', $limit);
-
-
-
-
-
-
-
-
-
-
-                // }
-
 
             } else {
                 // echo "no types and no leeter";
@@ -101,27 +68,10 @@ class All
 
                 if ($types) {
 
-                    // if ($min && $max) {
-
-
-                    //     $this->db->dbquery('SELECT * FROM items WHERE price BETWEEN :min AND :max AND category_id = :category LIMIT :offset, :limit');
-                    //     $this->db->dbbind(':min', $min);
-                    //     $this->db->dbbind(':max', $max);
-                    //     $this->db->dbbind(':category', $types);
-
-                    //     $this->db->dbbind(':offset', $offset);
-                    //     $this->db->dbbind(':limit', $limit);
-
-                    //     // echo "yes" . $types;
-                    // } else {
-
                     $this->db->dbquery('SELECT * FROM items WHERE category_id = :category LIMIT :offset, :limit');
                     $this->db->dbbind(':category', $types);
                     $this->db->dbbind(':offset', $offset);
                     $this->db->dbbind(':limit', $limit);
-
-                    // echo "no";
-                    // }
 
                 }
 
@@ -143,7 +93,7 @@ class All
 
     public function types()
     {
-        $this->db->dbquery('SELECT * FROM categories');
+        $this->db->dbquery('SELECT * FROM categories WHERE id IN (1,2,3)');
         return $this->db->getmultidata();
     }
 
@@ -163,19 +113,10 @@ class All
 
             if ($page == "letter") {
 
-                // for price  if letters exit
-                // if ($min & $max & $letter) {
-                //     $this->db->dbquery('SELECT COUNT(*) AS totalItems  FROM items WHERE price BETWEEN :min AND :max AND name LIKE :name');
-                //     $this->db->dbbind(':min', $min);
-                //     $this->db->dbbind(':max', $max);
-                //     $this->db->dbbind(':name', '%' . $letter . '%');
-                // } else {
                 // for brands letter 
                 $this->db->dbquery('SELECT COUNT(*) AS totalItems  FROM items WHERE name LIKE :name');
                 $this->db->dbbind(':name', '%' . $letter . '%');
-                // }
 
-                // echo "yes letters";
             } else {
 
                 // for price if letter not exist

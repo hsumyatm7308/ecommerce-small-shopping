@@ -1,6 +1,6 @@
 <?php
 
-class Allfregrance extends Controller
+class Allfragrance extends Controller
 {
 
     public $mainmodel;
@@ -27,7 +27,7 @@ class Allfregrance extends Controller
         parse_str($urlparts['query'], $parameter);
 
         $page = isset($parameter['page']) ? $parameter['page'] : 1;
-        $itemsperpage = 4;
+        $itemsperpage = 8;
         $offset = ($page - 1) * $itemsperpage;
 
         $totalitems = $this->mainmodel->countItems();
@@ -58,7 +58,7 @@ class Allfregrance extends Controller
         ];
 
 
-        $this->view('allfregrance/index', $data);
+        $this->view('allfragrance/index', $data);
     }
 
 
