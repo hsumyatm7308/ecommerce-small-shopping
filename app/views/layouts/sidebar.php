@@ -74,8 +74,8 @@ $currenturl = $_SERVER['REQUEST_URI'];
 
                         <?php
 
-                        ini_set('display_errors', 1);
-
+                        // ini_set('display_errors', 1);
+                        
 
                         $items = $data['sidebaritems'];
 
@@ -96,21 +96,24 @@ $currenturl = $_SERVER['REQUEST_URI'];
                             } else {
                                 $dublicate[] = $firstletter;
 
-
                                 ?>
 
 
 
                                 <li
                                     class="w-7 h-7 bg-stone-100 <?php echo strpos($currenturl, $firstletter) !== false ? 'bg-stone-300' : 'bg-stone-100'; ?> m-1">
-                                    <form id="brand_letter_<?php echo $firstletter; ?>" action="" method="GET"
-                                        class="flex justify-center items-center">
-                                        <input type="hidden" name="letters" value="<?php echo $firstletter ?>">
-                                        <input type="hidden" name="page" value="1">
+                                    <form id="brand_letter" action="" method="GET" class="flex justify-center items-center">
+
+
                                         <button type="submit" class="text-center flex justify-center items-center letterbtn"
-                                            data-id="<?php echo $id ?>">
+                                            data-id=<?php echo $id ?>>
+                                            <input type="hidden" name="letter" value="<?php echo $firstletter; ?>">
+                                            <input type="hidden" name="page" value="1">
                                             <?php echo ucfirst($firstletter); ?>
                                         </button>
+
+
+
                                     </form>
                                 </li>
 
@@ -221,7 +224,7 @@ $currenturl = $_SERVER['REQUEST_URI'];
 
 
 
-        <!-- <script>
+        <script>
             document.addEventListener("DOMContentLoaded", function () {
                 var form = document.querySelectorAll("form");
 
@@ -233,13 +236,7 @@ $currenturl = $_SERVER['REQUEST_URI'];
                         currenturl = currenturl + "minprice=&maxprice";
 
                         if (currenturl.indexOf('?') !== -1) {
-                            if (currenturl.includes('letters')) {
-                                currenturl += "&minprice=&maxprice";
-                            } else {
-                                currenturl += "&letters=A&minprice=&maxprice";
-                            }
 
-                            // Add or update the page parameter
                             currenturl += "&page=1";
 
                         } else {
@@ -262,4 +259,4 @@ $currenturl = $_SERVER['REQUEST_URI'];
 
 
 
-        </script> -->
+        </script>

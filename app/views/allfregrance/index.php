@@ -24,6 +24,8 @@ require_once('/opt/lampp/htdocs/mvcshop/app/views/layouts/sidebar.php');
 
 
     <div class="grid grid-cols-4 gap-4">
+
+
         <?php if ($data['totalitems'] == 0): ?>
 
             <div class="w-full border p-3">
@@ -32,6 +34,8 @@ require_once('/opt/lampp/htdocs/mvcshop/app/views/layouts/sidebar.php');
 
 
         <?php else: ?>
+
+
             <?php foreach ($data['items'] as $item): ?>
 
                 <div class="w-full border p-3">
@@ -52,7 +56,6 @@ require_once('/opt/lampp/htdocs/mvcshop/app/views/layouts/sidebar.php');
                     </div>
                 </div>
             <?php endforeach; ?>
-
         <?php endif; ?>
 
 

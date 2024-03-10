@@ -19,6 +19,7 @@ class Allfregrance extends Controller
     public function index()
     {
 
+
         $currenturl = $_SERVER['REQUEST_URI'];
 
         $urlparts = parse_url($currenturl);

@@ -22,14 +22,17 @@ class All
     public function items($offset, $limit)
     {
         $page = $this->pagination->getpage();
-        // $letter = $this->pagination->getparameter()['letters'];
+        $letter = $this->pagination->getparameter()['letter'];
 
 
-        $this->currenturl = $_SERVER['REQUEST_URI'];
-        $urlparts = parse_url($this->currenturl);
-        parse_str($urlparts['query'], $queryparameters);
+        // $this->currenturl = $_SERVER['REQUEST_URI'];
+        // $urlparts = parse_url($this->currenturl);
+        // parse_str($urlparts['query'], $queryparameters);
 
-        $letter = $queryparameters['letters'];
+        // $letter = $queryparameters['letters'];
+
+
+
 
 
 
@@ -38,10 +41,11 @@ class All
         $max = $this->pagination->getparameter()['maxprice'];
 
 
+
         if ($page) {
 
             // letters 
-            if ($page == "letters") {
+            if ($letter) {
                 // for price  if letters exit
                 // if ($min && $max && $letter) {
                 //     $this->db->dbquery('SELECT * FROM items WHERE price BETWEEN :min AND :max AND name LIKE :name LIMIT :offset, :limit');
@@ -61,7 +65,14 @@ class All
                 $this->db->dbbind(':offset', $offset);
                 $this->db->dbbind(':limit', $limit);
 
-                //     echo "yes letter no price";
+
+
+
+
+
+
+
+
 
                 // }
 
@@ -140,27 +151,29 @@ class All
     public function countItems()
     {
         $page = $this->pagination->getpage();
-        $letter = $this->pagination->getparameter()['letters'];
+        $letter = $this->pagination->getparameter()['letter'];
         $min = $this->pagination->getparameter()['minprice'];
         $max = $this->pagination->getparameter()['maxprice'];
+
+        // var_dump($letter . "let");
 
 
 
         if ($page) {
 
-            if ($page == "letters") {
+            if ($page == "letter") {
 
                 // for price  if letters exit
-                if ($min & $max & $letter) {
-                    $this->db->dbquery('SELECT COUNT(*) AS totalItems  FROM items WHERE price BETWEEN :min AND :max AND name LIKE :name');
-                    $this->db->dbbind(':min', $min);
-                    $this->db->dbbind(':max', $max);
-                    $this->db->dbbind(':name', '%' . $letter . '%');
-                } else {
-                    // for brands letter 
-                    $this->db->dbquery('SELECT COUNT(*) AS totalItems  FROM items WHERE name LIKE :name');
-                    $this->db->dbbind(':name', '%' . $letter . '%');
-                }
+                // if ($min & $max & $letter) {
+                //     $this->db->dbquery('SELECT COUNT(*) AS totalItems  FROM items WHERE price BETWEEN :min AND :max AND name LIKE :name');
+                //     $this->db->dbbind(':min', $min);
+                //     $this->db->dbbind(':max', $max);
+                //     $this->db->dbbind(':name', '%' . $letter . '%');
+                // } else {
+                // for brands letter 
+                $this->db->dbquery('SELECT COUNT(*) AS totalItems  FROM items WHERE name LIKE :name');
+                $this->db->dbbind(':name', '%' . $letter . '%');
+                // }
 
                 // echo "yes letters";
             } else {

@@ -24,6 +24,7 @@ class Pagination
         $urlparts = parse_url($this->currenturl);
         parse_str($urlparts['query'], $queryparameters);
 
+        // var_dump($queryparameters['letters']);
         return $queryparameters;
 
 
