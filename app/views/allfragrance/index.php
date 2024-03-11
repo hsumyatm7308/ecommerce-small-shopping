@@ -13,19 +13,7 @@ require_once('/opt/lampp/htdocs/mvcshop/app/views/layouts/sidebar.php');
 
 
 <style>
-    .hover-overlay {
-        display: none;
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: linear-gradient(rgba(0, 0, 0, 0.1), #fffdf6);
-    }
 
-    .product-item:hover .hover-overlay {
-        display: block;
-    }
 </style>
 
 
@@ -34,16 +22,19 @@ require_once('/opt/lampp/htdocs/mvcshop/app/views/layouts/sidebar.php');
 <div class="col-span-3">
 
 
-    <div class="flex justify-between items-center">
-        <div class="mb-10">
+    <div class="flex justify-between items-center mb-10">
+        <div class="">
             <span class="uppercase text-xs">Home <span class="m-1">|</span> All's Fragrances</span>
         </div>
 
         <div>
             <form action="">
-                <section>
-                    <option value="">Price</option>
-                    <option value="">Review</option>
+                <section class="">
+                    <label for="sortby" class="text-sm mr-3">Sort by:</label>
+                    <select name="sortby" id="sortby" class="bg-[#949ab1] text-[#fffdf6] rounded-md px-2">
+                        <option value="price">Price</option>
+                        <option value="review">Review</option>
+                    </select>
                 </section>
             </form>
         </div>
@@ -77,7 +68,7 @@ require_once('/opt/lampp/htdocs/mvcshop/app/views/layouts/sidebar.php');
                                 <?php echo $item['name'] ?> By Blueprint EDT
                             </p>
                             <div class="w-full flex justify-between items-center">
-                                <span class="font-bold">$
+                                <span class="font-bold text-[#4c5372]">$
                                     <?php echo $item['price'] ?>
                                 </span>
                             </div>
@@ -96,9 +87,8 @@ require_once('/opt/lampp/htdocs/mvcshop/app/views/layouts/sidebar.php');
                         </div>
                     </a>
                 </div>
-
-
             <?php endforeach; ?>
+
         <?php endif; ?>
 
 

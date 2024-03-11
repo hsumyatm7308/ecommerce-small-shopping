@@ -106,7 +106,7 @@ $currenturl = $_SERVER['REQUEST_URI'];
 
 
                                 <li
-                                    class="w-7 h-7 bg-[#4c5372] <?php echo strpos($currenturl, $firstletter) !== false ? ' bg-[#4c5372]  text-[#fffdf6]' : 'bg-[#7c7e9d]  text-[#fffdf6]'; ?> m-1">
+                                    class="w-7 h-7 bg-[#4c5372] hover:bg-[#949ab1] <?php echo strpos($currenturl, $firstletter) !== false ? ' bg-[#4c5372]  text-[#fffdf6]' : 'bg-[#7c7e9d]  text-[#fffdf6]'; ?> m-1">
                                     <form id="brand_letter" action="" method="GET" class="flex justify-center items-center">
 
 
@@ -162,7 +162,7 @@ $currenturl = $_SERVER['REQUEST_URI'];
 
 
                         <button type="submit"
-                            class="bg-[#4c5372] text-[#fffdf6] uppercase border border-2 rounded-md px-3 py-1">Update</button>
+                            class="bg-[#4c5372] text-[#fffdf6] uppercase border border-2 rounded-md hover:opacity-90 px-3 py-1">Update</button>
 
                     </form>
                 </div>

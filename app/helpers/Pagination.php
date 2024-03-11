@@ -49,13 +49,15 @@ class Pagination
             <?php if ($data['currentPage'] > 1): ?>
                 <a
                     href="<?php echo $urlparts['path'] . '?' . http_build_query(array_merge($parameter, ['page' => $data['currentPage'] - 1])); ?>">
-                    <span class="border-2 bg-gray-200 hover:bg-gray-300 px-4 py-2">Prev</span>
+                    <span
+                        class="text-[#fffdf6] border border-[#949ab1] border-1  bg-[#7c7e9d] hover:bg-[#7c7e9d] rounded-md hover:bg-[#949ab1] px-4 py-2">Prev</span>
                 </a>
             <?php endif; ?>
 
             <?php for ($i = 1; $i <= $data['totalPages']; $i++): ?>
                 <a href="<?php echo $urlparts['path'] . '?' . http_build_query(array_merge($parameter, ['page' => $i])); ?>">
-                    <span class="border px-4 py-2 <?php echo $i == $data['currentPage'] ? 'bg-gray-200' : ''; ?>">
+                    <span
+                        class="border border-[#949ab1] border-1 rounded-md hover:bg-[#949ab1] px-4 py-2 <?php echo $i == $data['currentPage'] ? 'bg-[#7c7e9d] text-[#fffdf6]' : ''; ?>">
                         <?php echo $i; ?>
                     </span>
                 </a>
@@ -64,7 +66,8 @@ class Pagination
             <?php if ($data['currentPage'] < $data['totalPages']): ?>
                 <a
                     href="<?php echo $urlparts['path'] . '?' . http_build_query(array_merge($parameter, ['page' => $data['currentPage'] + 1])); ?>">
-                    <span class="border-2 bg-gray-200 hover:bg-gray-300 px-4 py-2">Next</span>
+                    <span
+                        class="text-[#fffdf6] border border-[#949ab1] border-1  bg-[#7c7e9d] hover:bg-[#949ab1] rounded-md px-4 py-2">Next</span>
                 </a>
             <?php endif; ?>
         </div>

@@ -42,7 +42,6 @@ html {
 }
 
 body {
-    overflow: hidden;
     font-family: "Poppins", sans-serif;
     background-color: var(--app-bg);
     -webkit-font-smoothing: antialiased;
@@ -687,4 +686,21 @@ body {
 
 .gridView .cell-label {
     opacity: 0.6;
+}
+
+
+
+
+.hover-overlay {
+    display: none;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(rgba(0, 0, 0, 0.1), #fffdf6);
+}
+
+.product-item:hover .hover-overlay {
+    display: block;
 }
