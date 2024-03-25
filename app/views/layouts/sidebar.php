@@ -101,6 +101,8 @@ $currenturl = $_SERVER['REQUEST_URI'];
                             } else {
                                 $dublicate[] = $firstletter;
 
+
+
                                 ?>
 
 
@@ -144,7 +146,7 @@ $currenturl = $_SERVER['REQUEST_URI'];
                 $currenturl = $_SERVER['REQUEST_URI'];
                 $param = explode('=', $currenturl)[1];
 
-                isset($param) ? $param : 1;
+                isset ($param) ? $param : 1;
 
 
                 ?>

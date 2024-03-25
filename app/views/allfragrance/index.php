@@ -2,9 +2,9 @@
 
 ini_set('display_errors', 0);
 
-require_once('/opt/lampp/htdocs/mvcshop/app/views/layouts/header.php'); ?>
+require_once ('/opt/lampp/htdocs/mvcshop/app/views/layouts/header.php'); ?>
 <?php
-require_once('/opt/lampp/htdocs/mvcshop/app/views/layouts/sidebar.php');
+require_once ('/opt/lampp/htdocs/mvcshop/app/views/layouts/sidebar.php');
 
 
 ?>
@@ -60,7 +60,7 @@ require_once('/opt/lampp/htdocs/mvcshop/app/views/layouts/sidebar.php');
                 <div class="w-full border border-[#949ab1] border-1 rounded-md relative p-3 product-item">
                     <a href="">
                         <div class="w-full h-[250px] bg-gray-100">
-                            <img src="" alt="">
+                            <img src="<?php echo IMG_ROOT; ?><?php echo $item['image'] ?>" alt="">
                         </div>
 
                         <div class="w-full py-4">
