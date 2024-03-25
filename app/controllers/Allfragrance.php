@@ -20,13 +20,14 @@ class Allfragrance extends Controller
     {
 
 
+
         $currenturl = $_SERVER['REQUEST_URI'];
 
         $urlparts = parse_url($currenturl);
 
         parse_str($urlparts['query'], $parameter);
 
-        $page = isset($parameter['page']) ? $parameter['page'] : 1;
+        $page = isset ($parameter['page']) ? $parameter['page'] : 1;
         $itemsperpage = 8;
         $offset = ($page - 1) * $itemsperpage;
 
@@ -36,6 +37,7 @@ class Allfragrance extends Controller
 
         $totalPages = ceil($totalitems / $itemsperpage);
 
+
         $items = $this->mainmodel->items($offset, $itemsperpage);
         $types = $this->mainmodel->types();
         $sidebaritems = $this->sidebarmodel->sidebaritems();
@@ -43,6 +45,11 @@ class Allfragrance extends Controller
 
         $minprice = $this->pagination->getparameter()['minprice'];
         $maxprice = $this->pagination->getparameter()['maxprice'];
+
+
+
+
+
 
 
         $data = [
@@ -64,6 +71,15 @@ class Allfragrance extends Controller
 
 
 
+
+
+    // public function sorting()
+    // {
+    //     $_POST = json_decode(file_get_contents('php://input'), true);
+    //     $sortBy = $_POST['sortBy'];
+
+    //     $this->mainmodel->getsoring($sortBy);
+    // }
 
 
 

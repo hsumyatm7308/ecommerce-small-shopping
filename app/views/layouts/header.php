@@ -12,7 +12,7 @@
                 extend: {
                     colors: {
                         beige: '#fffdf6',
-                        soft: '#949ab1';
+                        soft: '#949ab1',
                         bitstrong: '#7c7e9d',
                         actionbtn: '#4c5372',
                         tenpercent: '#e2d4e0'
@@ -77,7 +77,7 @@
                     $currenturl = $_SERVER['REQUEST_URI'];
                     $param = explode('=', $currenturl)[1];
 
-                    isset($param) ? $param : 1;
+                    isset ($param) ? $param : 1;
                     ?>
 
 

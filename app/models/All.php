@@ -33,6 +33,11 @@ class All
 
 
 
+
+
+
+
+
         if ($page) {
 
             // letters 
@@ -76,17 +81,51 @@ class All
                 }
 
                 // end types 
+
+                $sortby = $_POST['sortby'];
+
+                if ($sortby == "price_asc") {
+                    echo "yes";
+                    $this->db->dbquery('SELECT * FROM `items` ORDER BY `items`.`price` ASC');
+
+                } elseif ($sortby == "price_desc") {
+                    $this->db->dbquery('SELECT * FROM `items` ORDER BY `items`.`price` DESC');
+
+                    echo "yes";
+                } else {
+                    echo "no";
+                }
+
+
+
             }
             //  end letters 
+
+
+            // $this->db->dbquery('SELECT * FROM `items` ORDER BY `items`.`price` ASC');
+            // $this->db->dbexecute();
+
+
+
 
             return $this->db->getmultidata();
 
         }
+
+
     }
 
 
+    // sorting 
+    public function getsoring($data)
+    {
+
+        $this->db->dbquery('SELECT * FROM `items` ORDER BY `items`.`price` ASC');
+        $this->db->dbexecute();
 
 
+
+    }
 
 
 
@@ -145,6 +184,8 @@ class All
         }
 
     }
+
+
 
 }
 

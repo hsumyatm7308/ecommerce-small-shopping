@@ -22,21 +22,25 @@ require_once ('/opt/lampp/htdocs/mvcshop/app/views/layouts/sidebar.php');
 <div class="col-span-3">
 
 
+
     <div class="flex justify-between items-center mb-10">
         <div class="">
             <span class="uppercase text-xs">Home <span class="m-1">|</span> All's Fragrances</span>
         </div>
 
         <div>
-            <form action="">
-                <section class="">
-                    <label for="sortby" class="text-sm mr-3">Sort by:</label>
-                    <select name="sortby" id="sortby" class="bg-[#949ab1] text-[#fffdf6] rounded-md px-2">
-                        <option value="price">Price</option>
-                        <option value="review">Review</option>
-                    </select>
-                </section>
+            <form id="" action="" method="POST">
+                <label for="sortby">Sort by:</label>
+                <select name="sortby" id="sortby">
+                    <option value="price_asc">Price Low to High</option>
+                    <option value="price_desc">Price High to Low</option>
+                    <option value="name_asc">Name A to Z</option>
+                    <option value="name_desc">Name Z to A</option>
+                </select>
+
+                <button type="submit">Submit</button>
             </form>
+
         </div>
     </div>
 
@@ -109,6 +113,30 @@ require_once ('/opt/lampp/htdocs/mvcshop/app/views/layouts/sidebar.php');
 
 </div>
 </section>
+
+
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
+<script>
+    const sortby = document.getElementById('sortby');
+
+    // sortby.addEventListener('change', () => {
+    //     const selectedValue = sortby.value;
+    //     const geturl = 'http://localhost/mvcshop/allfragrance/sorting';
+    //     axios.post(geturl, { sortBy: selectedValue })
+    //         .then((response) => {
+    //             console.log(response.data);
+    //         })
+    //         .catch((error) => {
+    //             console.error('Error:', error);
+    //         });
+    // });
+
+
+
+
+</script>
 
 
 </body>
