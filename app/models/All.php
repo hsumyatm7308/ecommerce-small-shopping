@@ -11,7 +11,9 @@ class All
 
     public $pagination;
 
-    public $sortDirection = 'price_asc';
+    public $filter;
+
+    public $sortDirection;
 
 
     public function __construct()
@@ -19,6 +21,7 @@ class All
         $this->db = new Database();
 
         $this->pagination = new Pagination();
+
 
     }
 
@@ -44,7 +47,6 @@ class All
         };
 
 
-        $page = $this->pagination->getpage();
         $letter = $this->pagination->getparameter()['letter'];
 
 
@@ -56,177 +58,51 @@ class All
         $sortdirection = $sorting();
 
 
+        $query = 'SELECT * FROM items WHERE 1=1';
+        $bindparams = [];
 
+        if (isset($types)) {
+            $query .= ' AND category_id = :category';
+            $bindparams[':category'] = $types;
 
-
-
-
-        if ($page) {
-
-            // letters 
-            // if ($letter) {
-
-            //     // for brands letter 
-            //     $this->db->dbquery('SELECT * FROM items WHERE name LIKE :name  ORDER BY price ' . $sortdirection . ' LIMIT :offset, :limit');
-            //     $this->db->dbbind(':name', '%' . $letter . '%');
-            //     $this->db->dbbind(':offset', $offset);
-            //     $this->db->dbbind(':limit', $limit);
-
-            // } else {
-            //     // echo "no types and no leeter";
-
-            //     // for price if letter not exist and if types not exist 
-            //     if ($min && $max) {
-            //         $this->db->dbquery('SELECT * FROM items WHERE price  BETWEEN :min AND :max  ORDER BY price ' . $sortdirection . ' LIMIT :offset, :limit');
-            //         $this->db->dbbind(':min', $min);
-            //         $this->db->dbbind(':max', $max);
-            //         $this->db->dbbind(':offset', $offset);
-            //         $this->db->dbbind(':limit', $limit);
-            //     } else {
-            //         $this->db->dbquery('SELECT * FROM items  ORDER BY price ' . $sortdirection . ' LIMIT :offset, :limit');
-            //         $this->db->dbbind(':offset', $offset);
-            //         $this->db->dbbind(':limit', $limit);
-            //     }
-
-
-
-
-
-
-
-
-
-
-
-
-            // }
-            //  end letters 
-
-
-            // for types 
-
-
-
-
-
-            if ($types) {
-
-
-                if ($max && $min && $letter && $types) {
-
-
-                    $this->getalldatabind($types, $offset, $limit, $min, $max, $letter, $sortdirection);
-
-
-                } elseif ($letter && $types) {
-
-                    $this->getalldatabind($types, $offset, $limit, $min = "", $max = "", $letter, $sortdirection);
-
-
-                } elseif ($max && $min && $types) {
-                    $this->db->dbquery('SELECT * FROM items WHERE category_id = :category AND price  BETWEEN :min AND :max ORDER BY price ' . $sortdirection . ' LIMIT :offset, :limit');
-
-
-                    $this->db->dbbind(':category', $types);
-                    $this->db->dbbind(':offset', $offset);
-                    $this->db->dbbind(':limit', $limit);
-                    $this->db->dbbind(':min', $min);
-                    $this->db->dbbind(':max', $max);
-
-
-                } else {
-
-                    $this->db->dbquery('SELECT * FROM items WHERE category_id = :category ORDER BY price ' . $sortdirection . ' LIMIT :offset, :limit');
-                    $this->db->dbbind(':category', $types);
-                    $this->db->dbbind(':offset', $offset);
-                    $this->db->dbbind(':limit', $limit);
-
-
-                }
-
-
-            } else {
-                echo "no";
-
-                $this->db->dbquery('SELECT * FROM items  ORDER BY price ' . $sortdirection . ' LIMIT :offset, :limit');
-
-                $this->db->dbbind(':offset', $offset);
-                $this->db->dbbind(':limit', $limit);
-
-            }
-
-
-
-
-            // end types 
-
-
-
-
-
-            // $this->db->dbbind(':category', $types);
-            // $this->db->dbbind(':offset', $offset);
-            // $this->db->dbbind(':limit', $limit);
-            // $this->db->dbbind(':name', '%' . $letter . '%');
-
-
-
-            // $this->db->dbbind(':category', $types);
-            // $this->db->dbbind(':offset', $offset);
-            // $this->db->dbbind(':limit', $limit);
-            // $this->db->dbbind(':min', $min);
-            // $this->db->dbbind(':max', $max);
-
-
-
-
-            // $this->db->dbbind(':category', $types);
-            // $this->db->dbbind(':offset', $offset);
-            // $this->db->dbbind(':limit', $limit);
-
-
-            // $this->db->dbbind(':offset', $offset);
-            // $this->db->dbbind(':limit', $limit);
-
-            return $this->db->getmultidata();
-
+            echo "types";
         }
 
 
+        if (isset($min) && isset($max)) {
+            $query .= ' AND price BETWEEN :min AND :max';
+            $bindparams[':min'] = $min;
+            $bindparams[':max'] = $max;
+
+            echo "min";
+        }
+
+        if (isset($letter)) {
+            $query .= ' AND name LIKE :name';
+            $bindparams[':name'] = '%' . $letter . '%';
+
+            echo "letter";
+        }
+
+        if (isset($sortdirection)) {
+            $query .= ' ORDER BY price ' . $sortdirection;
+        }
+
+        if (isset($offset) && isset($limit)) {
+            $query .= ' LIMIT :offset, :limit';
+            $bindparams[':offset'] = $offset;
+            $bindparams[':limit'] = $limit;
+        }
+
+        $this->db->dbquery($query);
+        foreach ($bindparams as $param => $value) {
+            $this->db->dbbind($param, $value);
+        }
+        return $this->db->getmultidata();
+
+
+
     }
-
-
-
-    public function getalldatabind($types = null, $offset = null, $limit = null, $min = null, $max = null, $letter = null, $sortdirection = null)
-    {
-        $this->db->dbquery('SELECT * FROM items WHERE category_id = :category AND name LIKE :name AND price BETWEEN :min AND :max ORDER BY price ' . $sortdirection . ' LIMIT :offset, :limit');
-
-        $this->db->dbbind(':category', $types);
-        $this->db->dbbind(':offset', $offset);
-        $this->db->dbbind(':limit', $limit);
-        $this->db->dbbind(':min', $min);
-        $this->db->dbbind(':max', $max);
-        $this->db->dbbind(':name', '%' . $letter . '%');
-
-
-    }
-
-
-    // public function getletterandtypes($types, $offset, $limit, $letter, $sortdirection)
-    // {
-    //     $this->db->dbquery('SELECT * FROM items WHERE category_id = :category AND name LIKE :name ORDER BY price ' . $sortdirection . ' LIMIT :offset, :limit');
-    //     $this->db->dbbind(':category', $types);
-    //     $this->db->dbbind(':offset', $offset);
-    //     $this->db->dbbind(':limit', $limit);
-    //     $this->db->dbbind(':name', '%' . $letter . '%');
-    // }
-
-    public function getpriceandtypes()
-    {
-
-    }
-
-
 
 
     public function types()
@@ -238,51 +114,40 @@ class All
 
     public function countItems()
     {
-        $page = $this->pagination->getpage();
         $letter = $this->pagination->getparameter()['letter'];
         $min = $this->pagination->getparameter()['minprice'];
         $max = $this->pagination->getparameter()['maxprice'];
+        $types = $this->pagination->getparameter()['types'];
 
-        // var_dump($letter . "let");
+        $query = 'SELECT COUNT(*) AS totalItems FROM items WHERE 1 = 1';
+        $bindParams = [];
 
-
-
-        if ($page) {
-
-            if ($page == "letter") {
-
-                // for brands letter 
-                $this->db->dbquery('SELECT COUNT(*) AS totalItems  FROM items WHERE name LIKE :name');
-                $this->db->dbbind(':name', '%' . $letter . '%');
-
-            } else {
-
-                // for price if letter not exist
-                if ($min & $max) {
-                    $this->db->dbquery('SELECT COUNT(*) AS totalItems  FROM items WHERE price  BETWEEN :min AND :max');
-                    $this->db->dbbind(':min', $min);
-                    $this->db->dbbind(':max', $max);
-                } else {
-                    $this->db->dbquery('SELECT COUNT(*) AS totalItems  FROM items');
-                }
-                // echo "no letters";
-
-
-                // for types 
-
-                $types = $this->pagination->getparameter()['types'];
-
-                if ($types) {
-                    $this->db->dbquery('SELECT COUNT(*) AS totalItems  FROM items WHERE category_id = :category');
-                    $this->db->dbbind(':category', $types);
-                }
-            }
-
-            return $this->db->getsingledata()['totalItems'];
-
+        if (isset($types)) {
+            $query .= ' AND category_id = :category';
+            $bindParams[':category'] = $types;
         }
 
+        if (isset($min) && isset($max)) {
+            $query .= ' AND price BETWEEN :min AND :max';
+            $bindParams[':min'] = $min;
+            $bindParams[':max'] = $max;
+        }
+
+        if (isset($letter)) {
+            $query .= ' AND name LIKE :name';
+            $bindParams[':name'] = '%' . $letter . '%';
+        }
+
+        $this->db->dbquery($query);
+        foreach ($bindParams as $param => $value) {
+            $this->db->dbbind($param, $value);
+        }
+
+        return $this->db->getsingledata()['totalItems'];
     }
+
+
+
 
 
 

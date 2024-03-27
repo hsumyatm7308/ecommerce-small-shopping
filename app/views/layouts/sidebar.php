@@ -1,5 +1,11 @@
 <?php
-$currenturl = $_SERVER['REQUEST_URI'];
+
+$currentURL = $_SERVER['REQUEST_SCHEME'] . '://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
+
+$urlparts = parse_url($currentURL);
+parse_str($urlparts['query'], $parameter);
+
+
 ?>
 
 
@@ -105,17 +111,13 @@ $currenturl = $_SERVER['REQUEST_URI'];
 
 
 
+
                                 ?>
 
-
-
                                 <li
-                                    class="w-7 h-7 bg-[#4c5372] hover:bg-[#949ab1] <?php echo strpos($currenturl, $firstletter) !== false ? ' bg-[#4c5372]  text-[#fffdf6]' : 'bg-[#7c7e9d]  text-[#fffdf6]'; ?> m-1">
+                                    class="w-7 h-7 bg-[#4c5372] hover:bg-[#949ab1] <?php echo $parameter['letter'] == $firstletter ? ' bg-[#4c5372]  text-[#fffdf6]' : 'bg-[#7c7e9d]  text-[#fffdf6]'; ?> m-1">
                                     <form action="" method="GET" class="flex justify-center items-center">
-                                        <!-- 
-                                        <input type="hidden" name="letter" id="letterbtn"
-                                            class="text-center flex justify-center items-center "
-                                            value="<?php echo $firstletter; ?>"> -->
+
 
                                         <input type="hidden" name="page" value="1">
                                         <button type="button" class="letterbtn" name="letter"
@@ -151,7 +153,7 @@ $currenturl = $_SERVER['REQUEST_URI'];
                 $currenturl = $_SERVER['REQUEST_URI'];
                 $param = explode('=', $currenturl)[1];
 
-                isset ($param) ? $param : 1;
+                isset($param) ? $param : 1;
 
 
                 ?>
@@ -232,18 +234,9 @@ $currenturl = $_SERVER['REQUEST_URI'];
 
                         var currenturl = window.location.href;
 
-                        // currenturl = currenturl + "minprice=&maxprice";
 
-                        // if (currenturl.indexOf('?') !== -1) {
-
-                        //     currenturl += "&page=1";
-
-                        // } else {
                         form.action = currenturl + "?page=1";
-                        // }
 
-
-                        console.log(currenturl);
 
 
 
@@ -268,23 +261,12 @@ $currenturl = $_SERVER['REQUEST_URI'];
             const letterbtn = document.querySelectorAll('.letterbtn');
 
             updatebtn.addEventListener('click', function () {
-                // updatebtn.form.submit()
-
+                updatebtn.form.submit()
                 const min = document.getElementById('minprice').value;
                 const max = document.getElementById('maxprice').value;
                 window.location.href = window.location.href + "&minprice=" + min + "&maxprice=" + max;
             })
 
-
-
-            // var radioButtons = document.querySelectorAll('input[type=radio]');
-            // radioButtons.forEach(function (radioButton) {
-            //     radioButton.addEventListener('click', function () {
-            //         radioButton.form.submit();
-            //         window.location.href = window.location.href + "&types=" + radioButton.value;
-
-            //     });
-            // });
             const radioButtons = document.querySelectorAll('.types-radio')
 
             for (let i = 0; i < radioButtons.length; i++) {
@@ -305,8 +287,14 @@ $currenturl = $_SERVER['REQUEST_URI'];
                     letterbtn[i].form.submit();
                     const getvalue = letterbtn[i].value;
 
+
+
                     window.location.href += "&letter=" + getvalue;
-                    console.log(letterbtn[i]);
+
+
+
+
+
 
 
                 });

@@ -26,6 +26,7 @@ class Database
             $this->conn = new PDO("mysql:host=$this->dbhost;dbname=$this->dbname", $this->dbuser, $this->dbpass, $options);
 
 
+
         } catch (PDOException $e) {
             $this->error = $e->getMessage();
 

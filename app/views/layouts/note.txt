@@ -116,14 +116,40 @@
 
 --------------------------------------
 
-price 
-
-      
 
 
-letter and type 
- 
 
-                    letter and types and price 
 
-          
+        if ($page) {
+
+            if ($page == "letter") {
+
+                // for brands letter 
+                $this->db->dbquery('SELECT COUNT(*) AS totalItems  FROM items WHERE name LIKE :name');
+                $this->db->dbbind(':name', '%' . $letter . '%');
+
+            } else {
+
+                // for price if letter not exist
+                if ($min & $max) {
+                    $this->db->dbquery('SELECT COUNT(*) AS totalItems  FROM items WHERE price  BETWEEN :min AND :max');
+                    $this->db->dbbind(':min', $min);
+                    $this->db->dbbind(':max', $max);
+                } else {
+                    $this->db->dbquery('SELECT COUNT(*) AS totalItems  FROM items');
+                }
+                // echo "no letters";
+
+
+                // for types 
+
+                $types = $this->pagination->getparameter()['types'];
+
+                if ($types) {
+                    $this->db->dbquery('SELECT COUNT(*) AS totalItems  FROM items WHERE category_id = :category');
+                    $this->db->dbbind(':category', $types);
+                }
+            }
+
+
+        }

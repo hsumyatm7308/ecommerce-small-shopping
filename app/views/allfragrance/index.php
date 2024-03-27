@@ -19,6 +19,8 @@ $urlparts = parse_url($currentURL);
 parse_str($urlparts['query'], $parameter);
 
 
+
+
 ?>
 
 
@@ -44,13 +46,12 @@ parse_str($urlparts['query'], $parameter);
                 <label for="sortby">Sort by:</label>
                 <select name="sortby" id="sortby">
                     <option>Choose..</option>
-                    <option value="price_asc">Price Low to High</option>
-                    <option value="price_desc">Price High to Low</option>
-                    <option value="name_asc">Name A to Z</option>
-                    <option value="name_desc">Name Z to A</option>
+                    <option value="price_asc" <?php echo $parameter['sortby'] == 'price_asc' ? 'selected' : ''; ?>>
+                        Price Low to High</option>
+                    <option value="price_desc" <?php echo $parameter['sortby'] == 'price_desc' ? 'selected' : ''; ?>>Price
+                        High to Low</option>
                 </select>
 
-                <!-- <button type="submit">Submit</button> -->
             </form>
 
         </div>
@@ -138,9 +139,12 @@ parse_str($urlparts['query'], $parameter);
         sortby.form.submit();
 
         window.location.href = window.location.href + "&sortby=" + sortby.value;
+
+
+
+
+
     })
-
-
 
 
 </script>
