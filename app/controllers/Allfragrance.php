@@ -21,6 +21,7 @@ class Allfragrance extends Controller
 
 
 
+
         $currenturl = $_SERVER['REQUEST_URI'];
 
         $urlparts = parse_url($currenturl);

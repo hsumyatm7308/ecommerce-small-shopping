@@ -70,6 +70,8 @@ $currenturl = $_SERVER['REQUEST_URI'];
                 </div>
 
 
+
+
                 <!-- brand letters  -->
                 <div class="h-auto mb-10">
                     <h1 class="text-[#4c5372] font-medium mb-3">Brand</h1>
@@ -109,20 +111,24 @@ $currenturl = $_SERVER['REQUEST_URI'];
 
                                 <li
                                     class="w-7 h-7 bg-[#4c5372] hover:bg-[#949ab1] <?php echo strpos($currenturl, $firstletter) !== false ? ' bg-[#4c5372]  text-[#fffdf6]' : 'bg-[#7c7e9d]  text-[#fffdf6]'; ?> m-1">
-                                    <form id="brand_letter" action="" method="GET" class="flex justify-center items-center">
+                                    <form action="" method="GET" class="flex justify-center items-center">
+                                        <!-- 
+                                        <input type="hidden" name="letter" id="letterbtn"
+                                            class="text-center flex justify-center items-center "
+                                            value="<?php echo $firstletter; ?>"> -->
 
-
-                                        <button type="submit" class="text-center flex justify-center items-center letterbtn"
-                                            data-id=<?php echo $id ?>>
-                                            <input type="hidden" name="letter" value="<?php echo $firstletter; ?>">
-                                            <input type="hidden" name="page" value="1">
+                                        <input type="hidden" name="page" value="1">
+                                        <button type="button" class="letterbtn" name="letter"
+                                            value="<?php echo $firstletter; ?>">
                                             <?php echo ucfirst($firstletter); ?>
                                         </button>
 
 
 
+
                                     </form>
                                 </li>
+
 
                                 <?php
                             }
@@ -139,7 +145,6 @@ $currenturl = $_SERVER['REQUEST_URI'];
                 </div>
                 <!-- end letters  -->
 
-
                 <!-- price  -->
                 <?php
 
@@ -154,21 +159,24 @@ $currenturl = $_SERVER['REQUEST_URI'];
                 <div class="h-auto mb-10">
                     <h1 class="text-[#4c5372] font-medium mb-1">Price</h1>
                     <form id="price_form" action="" method="GET" class="space-x-3">
-                        <input type="text" name="minprice" placeholder="Min" value="<?php echo $data['minprice'] ?>"
+                        <input type="text" name="minprice" id="minprice" placeholder="Min"
+                            value="<?php echo $data['minprice'] ?>"
                             class="w-20 border border-[#949ab1] border-1 rounded-md px-3 py-1 focus:ring-1 focus:outline-none">
 
-                        <input type="text" name="maxprice" placeholder="Max" value="<?php echo $data['maxprice'] ?>"
+                        <input type="text" name="maxprice" id="maxprice" placeholder="Max"
+                            value="<?php echo $data['maxprice'] ?>"
                             class="w-20 border border-[#949ab1] border-1 rounded-md  px-3 py-1 focus:ring-1 focus:outline-none">
 
                         <input type="hidden" name="page" value="1">
 
 
-                        <button type="submit"
-                            class="bg-[#4c5372] text-[#fffdf6] uppercase border border-2 rounded-md hover:opacity-90 px-3 py-1">Update</button>
+                        <button type="button" id="updatebtn"
+                            class="bg-[#4c5372] text-[#fffdf6] uppercase border border-2 rounded-md hover:opacity-90 px-3 py-1 updatebtn">Update</button>
 
                     </form>
                 </div>
                 <!-- end price  -->
+
 
                 <!-- types  -->
                 <div>
@@ -183,16 +191,13 @@ $currenturl = $_SERVER['REQUEST_URI'];
                             parse_str($urlparts['query'], $queryparameters);
 
                             ?>
-                            <button type="submit">
-                                <label for="types_<?php echo $type['id']; ?>" class="flex items-center">
-                                    <input type="radio" id="types_<?php echo $type['id']; ?>" name="types"
-                                        class="m-1 types-radio" data-id="<?php echo $type['id']; ?>"
-                                        value="<?php echo $type['id']; ?>" <?php echo $type['id'] == $queryparameters['types'] ? 'checked' : ''; ?>>
-                                    <?php echo $type['name']; ?>
+                            <label for="types_<?php echo $type['id']; ?>" class="flex items-center">
+                                <input type="radio" id="types_<?php echo $type['id']; ?>" name="types"
+                                    class="m-1 types-radio" data-id="<?php echo $type['id']; ?>"
+                                    value="<?php echo $type['id']; ?>" <?php echo $type['id'] == $queryparameters['types'] ? 'checked' : ''; ?>>
+                                <?php echo $type['name']; ?>
 
-                                </label>
-
-                            </button>
+                            </label>
 
 
 
@@ -215,19 +220,6 @@ $currenturl = $_SERVER['REQUEST_URI'];
 
         <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 
-        <script>
-            document.addEventListener("DOMContentLoaded", function () {
-                var radioButtons = document.querySelectorAll('input[type=radio]');
-                radioButtons.forEach(function (radioButton) {
-                    radioButton.addEventListener('click', function () {
-                        document.getElementById('clothingForm').submit();
-                    });
-                });
-            });
-
-
-        </script>
-
 
 
 
@@ -240,17 +232,18 @@ $currenturl = $_SERVER['REQUEST_URI'];
 
                         var currenturl = window.location.href;
 
-                        currenturl = currenturl + "minprice=&maxprice";
+                        // currenturl = currenturl + "minprice=&maxprice";
 
-                        if (currenturl.indexOf('?') !== -1) {
+                        // if (currenturl.indexOf('?') !== -1) {
 
-                            currenturl += "&page=1";
+                        //     currenturl += "&page=1";
 
-                        } else {
-                            form.action = currenturl + "?page=1";
-                        }
+                        // } else {
+                        form.action = currenturl + "?page=1";
+                        // }
 
 
+                        console.log(currenturl);
 
 
 
@@ -265,5 +258,59 @@ $currenturl = $_SERVER['REQUEST_URI'];
             });
 
 
+
+        </script>
+
+
+
+        <script>
+            const updatebtn = document.getElementById('updatebtn');
+            const letterbtn = document.querySelectorAll('.letterbtn');
+
+            updatebtn.addEventListener('click', function () {
+                // updatebtn.form.submit()
+
+                const min = document.getElementById('minprice').value;
+                const max = document.getElementById('maxprice').value;
+                window.location.href = window.location.href + "&minprice=" + min + "&maxprice=" + max;
+            })
+
+
+
+            // var radioButtons = document.querySelectorAll('input[type=radio]');
+            // radioButtons.forEach(function (radioButton) {
+            //     radioButton.addEventListener('click', function () {
+            //         radioButton.form.submit();
+            //         window.location.href = window.location.href + "&types=" + radioButton.value;
+
+            //     });
+            // });
+            const radioButtons = document.querySelectorAll('.types-radio')
+
+            for (let i = 0; i < radioButtons.length; i++) {
+                radioButtons[i].addEventListener('change', function () {
+
+                    radioButtons[i].form.submit();
+                    const getvalue = radioButtons[i].value;
+
+                    window.location.href = window.location.href + "&types=" + getvalue;
+
+
+                })
+            }
+
+
+            for (let i = 0; i < letterbtn.length; i++) {
+                letterbtn[i].addEventListener('click', function () {
+                    letterbtn[i].form.submit();
+                    const getvalue = letterbtn[i].value;
+
+                    window.location.href += "&letter=" + getvalue;
+                    console.log(letterbtn[i]);
+
+
+                });
+
+            }
 
         </script>

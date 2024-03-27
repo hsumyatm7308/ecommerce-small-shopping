@@ -7,8 +7,19 @@ require_once ('/opt/lampp/htdocs/mvcshop/app/views/layouts/header.php'); ?>
 require_once ('/opt/lampp/htdocs/mvcshop/app/views/layouts/sidebar.php');
 
 
+
 ?>
 
+<?php
+
+
+$currentURL = $_SERVER['REQUEST_SCHEME'] . '://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
+
+$urlparts = parse_url($currentURL);
+parse_str($urlparts['query'], $parameter);
+
+
+?>
 
 
 
@@ -29,16 +40,17 @@ require_once ('/opt/lampp/htdocs/mvcshop/app/views/layouts/sidebar.php');
         </div>
 
         <div>
-            <form id="" action="" method="POST">
+            <form id="" action="" method="GET">
                 <label for="sortby">Sort by:</label>
                 <select name="sortby" id="sortby">
+                    <option>Choose..</option>
                     <option value="price_asc">Price Low to High</option>
                     <option value="price_desc">Price High to Low</option>
                     <option value="name_asc">Name A to Z</option>
                     <option value="name_desc">Name Z to A</option>
                 </select>
 
-                <button type="submit">Submit</button>
+                <!-- <button type="submit">Submit</button> -->
             </form>
 
         </div>
@@ -121,17 +133,12 @@ require_once ('/opt/lampp/htdocs/mvcshop/app/views/layouts/sidebar.php');
 <script>
     const sortby = document.getElementById('sortby');
 
-    // sortby.addEventListener('change', () => {
-    //     const selectedValue = sortby.value;
-    //     const geturl = 'http://localhost/mvcshop/allfragrance/sorting';
-    //     axios.post(geturl, { sortBy: selectedValue })
-    //         .then((response) => {
-    //             console.log(response.data);
-    //         })
-    //         .catch((error) => {
-    //             console.error('Error:', error);
-    //         });
-    // });
+    const options = sortby.children;
+    sortby.addEventListener('change', function () {
+        sortby.form.submit();
+
+        window.location.href = window.location.href + "&sortby=" + sortby.value;
+    })
 
 
 
