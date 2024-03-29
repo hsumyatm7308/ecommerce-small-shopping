@@ -283,7 +283,7 @@ parse_str($urlparts['query'], $parameter);
                 updatebtn.form.submit()
                 const min = document.getElementById('minprice').value;
                 const max = document.getElementById('maxprice').value;
-                window.location.href = window.location.href + "&minprice=" + min + "&maxprice=" + max;
+                window.location.href = window.location.href + "&minprice=" + min + "&maxprice=" + max + "&page=1";
             })
 
             const radioButtons = document.querySelectorAll('.types-radio')
@@ -294,7 +294,7 @@ parse_str($urlparts['query'], $parameter);
                     radioButtons[i].form.submit();
                     const getvalue = radioButtons[i].value;
 
-                    window.location.href = window.location.href + "&types=" + getvalue;
+                    window.location.href = window.location.href + "&types=" + getvalue + "&page=1";
 
 
                 })
@@ -305,18 +305,10 @@ parse_str($urlparts['query'], $parameter);
                 letterbtn[i].addEventListener('click', function () {
                     letterbtn[i].form.submit();
                     const getvalue = letterbtn[i].value;
-
-
-
-                    window.location.href += "&letter=" + getvalue;
-
-
-
-
-
-
+                    window.location.href += "&letter=" + getvalue + "&page=1";
 
                 });
+
 
             }
 

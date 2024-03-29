@@ -50,6 +50,10 @@
     #search:focus .searchbox {
         border: 2px solid blue;
     }
+
+    body {
+        scroll-behavior: smooth;
+    }
 </style>
 
 

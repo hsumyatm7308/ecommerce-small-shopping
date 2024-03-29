@@ -90,6 +90,18 @@ parse_str($urlparts['query'], $parameter);
                                     <?php echo $item['price'] ?>
                                 </span>
                             </div>
+
+
+                            <?php if ($item['discount']): ?>
+
+                                <div class=" bg-yellow-500 text-white rounded-md px-2 py-1  absolute right-5 z-20 mt-2">
+                                    <div class="flex justify-center items-center">
+                                        Discount - <span class="text-2xl font-bold">
+                                            <?php echo $item['discount'] ?>%
+                                        </span>
+                                    </div>
+                                </div>
+                            <?php endif; ?>
                         </div>
 
                         <div class="hover-overlay">

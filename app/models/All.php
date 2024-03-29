@@ -65,7 +65,8 @@ class All
             $query .= ' AND category_id = :category';
             $bindparams[':category'] = $types;
 
-            echo "types";
+
+
         }
 
 
