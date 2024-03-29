@@ -11,10 +11,29 @@ parse_str($urlparts['query'], $parameter);
 
 
 
-<section class="container mx-auto text-[#4c5372] mt-20">
-    <div class="w-full h-auto  flex items-start grid grid-cols-4 gap-6">
-        <div class=" flex  justify-start ">
-            <div class="">
+<section class="container mx-auto text-[#4c5372] mt-20 px-2 ">
+    <div class="w-full h-auto  flex items-start grid md:grid-cols-4 grid-cols-1 md:gap-6 gap-0">
+
+
+
+
+        <div class="flex flex-col  justify-start ">
+            <!-- dropdown for sm  -->
+            <div class="w-full h-14 border rounded-md flex justify-between items-center text-sm px-3 md:hidden"
+                onclick="document.getElementById('filter').classList.toggle('hidden'); ">
+                <div>
+                    <span> Browse by Brand, Price & more</span>
+                </div>
+                <div class="flex justify-center items-center">
+                    <span>show</span>
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                        stroke="currentColor" class="w-4 h-4">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" />
+                    </svg>
+                </div>
+            </div>
+
+            <div id="filter" class="md:flex md:flex-col hidden mt-3">
                 <!-- 
                 <div class="h-auto mb-10">
                     <h1 class="font-[500] uppercase mb-3">Filter by</h1>
