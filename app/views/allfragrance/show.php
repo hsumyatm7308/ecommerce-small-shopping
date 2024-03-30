@@ -2,7 +2,10 @@
 
 ini_set('display_errors', 0);
 
-require_once ('/opt/lampp/htdocs/mvcshop/app/views/layouts/header.php'); ?>
+require_once ('/opt/lampp/htdocs/mvcshop/app/views/layouts/header.php');
+require_once ('/opt/lampp/htdocs/mvcshop/app/views/layouts/navbar.php');
+
+?>
 
 
 
@@ -48,7 +51,7 @@ require_once ('/opt/lampp/htdocs/mvcshop/app/views/layouts/header.php'); ?>
 
                             <input type="number" name="quantity" id="valueinput"
                                 class="w-[60px] flex justify-center items-center bg-transparent font-semibold focus:outline-none px-3 py-2"
-                                value="1">
+                                value="1" min="">
 
                         </div>
 
