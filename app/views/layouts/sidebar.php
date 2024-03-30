@@ -250,27 +250,12 @@ parse_str($urlparts['query'], $parameter);
 
                 for (var x = 0; x < form.length; x++) {
                     form[x].addEventListener('submit', function (event) {
-
                         var currenturl = window.location.href;
-
-
                         form.action = currenturl + "?page=1";
-
-
-
-
-
                     });
                 }
 
-
-
-
-
             });
-
-
-
         </script>
 
 
@@ -290,13 +275,9 @@ parse_str($urlparts['query'], $parameter);
 
             for (let i = 0; i < radioButtons.length; i++) {
                 radioButtons[i].addEventListener('change', function () {
-
                     radioButtons[i].form.submit();
                     const getvalue = radioButtons[i].value;
-
                     window.location.href = window.location.href + "&types=" + getvalue + "&page=1";
-
-
                 })
             }
 

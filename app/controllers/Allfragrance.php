@@ -3,13 +3,13 @@
 class Allfragrance extends Controller
 {
 
-    public $mainmodel;
+    public $allmodel;
     public $sidebarmodel;
     public $pagination;
 
     public function __construct()
     {
-        $this->mainmodel = $this->model('All');
+        $this->allmodel = $this->model('All');
         $this->sidebarmodel = $this->model('Side');
         $this->pagination = new Pagination;
 
@@ -26,13 +26,13 @@ class Allfragrance extends Controller
         $itemsperpage = 8;
         $offset = ($page - 1) * $itemsperpage;
 
-        $totalitems = $this->mainmodel->countItems();
+        $totalitems = $this->allmodel->countItems();
 
         $totalPages = ceil($totalitems / $itemsperpage);
 
 
-        $items = $this->mainmodel->items($offset, $itemsperpage);
-        $types = $this->mainmodel->types();
+        $items = $this->allmodel->items($offset, $itemsperpage);
+        $types = $this->allmodel->types();
         $sidebaritems = $this->sidebarmodel->sidebaritems();
 
 
@@ -57,6 +57,16 @@ class Allfragrance extends Controller
     }
 
 
+
+    public function show($id)
+    {
+        $singledata = $this->allmodel->getsingleitem($id);
+        $data = [
+            'singledata' => $singledata
+        ];
+        $this->view('allfragrance/show', $data);
+
+    }
 }
 
 

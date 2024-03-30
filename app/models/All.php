@@ -149,6 +149,17 @@ class All
 
 
 
+    public function getsingleitem($id)
+    {
+
+        $this->db->dbquery('SELECT * FROM items WHERE id = :id');
+        $this->db->dbbind(':id', $id);
+
+        return $this->db->getsingledata();
+
+    }
+
+
 
 
 
