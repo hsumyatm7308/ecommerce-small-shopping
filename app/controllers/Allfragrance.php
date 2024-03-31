@@ -63,6 +63,10 @@ class Allfragrance extends Controller
         $singledata = $this->allmodel->getsingleitem($id);
         $brand = $this->allmodel->getbrand($singledata['id']);
         $status = $this->allmodel->getstatus($singledata['status_id']);
+        $userinfo = $this->allmodel->getuserinfo();
+        $this->allmodel->insertreview();
+
+
 
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             if (isset($_POST['addtocart'])) {
@@ -79,7 +83,8 @@ class Allfragrance extends Controller
         $data = [
             'singledata' => $singledata,
             'brand' => $brand,
-            'status' => $status
+            'status' => $status,
+            'user' => $userinfo
         ];
 
 

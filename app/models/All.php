@@ -222,9 +222,9 @@ class All
         $this->db->dbbind(':user_id', $userid);
 
 
-        $row = $this->db->getsingledata();
+        $this->db->getsingledata();
 
-        if ($row > 0) {
+        if ($this->db->getsingledata() > 0) {
             return true;
         } else {
             return false;
@@ -233,6 +233,56 @@ class All
 
 
     }
+
+    public function getuserinfo()
+    {
+        $userid = $_SESSION['user_id'];
+
+        $this->db->dbquery('SELECT * FROM users WHERE id = :id');
+        $this->db->dbbind(':id', $userid);
+        return $this->db->getsingledata();
+    }
+
+
+
+
+    public function insertreview()
+    {
+
+        $userid = $_SESSION['user_id'];
+        if ($userid) {
+
+            if (isset($_POST['reviewbtn']) && $_SERVER['REQUEST_METHOD'] === 'POST') {
+                $review = $_POST['userreview'];
+                $email = $_POST['useremail'];
+                $username = $_POST['username'];
+                $rating = $_POST['rating'];
+                $itemid = $_POST['itemid'];
+
+
+
+                // echo $review, $username, $rating, $itemid;
+
+                $this->db->dbquery('INSERT INTO reviews (reviews,rating,user_id,item_id) VALUES(:review,:rating,:userid,:itemid)');
+                $this->db->dbbind(':review', $review);
+                $this->db->dbbind(':rating', $rating);
+                $this->db->dbbind(':userid', $userid);
+                $this->db->dbbind(':itemid', $itemid);
+
+                $this->db->dbexecute();
+
+
+                //     if ($this->db->dbexecute()) {
+                //         return true;
+                //     } else {
+                //         return false;
+                //     }
+
+            }
+        }
+
+    }
+
 
 
 

@@ -30,7 +30,7 @@ require_once ('/opt/lampp/htdocs/mvcshop/app/views/layouts/navbar.php');
         <div>
 
 
-            <div class="mr-10">
+            <div class="">
 
                 <!-- <form action="" method="post"> -->
                 <h1 class="text-3xl">
@@ -97,8 +97,9 @@ require_once ('/opt/lampp/htdocs/mvcshop/app/views/layouts/navbar.php');
 
 
                         <button type="submit" name="addtocart"
-                            class="text-gray-100 border border-gray-500 bg-gray-500 flex justify-center items-center drop-shadow-lg rounded-md px-6 py-3 hover:drop-shadow-[0_7px_7px_#d4d4d8] hover:opacity-90"
-                            id="addtocart">Add to cart</button>
+                            class="border border-gray-200 bg-gray-200 <?php echo $data['singledata']['status_id'] == '1' ? 'text-gray-100 border-gray-500 bg-gray-500' : 'text-gray-400 ' ?> flex justify-center items-center drop-shadow-lg rounded-md px-6 py-3 hover:drop-shadow-[0_7px_7px_#d4d4d8] hover:opacity-90"
+                            id="addtocart" <?php echo $data['singledata']['status_id'] == '1' ? '' : 'disabled' ?>>Add to
+                            cart</button>
 
 
                         <input type="hidden" name="singlename" value="<?php echo $data['singledata']['name']; ?>">
@@ -118,19 +119,7 @@ require_once ('/opt/lampp/htdocs/mvcshop/app/views/layouts/navbar.php');
 
 
                 <!-- flash  -->
-
-
                 <div id="alertcart">
-                    <!-- <span class="flex justify-start items-center p-1">
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 ml-4">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m9-.75a9 9 0 11-18 0 9 9 0 0118 0zm-9 3.75h.008v.008H12v-.008z" />
-                </svg>
-                <span>Item added to the cart</span>
-            </span>
-            <a href="shopcartpage.php" class="text-indigo-500 mr-4 hover:text-indigo-700">
-                View cart 
-            </a>-->
-
                     <?php if (flash('added')): ?>
                         <div class="w-[400px]  flex justify-between items-center mt-3 rounded-md">
                             <span class="flex justify-start items-center p-1">
@@ -165,11 +154,9 @@ require_once ('/opt/lampp/htdocs/mvcshop/app/views/layouts/navbar.php');
                             </a>
                         </div>
                     <?php endif; ?>
-
                 </div>
 
 
-                <!-- </form> -->
 
 
 
@@ -180,7 +167,8 @@ require_once ('/opt/lampp/htdocs/mvcshop/app/views/layouts/navbar.php');
                 <div class="mt-10">
                     <div class="flex items-center mb-5">
                         <h3 class="font-normal text-lg">Rating</h3>
-                        <span id="writereview" class="m-3 cursor-pointer" onclick="writereviewfun()">Write
+                        <span id="writereview" class="m-3 cursor-pointer"
+                            onclick="document.getElementById('reviewmodal').classList.toggle('hidden')">Write
                             review
                             <span>(
 
@@ -336,69 +324,123 @@ require_once ('/opt/lampp/htdocs/mvcshop/app/views/layouts/navbar.php');
 
 
 <!-- modal  -->
-<section id="modal" class="w-full h-screen fixed top-0 left-0 hidden">
+<section id="reviewmodal" class="w-full h-screen fixed top-0 left-0 hidden">
     <div id="modaldialog"
-        class="w-full h-full bg-[linear-gradient(rgba(0,0,0,.5),rgba(0,0,0,.5))] flex justify-center items-center  absolute inset-0 modalcontainer">
-        <div class="w-[500px] h-[300px] bg-stone-200 modal">
-            <div id="crossx" onclick="crossx()" class="w-full flex justify-end items-center">
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                    stroke="currentColor" class="w-6 h-6 text-gray-600 mr-5 mt-3">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
-                </svg>
+        class="w-full h-full bg-[linear-gradient(rgba(0,0,0,.8),rgba(0,0,0,.8))] flex justify-center items-center  absolute inset-0 modalcontainer">
+        <div class="w-[1100px] bg-stone-200 modal  px-10">
+            <div class="w-full h-20 border-b border-b-gray-100 relative">
+                <div class="w-full h-full flex justify-center items-center">
+                    <h1 class="text-2xl">Write a Review</h1>
+
+                </div>
+                <div class="absolute top-[50%] right-0 transform translate-y-[-50%] hover:bg-gray-300 rounded-full p-1"
+                    onclick="document.getElementById('reviewmodal').classList.toggle('hidden')">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                        stroke="currentColor" class="w-8 h-8 text-gray-600 ">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+                    </svg>
+
+                </div>
 
             </div>
-            <div class="w-full modal-body">
-                <div class="w-full">
-                    <!-- <form action="" method="post" class="w-full"> -->
-                    <div class="w-full h-10 flex justify-center items-center mb-3">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                            stroke="currentColor" class="w-6 h-6 text-yellow-500 submit-star" id="submit-star-1"
-                            value="1" data-rating="1">
-                            <path stroke-linecap="round" stroke-linejoin="round"
-                                d="M11.48 3.499a.562.562 0 011.04 0l2.125 5.111a.563.563 0 00.475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 00-.182.557l1.285 5.385a.562.562 0 01-.84.61l-4.725-2.885a.563.563 0 00-.586 0L6.982 20.54a.562.562 0 01-.84-.61l1.285-5.386a.562.562 0 00-.182-.557l-4.204-3.602a.563.563 0 01.321-.988l5.518-.442a.563.563 0 00.475-.345L11.48 3.5z" />
-                        </svg>
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                            stroke="currentColor" class="w-6 h-6 text-yellow-500 submit-star" id="submit-star-2"
-                            value="2" data-rating="2">
-                            <path stroke-linecap="round" stroke-linejoin="round"
-                                d="M11.48 3.499a.562.562 0 011.04 0l2.125 5.111a.563.563 0 00.475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 00-.182.557l1.285 5.385a.562.562 0 01-.84.61l-4.725-2.885a.563.563 0 00-.586 0L6.982 20.54a.562.562 0 01-.84-.61l1.285-5.386a.562.562 0 00-.182-.557l-4.204-3.602a.563.563 0 01.321-.988l5.518-.442a.563.563 0 00.475-.345L11.48 3.5z" />
-                        </svg>
+            <div class="w-full py-10">
+                <form action="" method="post" class="w-full">
 
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                            stroke="currentColor" class="w-6 h-6 text-yellow-500 submit-star" id="submit-star-3"
-                            value="3" data-rating="3">
-                            <path stroke-linecap="round" stroke-linejoin="round"
-                                d="M11.48 3.499a.562.562 0 011.04 0l2.125 5.111a.563.563 0 00.475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 00-.182.557l1.285 5.385a.562.562 0 01-.84.61l-4.725-2.885a.563.563 0 00-.586 0L6.982 20.54a.562.562 0 01-.84-.61l1.285-5.386a.562.562 0 00-.182-.557l-4.204-3.602a.563.563 0 01.321-.988l5.518-.442a.563.563 0 00.475-.345L11.48 3.5z" />
-                        </svg>
+                    <div class="grid grid-cols-2 gap-4  ">
+                        <div class="space-y-10 flex flex-col justify-start items-center p-10">
+                            <div class=" border flex justify-center items-center rounded-md relative overflow-hidden">
+                                <img src="<?php echo IMG_ROOT; ?><?php echo $data['singledata']['image'] ?>" alt=""
+                                    class="object-fit w-full h-full">
 
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                            stroke="currentColor" class="w-6 h-6 text-yellow-500 submit-star" id="submit-star-4"
-                            value="4" data-rating="4">
-                            <path stroke-linecap="round" stroke-linejoin="round"
-                                d="M11.48 3.499a.562.562 0 011.04 0l2.125 5.111a.563.563 0 00.475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 00-.182.557l1.285 5.385a.562.562 0 01-.84.61l-4.725-2.885a.563.563 0 00-.586 0L6.982 20.54a.562.562 0 01-.84-.61l1.285-5.386a.562.562 0 00-.182-.557l-4.204-3.602a.563.563 0 01.321-.988l5.518-.442a.563.563 0 00.475-.345L11.48 3.5z" />
-                        </svg>
+                                <?php if ($data['singledata']['discount']): ?>
+                                    <div
+                                        class="bg-yellow-500 text-white text-lg absolute left-0 top-0 transform translate-y-8 -translate-x-16 origin-center -rotate-45 ... px-20 py-4">
+                                        <?php echo $data['singledata']['discount'] ?>% Discount
+                                    </div>
+                                <?php endif; ?>
 
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                            stroke="currentColor" class="w-6 h-6 text-yellow-500 submit-star" id="submit-star-5"
-                            value="5" data-rating="5">
-                            <path stroke-linecap="round" stroke-linejoin="round"
-                                d="M11.48 3.499a.562.562 0 011.04 0l2.125 5.111a.563.563 0 00.475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 00-.182.557l1.285 5.385a.562.562 0 01-.84.61l-4.725-2.885a.563.563 0 00-.586 0L6.982 20.54a.562.562 0 01-.84-.61l1.285-5.386a.562.562 0 00-.182-.557l-4.204-3.602a.563.563 0 01.321-.988l5.518-.442a.563.563 0 00.475-.345L11.48 3.5z" />
-                        </svg>
-                    </div>
 
-                    <div class="w-full flex justify-center items-center flex-col ">
-                        <input type="text" name="username" id="username" class="w-[90%] mb-3 p-3"
-                            placeholder="Enter your name">
-                        <textarea name="userreview" id="userreview" class="w-[90%] p-2" cols="30" rows=""
-                            placeholder="Type review here"></textarea>
-                    </div>
+                            </div>
 
-                    <div class="w-full flex justify-center items-center mt-3">
-                        <button type="button" name="submit" class="w-[90%] bg-gray-400 p-2"
-                            id="submitreview">Submit</button>
-                    </div>
-                    <!-- </form> -->
-                </div>
+                            <h1 class="text-2xl">
+                                <?php echo $data['singledata']['name'] ?> By
+                                <?php echo $data['brand']['name'] ?>
+                                EDT
+                            </h1>
+
+                            <div>
+
+                            </div>
+                        </div>
+
+                        <div class="">
+                            <div class="w-full flex justify-start items-center flex-col">
+                                <div class="w-full space-y-8">
+                                    <div>
+                                        <label for="rating"
+                                            class="flex justify-between items-center"><span>Rating</span>
+                                            <span class="text-sm">Required</span></label>
+
+                                        <div class="w-full relative custom-select">
+                                            <select name="rating" id="rating"
+                                                class="block appearance-none w-full bg-white border border-gray-300  transition-all duration-300  hover:border-gray-400 px-4 py-2 pr-8 rounded-md shadow-sm focus:outline-none focus:border-gray-500 focus:ring-1 focus:ring-gray-100 focus:ring-opacity-50">
+                                                <option>Choose rating..</option>
+
+                                                <option value="1">1 star</option>
+                                                <option value="2">2 stars</option>
+                                                <option value="3">3 starts</option>
+                                                <option value="4">4 starts</option>
+                                                <option value="5">5 starts</option>
+                                            </select>
+
+                                            <div
+                                                class="absolute inset-y-0 right-0 flex items-center px-2 pointer-events-none text-red-600">
+                                                <svg class="w-4 h-4 fill-current text-gray-500" viewBox="0 0 20 20"
+                                                    xmlns="http://www.w3.org/2000/svg">
+                                                    <path fill-rule="evenodd" clip-rule="evenodd"
+                                                        d="M10 12.586L5.707 8.293a1 1 0 00-1.414 1.414l5 5a1 1 0 001.414 0l5-5a1 1 0 00-1.414-1.414L10 12.586z" />
+                                                </svg>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="w-full">
+                                        <label for="username"
+                                            class="flex justify-between items-center"><span>Name</span>
+                                            <span class="text-sm">Required</span></label>
+                                        <input type="text" name="username" id="username"
+                                            class="w-full rounded-md px-3 py-3 focus:outline-none focus:border-gray-500 focus:ring-1 focus:ring-gray-100 focus:ring-opacity-50"
+                                            value="<?php echo $data['user']['name'] ?>" placeholder="Enter your name"
+                                            autofocus="on">
+                                    </div>
+
+                                    <div class="w-full">
+                                        <label for="useremail"
+                                            class="flex justify-between items-center"><span>Email</span>
+                                            <span class="text-sm">Required</span></label>
+                                        <input type="email" name="useremail" id="useremail"
+                                            class="w-full rounded-md px-3 py-3 focus:outline-none focus:border-gray-500 focus:ring-1 focus:ring-gray-100 focus:ring-opacity-50"
+                                            value="<?php echo $data['user']['email'] ?>" placeholder="Enter your email">
+                                    </div>
+
+                                    <div class="w-full">
+                                        <label for="userreview"
+                                            class="flex justify-between items-center"><span>Review</span>
+                                            <span class="text-sm">Required</span></label>
+                                        <textarea name="userreview" id="userreview"
+                                            class="w-full rounded-md focus:outline-none focus:border-gray-500 focus:ring-1 focus:ring-gray-100 focus:ring-opacity-50 px-3 py-3"
+                                            cols="30" rows="" placeholder="Type review here"></textarea>
+                                    </div>
+                                </div>
+
+                                <div class="w-full flex justify-center items-center mt-8">
+                                    <button type="submit" name="reviewbtn" class="w-full bg-gray-400 p-3"
+                                        id="submitreview">Submit</button>
+                                    <input type="hidden" name="itemid" value="<?php echo $data['singledata']['id']; ?>">
+                                </div>
+                            </div>
+                        </div>
+                </form>
             </div>
 
         </div>
