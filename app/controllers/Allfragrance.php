@@ -61,10 +61,31 @@ class Allfragrance extends Controller
     public function show($id)
     {
         $singledata = $this->allmodel->getsingleitem($id);
+        $brand = $this->allmodel->getbrand($singledata['id']);
+        $status = $this->allmodel->getstatus($singledata['status_id']);
+
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            if (isset($_POST['addtocart'])) {
+                if ($this->allmodel->shopcardlist()) {
+                    flash('added', 'Item added successfully');
+                } else {
+                    flash('already_added', 'Item already added');
+
+                }
+            }
+        }
+
+
         $data = [
-            'singledata' => $singledata
+            'singledata' => $singledata,
+            'brand' => $brand,
+            'status' => $status
         ];
+
+
         $this->view('allfragrance/show', $data);
+
+
 
     }
 }

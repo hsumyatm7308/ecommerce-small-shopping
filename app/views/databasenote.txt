@@ -16,7 +16,7 @@ user_id INT
 );
  
 
- - Status 
+ - Brands
 
  CREATE TABLE IF NOT EXISTS brands (
     id INT AUTO_INCREMENT NOT NULL PRIMARY KEY,
@@ -41,6 +41,30 @@ user_id INT
    imageable_id INT,
    user_id INT,
    created_at TIMESTAMP DEFAULT now(),
+   updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+   FOREIGN KEY(user_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE CASCADE
+ )
+
+
+ - Status 
+
+   CREATE TABLE IF NOT EXISTS status(
+    id INT AUTO_INCREMENT NOT NULL PRIMARY KEY,
+    name VARCHAR(50),
+    user_id INT
+   )
+
+
+ - OrderList 
+
+ CREATE TABLE IF NOT EXISTS orders(
+    id INT AUTO_INCREMENT NOT NULL PRIMARY KEY,
+    name VARCHAR(50),
+    price DECIMAL,
+    quantity INT,
+    brand_id VARCHAR(10),
+    user_id INT,
+    created_at TIMESTAMP DEFAULT now(),
    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
    FOREIGN KEY(user_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE CASCADE
  )

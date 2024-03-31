@@ -14,14 +14,17 @@ require_once ('/opt/lampp/htdocs/mvcshop/app/views/layouts/navbar.php');
 
     <div class="w-full h-full grid grid-cols-2">
         <div class="flex justify-center items-center">
-            <div class="w-[500px] h-[590px] border flex justify-center items-center relative overflow-hidden">
+            <div
+                class="w-[500px] h-[590px] border flex justify-center items-center rounded-md relative overflow-hidden">
                 <img src="<?php echo IMG_ROOT; ?><?php echo $data['singledata']['image'] ?>" alt=""
                     class="object-fit w-full h-full">
 
-                <div
-                    class="bg-yellow-500 text-white text-lg absolute left-0 top-0 transform translate-y-8 -translate-x-16 origin-center -rotate-45 ... px-20 py-4">
-                    20% Discount
-                </div>
+                <?php if ($data['singledata']['discount']): ?>
+                    <div
+                        class="bg-yellow-500 text-white text-lg absolute left-0 top-0 transform translate-y-8 -translate-x-16 origin-center -rotate-45 ... px-20 py-4">
+                        <?php echo $data['singledata']['discount'] ?>% Discount
+                    </div>
+                <?php endif; ?>
             </div>
         </div>
         <div>
@@ -30,55 +33,92 @@ require_once ('/opt/lampp/htdocs/mvcshop/app/views/layouts/navbar.php');
             <div class="mr-10">
 
                 <!-- <form action="" method="post"> -->
-                <h1 class="text-3xl">Brits By Breant EDT</h1>
-                <p class="mt-3 text-xs">Available <span class="text-green-600"> (In stock) </span> </p>
+                <h1 class="text-3xl">
+                    <?php echo $data['singledata']['name'] ?> By
+                    <?php echo $data['brand']['name'] ?>
+                    EDT
+                </h1>
+
+                <?php if ($data['status']['id'] == 1): ?>
+                    <p class="mt-3 text-xs">Available
+                        <span class="text-green-600"> (
+                            <?php echo $data['status']['name'] ?>)
+                        </span>
+                    </p>
+
+                <?php else: ?>
+                    <p class="mt-3 text-xs">
+                        <span class="text-red-600"> (
+                            <?php echo $data['status']['name'] ?>)
+                        </span>
+                    </p>
+
+                <?php endif; ?>
+
+                <form action="" method="POST" enctype="multipart/form-data">
+
+                    <div class="flex items-center space-x-20 my-5">
 
 
-                <div class="flex items-center space-x-20 my-5">
+
+                        <div>
+                            <span class="text-[#4c5372] font-normal text-3xl"><sup>$</sup>
+                                <?php echo $data['singledata']['price'] ?>
+                            </span>
+                        </div>
+
+                        <div class="w-[2px] h-8 bg-[#4c5372]"></div>
+                        <div class="flex items-center space-x-2 my-5">
+
+                            <span class="text-lg text-[#4c5372]">Quantity : </span>
+
+                            <div class="flex items-center">
+
+                                <input type="number" name="singlequantity" id="valueinput"
+                                    class="w-[60px] flex justify-center items-center bg-transparent font-semibold focus:outline-none px-3 py-2 originquantity"
+                                    value="1" min="1">
 
 
+                            </div>
 
-                    <div>
-                        <span class="text-[#4c5372] font-normal text-3xl"><sup>$</sup>100</span>
-                    </div>
-
-                    <div class="w-[2px] h-8 bg-[#4c5372]"></div>
-                    <div class="flex items-center space-x-2 my-5">
-
-                        <span class="text-lg text-[#4c5372]">Quantity : </span>
-
-                        <div class="flex items-center">
-
-                            <input type="number" name="quantity" id="valueinput"
-                                class="w-[60px] flex justify-center items-center bg-transparent font-semibold focus:outline-none px-3 py-2"
-                                value="1" min="">
 
                         </div>
 
 
+
                     </div>
 
-
-
-                </div>
-
-                <!--if number is under 3, 3 left product--></span>
+                    <!-- if number is under 3, 3 left product</span> -->
 
 
 
+                    <div class="flex  items-center my-5 space-x-2">
 
 
-                <div class="flex  items-center my-5 space-x-2">
 
-                    <button type="button" name="addtocart"
-                        class="text-gray-100 border border-gray-500 bg-gray-500 flex justify-center items-center drop-shadow-lg px-6 py-3 hover:drop-shadow-[0_7px_7px_#d4d4d8] hover:opacity-90"
-                        id="addtocart">Add to cart</button>
+                        <button type="submit" name="addtocart"
+                            class="text-gray-100 border border-gray-500 bg-gray-500 flex justify-center items-center drop-shadow-lg rounded-md px-6 py-3 hover:drop-shadow-[0_7px_7px_#d4d4d8] hover:opacity-90"
+                            id="addtocart">Add to cart</button>
 
 
-                    <button type="button" name="addtocart"
-                        class=" border border-gray-500 flex justify-center items-center drop-shadow-lg px-6 py-3 hover:drop-shadow-[0_7px_7px_#d4d4d8] hover:opacity-90"
-                        id="addtocart">Add to wish</button>
-                </div>
+                        <input type="hidden" name="singlename" value="<?php echo $data['singledata']['name']; ?>">
+                        <input type="hidden" name="singlebrand" value=" <?php echo $data['singledata']['brand_id'] ?>">
+                        <input type="hidden" name="singleprice" value="<?php echo $data['singledata']['price']; ?>">
+
+
+
+                        <button type="button" name="addtocart"
+                            class=" border border-gray-500 flex justify-center items-center drop-shadow-lg rounded-md px-6 py-3 hover:drop-shadow-[0_7px_7px_#d4d4d8] hover:opacity-90"
+                            id="addtocart">Add to wish</button>
+                    </div>
+                </form>
+
+
+
+
+
+                <!-- flash  -->
+
 
                 <div id="alertcart">
                     <!-- <span class="flex justify-start items-center p-1">
@@ -90,6 +130,42 @@ require_once ('/opt/lampp/htdocs/mvcshop/app/views/layouts/navbar.php');
             <a href="shopcartpage.php" class="text-indigo-500 mr-4 hover:text-indigo-700">
                 View cart 
             </a>-->
+
+                    <?php if (flash('added')): ?>
+                        <div class="w-[400px]  flex justify-between items-center mt-3 rounded-md">
+                            <span class="flex justify-start items-center p-1">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                                    stroke="currentColor" class="w-6 h-6 text-green-500">
+                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                        d="M12 9v3.75m9-.75a9 9 0 11-18 0 9 9 0 0118 0zm-9 3.75h.008v.008H12v-.008z" />
+                                </svg>
+                                <span class="ml-2">
+                                    Items added successfully
+                                </span>
+                            </span>
+                            <a href="shopcartpage.php" class="text-indigo-500 mr-4 hover:text-indigo-700">
+                                View cart
+                            </a>
+                        </div>
+
+                    <?php elseif (flash('already_added')): ?>
+                        <div class="w-[400px]  flex justify-between items-center mt-3 rounded-md">
+                            <span class="flex justify-start items-center p-1">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                                    stroke="currentColor" class="w-6 h-6 text-red-500">
+                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                        d="M12 9v3.75m9-.75a9 9 0 11-18 0 9 9 0 0118 0zm-9 3.75h.008v.008H12v-.008z" />
+                                </svg>
+                                <span class="ml-2">
+                                    Items already added
+                                </span>
+                            </span>
+                            <a href="shopcartpage.php" class="text-indigo-500 mr-4 hover:text-indigo-700">
+                                View cart
+                            </a>
+                        </div>
+                    <?php endif; ?>
+
                 </div>
 
 
@@ -174,7 +250,8 @@ require_once ('/opt/lampp/htdocs/mvcshop/app/views/layouts/navbar.php');
                             </svg>
                             <div class="w-64 h-4 bg-stone-100 border ml-2 rounded progress-container">
                                 <div class="w-32 h-4 bg-yellow-500 rounded-tl rounded-bl progress"
-                                    id="two-star-progresss"></div>
+                                    id="two-star-progresss">
+                                </div>
 
                             </div>
 
@@ -191,7 +268,8 @@ require_once ('/opt/lampp/htdocs/mvcshop/app/views/layouts/navbar.php');
                             </svg>
                             <div class="w-64 h-4 bg-stone-100 border ml-2 rounded progress-container">
                                 <div class="w-32 h-4 bg-yellow-500 rounded-tl rounded-bl progress"
-                                    id="two-star-progresss"></div>
+                                    id="two-star-progresss">
+                                </div>
 
                             </div>
 
@@ -208,7 +286,8 @@ require_once ('/opt/lampp/htdocs/mvcshop/app/views/layouts/navbar.php');
                             </svg>
                             <div class="w-64 h-4 bg-stone-100 border ml-2 rounded progress-container">
                                 <div class="w-32 h-4 bg-yellow-500 rounded-tl rounded-bl progress"
-                                    id="two-star-progresss"></div>
+                                    id="two-star-progresss">
+                                </div>
 
                             </div>
 
@@ -328,41 +407,21 @@ require_once ('/opt/lampp/htdocs/mvcshop/app/views/layouts/navbar.php');
 
 
 
-<div class="w-96  bg-green-100 flex justify-between items-center mt-3 p-2 border border-red-100">
-    <span class="flex justify-start items-center p-1">
-        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
-            class="w-6 h-6 ml-4 text-red-500">
-            <path stroke-linecap="round" stroke-linejoin="round"
-                d="M12 9v3.75m9-.75a9 9 0 11-18 0 9 9 0 0118 0zm-9 3.75h.008v.008H12v-.008z" />
-        </svg>
-        <span class="ml-2">Item already added</span>
-    </span>
-    <a href="shopcartpage.php" class="text-indigo-500 mr-4 hover:text-indigo-700">
-        View cart
-    </a>
-</div>
-
-
-
-<div class="w-96  bg-green-100 flex justify-between items-center mt-3 p-2 border border-red-100">
-    <span class="flex justify-start items-center p-1">
-        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
-            class="w-6 h-6 ml-4 text-red-500">
-            <path stroke-linecap="round" stroke-linejoin="round"
-                d="M12 9v3.75m9-.75a9 9 0 11-18 0 9 9 0 0118 0zm-9 3.75h.008v.008H12v-.008z" />
-        </svg>
-        <span class="ml-2">Item added to card</span>
-    </span>
-    <a href="shopcartpage.php" class="text-indigo-500 mr-4 hover:text-indigo-700">
-        View cart
-    </a>
-</div>
 
 
 
 
 
+<!-- -->
 
+
+
+
+<script>
+    const quantity = document.querySelector('.quantity');
+    const originquantity = document.querySelector('.originquantity');
+    console.log(originquantity.value)
+</script>
 
 
 

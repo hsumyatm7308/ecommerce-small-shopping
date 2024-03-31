@@ -1,9 +1,9 @@
 <?php
 
-session_start();
 
 require_once 'config/config.php';
 require_once 'helpers/Pagination.php';
+require_once 'helpers/flashmessage.php';
 require_once 'helpers/redirect.php';
 
 spl_autoload_register(function ($class) {
