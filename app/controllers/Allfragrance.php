@@ -65,13 +65,9 @@ class Allfragrance extends Controller
         $status = $this->allmodel->getstatus($singledata['status_id']);
         $userinfo = $this->allmodel->getuserinfo();
 
+        $allreviews = $this->allmodel->showreview($id);
 
-
-
-
-
-
-
+        var_dump($allreviews);
 
 
         if (isset($_POST['addtocart'])) {
@@ -89,6 +85,8 @@ class Allfragrance extends Controller
             'brand' => $brand,
             'status' => $status,
             'user' => $userinfo,
+            'allreviews' => $allreviews,
+
             "review" => $_POST['userreview'],
             "email" => $_POST['useremail'],
             "username" => $_POST['username'],
@@ -128,12 +126,13 @@ class Allfragrance extends Controller
 
 
 
-
         $this->view('allfragrance/show', $data);
 
 
 
     }
+
+
 }
 
 

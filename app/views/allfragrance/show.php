@@ -32,26 +32,40 @@ require_once ('/opt/lampp/htdocs/mvcshop/app/views/layouts/navbar.php');
 
             <div class="">
 
-                <!-- <form action="" method="post"> -->
                 <h1 class="text-3xl">
                     <?php echo $data['singledata']['name'] ?> By
-                    <?php echo $data['brand']['name'] ?>
+                    <?php echo $data['brand']['name'] ?> 6.7 Oz
                     EDT
                 </h1>
 
                 <?php if ($data['status']['id'] == 1): ?>
-                    <p class="mt-3 text-xs">Available
-                        <span class="text-green-600"> (
-                            <?php echo $data['status']['name'] ?>)
-                        </span>
-                    </p>
+
+                    <?php if ($data['singledata']['quantity'] <= 5): ?>
+
+                        <p class="mt-3 text-xs">Available
+                            <span class="text-red-600"> (
+                                <?php echo $data['singledata']['quantity'] ?> product left)
+                            </span>
+                        </p>
+
+                    <?php else: ?>
+
+                        <p class="mt-3 text-xs">Available
+                            <span class="text-green-600"> (
+                                <?php echo $data['status']['name'] ?>)
+                            </span>
+                        </p>
+
+                    <?php endif; ?>
 
                 <?php else: ?>
+
                     <p class="mt-3 text-xs">
                         <span class="text-red-600"> (
                             <?php echo $data['status']['name'] ?>)
                         </span>
                     </p>
+
 
                 <?php endif; ?>
 
@@ -88,7 +102,6 @@ require_once ('/opt/lampp/htdocs/mvcshop/app/views/layouts/navbar.php');
 
                     </div>
 
-                    <!-- if number is under 3, 3 left product</span> -->
 
 
 
@@ -293,31 +306,45 @@ require_once ('/opt/lampp/htdocs/mvcshop/app/views/layouts/navbar.php');
         </div>
     </div>
 
-    <div class="w-full flex justify-center items-center mt-5">
-        <div class="w-[80%]">
-            <h3 class="text-xl flex items-center p-1 mb-5">
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                    stroke="currentColor" class="w-6 h-6">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 9h16.5m-16.5 6.75h16.5" />
-                </svg>
 
-                Reviews
-            </h3>
-
-            <div id="review_content">
+    <!-- Description and review  -->
+    <section>
+        <div class="w-full mt-5">
+            <div class="flex font-medium space-x-4">
+                <h3 class="text-xl flex items-center p-2 mb-5 border-2 border-b-transparent   des_and_rev">
+                    <span class="uppercase text-sm">Description</span>
+                </h3>
 
 
-
-
-
-
-
+                <h3 class="text-xl flex items-center p-2 mb-5 des_and_rev">
+                    <span class="uppercase text-sm">Review</span>
+                </h3>
 
             </div>
-        </div>
-    </div>
 
+
+            <div class="flex pb-10 ">
+
+                <div id="" class="des_and_rev_text">
+                    <?php echo $data['singledata']['description'] ?>
+                </div>
+
+                <div class="des_and_rev_text hidden">
+                    <?php foreach ($data['allreviews'] as $review): ?>
+                        <div id="">
+                            <?php echo $review['reviews'] ?>
+                        </div>
+                    <?php endforeach; ?>
+                </div>
+            </div>
+        </div>
+    </section>
 </section>
+
+
+
+
+
 
 
 
@@ -480,18 +507,9 @@ require_once ('/opt/lampp/htdocs/mvcshop/app/views/layouts/navbar.php');
 
 
 
-<!-- -->
 
 
-
-
-<script>
-    const quantity = document.querySelector('.quantity');
-    const originquantity = document.querySelector('.originquantity');
-    console.log(originquantity.value)
-</script>
-
-
+<script src="<?php echo URLROOT; ?>/public/js/allfragrance.js"></script>
 
 </body>
 

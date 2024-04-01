@@ -267,18 +267,8 @@ class All
                     $this->db->dbbind(':rating', $rating);
                     $this->db->dbbind(':userid', $userid);
                     $this->db->dbbind(':itemid', $itemid);
-
                     $this->db->dbexecute();
                 }
-
-
-
-
-                //     if ($this->db->dbexecute()) {
-                //         return true;
-                //     } else {
-                //         return false;
-                //     }
 
             }
         }
@@ -286,7 +276,17 @@ class All
     }
 
 
+    // show review 
+    public function showreview($id)
+    {
 
+        $userid = $_SESSION['user_id'];
+
+        $this->db->dbquery('SELECT * FROM reviews WHERE user_id = :userid AND item_id = :id');
+        $this->db->dbbind(':id', $id);
+        $this->db->dbbind(':userid', $userid);
+        return $this->db->getmultidata();
+    }
 
 }
 
