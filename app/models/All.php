@@ -246,47 +246,7 @@ class All
 
 
 
-    public function insertreview($data)
-    {
 
-        $userid = $_SESSION['user_id'];
-        if ($userid) {
-
-            if (isset($_POST['reviewbtn']) && $_SERVER['REQUEST_METHOD'] === 'POST') {
-                $review = $data['review'];
-                $username = $data['username'];
-                $email = $data['email'];
-                $rating = $data['rating'];
-                $itemid = $data['itemid'];
-
-
-                if (!empty($review) && !empty($username) && !empty($email) && !empty($rating)) {
-
-                    $this->db->dbquery('INSERT INTO reviews (reviews,rating,user_id,item_id) VALUES(:review,:rating,:userid,:itemid)');
-                    $this->db->dbbind(':review', $review);
-                    $this->db->dbbind(':rating', $rating);
-                    $this->db->dbbind(':userid', $userid);
-                    $this->db->dbbind(':itemid', $itemid);
-                    $this->db->dbexecute();
-                }
-
-            }
-        }
-
-    }
-
-
-    // show review 
-    public function showreview($id)
-    {
-
-        $userid = $_SESSION['user_id'];
-
-        $this->db->dbquery('SELECT * FROM reviews WHERE user_id = :userid AND item_id = :id');
-        $this->db->dbbind(':id', $id);
-        $this->db->dbbind(':userid', $userid);
-        return $this->db->getmultidata();
-    }
 
 }
 

@@ -3,14 +3,17 @@
 class Allfragrance extends Controller
 {
 
-    public $allmodel;
-    public $sidebarmodel;
+    public $allmodal;
+    public $sidebarmodal;
     public $pagination;
+
+    public $reviewmodal;
 
     public function __construct()
     {
-        $this->allmodel = $this->model('All');
-        $this->sidebarmodel = $this->model('Side');
+        $this->allmodal = $this->model('All');
+        $this->sidebarmodal = $this->model('Side');
+        $this->reviewmodal = $this->model('Review');
         $this->pagination = new Pagination;
 
     }
@@ -26,14 +29,14 @@ class Allfragrance extends Controller
         $itemsperpage = 8;
         $offset = ($page - 1) * $itemsperpage;
 
-        $totalitems = $this->allmodel->countItems();
+        $totalitems = $this->allmodal->countItems();
 
         $totalPages = ceil($totalitems / $itemsperpage);
 
 
-        $items = $this->allmodel->items($offset, $itemsperpage);
-        $types = $this->allmodel->types();
-        $sidebaritems = $this->sidebarmodel->sidebaritems();
+        $items = $this->allmodal->items($offset, $itemsperpage);
+        $types = $this->allmodal->types();
+        $sidebaritems = $this->sidebarmodal->sidebaritems();
 
 
         $minprice = $this->pagination->getparameter()['minprice'];
@@ -60,18 +63,18 @@ class Allfragrance extends Controller
 
     public function show($id)
     {
-        $singledata = $this->allmodel->getsingleitem($id);
-        $brand = $this->allmodel->getbrand($singledata['id']);
-        $status = $this->allmodel->getstatus($singledata['status_id']);
-        $userinfo = $this->allmodel->getuserinfo();
+        $singledata = $this->allmodal->getsingleitem($id);
+        $brand = $this->allmodal->getbrand($singledata['id']);
+        $status = $this->allmodal->getstatus($singledata['status_id']);
+        $userinfo = $this->allmodal->getuserinfo();
 
-        $allreviews = $this->allmodel->showreview($id);
+        $allreviews = $this->reviewmodal->showreview($id);
 
         var_dump($allreviews);
 
 
         if (isset($_POST['addtocart'])) {
-            if ($this->allmodel->shopcardlist()) {
+            if ($this->allmodal->shopcardlist()) {
                 flash('added', 'Item added successfully');
             } else {
                 flash('already_added', 'Item already added');
@@ -121,7 +124,8 @@ class Allfragrance extends Controller
                 $data['ratingerr'] = "required";
             }
 
-            $this->allmodel->insertreview($data);
+            $this->allmodal->insertreview($data);
+
         }
 
 

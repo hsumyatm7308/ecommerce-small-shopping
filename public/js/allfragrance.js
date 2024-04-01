@@ -1,4 +1,4 @@
-//show 
+//description and review
 const des_and_rev = document.querySelectorAll('.des_and_rev');
 const des_and_rev_text = document.querySelectorAll('.des_and_rev_text');
 
@@ -20,4 +20,6 @@ des_and_rev.forEach((ele, idx) => {
             des_and_rev[1].classList.add('border-2', 'border-b-transparent')
         }
     })
-})
+});
+
+

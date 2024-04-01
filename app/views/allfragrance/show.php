@@ -9,13 +9,12 @@ require_once ('/opt/lampp/htdocs/mvcshop/app/views/layouts/navbar.php');
 
 
 
-<section class="container mx-auto text-[#4c5372] mt-20 px-2 ">
+<section class="container mx-auto text-[#4c5372] mt-20 px-10 ">
 
 
     <div class="w-full h-full grid grid-cols-2">
-        <div class="flex justify-center items-center">
-            <div
-                class="w-[500px] h-[590px] border flex justify-center items-center rounded-md relative overflow-hidden">
+        <div class="flex justify-start items-center">
+            <div class="w-[500px] h-[590px] border flex justify-start items-center rounded-md relative overflow-hidden">
                 <img src="<?php echo IMG_ROOT; ?><?php echo $data['singledata']['image'] ?>" alt=""
                     class="object-fit w-full h-full">
 
@@ -306,39 +305,11 @@ require_once ('/opt/lampp/htdocs/mvcshop/app/views/layouts/navbar.php');
         </div>
     </div>
 
-
     <!-- Description and review  -->
-    <section>
-        <div class="w-full mt-5">
-            <div class="flex font-medium space-x-4">
-                <h3 class="text-xl flex items-center p-2 mb-5 border-2 border-b-transparent   des_and_rev">
-                    <span class="uppercase text-sm">Description</span>
-                </h3>
+    <?php
+    require_once ('/opt/lampp/htdocs/mvcshop/app/views/reviews/index.php');
+    ?>
 
-
-                <h3 class="text-xl flex items-center p-2 mb-5 des_and_rev">
-                    <span class="uppercase text-sm">Review</span>
-                </h3>
-
-            </div>
-
-
-            <div class="flex pb-10 ">
-
-                <div id="" class="des_and_rev_text">
-                    <?php echo $data['singledata']['description'] ?>
-                </div>
-
-                <div class="des_and_rev_text hidden">
-                    <?php foreach ($data['allreviews'] as $review): ?>
-                        <div id="">
-                            <?php echo $review['reviews'] ?>
-                        </div>
-                    <?php endforeach; ?>
-                </div>
-            </div>
-        </div>
-    </section>
 </section>
 
 
@@ -507,9 +478,10 @@ require_once ('/opt/lampp/htdocs/mvcshop/app/views/layouts/navbar.php');
 
 
 
-
-
 <script src="<?php echo URLROOT; ?>/public/js/allfragrance.js"></script>
+
+
+<!-- <script src="<?php echo URLROOT; ?>/public/js/allfragrance.js"></script> -->
 
 </body>
 
