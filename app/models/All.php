@@ -246,30 +246,32 @@ class All
 
 
 
-    public function insertreview()
+    public function insertreview($data)
     {
 
         $userid = $_SESSION['user_id'];
         if ($userid) {
 
             if (isset($_POST['reviewbtn']) && $_SERVER['REQUEST_METHOD'] === 'POST') {
-                $review = $_POST['userreview'];
-                $email = $_POST['useremail'];
-                $username = $_POST['username'];
-                $rating = $_POST['rating'];
-                $itemid = $_POST['itemid'];
+                $review = $data['review'];
+                $username = $data['username'];
+                $email = $data['email'];
+                $rating = $data['rating'];
+                $itemid = $data['itemid'];
 
 
+                if (!empty($review) && !empty($username) && !empty($email) && !empty($rating)) {
 
-                // echo $review, $username, $rating, $itemid;
+                    $this->db->dbquery('INSERT INTO reviews (reviews,rating,user_id,item_id) VALUES(:review,:rating,:userid,:itemid)');
+                    $this->db->dbbind(':review', $review);
+                    $this->db->dbbind(':rating', $rating);
+                    $this->db->dbbind(':userid', $userid);
+                    $this->db->dbbind(':itemid', $itemid);
 
-                $this->db->dbquery('INSERT INTO reviews (reviews,rating,user_id,item_id) VALUES(:review,:rating,:userid,:itemid)');
-                $this->db->dbbind(':review', $review);
-                $this->db->dbbind(':rating', $rating);
-                $this->db->dbbind(':userid', $userid);
-                $this->db->dbbind(':itemid', $itemid);
+                    $this->db->dbexecute();
+                }
 
-                $this->db->dbexecute();
+
 
 
                 //     if ($this->db->dbexecute()) {

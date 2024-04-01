@@ -64,18 +64,22 @@ class Allfragrance extends Controller
         $brand = $this->allmodel->getbrand($singledata['id']);
         $status = $this->allmodel->getstatus($singledata['status_id']);
         $userinfo = $this->allmodel->getuserinfo();
-        $this->allmodel->insertreview();
 
 
 
-        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            if (isset($_POST['addtocart'])) {
-                if ($this->allmodel->shopcardlist()) {
-                    flash('added', 'Item added successfully');
-                } else {
-                    flash('already_added', 'Item already added');
 
-                }
+
+
+
+
+
+
+        if (isset($_POST['addtocart'])) {
+            if ($this->allmodel->shopcardlist()) {
+                flash('added', 'Item added successfully');
+            } else {
+                flash('already_added', 'Item already added');
+
             }
         }
 
@@ -84,8 +88,45 @@ class Allfragrance extends Controller
             'singledata' => $singledata,
             'brand' => $brand,
             'status' => $status,
-            'user' => $userinfo
+            'user' => $userinfo,
+            "review" => $_POST['userreview'],
+            "email" => $_POST['useremail'],
+            "username" => $_POST['username'],
+            "rating" => $_POST['rating'],
+            "itemid" => $_POST['itemid'],
+
+            "errmessage" => "",
+            "reviewerr" => "",
+            "emailerr" => "",
+            "usernameerr" => "",
+            "ratingerr" => "",
         ];
+
+        if (isset($_POST['reviewbtn'])) {
+            if (empty($data['review'])) {
+                $data['errmessage'] = "required";
+                $data['reviewerr'] = "required";
+            }
+
+            if (empty($data['email'])) {
+                $data['errmessage'] = "required";
+                $data['emailerr'] = "required";
+            }
+
+            if (empty($data['username'])) {
+                $data['errmessage'] = "required";
+                $data['usernameerr'] = "required";
+            }
+
+            if (empty($data['rating'])) {
+                $data['errmessage'] = "required";
+                $data['ratingerr'] = "required";
+            }
+
+            $this->allmodel->insertreview($data);
+        }
+
+
 
 
         $this->view('allfragrance/show', $data);

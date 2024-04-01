@@ -324,7 +324,8 @@ require_once ('/opt/lampp/htdocs/mvcshop/app/views/layouts/navbar.php');
 
 
 <!-- modal  -->
-<section id="reviewmodal" class="w-full h-screen fixed top-0 left-0 hidden">
+<section id="reviewmodal"
+    class="w-full h-screen fixed top-0 left-0 <?php echo !empty($data['errmessage']) ? 'flex' : 'hidden' ?> ">
     <div id="modaldialog"
         class="w-full h-full bg-[linear-gradient(rgba(0,0,0,.8),rgba(0,0,0,.8))] flex justify-center items-center  absolute inset-0 modalcontainer">
         <div class="w-[1100px] bg-stone-200 modal  px-10">
@@ -379,18 +380,28 @@ require_once ('/opt/lampp/htdocs/mvcshop/app/views/layouts/navbar.php');
                                     <div>
                                         <label for="rating"
                                             class="flex justify-between items-center"><span>Rating</span>
-                                            <span class="text-sm">Required</span></label>
+                                            <span
+                                                class="text-xs text-red-500 <?php echo !empty($data['ratingerr']) ? '' : 'hidden' ?> errmessage">
+                                                <?php echo $data['ratingerr'] ?>
+                                            </span>
+                                        </label>
 
                                         <div class="w-full relative custom-select">
                                             <select name="rating" id="rating"
+                                                value="<?php echo !empty($data['errmessage']) ? $data['rating'] : '' ?>"
                                                 class="block appearance-none w-full bg-white border border-gray-300  transition-all duration-300  hover:border-gray-400 px-4 py-2 pr-8 rounded-md shadow-sm focus:outline-none focus:border-gray-500 focus:ring-1 focus:ring-gray-100 focus:ring-opacity-50">
-                                                <option>Choose rating..</option>
+                                                <option selected disabled>Choose rating..</option>
 
-                                                <option value="1">1 star</option>
-                                                <option value="2">2 stars</option>
-                                                <option value="3">3 starts</option>
-                                                <option value="4">4 starts</option>
-                                                <option value="5">5 starts</option>
+                                                <option value="1" <?php echo $data['rating'] == 1 ? 'selected' : '' ?>>1
+                                                    star</option>
+                                                <option value="2" <?php echo $data['rating'] == 2 ? 'selected' : '' ?>>2
+                                                    stars</option>
+                                                <option value="3" <?php echo $data['rating'] == 3 ? 'selected' : '' ?>>3
+                                                    starts</option>
+                                                <option value="4" <?php echo $data['rating'] == 4 ? 'selected' : '' ?>>4
+                                                    starts</option>
+                                                <option value="5" <?php echo $data['rating'] == 5 ? 'selected' : '' ?>>5
+                                                    starts</option>
                                             </select>
 
                                             <div
@@ -407,29 +418,44 @@ require_once ('/opt/lampp/htdocs/mvcshop/app/views/layouts/navbar.php');
                                     <div class="w-full">
                                         <label for="username"
                                             class="flex justify-between items-center"><span>Name</span>
-                                            <span class="text-sm">Required</span></label>
+                                            <span
+                                                class="text-xs text-red-500 <?php echo !empty($data['usernameerr']) ? '' : '' ?> errmessage">
+                                                <?php echo $data['usernameerr'] ?>
+                                            </span>
+                                        </label>
                                         <input type="text" name="username" id="username"
                                             class="w-full rounded-md px-3 py-3 focus:outline-none focus:border-gray-500 focus:ring-1 focus:ring-gray-100 focus:ring-opacity-50"
-                                            value="<?php echo $data['user']['name'] ?>" placeholder="Enter your name"
-                                            autofocus="on">
+                                            value="<?php echo $_SESSION['user_id'] ? $data['user']['name'] : '' ?>"
+                                            placeholder="Enter your name" autofocus="on">
                                     </div>
 
                                     <div class="w-full">
                                         <label for="useremail"
                                             class="flex justify-between items-center"><span>Email</span>
-                                            <span class="text-sm">Required</span></label>
+                                            <span
+                                                class="text-xs text-red-500 <?php echo !empty($data['emailerr']) ? '' : '' ?> errmessage">
+                                                <?php echo $data['emailerr'] ?>
+                                            </span>
+                                        </label>
                                         <input type="email" name="useremail" id="useremail"
                                             class="w-full rounded-md px-3 py-3 focus:outline-none focus:border-gray-500 focus:ring-1 focus:ring-gray-100 focus:ring-opacity-50"
-                                            value="<?php echo $data['user']['email'] ?>" placeholder="Enter your email">
+                                            value="<?php echo $_SESSION['user_id'] ? $data['user']['email'] : '' ?>"
+                                            placeholder="Enter your email">
                                     </div>
 
                                     <div class="w-full">
                                         <label for="userreview"
                                             class="flex justify-between items-center"><span>Review</span>
-                                            <span class="text-sm">Required</span></label>
+                                            <span
+                                                class="text-xs text-red-500 <?php echo !empty($data['reviewerr']) ? '' : '' ?> errmessage">
+                                                <?php echo $data['reviewerr'] ?>
+                                            </span>
+                                        </label>
                                         <textarea name="userreview" id="userreview"
-                                            class="w-full rounded-md focus:outline-none focus:border-gray-500 focus:ring-1 focus:ring-gray-100 focus:ring-opacity-50 px-3 py-3"
-                                            cols="30" rows="" placeholder="Type review here"></textarea>
+                                            class="w-full rounded-md focus:outline-none focus:border-gray-500 focus:ring-1 focus:ring-gray-100 focus:ring-opacity-50 px-3 py-3 <?php echo !empty($data['errmessage']) ? 'border border-red-200' : '' ?>"
+                                            cols="30" rows=""
+                                            placeholder="Type review here"><?php echo !empty($data['errmessage']) ? $data['review'] : '' ?></textarea>
+
                                     </div>
                                 </div>
 
