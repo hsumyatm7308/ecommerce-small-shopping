@@ -16,13 +16,14 @@
 
         <div class="w-full flex pb-10 mt-5">
 
-            <div id="" class="des_and_rev_text ">
+            <div id="" class="des_and_rev_text hidden">
                 <?php echo $data['singledata']['description'] ?>
             </div>
 
             <div class="w-full grid grid-cols-2 gap-x-20 gap-y-10 des_and_rev_text ">
 
                 <?php foreach ($data['allreviews'] as $review): ?>
+
 
                     <div class="space-y-4 border rounded-md px-5 py-3">
                         <!-- primary review  -->
@@ -100,7 +101,7 @@
                             </div>
                             <div class="space-y-4">
                                 <h1 class="text-lg font-medium">
-                                    <?php echo $data['user']['name']; ?>
+                                    <?php echo $review['name']; ?>
                                     <div class="text-xs font-normal">
                                         <?php $timestamp = strtotime($review['created_at']);
                                         $formattedDate = date('d-M-Y', $timestamp);
@@ -127,7 +128,9 @@
                                 </div>
 
                                 <div class="text-xs flex justify-center items-center reply_btns"
-                                    data-reply-id="<?php echo $review['id']; ?>">
+                                    data-reply-id="<?php echo $review['id']; ?>"
+                                    data-item-id="<?php echo $data['singledata']['id'] ?>"
+                                    data-username="<?php echo $review['name'] ?>">
                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                         stroke-width="1.5" stroke="currentColor" class="w-4 h-4">
                                         <path stroke-linecap="round" stroke-linejoin="round"
@@ -141,7 +144,7 @@
 
 
                         <!-- Reply review  -->
-                        <div class="space-y-2 border rounded-md px-5 py-2 mb-5 mt-5">
+                        <!-- <div class="space-y-2 border rounded-md px-5 py-2 mb-5 mt-5">
                             <div>
                                 <div class="flex justify-between items-center mb-3">
 
@@ -151,8 +154,14 @@
                                 </div>
                                 <div class="space-y-4">
                                     <div class="flex justify-between ">
-                                        <h1 class="text-lg font-medium">
-                                            <?php echo $data['user']['name']; ?>
+                                        <h1 class="text-sm font-medium">
+
+                                            <span>
+                                                <?php echo $review['name']; ?>
+                                            </span>
+                                            from
+                                            <?php echo $data['user']['name'] ?>
+
                                             <div class="text-[12px] font-normal">
                                                 <?php $timestamp = strtotime($review['created_at']);
                                                 $formattedDate = date('d-M-Y', $timestamp);
@@ -263,138 +272,83 @@
 
                             </div>
 
-                        </div>
+                        </div> -->
 
-
-
-                        <div class="space-y-2 border rounded-md px-5 py-2 mb-5 mt-5">
-                            <div>
-                                <div class="flex justify-between items-center mb-3">
-
+                        <?php foreach ($data['replyreviews'] as $replyreviews): ?>
+                            <?php if ($replyreviews['reply_id'] == $review['id']): ?>
+                                <div class="space-y-2 border rounded-md px-5 py-2 mb-5 mt-5">
                                     <div>
+                                        <div class="flex justify-between items-center mb-3">
 
-                                    </div>
-                                </div>
-                                <div class="space-y-4">
-                                    <div class="flex justify-between ">
-                                        <h1 class="text-lg font-medium">
-                                            <?php echo $data['user']['name']; ?>
-                                            <div class="text-[12px] font-normal">
-                                                <?php $timestamp = strtotime($review['created_at']);
-                                                $formattedDate = date('d-M-Y', $timestamp);
-                                                echo $formattedDate;
-                                                ?>
+                                            <div>
+
                                             </div>
-                                        </h1>
+                                        </div>
+                                        <div class="space-y-4">
+                                            <div class="flex justify-between ">
+                                                <h1 class="text-lg font-medium">
+                                                    <span>
+                                                        <?php echo $review['name']; ?>
+                                                    </span>
+                                                    by
+                                                    <?php echo $data['user']['name'] ?>
+                                                    <div class="text-[12px] font-normal">
+                                                        <?php $timestamp = strtotime($review['created_at']);
+                                                        $formattedDate = date('d-M-Y', $timestamp);
+                                                        echo $formattedDate;
+                                                        ?>
+                                                    </div>
+                                                </h1>
 
-                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                            stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
-                                            <path stroke-linecap="round" stroke-linejoin="round"
-                                                d="M12 6.75a.75.75 0 1 1 0-1.5.75.75 0 0 1 0 1.5ZM12 12.75a.75.75 0 1 1 0-1.5.75.75 0 0 1 0 1.5ZM12 18.75a.75.75 0 1 1 0-1.5.75.75 0 0 1 0 1.5Z" />
-                                        </svg>
+                                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                                    stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                                        d="M12 6.75a.75.75 0 1 1 0-1.5.75.75 0 0 1 0 1.5ZM12 12.75a.75.75 0 1 1 0-1.5.75.75 0 0 1 0 1.5ZM12 18.75a.75.75 0 1 1 0-1.5.75.75 0 0 1 0 1.5Z" />
+                                                </svg>
+
+                                            </div>
+                                            <div>
+                                                <?php echo $replyreviews['reviews'] ?>
+
+                                            </div>
+
+                                        </div>
+
+                                        <div class="text-sm flex justify-end items-center space-x-2 mt-3">
+                                            <div class="text-xs flex justify-center items-center">
+                                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                                    stroke-width="1.5" stroke="currentColor" class="w-4 h-4">
+                                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                                        d="M11.48 3.499a.562.562 0 0 1 1.04 0l2.125 5.111a.563.563 0 0 0 .475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 0 0-.182.557l1.285 5.385a.562.562 0 0 1-.84.61l-4.725-2.885a.562.562 0 0 0-.586 0L6.982 20.54a.562.562 0 0 1-.84-.61l1.285-5.386a.562.562 0 0 0-.182-.557l-4.204-3.602a.562.562 0 0 1 .321-.988l5.518-.442a.563.563 0 0 0 .475-.345L11.48 3.5Z" />
+                                                </svg>
+                                                <span>Vote</span>
+
+                                            </div>
+
+                                            <div class="text-xs flex justify-center items-center reply_btns"
+                                                data-reply-id="<?php echo $review['id']; ?>"
+                                                data-item-id="<?php echo $data['singledata']['id'] ?>"
+                                                data-username="<?php echo $review['name'] ?>">
+                                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                                    stroke-width="1.5" stroke="currentColor" class="w-4 h-4">
+                                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                                        d="M8.25 9.75h4.875a2.625 2.625 0 0 1 0 5.25H12M8.25 9.75 10.5 7.5M8.25 9.75 10.5 12m9-7.243V21.75l-3.75-1.5-3.75 1.5-3.75-1.5-3.75 1.5V4.757c0-1.108.806-2.057 1.907-2.185a48.507 48.507 0 0 1 11.186 0c1.1.128 1.907 1.077 1.907 2.185Z" />
+                                                </svg>
+                                                <span>Reply</span>
+                                            </div>
+                                        </div>
 
                                     </div>
-                                    <div>
-                                        <?php echo $review['reviews'] ?>
 
-                                    </div>
 
                                 </div>
-
-                                <div class="text-sm flex justify-end items-center space-x-2 mt-3">
-                                    <div class="text-xs flex justify-center items-center">
-                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                            stroke-width="1.5" stroke="currentColor" class="w-4 h-4">
-                                            <path stroke-linecap="round" stroke-linejoin="round"
-                                                d="M11.48 3.499a.562.562 0 0 1 1.04 0l2.125 5.111a.563.563 0 0 0 .475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 0 0-.182.557l1.285 5.385a.562.562 0 0 1-.84.61l-4.725-2.885a.562.562 0 0 0-.586 0L6.982 20.54a.562.562 0 0 1-.84-.61l1.285-5.386a.562.562 0 0 0-.182-.557l-4.204-3.602a.562.562 0 0 1 .321-.988l5.518-.442a.563.563 0 0 0 .475-.345L11.48 3.5Z" />
-                                        </svg>
-                                        <span>Vote</span>
-
-                                    </div>
-
-                                    <div class="text-xs flex justify-center items-center reply_btns"
-                                        data-reply-id="<?php echo $review['id']; ?>">
-                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                            stroke-width="1.5" stroke="currentColor" class="w-4 h-4">
-                                            <path stroke-linecap="round" stroke-linejoin="round"
-                                                d="M8.25 9.75h4.875a2.625 2.625 0 0 1 0 5.25H12M8.25 9.75 10.5 7.5M8.25 9.75 10.5 12m9-7.243V21.75l-3.75-1.5-3.75 1.5-3.75-1.5-3.75 1.5V4.757c0-1.108.806-2.057 1.907-2.185a48.507 48.507 0 0 1 11.186 0c1.1.128 1.907 1.077 1.907 2.185Z" />
-                                        </svg>
-                                        <span>Reply</span>
-                                    </div>
-
-                                </div>
-
-                            </div>
-
-                            <div class="space-y-2 border rounded-md px-5 py-2 mb-5 mt-5">
-                                <div>
-                                    <div class="flex justify-between items-center mb-3">
-
-                                        <div>
-
-                                        </div>
-                                    </div>
-                                    <div class="space-y-4">
-                                        <div class="flex justify-between ">
-                                            <h1 class="text-lg font-medium">
-                                                <?php echo $data['user']['name']; ?>
-                                                <div class="text-[12px] font-normal">
-                                                    <?php $timestamp = strtotime($review['created_at']);
-                                                    $formattedDate = date('d-M-Y', $timestamp);
-                                                    echo $formattedDate;
-                                                    ?>
-                                                </div>
-                                            </h1>
-
-                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                                stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
-                                                <path stroke-linecap="round" stroke-linejoin="round"
-                                                    d="M12 6.75a.75.75 0 1 1 0-1.5.75.75 0 0 1 0 1.5ZM12 12.75a.75.75 0 1 1 0-1.5.75.75 0 0 1 0 1.5ZM12 18.75a.75.75 0 1 1 0-1.5.75.75 0 0 1 0 1.5Z" />
-                                            </svg>
-
-                                        </div>
-                                        <div>
-                                            <?php echo $review['reviews'] ?>
-
-                                        </div>
-
-                                    </div>
-
-                                    <div class="text-sm flex justify-end items-center space-x-2 mt-3">
-                                        <div class="text-xs flex justify-center items-center">
-                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                                stroke-width="1.5" stroke="currentColor" class="w-4 h-4">
-                                                <path stroke-linecap="round" stroke-linejoin="round"
-                                                    d="M11.48 3.499a.562.562 0 0 1 1.04 0l2.125 5.111a.563.563 0 0 0 .475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 0 0-.182.557l1.285 5.385a.562.562 0 0 1-.84.61l-4.725-2.885a.562.562 0 0 0-.586 0L6.982 20.54a.562.562 0 0 1-.84-.61l1.285-5.386a.562.562 0 0 0-.182-.557l-4.204-3.602a.562.562 0 0 1 .321-.988l5.518-.442a.563.563 0 0 0 .475-.345L11.48 3.5Z" />
-                                            </svg>
-                                            <span>Vote</span>
-
-                                        </div>
-
-                                        <div class="text-xs flex justify-center items-center reply_btns"
-                                            data-reply-id="<?php echo $review['id']; ?>">
-                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                                stroke-width="1.5" stroke="currentColor" class="w-4 h-4">
-                                                <path stroke-linecap="round" stroke-linejoin="round"
-                                                    d="M8.25 9.75h4.875a2.625 2.625 0 0 1 0 5.25H12M8.25 9.75 10.5 7.5M8.25 9.75 10.5 12m9-7.243V21.75l-3.75-1.5-3.75 1.5-3.75-1.5-3.75 1.5V4.757c0-1.108.806-2.057 1.907-2.185a48.507 48.507 0 0 1 11.186 0c1.1.128 1.907 1.077 1.907 2.185Z" />
-                                            </svg>
-                                            <span>Reply</span>
-                                        </div>
-
-                                    </div>
-
-                                </div>
-
-
-                            </div>
-
-                        </div>
-
-
+                            <?php endif; ?>
+                        <?php endforeach; ?>
                         <div>
                             <span>load more</span>
                         </div>
                     </div>
+
 
 
                 <?php endforeach; ?>
@@ -423,18 +377,24 @@
 
 
                         <div class="w-full flex justify-center items-center flex-col ">
-                            <input type="text" name="replyusername" id="replyusername" class="w-[90%] mb-3 p-3"
+
+                            <span id="tousername"></span>
+                            from
+                            <?php echo $data['user']['name'] ?>
+
+                            <input type="hidden" name="replyusername" id="replyusername" class="w-[90%] mb-3 p-3"
                                 value="<?php echo $data['user']['name'] ?>" placeholder="Enter your name">
                             <textarea name="replytext" id="replytext" class="w-[90%] p-2" cols="30" rows=""
                                 placeholder="Type review here"></textarea>
                         </div>
 
                         <div class="w-full flex justify-center items-center mt-3">
-                            <button type="button" name="replybtn" class="w-[90%] bg-gray-400 p-2"
+                            <button type="submit" name="replybtn" class="w-[90%] bg-gray-400 p-2"
                                 id="submitreview">Submit</button>
                         </div>
 
                         <input type="text" name="reply_id" id="reply_id" value="">
+                        <input type="text" name="item_id" id="item_id" value="">
                     </form>
                 </div>
             </div>
@@ -449,13 +409,26 @@
     const reply_btns = document.querySelectorAll('.reply_btns');
     const replymodal = document.getElementById('replymodal');
     const reply_id = document.getElementById('reply_id');
+    const item_id = document.getElementById('item_id');
+    const tousername = document.getElementById('tousername');
 
     reply_btns.forEach((ele, idx) => {
         ele.addEventListener('click', function () {
-            const reviewid = ele.getAttribute('data-reply-id')
+            const reviewid = ele.getAttribute('data-reply-id');
+            const itemid = ele.getAttribute('data-item-id');
+            const username = ele.getAttribute('data-username');
+            console.log(itemid)
+
+
+
             replymodal.setAttribute('data-review-id', reviewid);
+            replymodal.setAttribute('data-item-id', itemid);
+
+
             replymodal.classList.toggle('hidden');
             reply_id.setAttribute('value', reviewid)
+            item_id.setAttribute('value', itemid)
+            tousername.innerText = username
         })
     })
 </script>

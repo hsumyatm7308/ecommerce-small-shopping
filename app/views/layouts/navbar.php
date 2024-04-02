@@ -84,7 +84,8 @@
                     </svg>
 
                     <span class="ml-3 cursor-pointer">
-                        <h1 class="accountbtn">Account
+                        <h1 class="accountbtn">
+                            <?php echo $data['user']['name'] ?>
                         </h1>
                         <ul id="account-dropdown"
                             class="w-36 bg-gray-200 border rounded-md  shadow-lg absolute p-2 mt-4">

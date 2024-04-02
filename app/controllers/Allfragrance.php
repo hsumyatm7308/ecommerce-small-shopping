@@ -41,6 +41,7 @@ class Allfragrance extends Controller
 
         $minprice = $this->pagination->getparameter()['minprice'];
         $maxprice = $this->pagination->getparameter()['maxprice'];
+        $userinfo = $this->allmodal->getuserinfo();
 
 
         $data = [
@@ -53,6 +54,8 @@ class Allfragrance extends Controller
             'totalitems' => $totalitems,
             'minprice' => $minprice,
             'maxprice' => $maxprice,
+
+            'user' => $userinfo
         ];
 
 
@@ -70,7 +73,21 @@ class Allfragrance extends Controller
 
         $allreviews = $this->reviewmodal->showreview($id);
 
-        var_dump($allreviews);
+
+
+        $replyreviews = $this->reviewmodal->replyreview($id);
+        print_r($replyreviews)
+        ;
+        // foreach ($replyreviews as $reply) {
+        //     echo $reply['reviews'];
+        // }
+
+
+
+
+
+        // $reviewusername = $this->allmodal->getreviewuser($id);
+        // var_dump($reviewusername);
 
 
         if (isset($_POST['addtocart'])) {
@@ -101,6 +118,9 @@ class Allfragrance extends Controller
             "emailerr" => "",
             "usernameerr" => "",
             "ratingerr" => "",
+
+            "replyreviews" => $replyreviews
+
         ];
 
         if (isset($_POST['reviewbtn'])) {
@@ -124,9 +144,13 @@ class Allfragrance extends Controller
                 $data['ratingerr'] = "required";
             }
 
-            $this->allmodal->insertreview($data);
+            $this->reviewmodal->insertreview($data);
 
         }
+
+
+        $insertreply = $this->reviewmodal->insertreply();
+
 
 
 
