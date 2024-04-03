@@ -128,7 +128,8 @@
                                 </div>
 
                                 <div class="text-xs flex justify-center items-center reply_btns"
-                                    data-reply-id="<?php echo $review['id']; ?>"
+                                    data-reply-id="<?php echo $replyreviews['reviewreplyid']; ?>"
+                                    data-review-id="<?php echo $review['id'] ?>"
                                     data-item-id="<?php echo $data['singledata']['id'] ?>"
                                     data-username="<?php echo $review['name'] ?>">
                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
@@ -275,7 +276,8 @@
                         </div> -->
 
                         <?php foreach ($data['replyreviews'] as $replyreviews): ?>
-                            <?php if ($replyreviews['reply_id'] == $review['id']): ?>
+                            <?php if ($replyreviews['review_id'] == $review['id']): ?>
+
                                 <div class="space-y-2 border rounded-md px-5 py-2 mb-5 mt-5">
                                     <div>
                                         <div class="flex justify-between items-center mb-3">
@@ -287,14 +289,14 @@
                                         <div class="space-y-4">
                                             <div class="flex justify-between ">
                                                 <h1 class="text-lg font-medium">
-                                                    <span>
-                                                        <?php echo $review['name']; ?>
+                                                    <span class="tousernameclass">
+                                                        <?php echo $replyreviews['touser_name'] ?>
                                                     </span>
                                                     by
-                                                    <?php echo $data['user']['name'] ?>
+                                                    <?php echo $replyreviews['name'] ?>
                                                     <div class="text-[12px] font-normal">
                                                         <?php $timestamp = strtotime($review['created_at']);
-                                                        $formattedDate = date('d-M-Y', $timestamp);
+                                                        $formattedDate = date('d-M-Y h:m:s', $timestamp);
                                                         echo $formattedDate;
                                                         ?>
                                                     </div>
@@ -308,7 +310,7 @@
 
                                             </div>
                                             <div>
-                                                <?php echo $replyreviews['reviews'] ?>
+                                                <?php echo $replyreviews['replies'] ?>
 
                                             </div>
 
@@ -326,9 +328,10 @@
                                             </div>
 
                                             <div class="text-xs flex justify-center items-center reply_btns"
-                                                data-reply-id="<?php echo $review['id']; ?>"
+                                                data-reply-id="<?php echo $replyreviews['reviewreplyid']; ?>"
+                                                data-review-id="<?php echo $review['id'] ?>"
                                                 data-item-id="<?php echo $data['singledata']['id'] ?>"
-                                                data-username="<?php echo $review['name'] ?>">
+                                                data-username="<?php echo $replyreviews['name'] ?>">
                                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                                     stroke-width="1.5" stroke="currentColor" class="w-4 h-4">
                                                     <path stroke-linecap="round" stroke-linejoin="round"
@@ -342,7 +345,11 @@
 
 
                                 </div>
+
                             <?php endif; ?>
+
+
+
                         <?php endforeach; ?>
                         <div>
                             <span>load more</span>
@@ -394,7 +401,9 @@
                         </div>
 
                         <input type="text" name="reply_id" id="reply_id" value="">
+                        <input type="text" name="review_id" id="review_id" value="">
                         <input type="text" name="item_id" id="item_id" value="">
+                        <input type="text" name="touser_name" id="touser_name" value="">
                     </form>
                 </div>
             </div>
@@ -409,16 +418,18 @@
     const reply_btns = document.querySelectorAll('.reply_btns');
     const replymodal = document.getElementById('replymodal');
     const reply_id = document.getElementById('reply_id');
+    const review_id = document.getElementById('review_id');
     const item_id = document.getElementById('item_id');
-    const tousername = document.getElementById('tousername');
+    const tousernamemodal = document.getElementById('tousername');
+    const touser_name = document.getElementById('touser_name');
+    const tousernameclass = document.querySelector('.tousernameclass');
 
     reply_btns.forEach((ele, idx) => {
         ele.addEventListener('click', function () {
-            const reviewid = ele.getAttribute('data-reply-id');
+            const replyid = ele.getAttribute('data-reply-id');
+            const reviewid = ele.getAttribute('data-review-id');
             const itemid = ele.getAttribute('data-item-id');
             const username = ele.getAttribute('data-username');
-            console.log(itemid)
-
 
 
             replymodal.setAttribute('data-review-id', reviewid);
@@ -426,9 +437,14 @@
 
 
             replymodal.classList.toggle('hidden');
-            reply_id.setAttribute('value', reviewid)
+            reply_id.setAttribute('value', replyid)
+            review_id.setAttribute('value', reviewid)
             item_id.setAttribute('value', itemid)
-            tousername.innerText = username
+            touser_name.setAttribute('value', username)
+
+            console.log(touser_name);
+
+            tousernamemodal.innerText = username
         })
     })
 </script>

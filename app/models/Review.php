@@ -69,32 +69,31 @@ class Review
     {
         if (isset($_POST['replybtn']) && $_SERVER['REQUEST_METHOD'] === 'POST') {
 
-            $userid = $_SESSION['user_id'];
 
             $name = $_POST['replyusername'];
 
             $replytext = $_POST['replytext'];
-
-            $reply_id = $_POST['reply_id'];
-
+            $review_id = $_POST['review_id'];
             $item_id = $_POST['item_id'];
+            $reply_id = $_POST['reply_id'] ? $_POST['reply_id'] : $review_id;
+            $userid = $_SESSION['user_id'];
+            $touser_name = $_POST['touser_name'] ? $_POST['touser_name'] : "";
 
 
-            $this->db->dbquery('INSERT INTO reviews (reviews,user_id,item_id,reply_id) VALUES(:review,:userid,:itemid,:replyid)');
-            $this->db->dbbind(':review', $replytext);
-            $this->db->dbbind(':userid', $userid);
-            $this->db->dbbind(':itemid', $item_id);
-            $this->db->dbbind(':replyid', $reply_id);
+            $this->db->dbquery('INSERT INTO `review_reply` (`replies`, `review_id`, `replyitem_id`, `reply_id`, `replyuser_id`, `touser_name`) VALUES (:replies, :review_id, :replyitem_id, :reply_id, :replyuser_id, :touser_name)');
+            $this->db->dbbind(':replies', $replytext);
+            $this->db->dbbind(':review_id', $review_id);
+            $this->db->dbbind(':replyitem_id', $item_id);
+            $this->db->dbbind(':reply_id', $reply_id);
+            $this->db->dbbind(':replyuser_id', $userid);
+            $this->db->dbbind(':touser_name', $touser_name);
 
-            // $this->db->dbexecute();
 
             if ($this->db->dbexecute()) {
                 redirect('allfragrance/show/' . $item_id);
-                echo "execute";
-                echo $replytext, $reply_id, $item_id;
 
             } else {
-                echo "no execute";
+                return false;
             }
 
 
@@ -105,8 +104,7 @@ class Review
     public function showreview($id)
     {
 
-        $this->db->dbquery('SELECT * FROM users u INNER JOIN reviews r ON r.user_id = u.id  WHERE item_id = :id AND reply_id is NULL');
-
+        $this->db->dbquery('SELECT * FROM users u INNER JOIN reviews r ON r.user_id = u.id  WHERE item_id = :id');
         $this->db->dbbind(':id', $id);
         return $this->db->getmultidata();
     }
@@ -121,23 +119,42 @@ class Review
 
         $item_id = end($url_parts);
 
-        echo $item_id;
-        $allreviews = $this->showreview($id);
-
-        foreach ($allreviews as $allreview) {
-            $reply_id = $allreview['id'];
-        }
 
 
-        echo $reply_id;
-        // 
 
-        $this->db->dbquery('SELECT * FROM reviews WHERE item_id = :id AND  reply_id is NOT NULL');
+        // $this->db->dbquery('SELECT *
+        // FROM reviews r 
+        // LEFT JOIN review_reply rp ON r.id = rp.review_id  
+        // LEFT JOIN users u ON rp.replyuser_id = u.id ON rp.touser_id = u.id
+        // WHERE rp.replyitem_id = :id
+        // ');
+
+
+        $query = 'SELECT *
+        FROM reviews r 
+        LEFT JOIN review_reply rp ON r.id = rp.review_id  
+        LEFT JOIN users u1 ON rp.replyuser_id = u1.id 
+        WHERE rp.replyitem_id = :id
+        ';
+
+
+
+        $this->db->dbquery($query);
+
+
+
         $this->db->dbbind(':id', $id);
         // $this->db->dbbind(':repid', $reply_id);
         return $this->db->getmultidata();
 
+        // 
+
+
+
     }
+
+
+
 
 
 

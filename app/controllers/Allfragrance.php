@@ -69,15 +69,15 @@ class Allfragrance extends Controller
         $singledata = $this->allmodal->getsingleitem($id);
         $brand = $this->allmodal->getbrand($singledata['id']);
         $status = $this->allmodal->getstatus($singledata['status_id']);
-        $userinfo = $this->allmodal->getuserinfo();
+        $authuser = $this->allmodal->getuserinfo();
 
         $allreviews = $this->reviewmodal->showreview($id);
 
 
 
         $replyreviews = $this->reviewmodal->replyreview($id);
-        print_r($replyreviews)
-        ;
+
+        var_dump($replyreviews);
         // foreach ($replyreviews as $reply) {
         //     echo $reply['reviews'];
         // }
@@ -104,7 +104,7 @@ class Allfragrance extends Controller
             'singledata' => $singledata,
             'brand' => $brand,
             'status' => $status,
-            'user' => $userinfo,
+            'user' => $authuser,
             'allreviews' => $allreviews,
 
             "review" => $_POST['userreview'],

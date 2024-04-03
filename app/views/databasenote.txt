@@ -91,8 +91,15 @@ user_id INT
  - Reply reviews
 
  CREATE TABLE IF NOT EXISTS review_reply(
-  id INT AUTO_INCREMENT INT NOT NULL PRIMARY KEY,
-  name VARCHAR(150),
-  review_id
-
+  reviewreplyid INT AUTO_INCREMENT NOT NULL PRIMARY KEY,
+  replies TEXT,
+  review_id INT,
+  replyitem_id INT,
+  reply_id INT,
+  touser_name VARCHAR(150),
+  replyuser_id INT,
+  created_at TIMESTAMP DEFAULT now(),
+  updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  FOREIGN KEY(review_id) REFERENCES reviews(id) ON UPDATE CASCADE ON DELETE CASCADE
  )
+
