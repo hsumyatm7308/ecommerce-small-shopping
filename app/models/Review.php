@@ -71,7 +71,6 @@ class Review
 
 
             $name = $_POST['replyusername'];
-
             $replytext = $_POST['replytext'];
             $review_id = $_POST['review_id'];
             $item_id = $_POST['item_id'];
@@ -90,7 +89,9 @@ class Review
 
 
             if ($this->db->dbexecute()) {
-                redirect('allfragrance/show/' . $item_id);
+                // redirect('allfragrance/show/' . $item_id);
+
+                return true;
 
             } else {
                 return false;
@@ -98,12 +99,16 @@ class Review
 
 
         }
+
+
+
+
+
     }
 
     // show review 
     public function showreview($id)
     {
-
         $this->db->dbquery('SELECT * FROM users u INNER JOIN reviews r ON r.user_id = u.id  WHERE item_id = :id');
         $this->db->dbbind(':id', $id);
         return $this->db->getmultidata();
@@ -113,46 +118,16 @@ class Review
 
     public function replyreview($id)
     {
-        $geturl = $_GET['url'];
-
-        $url_parts = explode('/', $geturl);
-
-        $item_id = end($url_parts);
-
-
-
-
-        // $this->db->dbquery('SELECT *
-        // FROM reviews r 
-        // LEFT JOIN review_reply rp ON r.id = rp.review_id  
-        // LEFT JOIN users u ON rp.replyuser_id = u.id ON rp.touser_id = u.id
-        // WHERE rp.replyitem_id = :id
-        // ');
-
-
         $query = 'SELECT *
         FROM reviews r 
         LEFT JOIN review_reply rp ON r.id = rp.review_id  
         LEFT JOIN users u1 ON rp.replyuser_id = u1.id 
-        WHERE rp.replyitem_id = :id
-        ';
-
-
+        WHERE rp.replyitem_id = :id';
 
         $this->db->dbquery($query);
-
-
-
         $this->db->dbbind(':id', $id);
-        // $this->db->dbbind(':repid', $reply_id);
         return $this->db->getmultidata();
-
-        // 
-
-
-
     }
-
 
 
 

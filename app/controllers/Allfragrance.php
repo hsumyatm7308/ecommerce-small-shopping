@@ -77,17 +77,7 @@ class Allfragrance extends Controller
 
         $replyreviews = $this->reviewmodal->replyreview($id);
 
-        var_dump($replyreviews);
-        // foreach ($replyreviews as $reply) {
-        //     echo $reply['reviews'];
-        // }
-
-
-
-
-
-        // $reviewusername = $this->allmodal->getreviewuser($id);
-        // var_dump($reviewusername);
+        // var_dump($replyreviews);
 
 
         if (isset($_POST['addtocart'])) {
@@ -149,18 +139,47 @@ class Allfragrance extends Controller
         }
 
 
-        $insertreply = $this->reviewmodal->insertreply();
-
-
+        $this->reviewmodal->insertreply();
 
 
         $this->view('allfragrance/show', $data);
+        echo "no inserteply";
+
+
+
+
+
 
 
 
     }
 
 
+
+
+    public function successinsertreply()
+    {
+        $decode = json_decode(file_get_contents('php://input'), true);
+
+
+
+
+
+        if ($decode) {
+
+
+            header('Content-Type: application/json');
+            echo $decode['success'];
+
+
+        } else {
+            echo "no";
+
+        }
+
+
+
+    }
 }
 
 

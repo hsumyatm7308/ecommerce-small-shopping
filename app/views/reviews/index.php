@@ -25,7 +25,7 @@
                 <?php foreach ($data['allreviews'] as $review): ?>
 
 
-                    <div class="space-y-4 border rounded-md px-5 py-3">
+                    <div class="space-y-4 border rounded-md px-5 py-3 primary_reviews_<?php echo $review['id'] ?>">
                         <!-- primary review  -->
                         <div class="mb-5">
                             <div class="flex justify-between items-center mb-3">
@@ -128,8 +128,7 @@
                                 </div>
 
                                 <div class="text-xs flex justify-center items-center reply_btns"
-                                    data-reply-id="<?php echo $replyreviews['reviewreplyid']; ?>"
-                                    data-review-id="<?php echo $review['id'] ?>"
+                                    data-reply-id="<?php $review['id'] ?>" data-review-id="<?php echo $review['id'] ?>"
                                     data-item-id="<?php echo $data['singledata']['id'] ?>"
                                     data-username="<?php echo $review['name'] ?>">
                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
@@ -144,146 +143,17 @@
                         </div>
 
 
-                        <!-- Reply review  -->
-                        <!-- <div class="space-y-2 border rounded-md px-5 py-2 mb-5 mt-5">
-                            <div>
-                                <div class="flex justify-between items-center mb-3">
-
-                                    <div>
-
-                                    </div>
-                                </div>
-                                <div class="space-y-4">
-                                    <div class="flex justify-between ">
-                                        <h1 class="text-sm font-medium">
-
-                                            <span>
-                                                <?php echo $review['name']; ?>
-                                            </span>
-                                            from
-                                            <?php echo $data['user']['name'] ?>
-
-                                            <div class="text-[12px] font-normal">
-                                                <?php $timestamp = strtotime($review['created_at']);
-                                                $formattedDate = date('d-M-Y', $timestamp);
-                                                echo $formattedDate;
-                                                ?>
-                                            </div>
-                                        </h1>
-
-                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                            stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
-                                            <path stroke-linecap="round" stroke-linejoin="round"
-                                                d="M12 6.75a.75.75 0 1 1 0-1.5.75.75 0 0 1 0 1.5ZM12 12.75a.75.75 0 1 1 0-1.5.75.75 0 0 1 0 1.5ZM12 18.75a.75.75 0 1 1 0-1.5.75.75 0 0 1 0 1.5Z" />
-                                        </svg>
-
-                                    </div>
-                                    <div>
-                                        <?php echo $review['reviews'] ?>
-
-                                    </div>
-
-                                </div>
-
-                                <div class="text-sm flex justify-end items-center space-x-2 mt-3">
-                                    <div class="text-xs flex justify-center items-center">
-                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                            stroke-width="1.5" stroke="currentColor" class="w-4 h-4">
-                                            <path stroke-linecap="round" stroke-linejoin="round"
-                                                d="M11.48 3.499a.562.562 0 0 1 1.04 0l2.125 5.111a.563.563 0 0 0 .475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 0 0-.182.557l1.285 5.385a.562.562 0 0 1-.84.61l-4.725-2.885a.562.562 0 0 0-.586 0L6.982 20.54a.562.562 0 0 1-.84-.61l1.285-5.386a.562.562 0 0 0-.182-.557l-4.204-3.602a.562.562 0 0 1 .321-.988l5.518-.442a.563.563 0 0 0 .475-.345L11.48 3.5Z" />
-                                        </svg>
-                                        <span>Vote</span>
-
-                                    </div>
-
-                                    <div class="text-xs flex justify-center items-center reply_btns"
-                                        data-reply-id="<?php echo $review['id']; ?>">
-                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                            stroke-width="1.5" stroke="currentColor" class="w-4 h-4">
-                                            <path stroke-linecap="round" stroke-linejoin="round"
-                                                d="M8.25 9.75h4.875a2.625 2.625 0 0 1 0 5.25H12M8.25 9.75 10.5 7.5M8.25 9.75 10.5 12m9-7.243V21.75l-3.75-1.5-3.75 1.5-3.75-1.5-3.75 1.5V4.757c0-1.108.806-2.057 1.907-2.185a48.507 48.507 0 0 1 11.186 0c1.1.128 1.907 1.077 1.907 2.185Z" />
-                                        </svg>
-                                        <span>Reply</span>
-                                    </div>
-
-                                </div>
-
-                            </div>
-
-
-                            <div class="space-y-2 border rounded-md px-5 py-2 mb-5 mt-5">
-                                <div>
-                                    <div class="flex justify-between items-center mb-3">
-
-                                        <div>
-
-                                        </div>
-                                    </div>
-                                    <div class="space-y-4">
-                                        <div class="flex justify-between ">
-                                            <h1 class="text-lg font-medium">
-                                                <?php echo $data['user']['name']; ?>
-                                                <div class="text-[12px] font-normal">
-                                                    <?php $timestamp = strtotime($review['created_at']);
-                                                    $formattedDate = date('d-M-Y', $timestamp);
-                                                    echo $formattedDate;
-                                                    ?>
-                                                </div>
-                                            </h1>
-
-                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                                stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
-                                                <path stroke-linecap="round" stroke-linejoin="round"
-                                                    d="M12 6.75a.75.75 0 1 1 0-1.5.75.75 0 0 1 0 1.5ZM12 12.75a.75.75 0 1 1 0-1.5.75.75 0 0 1 0 1.5ZM12 18.75a.75.75 0 1 1 0-1.5.75.75 0 0 1 0 1.5Z" />
-                                            </svg>
-
-                                        </div>
-                                        <div>
-                                            <?php echo $review['reviews'] ?>
-
-                                        </div>
-
-                                    </div>
-
-                                    <div class="text-sm flex justify-end items-center space-x-2 mt-3">
-                                        <div class="text-xs flex justify-center items-center">
-                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                                stroke-width="1.5" stroke="currentColor" class="w-4 h-4">
-                                                <path stroke-linecap="round" stroke-linejoin="round"
-                                                    d="M11.48 3.499a.562.562 0 0 1 1.04 0l2.125 5.111a.563.563 0 0 0 .475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 0 0-.182.557l1.285 5.385a.562.562 0 0 1-.84.61l-4.725-2.885a.562.562 0 0 0-.586 0L6.982 20.54a.562.562 0 0 1-.84-.61l1.285-5.386a.562.562 0 0 0-.182-.557l-4.204-3.602a.562.562 0 0 1 .321-.988l5.518-.442a.563.563 0 0 0 .475-.345L11.48 3.5Z" />
-                                            </svg>
-                                            <span>Vote</span>
-
-                                        </div>
-
-                                        <div class="text-xs flex justify-center items-center reply_btns"
-                                            data-reply-id="<?php echo $review['id']; ?>">
-                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                                stroke-width="1.5" stroke="currentColor" class="w-4 h-4">
-                                                <path stroke-linecap="round" stroke-linejoin="round"
-                                                    d="M8.25 9.75h4.875a2.625 2.625 0 0 1 0 5.25H12M8.25 9.75 10.5 7.5M8.25 9.75 10.5 12m9-7.243V21.75l-3.75-1.5-3.75 1.5-3.75-1.5-3.75 1.5V4.757c0-1.108.806-2.057 1.907-2.185a48.507 48.507 0 0 1 11.186 0c1.1.128 1.907 1.077 1.907 2.185Z" />
-                                            </svg>
-                                            <span>Reply</span>
-                                        </div>
-
-                                    </div>
-
-                                </div>
-
-
-                            </div>
-
-                        </div> -->
-
                         <?php foreach ($data['replyreviews'] as $replyreviews): ?>
                             <?php if ($replyreviews['review_id'] == $review['id']): ?>
 
-                                <div class="space-y-2 border rounded-md px-5 py-2 mb-5 mt-5">
+                                <div
+                                    class="space-y-2 border rounded-md px-5 py-2 mb-5 mt-5 secondary_replies_<?php echo $replyreviews['reviewreplyid'] ?>">
+
                                     <div>
                                         <div class="flex justify-between items-center mb-3">
 
                                             <div>
-
+                                                <?php echo $replyreviews['reviewreplyid'] ?>
                                             </div>
                                         </div>
                                         <div class="space-y-4">
@@ -344,16 +214,26 @@
                                     </div>
 
 
+
+
+
+
                                 </div>
+
+
+
+
+
 
                             <?php endif; ?>
 
 
-
                         <?php endforeach; ?>
-                        <div>
-                            <span>load more</span>
-                        </div>
+
+
+
+
+
                     </div>
 
 
@@ -380,7 +260,7 @@
             </div>
             <div class="w-full modal-body">
                 <div class="w-full">
-                    <form action="" method="post" class="w-full">
+                    <form action="" method="post" id="submitreview" class="w-full">
 
 
                         <div class="w-full flex justify-center items-center flex-col ">
@@ -396,8 +276,7 @@
                         </div>
 
                         <div class="w-full flex justify-center items-center mt-3">
-                            <button type="submit" name="replybtn" class="w-[90%] bg-gray-400 p-2"
-                                id="submitreview">Submit</button>
+                            <button type="submit" name="replybtn" class="w-[90%] bg-gray-400 p-2" id="">Submit</button>
                         </div>
 
                         <input type="text" name="reply_id" id="reply_id" value="">
@@ -426,11 +305,13 @@
 
     reply_btns.forEach((ele, idx) => {
         ele.addEventListener('click', function () {
+
+
+
             const replyid = ele.getAttribute('data-reply-id');
             const reviewid = ele.getAttribute('data-review-id');
             const itemid = ele.getAttribute('data-item-id');
             const username = ele.getAttribute('data-username');
-
 
             replymodal.setAttribute('data-review-id', reviewid);
             replymodal.setAttribute('data-item-id', itemid);
@@ -442,9 +323,136 @@
             item_id.setAttribute('value', itemid)
             touser_name.setAttribute('value', username)
 
-            console.log(touser_name);
 
             tousernamemodal.innerText = username
+
+
+            console.log(ele)
+
+            // const primary_reviews = ele.parentElement.parentElement.parentElement;
+            // // console.log(primary_reviews)
+
+            // const createreplys = document.createElement('div');
+            // createreplys.innerHTML = `<div
+            //             class="space-y-2 border rounded-md px-5 py-2 mb-5 mt-5">
+
+            //             <div>
+            //                 <div class="flex justify-between items-center mb-3">
+
+            //                     <div>
+            //                     </div>
+            //                 </div>
+            //                 <div class="space-y-4">
+            //                     <div class="flex justify-between ">
+            //                         <h1 class="text-lg font-medium">
+            //                             <span class="tousernameclass">
+            //                             tousername
+            //                             </span>
+            //                             by
+            //                             username
+            //                             <div class="text-[12px] font-normal">
+            //                              date
+            //                             </div>
+            //                         </h1>
+
+            //                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+            //                             stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+            //                             <path stroke-linecap="round" stroke-linejoin="round"
+            //                                 d="M12 6.75a.75.75 0 1 1 0-1.5.75.75 0 0 1 0 1.5ZM12 12.75a.75.75 0 1 1 0-1.5.75.75 0 0 1 0 1.5ZM12 18.75a.75.75 0 1 1 0-1.5.75.75 0 0 1 0 1.5Z" />
+            //                         </svg>
+
+            //                     </div>
+            //                     <div>
+            //                       replycontent
+
+            //                     </div>
+
+            //                 </div>
+
+            //                 <div class="text-sm flex justify-end items-center space-x-2 mt-3">
+            //                     <div class="text-xs flex justify-center items-center">
+            //                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+            //                             stroke-width="1.5" stroke="currentColor" class="w-4 h-4">
+            //                             <path stroke-linecap="round" stroke-linejoin="round"
+            //                                 d="M11.48 3.499a.562.562 0 0 1 1.04 0l2.125 5.111a.563.563 0 0 0 .475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 0 0-.182.557l1.285 5.385a.562.562 0 0 1-.84.61l-4.725-2.885a.562.562 0 0 0-.586 0L6.982 20.54a.562.562 0 0 1-.84-.61l1.285-5.386a.562.562 0 0 0-.182-.557l-4.204-3.602a.562.562 0 0 1 .321-.988l5.518-.442a.563.563 0 0 0 .475-.345L11.48 3.5Z" />
+            //                         </svg>
+            //                         <span>Vote</span>
+
+            //                     </div>
+
+            //                     <div class="text-xs flex justify-center items-center reply_btns"
+            //                     data-reply-id="${replyid}" data-review-id="${reviewid}"
+            //                     data-item-id="${itemid}"
+            //                     data-username="${username}">
+            //                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+            //                             stroke-width="1.5" stroke="currentColor" class="w-4 h-4">
+            //                             <path stroke-linecap="round" stroke-linejoin="round"
+            //                                 d="M8.25 9.75h4.875a2.625 2.625 0 0 1 0 5.25H12M8.25 9.75 10.5 7.5M8.25 9.75 10.5 12m9-7.243V21.75l-3.75-1.5-3.75 1.5-3.75-1.5-3.75 1.5V4.757c0-1.108.806-2.057 1.907-2.185a48.507 48.507 0 0 1 11.186 0c1.1.128 1.907 1.077 1.907 2.185Z" />
+            //                         </svg>
+            //                         <span>Reply</span>
+            //                     </div>
+            //                 </div>
+
+            //             </div>
+
+
+
+
+
+
+            //         </div>`
+
+            // primary_reviews.appendChild(createreplys)
+
+
+
+
+            modalsubmit();
+
+            console.log(reply_btns)
+
+
         })
     })
+
+
+
+
+
+    function modalsubmit() {
+        replymodal.addEventListener('submit', () => {
+
+            var data = {
+                success: 'success',
+            }
+
+            var jsondata = JSON.stringify(data);
+
+            var xmlhttp = new XMLHttpRequest();
+            var url = 'http://localhost/mvcshop/allfragrance/successinsertreply';
+
+
+            var xhr = new XMLHttpRequest();
+            xhr.open('POST', url, true);
+            xhr.setRequestHeader('Content-Type', 'application/json');
+            xhr.send(jsondata);
+
+            xhr.onreadystatechange = function () {
+                if (xhr.status === 200) {
+                    console.log(xhr.responseText);
+                    if (xhr.responseText) {
+
+
+
+                    }
+                } else {
+                    console.error('Error:', xhr.status);
+                }
+            };
+
+
+        })
+
+    }
+
 </script>
