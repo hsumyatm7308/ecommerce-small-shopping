@@ -72,12 +72,10 @@ class Allfragrance extends Controller
         $authuser = $this->allmodal->getuserinfo();
 
         $allreviews = $this->reviewmodal->showreview($id);
-
-
-
         $replyreviews = $this->reviewmodal->replyreview($id);
 
-        // var_dump($replyreviews);
+
+
 
 
         if (isset($_POST['addtocart'])) {
@@ -97,6 +95,12 @@ class Allfragrance extends Controller
             'user' => $authuser,
             'allreviews' => $allreviews,
 
+
+            "replyreviews" => $replyreviews,
+
+
+
+            // review modal 
             "review" => $_POST['userreview'],
             "email" => $_POST['useremail'],
             "username" => $_POST['username'],
@@ -109,10 +113,10 @@ class Allfragrance extends Controller
             "usernameerr" => "",
             "ratingerr" => "",
 
-            "replyreviews" => $replyreviews
 
         ];
 
+        // check review err 
         if (isset($_POST['reviewbtn'])) {
             if (empty($data['review'])) {
                 $data['errmessage'] = "required";
@@ -137,49 +141,11 @@ class Allfragrance extends Controller
             $this->reviewmodal->insertreview($data);
 
         }
-
-
         $this->reviewmodal->insertreply();
 
-
         $this->view('allfragrance/show', $data);
-        echo "no inserteply";
-
-
-
-
-
-
-
-
     }
 
-
-
-
-    public function successinsertreply()
-    {
-        $decode = json_decode(file_get_contents('php://input'), true);
-
-
-
-
-
-        if ($decode) {
-
-
-            header('Content-Type: application/json');
-            echo $decode['success'];
-
-
-        } else {
-            echo "no";
-
-        }
-
-
-
-    }
 }
 
 

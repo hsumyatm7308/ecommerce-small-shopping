@@ -149,6 +149,7 @@ class All
 
 
 
+    //show each item
     public function getsingleitem($id)
     {
 
@@ -181,6 +182,7 @@ class All
 
 
 
+    // insert item 
     public function shopcardlist()
     {
         if (isset($_POST['addtocart']) && $_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -213,6 +215,7 @@ class All
         }
     }
 
+    // check item exit or not 
     public function hasitem($name)
     {
         $userid = $_SESSION['user_id'];
@@ -233,6 +236,8 @@ class All
 
 
     }
+
+
 
     public function getuserinfo()
     {

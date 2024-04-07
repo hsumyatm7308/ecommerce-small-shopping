@@ -23,6 +23,8 @@ class Review
 
 
     }
+
+    // insert review
     public function insertreview($data)
     {
 
@@ -65,6 +67,7 @@ class Review
 
     }
 
+    // insert reply 
     public function insertreply()
     {
         if (isset($_POST['replybtn']) && $_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -79,6 +82,9 @@ class Review
             $touser_name = $_POST['touser_name'] ? $_POST['touser_name'] : "";
 
 
+
+
+
             $this->db->dbquery('INSERT INTO `review_reply` (`replies`, `review_id`, `replyitem_id`, `reply_id`, `replyuser_id`, `touser_name`) VALUES (:replies, :review_id, :replyitem_id, :reply_id, :replyuser_id, :touser_name)');
             $this->db->dbbind(':replies', $replytext);
             $this->db->dbbind(':review_id', $review_id);
@@ -89,12 +95,15 @@ class Review
 
 
             if ($this->db->dbexecute()) {
-                // redirect('allfragrance/show/' . $item_id);
+                redirect('allfragrance/show/' . $item_id);
+                echo $replytext, $reply_id, $item_id, $userid, $touser_name;
 
-                return true;
 
             } else {
+                echo "no fail execute";
                 return false;
+
+
             }
 
 
@@ -109,13 +118,14 @@ class Review
     // show review 
     public function showreview($id)
     {
-        $this->db->dbquery('SELECT * FROM users u INNER JOIN reviews r ON r.user_id = u.id  WHERE item_id = :id');
+        $this->db->dbquery('SELECT * FROM users u LEFT JOIN reviews r ON r.user_id = u.id WHERE item_id = :id');
         $this->db->dbbind(':id', $id);
         return $this->db->getmultidata();
     }
 
 
 
+    // show reply 
     public function replyreview($id)
     {
         $query = 'SELECT *
@@ -128,6 +138,20 @@ class Review
         $this->db->dbbind(':id', $id);
         return $this->db->getmultidata();
     }
+
+    public function countreply($revieid)
+    {
+
+
+        $this->db->dbquery('SELECT COUNT(review_id) AS countrp FROM review_reply WHERE review_id = :repid');
+        $this->db->dbbind(':repid', $revieid);
+        $row = $this->db->getsingledata();
+
+        $countrp = $row['countrp'] ? $row['countrp'] : 0;
+        return $countrp;
+
+    }
+
 
 
 

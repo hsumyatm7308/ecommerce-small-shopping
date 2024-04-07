@@ -137,5 +137,21 @@
 
 // }
 
+class Reviews extends Controller
+{
+    public $allmodal;
+    public $sidebarmodal;
+    public $pagination;
 
+    public $reviewmodal;
+
+    public function __construct()
+    {
+
+        $this->reviewmodal = $this->model('Review');
+        $this->pagination = new Pagination;
+
+    }
+
+}
 ?>
