@@ -26,7 +26,8 @@
 
                     <div>
 
-                        <div class=" space-y-4 border rounded-md px-5 py-3">
+                        <div id="review_container_<?php echo $review['id'] ?> "
+                            class=" space-y-4 border rounded-md px-5 py-3   review_containers">
                             <!-- primary review  -->
                             <div class="mb-5">
                                 <div class="flex justify-between items-center mb-3">
@@ -207,8 +208,11 @@
                                 if ($replyreviews['review_id'] == $review['id']):
                                     ?>
 
-                                    <div id="replies<?php echo $replyreviews['reviewreplyid'] ?>"
-                                        class="space-y-2 border rounded-md px-5 py-2 mb-5 mt-5 replies  hidden">
+
+
+                                    <div id="<?php echo $replyreviews['reviewreplyid'] ?>"
+                                        data-reply-id="<?php echo $replyreviews['reply_id'] ?>"
+                                        class="space-y-2 border rounded-md px-5 py-2 mb-5 mt-5 replies <?php echo $replyreviews['reply_id'] ?>  ">
 
                                         <div>
 
@@ -305,6 +309,8 @@
 
 
 
+
+
                                     <?php
                                 endif;
                                 ?>
@@ -352,7 +358,6 @@
 
     const replybtnsubmit = document.getElementById('replybtnsubmit');
 
-    console.log(replymodal)
 
 
 
@@ -368,7 +373,6 @@
             const username = ele.getAttribute('data-username');
 
 
-            console.log(replyid, reviewid, itemid, username)
 
             data = {
                 "replyid": replyid,
@@ -402,13 +406,11 @@
     // see more reply 
 
     const seemorereply = document.querySelectorAll('.seemorereply');
-    const replies = document.querySelectorAll('.replies');
     Array.from(seemorereply).filter((ele, idx) => {
         const newseemoredataid = seemorereply[idx].getAttribute('data-viewreplyid');
         seemorereply[idx].id = 'seemorereply_' + newseemoredataid
         const getseemoreid = document.getElementById('seemorereply_' + newseemoredataid);
 
-        console.log(ele)
 
         getseemoreid.addEventListener('click', function () {
             const reviewparent = ele.parentElement.parentElement.parentElement.parentElement.children
@@ -422,6 +424,8 @@
 
             });
 
+
+            // set reply modal 
             for (var i = 1; i <= children_except_first_and_last.length; i++) {
 
                 const secondary_reply_btn = ele.parentElement.parentElement.parentElement.parentElement.children[i].children[0].children[1].children
@@ -470,85 +474,85 @@
             const towritemodal = document.createElement('div');
 
             towritemodal.innerHTML = `<div id="replymodal_<?php echo $review['id'] ?>"
-class="space-y-2 border rounded-md px-5 py-2 mb-5 mt-5 ">
+                            class="space-y-2 border rounded-md px-5 py-2 mb-5 mt-5 ">
 
-<form action="" method="post" id="submitreview" class="w-full">
+                            <form action="" method="post" id="submitreview" class="w-full">
 
-<div class="space-y-4">
-<div class="flex justify-between ">
-    <h1 class="text-sm font-medium">
-        <div class="flex justify-center items-center  space-x-2">
-            <div class="flex justify-center items-center">
-                <div class="w-10 h-10 border bg-gray-400 rounded-full mr-2">
-                    <img src="" alt="">
-                </div>
-                <span class="capitalize">
-                    <?php echo $data['user']['name'] ?>
-                </span>
-
-
-            </div>
-            <div>
-                replies to
-            </div>
-            <div>
-                <span class="tousernameclass capitalize">
-                    ${data['username']}
-                </span>
+                            <div class="space-y-4">
+                            <div class="flex justify-between ">
+                                <h1 class="text-sm font-medium">
+                                    <div class="flex justify-center items-center  space-x-2">
+                                        <div class="flex justify-center items-center">
+                                            <div class="w-10 h-10 border bg-gray-400 rounded-full mr-2">
+                                                <img src="" alt="">
+                                            </div>
+                                            <span class="capitalize">
+                                                <?php echo $data['user']['name'] ?>
+                                            </span>
 
 
-            </div>
+                                        </div>
+                                        <div>
+                                            replies to
+                                        </div>
+                                        <div>
+                                            <span class="tousernameclass capitalize">
+                                                ${data['username']}
+                                            </span>
 
-        </div>
 
+                                        </div>
 
-
-    </h1>
-
-    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-        stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
-        <path stroke-linecap="round" stroke-linejoin="round"
-            d="M12 6.75a.75.75 0 1 1 0-1.5.75.75 0 0 1 0 1.5ZM12 12.75a.75.75 0 1 1 0-1.5.75.75 0 0 1 0 1.5ZM12 18.75a.75.75 0 1 1 0-1.5.75.75 0 0 1 0 1.5Z" />
-    </svg>
-
-</div>
-<div class="ml-12">
-    <textarea name="replytext" id="replytext" value=""
-        class="w-full focus:outline-none focus:ring-1 focus:ring-gray-200 resize-none p-2"
-        cols="30" rows="" placeholder="Type review here" autofocus
-        style="scrollbar-width:none;"></textarea>
-</div>
-
-</div>
-
-<div class="text-sm flex justify-end items-center space-x-3 mt-3"
-onclick="document.getElementById('replymodal').classList.toggle('hidden')">
-<div class="text-md flex justify-center items-center hover:opacity-80">
-    <button>Cancle</button>
-
-</div>
-
-<button type="submit" name="replybtn" id="replybtnsubmit"
-    class="text-md rounded-md px-2 py-1 flex justify-center items-center border border-[#4c5372] hover:bg-gray-100">
-
-    <span> Submit</span>
-</button>
-</div>
+                                    </div>
 
 
 
-<input type="hidden" name="reply_id" id="reply_id" value="${data['replyid']}">
-<input type="hidden" name="review_id" id="review_id" value="${data['reviewid']}">
-<input type="hidden" name="item_id" id="item_id" value="${data['itemid']}">
-<input type="hidden" name="touser_name" id="touser_name" value="${data['username']}">
-</form>
+                                </h1>
+
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                    stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                        d="M12 6.75a.75.75 0 1 1 0-1.5.75.75 0 0 1 0 1.5ZM12 12.75a.75.75 0 1 1 0-1.5.75.75 0 0 1 0 1.5ZM12 18.75a.75.75 0 1 1 0-1.5.75.75 0 0 1 0 1.5Z" />
+                                </svg>
+
+                            </div>
+                            <div class="ml-12">
+                                <textarea name="replytext" id="replytext" value=""
+                                    class="w-full focus:outline-none focus:ring-1 focus:ring-gray-200 resize-none p-2"
+                                    cols="30" rows="" placeholder="Type review here" autofocus
+                                    style="scrollbar-width:none;"></textarea>
+                            </div>
+
+                            </div>
+
+                            <div class="text-sm flex justify-end items-center space-x-3 mt-3"
+                            onclick="document.getElementById('replymodal').classList.toggle('hidden')">
+                            <div class="text-md flex justify-center items-center hover:opacity-80">
+                                <button>Cancle</button>
+
+                            </div>
+
+                            <button type="submit" name="replybtn" id="replybtnsubmit"
+                                class="text-md rounded-md px-2 py-1 flex justify-center items-center border border-[#4c5372] hover:bg-gray-100">
+
+                                <span> Submit</span>
+                            </button>
+                            </div>
 
 
+
+                            <input type="hidden" name="reply_id" id="reply_id" value="${data['replyid']}">
+                            <input type="hidden" name="review_id" id="review_id" value="${data['reviewid']}">
+                            <input type="hidden" name="item_id" id="item_id" value="${data['itemid']}">
+                            <input type="hidden" name="touser_name" id="touser_name" value="${data['username']}">
+                            </form>
 
 
 
 
-</div>`;
+
+
+                            </div>`;
 
 
             secondary_reply_box.appendChild(towritemodal);
@@ -558,16 +562,100 @@ onclick="document.getElementById('replymodal').classList.toggle('hidden')">
     }
 
 
+
+
+    const review_containers = document.querySelectorAll('.review_containers');
+
+
+    let array = [];
+    let id_array = [];
+    let targetid_array = [];
+
+
+    for (var i = 0; i < review_containers.length; i++) {
+
+        const replies = review_containers[i].children;
+
+
+        var id_ui;
+        var datareply_ui;
+
+        for (var x = 0; x < replies.length; x++) {
+
+
+            var datareplyid = replies[x].getAttribute('data-reply-id')
+            var id = replies[x].id
+
+            id_array.push(id);
+            targetid_array.push(datareplyid);
+
+            var targetid;
+
+
+
+
+
+
+        }
+
+
+
+
+
+
+    }
+
+
+    let mutual_numbers = id_array.filter(num => targetid_array.includes(num))
+
+
+    const primary_replyidui = document.getElementById(mutual_numbers[0]);
+    const atom_replyidui = document.getElementsByClassName(mutual_numbers[0]);
+
+    const atomreplyui = Array.from(atom_replyidui);
+    primary_replyidui.appendChild(atomreplyui[0])
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    // substring 
     const reviewctn = document.getElementById('content_<?php echo $review['id'] ?>');
 
     reviewctn.addEventListener('click', function () {
         this.innerText = '<?php echo htmlspecialchars($review['reviews']); ?>'
 
     })
-
-
-
-
 
 
 
