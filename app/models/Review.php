@@ -154,6 +154,17 @@ class Review
 
 
 
+    public function countreviewreply($revieid)
+    {
+        $this->db->dbquery('SELECT COUNT(reply_id) AS countrp FROM review_reply WHERE reply_id = :repid');
+        $this->db->dbbind(':repid', $revieid);
+        $row = $this->db->getsingledata();
+
+        $countrp = $row['countrp'] ? $row['countrp'] : 0;
+        return $countrp;
+
+    }
+
 
 
 

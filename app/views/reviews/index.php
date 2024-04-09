@@ -21,8 +21,10 @@
             </div>
 
             <div class="w-full des_and_rev_text space-y-5">
+                <?php $countreply = new Review(); ?>
 
                 <?php foreach ($data['allreviews'] as $review): ?>
+
 
                     <div>
 
@@ -148,10 +150,15 @@
 
 
                                     <div class="flex justify-center items-center space-x-2">
-                                        <div id="" data-viewreplyid="<?php echo $review['id'] ?>"
-                                            class="text-xs hover:cursor-pointer seemorereply">
-                                            <span>See more reply</span>
-                                        </div>
+
+                                        <?php if ($countreply->countreply($review['id']) > 0): ?>
+                                            <div id="" data-viewreplyid="<?php echo $review['id'] ?>"
+                                                class="text-xs hover:cursor-pointer seemorereply">
+                                                <span>See more reply</span>
+                                            </div>
+
+                                        <?php endif; ?>
+
                                         <div class="text-xs flex justify-center items-center hover:cursor-pointer">
                                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                                 stroke-width="1.5" stroke="currentColor" class="w-4 h-4 mr-1">
@@ -177,7 +184,6 @@
 
                                                 <span>
                                                     <?php
-                                                    $countreply = new Review();
                                                     echo $countreply->countreply($review['id']);
                                                     ?>
                                                 </span>
@@ -212,7 +218,7 @@
 
                                     <div id="<?php echo $replyreviews['reviewreplyid'] ?>"
                                         data-reply-id="<?php echo $replyreviews['reply_id'] ?>"
-                                        class="space-y-2 border rounded-md px-5 py-2 mb-5 mt-5 replies <?php echo $replyreviews['reply_id'] ?>  ">
+                                        class="space-y-2 border rounded-md px-5 py-2 mb-5 mt-5 replies r_<?php echo $replyreviews['reply_id'] ?> hidden">
 
                                         <div>
 
@@ -244,7 +250,7 @@
                                                         </div>
 
                                                         <div class="text-[10px] font-normal ml-12">
-                                                            <?php $timestamp = strtotime($review['created_at']);
+                                                            <?php $timestamp = strtotime($replyreviews['created_at']);
                                                             $formattedDate = date('d-M-Y h:m:s', $timestamp);
                                                             echo $formattedDate;
                                                             ?>
@@ -270,6 +276,16 @@
                                             </div>
 
                                             <div class="text-sm flex justify-end items-center space-x-2 mt-3">
+                                                <span>
+                                                    <?php if ($countreply->countreviewreply($replyreviews['reviewreplyid']) > 0): ?>
+                                                        <div id="" data-viewreplyid="<?php echo $replyreviews['reviewreplyid'] ?>"
+                                                            class="text-xs hover:cursor-pointer seemorereply">
+                                                            <span>See more reply</span>
+                                                        </div>
+                                                    <?php endif; ?>
+                                                </span>
+
+
                                                 <div class="text-xs flex justify-center items-center">
                                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                                         stroke-width="1.5" stroke="currentColor" class="w-4 h-4">
@@ -291,7 +307,20 @@
                                                         <path stroke-linecap="round" stroke-linejoin="round"
                                                             d="M8.25 9.75h4.875a2.625 2.625 0 0 1 0 5.25H12M8.25 9.75 10.5 7.5M8.25 9.75 10.5 12m9-7.243V21.75l-3.75-1.5-3.75 1.5-3.75-1.5-3.75 1.5V4.757c0-1.108.806-2.057 1.907-2.185a48.507 48.507 0 0 1 11.186 0c1.1.128 1.907 1.077 1.907 2.185Z" />
                                                     </svg>
-                                                    <span> Reply</span>
+                                                    <span>
+
+                                                        <span>
+                                                            <?php
+                                                            echo $countreply->countreviewreply($replyreviews['reviewreplyid']);
+                                                            ?>
+                                                        </span>
+                                                        <?php if ($countreply->countreviewreply($replyreviews['reviewreplyid']) > 1): ?>
+                                                            Replies
+                                                        <?php else: ?>
+                                                            Reply
+                                                        <?php endif; ?>
+                                                    </span>
+
                                                 </div>
                                             </div>
 
@@ -319,9 +348,11 @@
                                 <?php
                             endforeach;
                             ?>
-
-
                         </div>
+
+
+
+
 
 
                     </div>
@@ -354,25 +385,14 @@
     const tousernamemodal = document.getElementById('tousername');
     const touser_name = document.getElementById('touser_name');
     const tousernameclass = document.querySelector('.tousernameclass');
-
-
     const replybtnsubmit = document.getElementById('replybtnsubmit');
-
-
-
-
 
     reply_btns.forEach((ele, idx) => {
         ele.addEventListener('click', function () {
-
-
-
             const replyid = ele.getAttribute('data-reply-id');
             const reviewid = ele.getAttribute('data-review-id');
             const itemid = ele.getAttribute('data-item-id');
             const username = ele.getAttribute('data-username');
-
-
 
             data = {
                 "replyid": replyid,
@@ -384,16 +404,10 @@
             const reviewmodals = ele.parentElement.parentElement.parentElement.parentElement
             appendreviewmodal(reviewmodals, data)
 
-
-
-
             tousernamemodal.innerText = username
             ele.setAttribute('replybtnid', 'reply_btns_' + reviewid)
 
-
         })
-
-
     })
 
 
@@ -411,7 +425,6 @@
         seemorereply[idx].id = 'seemorereply_' + newseemoredataid
         const getseemoreid = document.getElementById('seemorereply_' + newseemoredataid);
 
-
         getseemoreid.addEventListener('click', function () {
             const reviewparent = ele.parentElement.parentElement.parentElement.parentElement.children
             const children_except_first_and_last = Array.from(reviewparent).slice(1); // except original review and review modal 
@@ -419,31 +432,24 @@
             children_except_first_and_last.forEach((child, idx) => {
                 const classtoggled = child.classList.toggle('hidden');
 
-
-
-
             });
-
 
             // set reply modal 
             for (var i = 1; i <= children_except_first_and_last.length; i++) {
 
                 const secondary_reply_btn = ele.parentElement.parentElement.parentElement.parentElement.children[i].children[0].children[1].children
+                const atom_replies = ele.parentElement.parentElement.parentElement.parentElement.children[i]
 
-                secondary_reply_btn[1].addEventListener('click', function () {
+                secondary_reply_btn[2].addEventListener('click', function () {
                     const reviewmodals = this.parentElement.parentElement.parentElement.parentElement;
                     const lastchild_id = reviewmodals.children.length - 1;
                     const to_write_review = reviewmodals.children[lastchild_id]
-
-
                     const secondary_reply_box = this.parentElement.parentElement.parentElement;
 
-                    const replyid = secondary_reply_btn[1].getAttribute('data-reply-id');
-                    const reviewid = secondary_reply_btn[1].getAttribute('data-review-id');
-                    const itemid = secondary_reply_btn[1].getAttribute('data-item-id');
-                    const username = secondary_reply_btn[1].getAttribute('data-username');
-
-
+                    const replyid = secondary_reply_btn[2].getAttribute('data-reply-id');
+                    const reviewid = secondary_reply_btn[2].getAttribute('data-review-id');
+                    const itemid = secondary_reply_btn[2].getAttribute('data-item-id');
+                    const username = secondary_reply_btn[2].getAttribute('data-username');
 
                     data = {
                         "replyid": replyid,
@@ -451,34 +457,30 @@
                         "itemid": itemid,
                         "username": username
                     }
+
                     appendreviewmodal(secondary_reply_box, data);
 
                 })
-
             }
-
-
-
         })
-
     })
 
 
 
-    function appendreviewmodal(secondary_reply_box, datas) {
+    function appendreviewmodal(appendparent, datas) {
 
-        console.log(datas)
 
-        if (!secondary_reply_box.hasAppendedTowritemodal) {
+        if (!appendparent.hasAppendedTowritemodal) {
 
             const towritemodal = document.createElement('div');
 
-            towritemodal.innerHTML = `<div id="replymodal_<?php echo $review['id'] ?>"
+            towritemodal.innerHTML = `
+                <div id="replymodal_<?php echo $review['id'] ?>"
                             class="space-y-2 border rounded-md px-5 py-2 mb-5 mt-5 ">
 
-                            <form action="" method="post" id="submitreview" class="w-full">
+                    <form action="" method="post" id="submitreview" class="w-full">
 
-                            <div class="space-y-4">
+                        <div class="space-y-4">
                             <div class="flex justify-between ">
                                 <h1 class="text-sm font-medium">
                                     <div class="flex justify-center items-center  space-x-2">
@@ -489,8 +491,6 @@
                                             <span class="capitalize">
                                                 <?php echo $data['user']['name'] ?>
                                             </span>
-
-
                                         </div>
                                         <div>
                                             replies to
@@ -499,14 +499,8 @@
                                             <span class="tousernameclass capitalize">
                                                 ${data['username']}
                                             </span>
-
-
                                         </div>
-
                                     </div>
-
-
-
                                 </h1>
 
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
@@ -523,46 +517,43 @@
                                     style="scrollbar-width:none;"></textarea>
                             </div>
 
-                            </div>
+                        </div>
 
                             <div class="text-sm flex justify-end items-center space-x-3 mt-3"
                             onclick="document.getElementById('replymodal').classList.toggle('hidden')">
-                            <div class="text-md flex justify-center items-center hover:opacity-80">
-                                <button>Cancle</button>
+                                <div class="text-md flex justify-center items-center hover:opacity-80">
+                                    <button>Cancle</button>
 
+                                </div>
+
+                                <button type="submit" name="replybtn" id="replybtnsubmit"
+                                    class="text-md rounded-md px-2 py-1 flex justify-center items-center border border-[#4c5372] hover:bg-gray-100">
+
+                                    <span> Submit</span>
+                                </button>
                             </div>
-
-                            <button type="submit" name="replybtn" id="replybtnsubmit"
-                                class="text-md rounded-md px-2 py-1 flex justify-center items-center border border-[#4c5372] hover:bg-gray-100">
-
-                                <span> Submit</span>
-                            </button>
-                            </div>
-
 
 
                             <input type="hidden" name="reply_id" id="reply_id" value="${data['replyid']}">
                             <input type="hidden" name="review_id" id="review_id" value="${data['reviewid']}">
                             <input type="hidden" name="item_id" id="item_id" value="${data['itemid']}">
                             <input type="hidden" name="touser_name" id="touser_name" value="${data['username']}">
-                            </form>
+                    </form>
+
+                </div>`;
 
 
-
-
-
-
-                            </div>`;
-
-
-            secondary_reply_box.appendChild(towritemodal);
-
-            secondary_reply_box.hasAppendedTowritemodal = true;
+            appendparent.appendChild(towritemodal);
+            appendparent.hasAppendedTowritemodal = true;
         }
     }
 
 
 
+
+
+
+    // Arranging of reply
 
     const review_containers = document.querySelectorAll('.review_containers');
 
@@ -573,16 +564,12 @@
 
 
     for (var i = 0; i < review_containers.length; i++) {
-
         const replies = review_containers[i].children;
-
 
         var id_ui;
         var datareply_ui;
 
         for (var x = 0; x < replies.length; x++) {
-
-
             var datareplyid = replies[x].getAttribute('data-reply-id')
             var id = replies[x].id
 
@@ -590,30 +577,34 @@
             targetid_array.push(datareplyid);
 
             var targetid;
-
-
-
-
-
-
         }
-
-
-
-
-
-
     }
 
 
     let mutual_numbers = id_array.filter(num => targetid_array.includes(num))
 
 
-    const primary_replyidui = document.getElementById(mutual_numbers[0]);
-    const atom_replyidui = document.getElementsByClassName(mutual_numbers[0]);
+    for (var j = 0; j < mutual_numbers.length; j++) {
+        // console.log(mutual_numbers[j])
 
-    const atomreplyui = Array.from(atom_replyidui);
-    primary_replyidui.appendChild(atomreplyui[0])
+        const primary_replyidui = document.getElementById(mutual_numbers[j]);
+        const atom_replyidui = document.querySelectorAll('.r_' + mutual_numbers[j]);
+
+        let atomreplyui = Array.from(atom_replyidui);
+
+        for (var a = 0; a < atom_replyidui.length; a++) {
+
+            if (atomreplyui[a]) {
+                primary_replyidui.appendChild(atomreplyui[a])
+            }
+
+        }
+
+
+
+    }
+
+
 
 
 

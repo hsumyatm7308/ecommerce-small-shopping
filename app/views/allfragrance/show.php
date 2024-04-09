@@ -12,7 +12,7 @@ require_once ('/opt/lampp/htdocs/mvcshop/app/views/layouts/navbar.php');
 <section class="container mx-auto text-[#4c5372] mt-20 px-10 ">
 
 
-    <div class="w-full h-full grid grid-cols-2">
+    <div class="w-full h-full grid grid-cols-2 gap-12">
         <div class="flex justify-start items-center">
             <div class="w-[500px] h-[590px] border flex justify-start items-center rounded-md relative overflow-hidden">
                 <img src="<?php echo IMG_ROOT; ?><?php echo $data['singledata']['image'] ?>" alt=""
