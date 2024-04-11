@@ -10,12 +10,15 @@ class Allfragrance extends Controller
     public $reviewmodal;
     public $votemodal;
 
+    public $ratingmodal;
+
     public function __construct()
     {
         $this->allmodal = $this->model('All');
         $this->sidebarmodal = $this->model('Side');
         $this->reviewmodal = $this->model('Review');
         $this->votemodal = $this->model('Vote');
+        $this->ratingmodal = $this->model('Rating');
         $this->pagination = new Pagination;
 
     }
@@ -77,6 +80,8 @@ class Allfragrance extends Controller
         $replyreviews = $this->reviewmodal->replyreview($id);
 
 
+        $averagerating = $this->ratingmodal->average_rating();
+
 
 
 
@@ -114,6 +119,10 @@ class Allfragrance extends Controller
             "emailerr" => "",
             "usernameerr" => "",
             "ratingerr" => "",
+
+
+            // rating 
+            "averagerating" => $averagerating
 
 
         ];

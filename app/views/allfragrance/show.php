@@ -191,8 +191,8 @@ require_once ('/opt/lampp/htdocs/mvcshop/app/views/layouts/navbar.php');
                         <div>
                             <span class="text-xl text-yellow-500 font-semibold"><span id="averagerating">
 
-                                    5
-                                </span>/5.0</span>
+                                    <?php echo $data['averagerating'] ?>
+                                </span>/ 5</span>
                         </div>
                         <div class="flex  items-center">
 

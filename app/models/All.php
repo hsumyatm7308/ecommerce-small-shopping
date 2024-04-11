@@ -75,14 +75,11 @@ class All
             $bindparams[':min'] = $min;
             $bindparams[':max'] = $max;
 
-            echo "min";
         }
 
         if (isset($letter)) {
             $query .= ' AND name LIKE :name';
             $bindparams[':name'] = '%' . $letter . '%';
-
-            echo "letter";
         }
 
         if (isset($sortdirection)) {
