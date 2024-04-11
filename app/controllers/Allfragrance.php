@@ -8,12 +8,14 @@ class Allfragrance extends Controller
     public $pagination;
 
     public $reviewmodal;
+    public $votemodal;
 
     public function __construct()
     {
         $this->allmodal = $this->model('All');
         $this->sidebarmodal = $this->model('Side');
         $this->reviewmodal = $this->model('Review');
+        $this->votemodal = $this->model('Vote');
         $this->pagination = new Pagination;
 
     }
@@ -142,6 +144,12 @@ class Allfragrance extends Controller
 
         }
         $this->reviewmodal->insertreply();
+
+        $this->votemodal->insertvoting();
+
+
+
+
 
         $this->view('allfragrance/show', $data);
     }

@@ -21,7 +21,13 @@
             </div>
 
             <div class="w-full des_and_rev_text space-y-5">
-                <?php $countreply = new Review(); ?>
+                <?php
+                $countreply = new Review();
+                $vote = new Vote();
+
+                // echo $vote->checkvote($review['id'], "primary_voting_id");
+                
+                ?>
 
                 <?php foreach ($data['allreviews'] as $review): ?>
 
@@ -159,16 +165,39 @@
 
                                         <?php endif; ?>
 
-                                        <div class="text-xs flex justify-center items-center hover:cursor-pointer">
-                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                                stroke-width="1.5" stroke="currentColor" class="w-4 h-4 mr-1">
-                                                <path stroke-linecap="round" stroke-linejoin="round"
-                                                    d="M11.48 3.499a.562.562 0 0 1 1.04 0l2.125 5.111a.563.563 0 0 0 .475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 0 0-.182.557l1.285 5.385a.562.562 0 0 1-.84.61l-4.725-2.885a.562.562 0 0 0-.586 0L6.982 20.54a.562.562 0 0 1-.84-.61l1.285-5.386a.562.562 0 0 0-.182-.557l-4.204-3.602a.562.562 0 0 1 .321-.988l5.518-.442a.563.563 0 0 0 .475-.345L11.48 3.5Z" />
-                                            </svg>
-                                            <span><span>12</span> Votes</span>
 
+                                        <form action="" method="post">
+                                            <div id="vote_" data-vote-id="<?php echo $review['id']; ?>"
+                                                class="text-xs flex justify-center items-center hover:cursor-pointer voting_btns">
 
-                                        </div>
+                                                <?php if ($vote->checkvote($review['id'], "review_id")): ?>
+                                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
+                                                        fill="currentColor" class="w-4 h-4">
+                                                        <path fill-rule="evenodd"
+                                                            d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.006 5.404.434c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.434 2.082-5.005Z"
+                                                            clip-rule="evenodd" />
+                                                    </svg>
+                                                <?php else: ?>
+                                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                                        stroke-width="1.5" stroke="currentColor"
+                                                        class="w-4 h-4 mr-1  text-gray-400 ">
+                                                        <path stroke-linecap="round" stroke-linejoin="round"
+                                                            d="M11.48 3.499a.562.562 0 0 1 1.04 0l2.125 5.111a.563.563 0 0 0 .475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 0 0-.182.557l1.285 5.385a.562.562 0 0 1-.84.61l-4.725-2.885a.562.562 0 0 0-.586 0L6.982 20.54a.562.562 0 0 1-.84-.61l1.285-5.386a.562.562 0 0 0-.182-.557l-4.204-3.602a.562.562 0 0 1 .321-.988l5.518-.442a.563.563 0 0 0 .475-.345L11.48 3.5Z" />
+                                                    </svg>
+                                                <?php endif; ?>
+
+                                                <button type="submit" name="primary_votebtn">
+                                                    <span>
+                                                        <span>
+                                                            <?php echo $vote->countvote($review['id'], "review_id"); ?>
+
+                                                        </span>
+                                                        Votes</span>
+                                                </button>
+                                            </div>
+                                            <input type="hidden" name="primary_voting_id"
+                                                value="<?php echo $review['id'] ?>">
+                                        </form>
 
                                         <div class="text-xs flex justify-center items-center reply_btns hover:cursor-pointer"
                                             data-reply-id="<?php $review['id'] ?>"
@@ -286,18 +315,38 @@
                                                 </span>
 
 
-                                                <div class="text-xs flex justify-center items-center">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                                        stroke-width="1.5" stroke="currentColor" class="w-4 h-4">
-                                                        <path stroke-linecap="round" stroke-linejoin="round"
-                                                            d="M11.48 3.499a.562.562 0 0 1 1.04 0l2.125 5.111a.563.563 0 0 0 .475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 0 0-.182.557l1.285 5.385a.562.562 0 0 1-.84.61l-4.725-2.885a.562.562 0 0 0-.586 0L6.982 20.54a.562.562 0 0 1-.84-.61l1.285-5.386a.562.562 0 0 0-.182-.557l-4.204-3.602a.562.562 0 0 1 .321-.988l5.518-.442a.563.563 0 0 0 .475-.345L11.48 3.5Z" />
-                                                    </svg>
-                                                    <span>Vote</span>
+                                                <form action="" method="post">
 
-                                                </div>
+                                                    <div id="vote_" data-vote-id="<?php echo $replyreviews['reviewreplyid'] ?>"
+                                                        class="text-xs flex justify-center items-center hover:cursor-pointer voting_btns">
+
+                                                        <?php if ($vote->checkvote($replyreviews['reviewreplyid'], "review_reply_id")): ?>
+                                                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
+                                                                fill="currentColor" class="w-4 h-4">
+                                                                <path fill-rule="evenodd"
+                                                                    d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.006 5.404.434c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.434 2.082-5.005Z"
+                                                                    clip-rule="evenodd" />
+                                                            </svg>
+                                                        <?php else: ?>
+                                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                                                stroke-width="1.5" stroke="currentColor"
+                                                                class="w-4 h-4 mr-1  text-gray-400 ">
+                                                                <path stroke-linecap="round" stroke-linejoin="round"
+                                                                    d="M11.48 3.499a.562.562 0 0 1 1.04 0l2.125 5.111a.563.563 0 0 0 .475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 0 0-.182.557l1.285 5.385a.562.562 0 0 1-.84.61l-4.725-2.885a.562.562 0 0 0-.586 0L6.982 20.54a.562.562 0 0 1-.84-.61l1.285-5.386a.562.562 0 0 0-.182-.557l-4.204-3.602a.562.562 0 0 1 .321-.988l5.518-.442a.563.563 0 0 0 .475-.345L11.48 3.5Z" />
+                                                            </svg>
+                                                        <?php endif; ?>
+
+                                                        <button type="submit" name="review_reply_btn">
+                                                            <span><span></span> Votes</span>
+                                                        </button>
+                                                    </div>
+                                                    <input type="hidden" name="review_reply_id"
+                                                        value="<?php echo $replyreviews['reviewreplyid'] ?>">
+                                                </form>
+
 
                                                 <div id="reply_btns_<?php echo $replyreviews['reviewreplyid'] ?>"
-                                                    class="text-xs flex justify-center items-center "
+                                                    class="text-xs flex justify-center items-center"
                                                     data-reply-id="<?php echo $replyreviews['reviewreplyid']; ?>"
                                                     data-review-id="<?php echo $review['id'] ?>"
                                                     data-item-id="<?php echo $data['singledata']['id'] ?>"
@@ -367,7 +416,7 @@
 
 
 
-
+<script src="<?php echo URLROOT; ?>/public/js/reviews.js"></script>
 
 <script>
 
@@ -377,7 +426,7 @@
 
     // reply  
     const reply_btns = document.querySelectorAll('.reply_btns');
-    const replymodal = document.getElementById('replymodal_<?php echo $review['id'] ?>');
+    // const replymodal = document.getElementById('replymodal_<?php echo $review['id'] ?>');
     const reply_id = document.getElementById('reply_id');
     const review_id = document.getElementById('review_id');
     const reply_text = document.getElementById('replytext');
@@ -404,8 +453,8 @@
             const reviewmodals = ele.parentElement.parentElement.parentElement.parentElement
             appendreviewmodal(reviewmodals, data)
 
-            tousernamemodal.innerText = username
-            ele.setAttribute('replybtnid', 'reply_btns_' + reviewid)
+            // tousernamemodal.innerText = username
+            // ele.setAttribute('replybtnid', 'reply_btns_' + reviewid)
 
         })
     })
@@ -441,6 +490,9 @@
                 const atom_replies = ele.parentElement.parentElement.parentElement.parentElement.children[i]
 
                 secondary_reply_btn[2].addEventListener('click', function () {
+
+
+
                     const reviewmodals = this.parentElement.parentElement.parentElement.parentElement;
                     const lastchild_id = reviewmodals.children.length - 1;
                     const to_write_review = reviewmodals.children[lastchild_id]
@@ -460,8 +512,19 @@
 
                     appendreviewmodal(secondary_reply_box, data);
 
+
+
+                    // const replymodals = document.querySelectorAll('.replymodals');
+
+
+
+
+
                 })
             }
+
+
+
         })
     })
 
@@ -470,13 +533,12 @@
     function appendreviewmodal(appendparent, datas) {
 
 
-        if (!appendparent.hasAppendedTowritemodal) {
 
-            const towritemodal = document.createElement('div');
+        const towritemodal = document.createElement('div');
 
-            towritemodal.innerHTML = `
-                <div id="replymodal_<?php echo $review['id'] ?>"
-                            class="space-y-2 border rounded-md px-5 py-2 mb-5 mt-5 ">
+        towritemodal.innerHTML = `
+                <div id="replymodal_${data['replyid']}"
+                            class="space-y-2 border rounded-md px-5 py-2 mb-5 mt-5 replymodals">
 
                     <form action="" method="post" id="submitreview" class="w-full">
 
@@ -543,8 +605,12 @@
                 </div>`;
 
 
+
+        if (!appendparent.hasAppendedTowritemodal) {
             appendparent.appendChild(towritemodal);
             appendparent.hasAppendedTowritemodal = true;
+
+
         }
     }
 
@@ -603,39 +669,6 @@
 
 
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

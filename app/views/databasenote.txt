@@ -88,6 +88,19 @@ user_id INT
 
  - Review vote 
 
+  CREATE TABLE IF NOT EXISTS votes (
+    id INT AUTO_INCREMENT NOT NULL PRIMARY KEY,
+    review_id INT,
+    review_reply_id INT,
+    user_id INT,
+    created_at TIMESTAMP DEFAULT NOW(),
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    FOREIGN KEY (review_id) REFERENCES reviews(id) ON UPDATE CASCADE ON DELETE CASCADE,
+    FOREIGN KEY (review_reply_id) REFERENCES review_reply(reviewreplyid) ON UPDATE CASCADE ON DELETE CASCADE
+  );
+
+
+
  - Reply reviews
 
  CREATE TABLE IF NOT EXISTS review_reply(
