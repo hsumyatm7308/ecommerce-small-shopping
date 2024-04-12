@@ -116,11 +116,21 @@ class Review
     }
 
     // show review 
-    public function showreview($id)
+    public function showreview($id, $offset, $limit)
     {
-        $this->db->dbquery('SELECT * FROM users u LEFT JOIN reviews r ON r.user_id = u.id WHERE item_id = :id');
+        $this->db->dbquery('SELECT * FROM users u LEFT JOIN reviews r ON r.user_id = u.id WHERE item_id = :id LIMIT :offset, :limit');
         $this->db->dbbind(':id', $id);
+        $this->db->dbbind(':offset', $offset, PDO::PARAM_INT);
+        $this->db->dbbind(':limit', $limit, PDO::PARAM_INT);
         return $this->db->getmultidata();
+    }
+
+    public function reviewcount($id)
+    {
+        $this->db->dbquery('SELECT COUNT(*) AS total_reviews FROM reviews WHERE item_id = :id');
+        $this->db->dbbind(':id', $id);
+        $result = $this->db->getsingledata();
+        return $result['total_reviews'];
     }
 
 

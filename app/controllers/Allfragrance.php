@@ -54,9 +54,11 @@ class Allfragrance extends Controller
             'items' => $items,
             'types' => $types,
             'sidebaritems' => $sidebaritems,
+
             'currentPage' => $page,
             'totalPages' => $totalPages,
             'totalitems' => $totalitems,
+
             'minprice' => $minprice,
             'maxprice' => $maxprice,
 
@@ -71,17 +73,54 @@ class Allfragrance extends Controller
 
     public function show($id)
     {
+
+
+
+
+
+
         $singledata = $this->allmodal->getsingleitem($id);
+
+
         $brand = $this->allmodal->getbrand($singledata['id']);
         $status = $this->allmodal->getstatus($singledata['status_id']);
         $authuser = $this->allmodal->getuserinfo();
 
-        $allreviews = $this->reviewmodal->showreview($id);
+
+
+
+
+        $getpage = isset($this->pagination->getparameter()['page']) ? $this->pagination->getparameter()['page'] : 1;
+        $page = max(1, $getpage);
+
+        $itemsperpage = 4;
+        $offset = ($page - 1) * $itemsperpage;
+
+
+        $totalreviews = $this->reviewmodal->reviewcount($id);
+        $totalPages = ceil($totalreviews / $itemsperpage);
+
+        $allreviews = $this->reviewmodal->showreview($id, $offset, $itemsperpage);
+
+
+
+
+
+
         $replyreviews = $this->reviewmodal->replyreview($id);
 
 
         $averagerating = $this->ratingmodal->average_rating();
-        $rating_numbers = $this->ratingmodal->rating_number_count();
+
+
+        $rating_numbers = $this->ratingmodal->rating_number_count($offset, $itemsperpage);
+
+
+
+
+
+
+
 
 
         if (isset($_POST['addtocart'])) {
@@ -122,7 +161,12 @@ class Allfragrance extends Controller
 
             // rating 
             "averagerating" => $averagerating,
-            "rating_numbers" => $rating_numbers
+            "rating_numbers" => $rating_numbers,
+
+
+            'currentPage' => $page,
+            'totalPages' => $totalPages,
+            'totalitems' => $totalreviews
 
 
         ];

@@ -173,7 +173,7 @@
                                         <?php endif; ?>
 
                                         <!-- voting  -->
-                                        <form action="" method="post" class="flex justify-center items-center mt-3">
+                                        <form action="" method="post" class="flex justify-center items-center">
 
                                             <div id="vote_" data-vote-id="<?php echo $review['id']; ?>"
                                                 class="text-xs flex justify-center items-center hover:cursor-pointer voting_btns">
@@ -199,6 +199,7 @@
 
                                                 <button type="submit" name="primary_votebtn">
 
+                                                    <span><?php echo $vote->countvote($review['id'], "review_id") ?></span>
 
                                                     <span>
                                                         <?php if ($vote->countvote($review['id'], "review_id") > 1): ?>
@@ -336,7 +337,7 @@
 
 
                                                 <!-- vote  -->
-                                                <form action="" method="post" class="mt-3">
+                                                <form action="" method="post" class="">
 
                                                     <div id="vote_" data-vote-id="<?php echo $replyreviews['reviewreplyid'] ?>"
                                                         class="text-xs flex justify-center items-center hover:cursor-pointer voting_btns">
@@ -424,6 +425,15 @@
 
                 <?php endforeach; ?>
             </div>
+        </div>
+
+        <!-- pagination  -->
+        <div class="py-10">
+            <?php
+            $newpagination = new Pagination();
+            $newpagination->pagination($data);
+            ?>
+
         </div>
     </div>
 </section>

@@ -92,7 +92,7 @@ class Vote
         $this->db->dbbind(':revid', $voteid);
 
         $result = $this->db->getsingledata();
-        echo $result['vote_count'];
+        return $result['vote_count'];
     }
 
 
