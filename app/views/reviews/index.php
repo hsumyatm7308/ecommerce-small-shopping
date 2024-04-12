@@ -32,114 +32,120 @@
                 <?php foreach ($data['allreviews'] as $review): ?>
 
 
-                    <div>
+                    <div class="w-full">
 
                         <div id="review_container_<?php echo $review['id'] ?> "
-                            class=" space-y-4 border rounded-md px-5 py-3   review_containers">
+                            class="w-full space-y-4 border rounded-md px-5 py-3   review_containers">
                             <!-- primary review  -->
-                            <div class="mb-5">
-                                <div class="flex justify-between items-center mb-3">
-                                    <ul class="flex justify-start items-center">
-                                        <li class="flex items-center">
+                            <div class="w-full mb-5">
 
-                                            <div>
-                                                <svg xmlns="http://www.w3.org/2000/svg" fill="yellow" viewBox="0 0 24 24"
-                                                    stroke-width="1.5" stroke="currentColor"
-                                                    class="w-5 h-5 text-yellow-500">
-                                                    <path stroke-linecap="round" stroke-linejoin="round"
-                                                        d="M11.48 3.499a.562.562 0 011.04 0l2.125 5.111a.563.563 0 00.475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 00-.182.557l1.285 5.385a.562.562 0 01-.84.61l-4.725-2.885a.563.563 0 00-.586 0L6.982 20.54a.562.562 0 01-.84-.61l1.285-5.386a.562.562 0 00-.182-.557l-4.204-3.602a.563.563 0 01.321-.988l5.518-.442a.563.563 0 00.475-.345L11.48 3.5z" />
-                                                </svg>
+                                <div class="w-full space-y-4 px-2 py-2">
+
+                                    <div class="w-full flex justify-between items-center  space-x-2">
+                                        <div class="flex justify-center items-center">
+                                            <div class="w-10 h-10 border bg-gray-400 rounded-full mr-2">
+                                                <img src="" alt="">
                                             </div>
-
-
-
-                                        </li>
-
-                                        <li class="flex items-center">
-
                                             <div>
-                                                <svg xmlns="http://www.w3.org/2000/svg" fill="yellow" viewBox="0 0 24 24"
-                                                    stroke-width="1.5" stroke="currentColor"
-                                                    class="w-5 h-5 text-yellow-500">
-                                                    <path stroke-linecap="round" stroke-linejoin="round"
-                                                        d="M11.48 3.499a.562.562 0 011.04 0l2.125 5.111a.563.563 0 00.475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 00-.182.557l1.285 5.385a.562.562 0 01-.84.61l-4.725-2.885a.563.563 0 00-.586 0L6.982 20.54a.562.562 0 01-.84-.61l1.285-5.386a.562.562 0 00-.182-.557l-4.204-3.602a.563.563 0 01.321-.988l5.518-.442a.563.563 0 00.475-.345L11.48 3.5z" />
-                                                </svg>
-                                            </div>
-
-
-                                        </li>
-                                        <li class="flex items-center">
-
-                                            <svg xmlns="http://www.w3.org/2000/svg" fill="yellow" viewBox="0 0 24 24"
-                                                stroke-width="1.5" stroke="currentColor" class="w-5 h-5 text-yellow-500">
-                                                <path stroke-linecap="round" stroke-linejoin="round"
-                                                    d="M11.48 3.499a.562.562 0 011.04 0l2.125 5.111a.563.563 0 00.475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 00-.182.557l1.285 5.385a.562.562 0 01-.84.61l-4.725-2.885a.563.563 0 00-.586 0L6.982 20.54a.562.562 0 01-.84-.61l1.285-5.386a.562.562 0 00-.182-.557l-4.204-3.602a.563.563 0 01.321-.988l5.518-.442a.563.563 0 00.475-.345L11.48 3.5z" />
-                                            </svg>
-
-
-                                        </li>
-                                        <li class="flex items-center">
-
-                                            <svg xmlns="http://www.w3.org/2000/svg" fill="yellow" viewBox="0 0 24 24"
-                                                stroke-width="1.5" stroke="currentColor" class="w-5 h-5 text-yellow-500">
-                                                <path stroke-linecap="round" stroke-linejoin="round"
-                                                    d="M11.48 3.499a.562.562 0 011.04 0l2.125 5.111a.563.563 0 00.475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 00-.182.557l1.285 5.385a.562.562 0 01-.84.61l-4.725-2.885a.563.563 0 00-.586 0L6.982 20.54a.562.562 0 01-.84-.61l1.285-5.386a.562.562 0 00-.182-.557l-4.204-3.602a.563.563 0 01.321-.988l5.518-.442a.563.563 0 00.475-.345L11.48 3.5z" />
-                                            </svg>
-
-
-                                        </li>
-                                        <li class="flex items-center">
-
-                                            <svg xmlns="http://www.w3.org/2000/svg" fill="yellow" viewBox="0 0 24 24"
-                                                stroke-width="1.5" stroke="currentColor" class="w-5 h-5 text-yellow-500">
-                                                <path stroke-linecap="round" stroke-linejoin="round"
-                                                    d="M11.48 3.499a.562.562 0 011.04 0l2.125 5.111a.563.563 0 00.475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 00-.182.557l1.285 5.385a.562.562 0 01-.84.61l-4.725-2.885a.563.563 0 00-.586 0L6.982 20.54a.562.562 0 01-.84-.61l1.285-5.386a.562.562 0 00-.182-.557l-4.204-3.602a.563.563 0 01.321-.988l5.518-.442a.563.563 0 00.475-.345L11.48 3.5z" />
-                                            </svg>
-
-
-
-                                        </li>
-
-                                    </ul>
-
-                                    <div>
-                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                            stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
-                                            <path stroke-linecap="round" stroke-linejoin="round"
-                                                d="M12 6.75a.75.75 0 1 1 0-1.5.75.75 0 0 1 0 1.5ZM12 12.75a.75.75 0 1 1 0-1.5.75.75 0 0 1 0 1.5ZM12 18.75a.75.75 0 1 1 0-1.5.75.75 0 0 1 0 1.5Z" />
-                                        </svg>
-
-                                    </div>
-                                </div>
-                                <div class="space-y-4">
-                                    <div>
-
-                                    </div>
-                                    <h1 class="text-sm font-medium">
-
-                                        <div class="flex justify-start items-center  space-x-2">
-                                            <div class="flex justify-center items-center">
-                                                <div class="w-10 h-10 border bg-gray-400 rounded-full mr-2">
-                                                    <img src="" alt="">
-                                                </div>
                                                 <span class="capitalize">
                                                     <?php echo $review['name'] ?>
                                                 </span>
 
-
                                             </div>
 
 
+                                            <!-- rating  -->
+                                            <ul
+                                                class="flex justify-start items-center ml-2 review_star_container_<?php echo $review['id'] ?>">
+                                                <li class="flex items-center">
+
+                                                    <div>
+                                                        <svg xmlns="http://www.w3.org/2000/svg" fill="gray"
+                                                            viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
+                                                            class="w-5 h-5 text-gray-300 review_star_<?php echo $review['id'] ?>">
+                                                            <path stroke-linecap="round" stroke-linejoin="round"
+                                                                d="M11.48 3.499a.562.562 0 011.04 0l2.125 5.111a.563.563 0 00.475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 00-.182.557l1.285 5.385a.562.562 0 01-.84.61l-4.725-2.885a.563.563 0 00-.586 0L6.982 20.54a.562.562 0 01-.84-.61l1.285-5.386a.562.562 0 00-.182-.557l-4.204-3.602a.563.563 0 01.321-.988l5.518-.442a.563.563 0 00.475-.345L11.48 3.5z" />
+                                                        </svg>
+                                                    </div>
+
+
+
+                                                </li>
+
+                                                <li class="flex items-center">
+
+                                                    <div>
+                                                        <svg xmlns="http://www.w3.org/2000/svg" fill="gray"
+                                                            viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
+                                                            class="w-5 h-5 text-gray-300 review_star_<?php echo $review['id'] ?>">
+                                                            <path stroke-linecap="round" stroke-linejoin="round"
+                                                                d="M11.48 3.499a.562.562 0 011.04 0l2.125 5.111a.563.563 0 00.475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 00-.182.557l1.285 5.385a.562.562 0 01-.84.61l-4.725-2.885a.563.563 0 00-.586 0L6.982 20.54a.562.562 0 01-.84-.61l1.285-5.386a.562.562 0 00-.182-.557l-4.204-3.602a.563.563 0 01.321-.988l5.518-.442a.563.563 0 00.475-.345L11.48 3.5z" />
+                                                        </svg>
+                                                    </div>
+
+
+                                                </li>
+                                                <li class="flex items-center">
+
+                                                    <svg xmlns="http://www.w3.org/2000/svg" fill="gray" viewBox="0 0 24 24"
+                                                        stroke-width="1.5" stroke="currentColor"
+                                                        class="w-5 h-5 text-gray-300 review_star_<?php echo $review['id'] ?>">
+                                                        <path stroke-linecap="round" stroke-linejoin="round"
+                                                            d="M11.48 3.499a.562.562 0 011.04 0l2.125 5.111a.563.563 0 00.475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 00-.182.557l1.285 5.385a.562.562 0 01-.84.61l-4.725-2.885a.563.563 0 00-.586 0L6.982 20.54a.562.562 0 01-.84-.61l1.285-5.386a.562.562 0 00-.182-.557l-4.204-3.602a.563.563 0 01.321-.988l5.518-.442a.563.563 0 00.475-.345L11.48 3.5z" />
+                                                    </svg>
+
+
+                                                </li>
+                                                <li class="flex items-center">
+
+                                                    <svg xmlns="http://www.w3.org/2000/svg" fill="gray" viewBox="0 0 24 24"
+                                                        stroke-width="1.5" stroke="currentColor"
+                                                        class="w-5 h-5 text-gray-300 review_star_<?php echo $review['id'] ?>">
+                                                        <path stroke-linecap="round" stroke-linejoin="round"
+                                                            d="M11.48 3.499a.562.562 0 011.04 0l2.125 5.111a.563.563 0 00.475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 00-.182.557l1.285 5.385a.562.562 0 01-.84.61l-4.725-2.885a.563.563 0 00-.586 0L6.982 20.54a.562.562 0 01-.84-.61l1.285-5.386a.562.562 0 00-.182-.557l-4.204-3.602a.563.563 0 01.321-.988l5.518-.442a.563.563 0 00.475-.345L11.48 3.5z" />
+                                                    </svg>
+
+
+                                                </li>
+                                                <li class="flex items-center">
+
+                                                    <svg xmlns="http://www.w3.org/2000/svg" fill="gray" viewBox="0 0 24 24"
+                                                        stroke-width="1.5" stroke="currentColor"
+                                                        class="w-5 h-5 text-gray-300 review_star_<?php echo $review['id'] ?>">
+                                                        <path stroke-linecap="round" stroke-linejoin="round"
+                                                            d="M11.48 3.499a.562.562 0 011.04 0l2.125 5.111a.563.563 0 00.475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 00-.182.557l1.285 5.385a.562.562 0 01-.84.61l-4.725-2.885a.563.563 0 00-.586 0L6.982 20.54a.562.562 0 01-.84-.61l1.285-5.386a.562.562 0 00-.182-.557l-4.204-3.602a.563.563 0 01.321-.988l5.518-.442a.563.563 0 00.475-.345L11.48 3.5z" />
+                                                    </svg>
+
+
+
+                                                </li>
+
+                                            </ul>
+
 
                                         </div>
-                                        <div class="text-[10px] font-normal ml-12">
-                                            <?php $timestamp = strtotime($review['created_at']);
-                                            $formattedDate = date('d-M-Y h:m:s', $timestamp);
-                                            echo $formattedDate;
-                                            ?>
+
+
+
+                                        <div class="justify-self-end">
+                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                                stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                                                <path stroke-linecap="round" stroke-linejoin="round"
+                                                    d="M12 6.75a.75.75 0 1 1 0-1.5.75.75 0 0 1 0 1.5ZM12 12.75a.75.75 0 1 1 0-1.5.75.75 0 0 1 0 1.5ZM12 18.75a.75.75 0 1 1 0-1.5.75.75 0 0 1 0 1.5Z" />
+                                            </svg>
+
                                         </div>
 
-                                    </h1>
+
+                                    </div>
+                                    <div class="text-[10px] font-normal ml-12">
+                                        <?php $timestamp = strtotime($review['created_at']);
+                                        $formattedDate = date('d-M-Y h:m:s', $timestamp);
+                                        echo $formattedDate;
+                                        ?>
+                                    </div>
+
+
                                     <div class="ml-12 flex justify-center items-center">
 
                                         <span id="content_<?php echo $review['id'] ?>" class="w-full">
@@ -157,6 +163,7 @@
 
                                     <div class="flex justify-center items-center space-x-2">
 
+                                        <!-- see more reply  -->
                                         <?php if ($countreply->countreply($review['id']) > 0): ?>
                                             <div id="" data-viewreplyid="<?php echo $review['id'] ?>"
                                                 class="text-xs hover:cursor-pointer seemorereply">
@@ -165,6 +172,7 @@
 
                                         <?php endif; ?>
 
+                                        <!-- voting  -->
                                         <form action="" method="post" class="flex justify-center items-center mt-3">
 
                                             <div id="vote_" data-vote-id="<?php echo $review['id']; ?>"
@@ -209,6 +217,7 @@
                                         </form>
 
 
+                                        <!-- reply  -->
                                         <div class="text-xs flex justify-center items-center reply_btns hover:cursor-pointer"
                                             data-reply-id="<?php $review['id'] ?>"
                                             data-review-id="<?php echo $review['id'] ?>"
@@ -315,6 +324,7 @@
                                             </div>
 
                                             <div class="text-sm flex justify-end items-center space-x-2 mt-3">
+                                                <!-- see more reply  -->
                                                 <span>
                                                     <?php if ($countreply->countreviewreply($replyreviews['reviewreplyid']) > 0): ?>
                                                         <div id="" data-viewreplyid="<?php echo $replyreviews['reviewreplyid'] ?>"
@@ -325,6 +335,7 @@
                                                 </span>
 
 
+                                                <!-- vote  -->
                                                 <form action="" method="post" class="mt-3">
 
                                                     <div id="vote_" data-vote-id="<?php echo $replyreviews['reviewreplyid'] ?>"
@@ -363,7 +374,7 @@
                                                         value="<?php echo $replyreviews['reviewreplyid'] ?>">
                                                 </form>
 
-
+                                                <!-- reply  -->
                                                 <div id="reply_btns_<?php echo $replyreviews['reviewreplyid'] ?>"
                                                     class="text-xs flex justify-center items-center"
                                                     data-reply-id="<?php echo $replyreviews['reviewreplyid']; ?>"
@@ -393,21 +404,7 @@
                                             </div>
 
                                         </div>
-
-
-
-
-
-
                                     </div>
-
-
-
-
-
-
-
-
                                     <?php
                                 endif;
                                 ?>
@@ -437,10 +434,6 @@
 
 
 <script>
-
-
-
-
 
     // reply  
     const reply_btns = document.querySelectorAll('.reply_btns');
@@ -689,8 +682,6 @@
     }
 
 
-
-
     // substring 
     const reviewctn = document.getElementById('content_<?php echo $review['id'] ?>');
 
@@ -698,6 +689,22 @@
         this.innerText = '<?php echo htmlspecialchars($review['reviews']); ?>'
 
     })
+
+
+    // rating 
+    const allraing = <?php echo json_encode($data['rating_numbers']); ?>;
+    var starid;
+
+    allraing.forEach(item => {
+        const rating = item.rating;
+        const userId = item.user_id;
+        const starid = item.id;
+
+        const review_stars = document.querySelectorAll('.review_star_' + starid);
+        for (let i = 0; i < rating; i++) {
+            review_stars[i].setAttribute('fill', 'yellow');
+        }
+    });
 
 
 

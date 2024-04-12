@@ -16,6 +16,16 @@ class Rating
     }
 
 
+    public function getitemid()
+    {
+        $currentURL = $_SERVER['REQUEST_URI'];
+        $urlparts = parse_url($currentURL);
+        $path = $urlparts['path'] ? $urlparts['path'] : "";
+        $item_id = explode('/', $path);
+
+        return end($item_id);
+    }
+
 
 
     public function select_all_raing_count()
@@ -29,14 +39,12 @@ class Rating
     public function selectallraing()
     {
 
-        $currentURL = $_SERVER['REQUEST_URI'];
-        $urlparts = parse_url($currentURL);
-        $path = $urlparts['path'] ? $urlparts['path'] : "";
-        $item_id = explode('/', $path);
+        $item_id = $this->getitemid();
+
 
 
         $this->db->dbquery('SELECT rating FROM reviews WHERE item_id = :itemid');
-        $this->db->dbbind(':itemid', end($item_id));
+        $this->db->dbbind(':itemid', $item_id);
         $ratings = $this->db->getmultidata();
 
         return $ratings;
@@ -64,18 +72,19 @@ class Rating
 
     public function rating_number_count()
     {
-        $currentURL = $_SERVER['REQUEST_URI'];
-        $urlparts = parse_url($currentURL);
-        $path = $urlparts['path'] ? $urlparts['path'] : "";
-        $item_id = explode('/', $path);
 
-        $this->db->dbquery("SELECT rating FROM reviews WHERE item_id = :itemid");
-        $this->db->dbbind(':itemid', end($item_id));
+        $item_id = $this->getitemid();
+
+
+        $this->db->dbquery("SELECT * FROM reviews WHERE item_id = :itemid");
+        $this->db->dbbind(':itemid', $item_id);
 
         $ratings = $this->db->getmultidata();
 
         return $ratings;
     }
+
+
 
 
 }
