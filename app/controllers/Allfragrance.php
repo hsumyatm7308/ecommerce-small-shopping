@@ -81,12 +81,7 @@ class Allfragrance extends Controller
 
 
         $averagerating = $this->ratingmodal->average_rating();
-
-
         $rating_numbers = $this->ratingmodal->rating_number_count();
-
-        var_dump($rating_numbers);
-
 
 
         if (isset($_POST['addtocart'])) {
