@@ -62,6 +62,21 @@ class Rating
     }
 
 
+    public function rating_number_count()
+    {
+        $currentURL = $_SERVER['REQUEST_URI'];
+        $urlparts = parse_url($currentURL);
+        $path = $urlparts['path'] ? $urlparts['path'] : "";
+        $item_id = explode('/', $path);
+
+        $this->db->dbquery("SELECT rating FROM reviews WHERE item_id = :itemid");
+        $this->db->dbbind(':itemid', end($item_id));
+
+        $ratings = $this->db->getmultidata();
+
+        return $ratings;
+    }
+
 
 }
 
