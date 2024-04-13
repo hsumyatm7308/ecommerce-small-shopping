@@ -473,54 +473,7 @@ require_once ('/opt/lampp/htdocs/mvcshop/app/views/layouts/navbar.php');
 
 
 
-
-
-
-<script>
-    // review percent 
-    const ratings = <?php echo json_encode($data['rating_numbers']); ?>;
-
-    const ratingcounts = {};
-    const progressarr = [];
-    ratings.forEach(item => {
-        const rating = item.rating;
-        if (ratingcounts[rating]) {
-            ratingcounts[rating]++;
-        } else {
-            ratingcounts[rating] = 1;
-        }
-    });
-
-    const getkey = Object.keys(ratingcounts);
-    const total_ratings = ratings.length; // Total number of ratings
-
-    const progresses = document.querySelectorAll('.progress');
-
-    progresses.forEach((ele, idx) => {
-        ele.style.width = '0%';
-        let progressid = ele.getAttribute('progress-id');
-
-        if (getkey.includes(progressid)) {
-
-            const rating_count = ratingcounts[progressid];
-            const percentage = (rating_count / total_ratings) * 100;
-
-
-            ele.style.width = percentage + '%';
-        }
-    });
-
-
-
-
-
-
-
-</script>
-
-
 <script src="<?php echo URLROOT; ?>/public/js/allfragrance.js"></script>
-
 
 
 </body>

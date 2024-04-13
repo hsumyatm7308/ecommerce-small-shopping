@@ -71,16 +71,15 @@ class Rating
     }
 
 
-    public function rating_number_count($offset, $limit)
+    public function rating_number_count()
     {
 
         $item_id = $this->getitemid();
 
 
-        $this->db->dbquery("SELECT * FROM reviews WHERE item_id = :itemid LIMIT :offset, :limit");
+        $this->db->dbquery("SELECT * FROM reviews WHERE item_id = :itemid");
         $this->db->dbbind(':itemid', $item_id);
-        $this->db->dbbind(':offset', $offset, PDO::PARAM_INT);
-        $this->db->dbbind(':limit', $limit, PDO::PARAM_INT);
+
 
         $ratings = $this->db->getmultidata();
 

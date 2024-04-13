@@ -89,6 +89,7 @@ class Allfragrance extends Controller
 
 
 
+        // review pagination 
 
         $getpage = isset($this->pagination->getparameter()['page']) ? $this->pagination->getparameter()['page'] : 1;
         $page = max(1, $getpage);
@@ -104,20 +105,11 @@ class Allfragrance extends Controller
 
 
 
-
+        $averagerating = $this->ratingmodal->average_rating();
+        $rating_numbers = $this->ratingmodal->rating_number_count();
 
 
         $replyreviews = $this->reviewmodal->replyreview($id);
-
-
-        $averagerating = $this->ratingmodal->average_rating();
-
-
-        $rating_numbers = $this->ratingmodal->rating_number_count($offset, $itemsperpage);
-
-
-
-
 
 
 
@@ -204,8 +196,22 @@ class Allfragrance extends Controller
 
 
 
-        $this->view('allfragrance/show', $data);
+        $this->view('showproduct/show', $data);
     }
+
+
+    public function destroy($id)
+    {
+
+        $this->reviewmodal->destroy($id);
+
+
+        redirect('allfragrance/show/' . $id);
+
+
+
+    }
+
 
 }
 

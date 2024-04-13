@@ -176,5 +176,20 @@ class Review
     }
 
 
+    // delete review
+    public function destroy($id)
+    {
+
+        if (isset($_POST['deletemodal_btn']) && $_SERVER['REQUEST_METHOD'] === "POST") {
+            $deleteid = $_POST['delete_id'];
+            $this->db->dbquery('DELETE FROM reviews WHERE id = :id');
+            $this->db->dbbind(':id', $deleteid);
+            $this->db->dbexecute();
+        }
+
+    }
+
+
+
 }
 ?>
