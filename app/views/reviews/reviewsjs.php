@@ -331,12 +331,19 @@
             deletemodal.classList.toggle('hidden');
 
             const getid = e.target.getAttribute('data-id')
+            const getdatatable = e.target.getAttribute('data-table')
+            const getdata_id_name = e.target.getAttribute('data-id-name')
 
 
             const deletemodal_input = document.getElementById('deletemodal_input')
-            deletemodal_input.setAttribute('value', getid);
+            const datatable = document.getElementById('datatable');
+            const data_id_name = document.getElementById('data_id_name');
 
-            console.log(deletemodal_input)
+            deletemodal_input.setAttribute('value', getid);
+            datatable.setAttribute('value', getdatatable)
+            data_id_name.setAttribute('value', getdata_id_name)
+
+            console.log(data_id_name)
 
 
         })

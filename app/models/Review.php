@@ -96,11 +96,10 @@ class Review
 
             if ($this->db->dbexecute()) {
                 redirect('allfragrance/show/' . $item_id);
-                echo $replytext, $reply_id, $item_id, $userid, $touser_name;
+                // echo $replytext, $reply_id, $item_id, $userid, $touser_name;
 
 
             } else {
-                echo "no fail execute";
                 return false;
 
 
@@ -181,8 +180,12 @@ class Review
     {
 
         if (isset($_POST['deletemodal_btn']) && $_SERVER['REQUEST_METHOD'] === "POST") {
+            // $_POST = filter_input_array(INPUT_REQUEST, FILTER_SANITIZE_STRING);
+            $table = $_POST['datatable'];
+            $data_id_name = $_POST['data_id_name'];
+
             $deleteid = $_POST['delete_id'];
-            $this->db->dbquery('DELETE FROM reviews WHERE id = :id');
+            $this->db->dbquery("DELETE FROM $table WHERE $data_id_name = :id");
             $this->db->dbbind(':id', $deleteid);
             $this->db->dbexecute();
         }
