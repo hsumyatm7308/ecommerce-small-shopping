@@ -5,26 +5,18 @@ class Rating
 
     private $db;
     public $pagination;
+    public $curitemid;
 
     public function __construct()
     {
         $this->db = new Database();
 
         $this->pagination = new Pagination;
+        $this->curitemid = new Curitemid;
 
 
     }
 
-
-    public function getitemid()
-    {
-        $currentURL = $_SERVER['REQUEST_URI'];
-        $urlparts = parse_url($currentURL);
-        $path = $urlparts['path'] ? $urlparts['path'] : "";
-        $item_id = explode('/', $path);
-
-        return end($item_id);
-    }
 
 
 
@@ -39,7 +31,7 @@ class Rating
     public function selectallraing()
     {
 
-        $item_id = $this->getitemid();
+        $item_id = $this->curitemid->getitemid();
 
 
 
@@ -74,7 +66,7 @@ class Rating
     public function rating_number_count()
     {
 
-        $item_id = $this->getitemid();
+        $item_id = $this->curitemid->getitemid();
 
 
         $this->db->dbquery("SELECT * FROM reviews WHERE item_id = :itemid");

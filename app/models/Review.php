@@ -14,12 +14,14 @@ class Review
 
     public $sortDirection;
 
+    public $curitemid;
 
     public function __construct()
     {
         $this->db = new Database();
 
         $this->pagination = new Pagination();
+        $this->curitemid = new Curitemid;
 
 
     }
@@ -96,8 +98,6 @@ class Review
 
             if ($this->db->dbexecute()) {
                 redirect('allfragrance/show/' . $item_id);
-                // echo $replytext, $reply_id, $item_id, $userid, $touser_name;
-
 
             } else {
                 return false;
@@ -107,6 +107,34 @@ class Review
 
 
         }
+
+
+        if (isset($_POST['editsubmit']) && $_SERVER['REQUEST_METHOD'] === 'POST') {
+
+
+            $replytext = $_POST['replytext'];
+            $review_id = $_POST['review_id'];
+            $reply_id = $_POST['reply_id'] ? $_POST['reply_id'] : $review_id;
+
+            $item_id = $this->curitemid->getitemid();
+
+            $this->db->dbquery('UPDATE `review_reply` SET `replies` = :replies WHERE reviewreplyid = :id');
+            $this->db->dbbind(':replies', $replytext);
+            $this->db->dbbind(':id', $reply_id);
+
+
+
+            if ($this->db->dbexecute()) {
+                redirect('allfragrance/show/' . $item_id);
+            } else {
+                return false;
+
+
+            }
+
+
+        }
+
 
 
 
@@ -180,7 +208,6 @@ class Review
     {
 
         if (isset($_POST['deletemodal_btn']) && $_SERVER['REQUEST_METHOD'] === "POST") {
-            // $_POST = filter_input_array(INPUT_REQUEST, FILTER_SANITIZE_STRING);
             $table = $_POST['datatable'];
             $data_id_name = $_POST['data_id_name'];
 

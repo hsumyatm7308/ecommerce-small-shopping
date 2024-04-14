@@ -164,9 +164,6 @@
                                     </div>
                                     <div class="text-[10px] font-normal ml-12">
                                         <?php
-                                        // $timestamp = strtotime($review['created_at']);
-                                        // $formattedDate = date('d-M-Y h:m', $timestamp);
-                                        // echo date('d-M-Y h:m', $review['created_at']);
                                         echo $review['created_at'];
                                         ?>
                                     </div>
@@ -293,9 +290,9 @@
 
                                     <div id="<?php echo $replyreviews['reviewreplyid'] ?>"
                                         data-reply-id="<?php echo $replyreviews['reply_id'] ?>"
-                                        class="space-y-2 border rounded-md px-5 py-2 mb-5 mt-5 replies r_<?php echo $replyreviews['reply_id'] ?> hidden">
+                                        class="space-y-2 border rounded-md  px-5 py-2 mb-5 mt-5 replies r_<?php echo $replyreviews['reply_id'] ?> hidden">
 
-                                        <div>
+                                        <div class="secondary_reply_<?php echo $replyreviews['reviewreplyid'] ?> secondary_replies">
 
                                             <div class="space-y-4">
                                                 <div class="flex justify-between ">
@@ -337,14 +334,17 @@
 
                                                     <div class="justify-self-end">
                                                         <?php if ($_SESSION['user_id'] == $replyreviews['replyuser_id']): ?>
-                                                            <div id="ed_del_btn_<?php echo $replyreviews['reviewreplyid']; ?>"
-                                                                ed_del_btn="<?php echo $replyreviews['reviewreplyid']; ?>"
-                                                                class="hover:bg-slate-100 p-1 rounded-full ed_del_btns">
-                                                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                                                    stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
-                                                                    <path stroke-linecap="round" stroke-linejoin="round"
-                                                                        d="M12 6.75a.75.75 0 1 1 0-1.5.75.75 0 0 1 0 1.5ZM12 12.75a.75.75 0 1 1 0-1.5.75.75 0 0 1 0 1.5ZM12 18.75a.75.75 0 1 1 0-1.5.75.75 0 0 1 0 1.5Z" />
-                                                                </svg>
+                                                            <div>
+                                                                <button id="ed_del_btn_<?php echo $replyreviews['reviewreplyid']; ?>"
+                                                                    ed_del_btn="<?php echo $replyreviews['reviewreplyid']; ?>"
+                                                                    class="hover:bg-slate-100 p-1 rounded-full ed_del_btns"> <svg
+                                                                        xmlns="http://www.w3.org/2000/svg" fill="none"
+                                                                        viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
+                                                                        class="w-6 h-6">
+                                                                        <path stroke-linecap="round" stroke-linejoin="round"
+                                                                            d="M12 6.75a.75.75 0 1 1 0-1.5.75.75 0 0 1 0 1.5ZM12 12.75a.75.75 0 1 1 0-1.5.75.75 0 0 1 0 1.5ZM12 18.75a.75.75 0 1 1 0-1.5.75.75 0 0 1 0 1.5Z" />
+                                                                    </svg>
+                                                                </button>
                                                             </div>
 
                                                         <?php endif; ?>
@@ -354,10 +354,14 @@
                                                             class="absolute right-10 ed_del_modal hidden">
                                                             <div class="w-24 bg-[#f4f4f4] border border-slate-100 rounded-md">
                                                                 <ul class="rounded-md">
-                                                                    <li class="rounded-t-md cursor-pointer p-2 hover:bg-slate-300">
+                                                                    <li class="rounded-t-md cursor-pointer p-2 hover:bg-slate-300 edit_btn"
+                                                                        data-id="<?php echo $replyreviews['reviewreplyid']; ?>"
+                                                                        data-content="<?php echo $replyreviews['replies'] ?>"
+                                                                        data-tousername="<?php echo $replyreviews['touser_name'] ?>">
                                                                         Edit
                                                                     </li>
-                                                                    <li class="rounded-b-md cursor-pointer p-2 hover:bg-slate-300 delete_btn"
+                                                                    <li class=" rounded-b-md cursor-pointer p-2
+                                                                        hover:bg-slate-300 delete_btn"
                                                                         data-id="<?php echo $replyreviews['reviewreplyid']; ?>"
                                                                         data-id-name="reviewreplyid" data-table="review_reply">
                                                                         Delete</li>
@@ -458,6 +462,8 @@
                                             </div>
 
                                         </div>
+
+
                                     </div>
                                 <?php endif; ?>
 
@@ -512,7 +518,7 @@
             <div class="w-full flex justify-end items-center mt-10 space-x-2">
                 <button
                     class="bg-slate-200 hover:bg-slate-300 transition-all duration-300 rounded-md px-3 py-2 cancledelete"
-                    onclick="document.getElementById('deletemodal').classList.toggle('hidden')">Cancle</button>
+                    onclick="window.location.href = window.location.href">Cancle</button>
                 <form action="<?php echo URLROOT; ?>/allfragrance/destroy/<?php echo $review['item_id'] ?>"
                     method="POST">
 

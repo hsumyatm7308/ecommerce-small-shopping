@@ -11,6 +11,8 @@
     const tousernameclass = document.querySelector('.tousernameclass');
     const replybtnsubmit = document.getElementById('replybtnsubmit');
 
+
+
     reply_btns.forEach((ele, idx) => {
         ele.addEventListener('click', function () {
             const replyid = ele.getAttribute('data-reply-id');
@@ -25,11 +27,19 @@
                 "username": username
             }
 
-            const reviewmodals = ele.parentElement.parentElement.parentElement.parentElement
+
+
+
+            const reviewmodals = ele.parentElement.parentElement.parentElement.parentElement;
+            const existing_replymodal = document.querySelector('.replymodals');
+            if (existing_replymodal) {
+                existing_replymodal.remove();
+                reviewmodals.hasAppendedTowritemodal = false
+            }
+
             appendreviewmodal(reviewmodals, data)
 
-            // tousernamemodal.innerText = username
-            // ele.setAttribute('replybtnid', 'reply_btns_' + reviewid)
+
 
         })
     })
@@ -56,7 +66,10 @@
             for (var i = 1; i <= children_except_first_and_last.length; i++) {
 
                 const secondary_reply_btn = ele.parentElement.parentElement.parentElement.parentElement.children[i].children[0].children[1].children
-                const atom_replies = ele.parentElement.parentElement.parentElement.parentElement.children[i]
+                const atom_replies = ele.parentElement.parentElement.parentElement.parentElement.children[i];
+
+
+
 
                 secondary_reply_btn[2].addEventListener('click', function () {
 
@@ -79,9 +92,18 @@
                         "username": username
                     }
 
+
+
+                    const existing_replymodal = document.querySelector('.replymodals');
+                    if (existing_replymodal) {
+                        existing_replymodal.remove();
+                        secondary_reply_box.hasAppendedTowritemodal = false
+
+                    }
+
+
                     appendreviewmodal(secondary_reply_box, data);
 
-                    // const replymodals = document.querySelectorAll('.replymodals');
 
                 })
             }
@@ -91,88 +113,28 @@
 
 
 
-    function appendreviewmodal(appendparent, datas) {
+    function appendreviewmodal(appendparent, data) {
 
-        const towritemodal = document.createElement('div');
-
-        towritemodal.innerHTML = `
-                <div id="replymodal_${data['replyid']}"
-                            class="space-y-2 border rounded-md px-5 py-2 mb-5 mt-5 replymodals">
-
-                    <form action="" method="post" id="submitreview" class="w-full">
-
-                        <div class="space-y-4">
-                            <div class="flex justify-between ">
-                                <h1 class="text-sm font-medium">
-                                    <div class="flex justify-center items-center  space-x-2">
-                                        <div class="flex justify-center items-center">
-                                            <div class="w-10 h-10 border bg-gray-400 rounded-full mr-2">
-                                                <img src="" alt="">
-                                            </div>
-                                            <span class="capitalize">
-                                                <?php echo $data['user']['name'] ?>
-                                            </span>
-                                        </div>
-                                        <div>
-                                            replies to
-                                        </div>
-                                        <div>
-                                            <span class="tousernameclass capitalize">
-                                                ${data['username']}
-                                            </span>
-                                        </div>
-                                    </div>
-                                </h1>
-
-                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                    stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
-                                    <path stroke-linecap="round" stroke-linejoin="round"
-                                        d="M12 6.75a.75.75 0 1 1 0-1.5.75.75 0 0 1 0 1.5ZM12 12.75a.75.75 0 1 1 0-1.5.75.75 0 0 1 0 1.5ZM12 18.75a.75.75 0 1 1 0-1.5.75.75 0 0 1 0 1.5Z" />
-                                </svg>
-
-                            </div>
-                            <div class="ml-12">
-                                <textarea name="replytext" id="replytext" value=""
-                                    class="w-full focus:outline-none focus:ring-1 focus:ring-gray-200 resize-none p-2"
-                                    cols="30" rows="" placeholder="Type review here" autofocus
-                                    style="scrollbar-width:none;"></textarea>
-                            </div>
-
-                        </div>
-
-                            <div class="text-sm flex justify-end items-center space-x-3 mt-3"
-                            onclick="document.getElementById('replymodal').classList.toggle('hidden')">
-                                <div class="text-md flex justify-center items-center hover:opacity-80">
-                                    <button>Cancle</button>
-
-                                </div>
-
-                                <button type="submit" name="replybtn" id="replybtnsubmit"
-                                    class="text-md rounded-md px-2 py-1 flex justify-center items-center border border-[#4c5372] hover:bg-gray-100">
-
-                                    <span> Submit</span>
-                                </button>
-                            </div>
-
-
-                            <input type="hidden" name="reply_id" id="reply_id" value="${data['replyid']}">
-                            <input type="hidden" name="review_id" id="review_id" value="${data['reviewid']}">
-                            <input type="hidden" name="item_id" id="item_id" value="${data['itemid']}">
-                            <input type="hidden" name="touser_name" id="touser_name" value="${data['username']}">
-                    </form>
-
-                </div>`;
-
+        let towritemodal = innerhtml_reply(data);
+        let tem_div = document.createElement('div');
+        tem_div.classList.add('replymodals')
+        tem_div.innerHTML = towritemodal;
 
 
         if (!appendparent.hasAppendedTowritemodal) {
-            appendparent.appendChild(towritemodal);
+
+            const existing_replymodal = document.querySelector('.replymodals');
+            if (existing_replymodal) {
+                existing_replymodal.remove();
+            }
+
+            appendparent.appendChild(tem_div);
             appendparent.hasAppendedTowritemodal = true;
-
-
         }
-    }
 
+
+
+    }
 
     // Arranging of reply
 
@@ -298,7 +260,6 @@
 
     // review edit and delete modal 
     const ed_del_btns = document.querySelectorAll('.ed_del_btns')
-    console.log(ed_del_btns)
 
     ed_del_btns.forEach((ele, idx) => {
         ele.addEventListener('click', function () {
@@ -311,17 +272,178 @@
                     modal.classList.add('hidden');
                 }
             });
-            curele.classList.toggle('hidden')
+
+            curele.classList.toggle('hidden');
+
+
+
+            // check edimodal exit or not
+            const existing_editmodal = document.querySelector('.editmodal');
+            const secondary_replies = document.querySelectorAll('.secondary_replies');
+
+            if (existing_editmodal) {
+                existing_editmodal.remove();
+
+                // show again
+                secondary_replies.forEach(sec => {
+                    sec.classList.remove('hidden')
+                    sec.parentElement.classList.add('border')
+
+                })
+            } else {
+                editbutton_fun()
+
+            }
+
+
         })
     });
+
+
+
+    function editbutton_fun() {
+        const edit_btn = document.querySelectorAll('.edit_btn');
+
+
+        edit_btn.forEach(btn => {
+            btn.addEventListener('click', (e) => {
+
+
+                const getid = btn.getAttribute('data-id');
+                const getreplies = btn.getAttribute('data-content');
+                const gettousername = btn.getAttribute('data-tousername');
+                const getreply = document.getElementById(getid);
+
+                const secondary_reply = document.querySelector('.secondary_reply_' + getid);
+
+                data = {
+                    "replyid": getid,
+                    "username": gettousername
+
+                }
+
+
+
+
+                //append editmodal 
+                let editmodal = innerhtml_reply(data);
+                let tem_div = document.createElement('div');
+                tem_div.classList.add('editmodal')
+                tem_div.innerHTML = editmodal;
+
+                getreply.appendChild(tem_div);
+                secondary_reply.classList.add('hidden');
+                getreply.classList.remove('border');
+
+
+
+
+
+
+                const textarea = document.querySelector(`.replytext_${getid}`);
+                const replybtnsubmit = document.getElementById('replybtnsubmit');
+                const editspan = document.querySelector('.editspan_' + getid);
+
+                if (textarea) {
+                    textarea.value = getreplies;
+                    replybtnsubmit.name = "editsubmit";
+                    replybtnsubmit.innerHTML = "Update";
+
+                    editspan.classList.remove('hidden')
+                    console.log(editspan)
+                } else {
+                    console.log(`Textarea with class replytext_${getid} not found`);
+                }
+
+
+            })
+
+        });
+
+
+
+    }
+
+
+
+
+    // reply and edit modal box 
+
+    function innerhtml_reply(data = "") {
+
+        return `
+                <div id="replymodal_${data['replyid']}"
+                            class="space-y-2 border rounded-md px-5 py-2 mb-5 mt-5">
+
+                    <form action="" method="post" id="submitreview" class="w-full">
+
+                        <div class="space-y-4">
+                            <div class="flex justify-between ">
+                                <h1 class="text-sm font-medium">
+                                    <div class="flex justify-center items-center  space-x-2">
+                                        <div class="flex justify-center items-center">
+                                            <div class="w-10 h-10 border bg-gray-400 rounded-full mr-2">
+                                                <img src="" alt="">
+                                            </div>
+                                            <span class="capitalize">
+                                                <?php echo $data['user']['name'] ?>
+                                            </span>
+                                        </div>
+                                        <div>
+                                            replies to
+                                        </div>
+                                        <div>
+                                            <span class="tousernameclass capitalize">
+                                                ${data['username']}
+                                            </span>
+                                        </div>
+                                        <span class="editspan_${data['replyid']} hidden"> (Edit) </span>
+                                    </div>
+                                </h1>
+
+ 
+                            </div>
+                            <div class="ml-12">
+                                <textarea name="replytext" id="replytext" value=""
+                                    class="w-full focus:outline-none focus:ring-1 focus:ring-gray-200 resize-none p-2 replytext_${data['replyid']}"
+                                    cols="30" rows="" placeholder="Type review here" autofocus
+                                    style="scrollbar-width:none;"></textarea>
+                            </div>
+
+                        </div>
+
+                            <div class="text-sm flex justify-end items-center space-x-3 mt-3"
+                            onclick="document.getElementById('replymodal').classList.toggle('hidden')">
+                                <div class="text-md flex justify-center items-center hover:opacity-80">
+                                    <button>Cancle</button>
+
+                                </div>
+
+                                <button type="submit" name="replybtn" id="replybtnsubmit"
+                                    class="text-md rounded-md px-2 py-1 flex justify-center items-center border border-[#4c5372] hover:bg-gray-100">
+
+                                    <span class="text-submit"> Submit</span>
+                                </button>
+                            </div>
+
+
+                            <input type="hidden" name="reply_id" id="reply_id" value="${data['replyid']}">
+                            <input type="hidden" name="review_id" id="review_id" value="${data['reviewid']}">
+                            <input type="hidden" name="item_id" id="item_id" value="${data['itemid']}">
+                            <input type="hidden" name="touser_name" id="touser_name" value="${data['username']}">
+                    </form>
+
+                </div>`;
+
+
+    }
+
 
 
 
 
     // Start Delete
     const deletebtn = document.querySelectorAll('.delete_btn');
-
-    console.log(deletebtn)
 
     deletebtn.forEach(btn => {
         btn.addEventListener('click', (e) => {
@@ -343,16 +465,9 @@
             datatable.setAttribute('value', getdatatable)
             data_id_name.setAttribute('value', getdata_id_name)
 
-            console.log(data_id_name)
 
 
         })
 
     });
-
-
-
-
-
-
 </script>
