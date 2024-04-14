@@ -1,6 +1,51 @@
 <script>
 
-    // reply  
+
+    // Rating 
+
+    // rating percent 
+    const ratings = <?php echo json_encode($data['rating_numbers']); ?>;
+
+    const ratingcounts = {};
+    const progressarr = [];
+    ratings.forEach(item => {
+        const rating = item.rating;
+        if (ratingcounts[rating]) {
+            ratingcounts[rating]++;
+        } else {
+            ratingcounts[rating] = 1;
+        }
+
+
+        //review stars 
+        const userId = item.user_id;
+        const starid = item.id;
+        const review_stars = document.querySelectorAll('.review_star_' + starid);
+        for (let i = 0; i < rating; i++) {
+            if (review_stars[i]) {
+                review_stars[i].setAttribute('fill', 'yellow');
+            }
+        }
+    });
+
+    const getkey = Object.keys(ratingcounts);
+    const total_ratings = ratings.length; // Total number of ratings
+    const progresses = document.querySelectorAll('.progress');
+
+    progresses.forEach((ele, idx) => {
+        ele.style.width = '0%';
+        let progressid = ele.getAttribute('progress-id');
+
+        if (getkey.includes(progressid)) {
+            const rating_count = ratingcounts[progressid];
+            const percentage = (rating_count / total_ratings) * 100;
+            ele.style.width = percentage + '%';
+        }
+    });
+
+
+
+    // reply  feature 
     const reply_btns = document.querySelectorAll('.reply_btns');
     const reply_id = document.getElementById('reply_id');
     const review_id = document.getElementById('review_id');
@@ -27,9 +72,6 @@
                 "username": username
             }
 
-
-
-
             const reviewmodals = ele.parentElement.parentElement.parentElement.parentElement;
             const existing_replymodal = document.querySelector('.replymodals');
             if (existing_replymodal) {
@@ -43,6 +85,67 @@
 
         })
     })
+
+
+    // Arranging of reply
+
+    const review_containers = document.querySelectorAll('.review_containers');
+
+
+    let array = [];
+    let id_array = [];
+    let targetid_array = [];
+
+
+    for (var i = 0; i < review_containers.length; i++) {
+        const replies = review_containers[i].children;
+
+        var id_ui;
+        var datareply_ui;
+
+        for (var x = 0; x < replies.length; x++) {
+            var datareplyid = replies[x].getAttribute('data-reply-id')
+            var id = replies[x].id
+
+            id_array.push(id);
+            targetid_array.push(datareplyid);
+
+        }
+    }
+
+
+    let mutual_numbers = id_array.filter(num => targetid_array.includes(num))
+
+    for (var j = 0; j < mutual_numbers.length; j++) {
+
+        const primary_replyidui = document.getElementById(mutual_numbers[j]);
+        const atom_replyidui = document.querySelectorAll('.r_' + mutual_numbers[j]);
+
+        let atomreplyui = Array.from(atom_replyidui);
+
+        for (var a = 0; a < atom_replyidui.length; a++) {
+
+            if (atomreplyui[a]) {
+                primary_replyidui.appendChild(atomreplyui[a])
+            }
+
+        }
+
+    }
+
+
+    // substring 
+    const reviews_substring = document.querySelectorAll('.reviews_substring');
+    reviews_substring.forEach((ele) => {
+        ele.addEventListener('click', function () {
+            ele.innerHTML = ele.getAttribute('data-content');
+        })
+    })
+
+
+
+
+
 
 
     // see more reply 
@@ -66,20 +169,9 @@
             for (var i = 1; i <= children_except_first_and_last.length; i++) {
 
                 const secondary_reply_btn = ele.parentElement.parentElement.parentElement.parentElement.children[i].children[0].children[1].children
-                const atom_replies = ele.parentElement.parentElement.parentElement.parentElement.children[i];
-
-
-
 
                 secondary_reply_btn[2].addEventListener('click', function () {
-
-
-
-                    const reviewmodals = this.parentElement.parentElement.parentElement.parentElement;
-                    const lastchild_id = reviewmodals.children.length - 1;
-                    const to_write_review = reviewmodals.children[lastchild_id]
                     const secondary_reply_box = this.parentElement.parentElement.parentElement;
-
                     const replyid = secondary_reply_btn[2].getAttribute('data-reply-id');
                     const reviewid = secondary_reply_btn[2].getAttribute('data-review-id');
                     const itemid = secondary_reply_btn[2].getAttribute('data-item-id');
@@ -91,8 +183,6 @@
                         "itemid": itemid,
                         "username": username
                     }
-
-
 
                     const existing_replymodal = document.querySelector('.replymodals');
                     if (existing_replymodal) {
@@ -136,124 +226,10 @@
 
     }
 
-    // Arranging of reply
-
-    const review_containers = document.querySelectorAll('.review_containers');
-
-
-    let array = [];
-    let id_array = [];
-    let targetid_array = [];
-
-
-    for (var i = 0; i < review_containers.length; i++) {
-        const replies = review_containers[i].children;
-
-        var id_ui;
-        var datareply_ui;
-
-        for (var x = 0; x < replies.length; x++) {
-            var datareplyid = replies[x].getAttribute('data-reply-id')
-            var id = replies[x].id
-
-            id_array.push(id);
-            targetid_array.push(datareplyid);
-
-            var targetid;
-        }
-    }
-
-
-    let mutual_numbers = id_array.filter(num => targetid_array.includes(num))
-
-
-    for (var j = 0; j < mutual_numbers.length; j++) {
-        // console.log(mutual_numbers[j])
-
-        const primary_replyidui = document.getElementById(mutual_numbers[j]);
-        const atom_replyidui = document.querySelectorAll('.r_' + mutual_numbers[j]);
-
-        let atomreplyui = Array.from(atom_replyidui);
-
-        for (var a = 0; a < atom_replyidui.length; a++) {
-
-            if (atomreplyui[a]) {
-                primary_replyidui.appendChild(atomreplyui[a])
-            }
-
-        }
-
-
-
-    }
-
-
-    // substring 
-    const reviewctn = document.getElementById('content_<?php echo $review['id'] ?>');
-
-    reviewctn.addEventListener('click', function () {
-        this.innerText = '<?php echo htmlspecialchars($review['reviews']); ?>'
-
-    })
 
 
 
 
-    // Rating 
-
-    // rating percent 
-    const ratings = <?php echo json_encode($data['rating_numbers']); ?>;
-
-    const ratingcounts = {};
-    const progressarr = [];
-    ratings.forEach(item => {
-        const rating = item.rating;
-        if (ratingcounts[rating]) {
-            ratingcounts[rating]++;
-        } else {
-            ratingcounts[rating] = 1;
-        }
-    });
-
-    const getkey = Object.keys(ratingcounts);
-    const total_ratings = ratings.length; // Total number of ratings
-
-    const progresses = document.querySelectorAll('.progress');
-
-    progresses.forEach((ele, idx) => {
-        ele.style.width = '0%';
-        let progressid = ele.getAttribute('progress-id');
-
-        console.log(ele)
-
-        if (getkey.includes(progressid)) {
-
-            const rating_count = ratingcounts[progressid];
-            const percentage = (rating_count / total_ratings) * 100;
-
-
-            ele.style.width = percentage + '%';
-        }
-    });
-
-
-
-    //review stars 
-    const allraing = <?php echo json_encode($data['rating_numbers']); ?>;
-    var starid;
-
-    allraing.forEach(item => {
-        const rating = item.rating;
-        const userId = item.user_id;
-        const starid = item.id;
-
-        const review_stars = document.querySelectorAll('.review_star_' + starid);
-        for (let i = 0; i < rating; i++) {
-            if (review_stars[i]) {
-                review_stars[i].setAttribute('fill', 'yellow');
-            }
-        }
-    });
 
 
 
@@ -292,7 +268,6 @@
                 })
             } else {
                 editbutton_fun()
-
             }
 
 
@@ -348,13 +323,8 @@
                     textarea.value = getreplies;
                     replybtnsubmit.name = "editsubmit";
                     replybtnsubmit.innerHTML = "Update";
-
                     editspan.classList.remove('hidden')
-                    console.log(editspan)
-                } else {
-                    console.log(`Textarea with class replytext_${getid} not found`);
                 }
-
 
             })
 
@@ -448,22 +418,14 @@
     deletebtn.forEach(btn => {
         btn.addEventListener('click', (e) => {
 
-
-            const deletemodal = document.getElementById('deletemodal')
-            deletemodal.classList.toggle('hidden');
-
             const getid = e.target.getAttribute('data-id')
             const getdatatable = e.target.getAttribute('data-table')
             const getdata_id_name = e.target.getAttribute('data-id-name')
 
-
-            const deletemodal_input = document.getElementById('deletemodal_input')
-            const datatable = document.getElementById('datatable');
-            const data_id_name = document.getElementById('data_id_name');
-
-            deletemodal_input.setAttribute('value', getid);
-            datatable.setAttribute('value', getdatatable)
-            data_id_name.setAttribute('value', getdata_id_name)
+            document.getElementById('deletemodal').classList.toggle('hidden')
+            document.getElementById('deletemodal_input').setAttribute('value', getid)
+            document.getElementById('datatable').setAttribute('value', getdatatable);
+            document.getElementById('data_id_name').setAttribute('value', getdata_id_name);
 
 
 

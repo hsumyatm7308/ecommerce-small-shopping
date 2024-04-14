@@ -171,8 +171,9 @@
 
                                     <div class="ml-12 flex justify-center items-center">
 
-                                        <span id="content_<?php echo $review['id'] ?>" class="w-full">
-                                            <?php echo strlen(substr($review['reviews'], 0, 60)) >= 60 ? substr($review['reviews'], 0, 70) . '.....' : substr($review['reviews'], 0, 70) ?>
+                                        <span id="content_<?php echo $review['id'] ?>" class="w-full reviews_substring"
+                                            data-content="<?php echo $review['reviews'] ?>">
+                                            <?php echo strlen(substr($review['reviews'], 0, 100)) >= 100 ? substr($review['reviews'], 0, 100) . '.....' : substr($review['reviews'], 0, 100) ?>
                                         </span>
 
 
@@ -418,6 +419,7 @@
                                                         </div>
 
                                                         <button type="submit" name="review_reply_btn">
+                                                            <span><?php echo $vote->countvote($replyreviews['reviewreplyid'], "review_reply_id") ?></span>
                                                             <span>
                                                                 <?php if ($vote->countvote($replyreviews['reviewreplyid'], "review_reply_id") > 1): ?>
                                                                     Votes
