@@ -5,6 +5,9 @@ ini_set('display_errors', 0);
 require_once ('/opt/lampp/htdocs/mvcshop/app/views/layouts/header.php');
 require_once ('/opt/lampp/htdocs/mvcshop/app/views/layouts/navbar.php');
 
+$countreply = new Review();
+$vote = new Vote();
+$curid = new Curitemid();
 ?>
 
 
@@ -182,8 +185,16 @@ require_once ('/opt/lampp/htdocs/mvcshop/app/views/layouts/navbar.php');
                         <span id="writereview" class="m-3 cursor-pointer" onclick="onclickfun()">Write
                             review
                             <span>(
+                                <span>
+                                    <?php echo $countreply->reviewcount($curid->getitemid()); ?>
 
-                                Review)
+                                    <?php if ($countreply->reviewcount($curid->getitemid()) > 1): ?>
+                                        Reviews
+                                    <?php else: ?>
+                                        Review
+                                    <?php endif; ?>
+                                </span>
+                                )
                             </span></span>
                     </div>
                     <div class="mb-3">

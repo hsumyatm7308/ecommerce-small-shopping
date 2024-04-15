@@ -1,14 +1,31 @@
 <!-- Description and review  -->
-<section>
-    <div class="w-full mt-5 ">
+<?php
+$countreply = new Review();
+$vote = new Vote();
+$curid = new Curitemid();
+?>
+<section class="py-10">
+    <div class="w-full mt-10">
         <div class="flex font-medium space-x-4">
-            <h3 class="text-xl flex items-center p-2 mb-5 border-2 border-b-transparent   des_and_rev">
-                <span class="uppercase text-sm">Description</span>
+
+
+
+
+            <h3
+                class="text-xl flex items-center cursor-pointer p-2 mb-5 border-2 border-b-transparent  rounded-md  des_and_rev">
+                <span class="uppercase text-sm">
+                    <?php echo $countreply->reviewcount($curid->getitemid()); ?>
+                    <?php if ($countreply->reviewcount($curid->getitemid()) > 1): ?>
+                        Reviews
+                    <?php else: ?>
+                        Review
+                    <?php endif; ?>
+                </span>
             </h3>
 
+            <h3 class="text-xl flex items-center p-2 mb-5 cursor-pointer rounded-md des_and_rev">
 
-            <h3 class="text-xl flex items-center p-2 mb-5 des_and_rev">
-                <span class="uppercase text-sm">Review</span>
+                <span class="uppercase text-sm">Description</span>
             </h3>
 
         </div>
@@ -16,15 +33,10 @@
 
         <div class="w-full flex pb-10 mt-5">
 
-            <div id="" class="des_and_rev_text hidden">
-                <?php echo $data['singledata']['description'] ?>
-            </div>
 
-            <div class="w-full des_and_rev_text space-y-5">
-                <?php
-                $countreply = new Review();
-                $vote = new Vote();
-                ?>
+
+            <div class="w-full des_and_rev_text space-y-5 ">
+
 
                 <?php foreach ($data['allreviews'] as $review): ?>
 
@@ -478,17 +490,24 @@
                     </div>
 
                 <?php endforeach; ?>
+
+                <!-- pagination  -->
+                <div class="py-5">
+                    <?php
+                    $newpagination = new Pagination();
+                    $newpagination->pagination($data);
+                    ?>
+
+                </div>
+            </div>
+
+            <!-- Description  -->
+            <div id="" class="des_and_rev_text hidden">
+                <?php echo $data['singledata']['description'] ?>
             </div>
         </div>
 
-        <!-- pagination  -->
-        <div class="py-10">
-            <?php
-            $newpagination = new Pagination();
-            $newpagination->pagination($data);
-            ?>
 
-        </div>
     </div>
 </section>
 

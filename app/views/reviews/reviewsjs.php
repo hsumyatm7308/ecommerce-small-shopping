@@ -319,13 +319,7 @@
                 const reviewmodal = document.getElementById('reviewmodal').classList.remove('hidden');
 
 
-
-
-
-
                 checking_replyandeditmodal();
-
-
 
 
                 const getoldreview = document.getElementById('userreview');
