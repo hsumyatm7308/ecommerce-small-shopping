@@ -58,33 +58,7 @@
 
 
 
-    reply_btns.forEach((ele, idx) => {
-        ele.addEventListener('click', function () {
-            const replyid = ele.getAttribute('data-reply-id');
-            const reviewid = ele.getAttribute('data-review-id');
-            const itemid = ele.getAttribute('data-item-id');
-            const username = ele.getAttribute('data-username');
-
-            data = {
-                "replyid": replyid,
-                "reviewid": reviewid,
-                "itemid": itemid,
-                "username": username
-            }
-
-            const reviewmodals = ele.parentElement.parentElement.parentElement.parentElement;
-            const existing_replymodal = document.querySelector('.replymodals');
-            if (existing_replymodal) {
-                existing_replymodal.remove();
-                reviewmodals.hasAppendedTowritemodal = false
-            }
-
-            appendreviewmodal(reviewmodals, data)
-
-
-
-        })
-    })
+    // primary 
 
 
     // Arranging of reply
@@ -145,6 +119,47 @@
 
 
 
+    //primary
+    reply_btns.forEach((ele, idx) => {
+        ele.addEventListener('click', function () {
+            const replyid = ele.getAttribute('data-reply-id');
+            const reviewid = ele.getAttribute('data-review-id');
+            const itemid = ele.getAttribute('data-item-id');
+            const username = ele.getAttribute('data-username');
+
+            data = {
+                "replyid": replyid,
+                "reviewid": reviewid,
+                "itemid": itemid,
+                "username": username
+            }
+
+
+            const reviewmodals = ele.parentElement.parentElement.parentElement.parentElement;
+            const existing_replymodal = document.querySelector('.reply_editmodal');
+
+            if (existing_replymodal) {
+                existing_replymodal.remove();
+                reviewmodals.hasAppendedTowritemodal = false;
+
+                // show again
+                const secondary_replies = document.querySelectorAll('.secondary_replies');
+                secondary_replies.forEach(sec => {
+                    sec.classList.remove('hidden')
+                    sec.parentElement.classList.add('border')
+
+                });
+            }
+
+
+
+
+            appendreviewmodal(reviewmodals, data);
+            hide_edanddelmodal();
+
+
+        })
+    })
 
 
 
@@ -171,7 +186,7 @@
                 const secondary_reply_btn = ele.parentElement.parentElement.parentElement.parentElement.children[i].children[0].children[1].children
 
                 secondary_reply_btn[2].addEventListener('click', function () {
-                    const secondary_reply_box = this.parentElement.parentElement.parentElement;
+                    var secondary_reply_box = this.parentElement.parentElement.parentElement;
                     const replyid = secondary_reply_btn[2].getAttribute('data-reply-id');
                     const reviewid = secondary_reply_btn[2].getAttribute('data-review-id');
                     const itemid = secondary_reply_btn[2].getAttribute('data-item-id');
@@ -184,16 +199,27 @@
                         "username": username
                     }
 
-                    const existing_replymodal = document.querySelector('.replymodals');
+                    const existing_replymodal = document.querySelector('.reply_editmodal');
+
+
                     if (existing_replymodal) {
                         existing_replymodal.remove();
-                        secondary_reply_box.hasAppendedTowritemodal = false
+                        secondary_reply_box.hasAppendedTowritemodal = false;
 
+
+                        // show again
+                        const secondary_replies = document.querySelectorAll('.secondary_replies');
+                        secondary_replies.forEach(sec => {
+                            sec.classList.remove('hidden')
+                            sec.parentElement.classList.add('border')
+
+                        });
                     }
 
 
-                    appendreviewmodal(secondary_reply_box, data);
 
+                    appendreviewmodal(secondary_reply_box, data);
+                    hide_edanddelmodal()
 
                 })
             }
@@ -207,16 +233,28 @@
 
         let towritemodal = innerhtml_reply(data);
         let tem_div = document.createElement('div');
-        tem_div.classList.add('replymodals')
+        tem_div.classList.add('reply_editmodal')
         tem_div.innerHTML = towritemodal;
 
 
         if (!appendparent.hasAppendedTowritemodal) {
 
-            const existing_replymodal = document.querySelector('.replymodals');
+            const existing_replymodal = document.querySelector('.reply_editmodal');
             if (existing_replymodal) {
                 existing_replymodal.remove();
+
+
+                // show again
+                const secondary_replies = document.querySelectorAll('.secondary_replies');
+                secondary_replies.forEach(sec => {
+                    sec.classList.remove('hidden')
+                    sec.parentElement.classList.add('border')
+
+                });
             }
+
+
+
 
             appendparent.appendChild(tem_div);
             appendparent.hasAppendedTowritemodal = true;
@@ -257,24 +295,12 @@
 
 
             // check edimodal exit or not
-            const existing_editmodal = document.querySelector('.editmodal');
-            const secondary_replies = document.querySelectorAll('.secondary_replies');
-
-            if (existing_editmodal) {
-                existing_editmodal.remove();
-
-                // show again
-                secondary_replies.forEach(sec => {
-                    sec.classList.remove('hidden')
-                    sec.parentElement.classList.add('border')
-
-                })
-            } else {
-                sec_editbutton_fun();
-                pri_editbutton_fun();
-            }
 
 
+            sec_editbutton_fun();
+
+
+            pri_editbutton_fun();
 
         })
     });
@@ -290,12 +316,17 @@
                 const getreplies = btn.getAttribute('data-content');
                 const getrating = btn.getAttribute('data-rating');
 
-                const reviewmodal = document.getElementById('reviewmodal').classList.toggle('hidden')
-
-                console.log(getid, getreplies, getrating)
+                const reviewmodal = document.getElementById('reviewmodal').classList.remove('hidden');
 
 
-                // const secondary_reply = document.querySelector('.secondary_reply_' + getid);
+
+
+
+
+                checking_replyandeditmodal();
+
+
+
 
                 const getoldreview = document.getElementById('userreview');
                 const rating = document.getElementById('rating');
@@ -347,16 +378,20 @@
 
 
 
+
+                checking_replyandeditmodal();
+
+
+
                 //append editmodal 
                 let editmodal = innerhtml_reply(data);
                 let tem_div = document.createElement('div');
-                tem_div.classList.add('editmodal')
+                tem_div.classList.add('reply_editmodal')
                 tem_div.innerHTML = editmodal;
 
                 getreply.appendChild(tem_div);
                 secondary_reply.classList.add('hidden');
                 getreply.classList.remove('border');
-
 
 
 
@@ -381,6 +416,37 @@
 
     }
 
+
+    function checking_replyandeditmodal() {
+
+        const existing_editmodal = document.querySelector('.reply_editmodal');
+
+        const secondary_replies = document.querySelectorAll('.secondary_replies');
+
+        if (existing_editmodal) {
+            existing_editmodal.remove();
+
+            // show again
+            secondary_replies.forEach(sec => {
+                sec.classList.remove('hidden')
+                sec.parentElement.classList.add('border')
+                console.log(sec)
+
+            });
+
+
+        };
+
+
+    }
+
+    function hide_edanddelmodal() {
+        const allmodals = document.querySelectorAll('.ed_del_modal');
+        allmodals.forEach(mod => {
+            mod.classList.add('hidden');
+        });
+
+    }
 
 
 
