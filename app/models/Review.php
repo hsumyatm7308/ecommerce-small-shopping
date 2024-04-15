@@ -31,15 +31,15 @@ class Review
     {
 
         $userid = $_SESSION['user_id'];
-        if ($userid) {
+        if (isset($userid) && $_SERVER['REQUEST_METHOD'] === 'POST') {
+            $reviewid = $_POST['reviewid'];
+            $review = $data['review'];
+            $username = $data['username'];
+            $email = $data['email'];
+            $rating = $data['rating'];
+            $itemid = $data['itemid'];
 
-            if (isset($_POST['reviewbtn']) && $_SERVER['REQUEST_METHOD'] === 'POST') {
-                $review = $data['review'];
-                $username = $data['username'];
-                $email = $data['email'];
-                $rating = $data['rating'];
-                $itemid = $data['itemid'];
-
+            if (isset($_POST['reviewbtn'])) {
 
                 if (!empty($review) && !empty($username) && !empty($email) && !empty($rating)) {
 
@@ -53,9 +53,29 @@ class Review
                     } else {
                         return false;
                     }
+                }
+            }
+
+            if (isset($_POST['editreviewbtn'])) {
+
+                if (!empty($review) && !empty($username) && !empty($email) && !empty($rating)) {
+
+                    $this->db->dbquery('UPDATE reviews SET reviews = :review, rating = :rating WHERE id = :id');
+                    $this->db->dbbind(':review', $review);
+                    $this->db->dbbind(':rating', $rating);
+                    $this->db->dbbind(':id', $reviewid);
+
+                    if ($this->db->dbexecute()) {
+                        redirect('allfragrance/show/' . $itemid);
+                    } else {
+                        return false;
+                    }
 
 
                 }
+
+
+
 
             }
 

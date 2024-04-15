@@ -144,7 +144,10 @@
                                                 class="absolute right-10 ed_del_modal hidden">
                                                 <div class="w-24 bg-[#f4f4f4] border border-slate-100 rounded-md">
                                                     <ul class="rounded-md">
-                                                        <li class="rounded-t-md cursor-pointer p-2 hover:bg-slate-300">
+                                                        <li class="rounded-t-md cursor-pointer p-2 hover:bg-slate-300 pri_edit_btn"
+                                                            data-id="<?php echo $review['id']; ?>"
+                                                            data-content="<?php echo $review['reviews'] ?>"
+                                                            data-rating="<?php echo $review['rating'] ?>">
                                                             Edit
                                                         </li>
                                                         <li class="rounded-b-md cursor-pointer p-2 hover:bg-slate-300 delete_btn"
@@ -355,7 +358,7 @@
                                                             class="absolute right-10 ed_del_modal hidden">
                                                             <div class="w-24 bg-[#f4f4f4] border border-slate-100 rounded-md">
                                                                 <ul class="rounded-md">
-                                                                    <li class="rounded-t-md cursor-pointer p-2 hover:bg-slate-300 edit_btn"
+                                                                    <li class="rounded-t-md cursor-pointer p-2 hover:bg-slate-300 sec_edit_btn"
                                                                         data-id="<?php echo $replyreviews['reviewreplyid']; ?>"
                                                                         data-content="<?php echo $replyreviews['replies'] ?>"
                                                                         data-tousername="<?php echo $replyreviews['touser_name'] ?>">

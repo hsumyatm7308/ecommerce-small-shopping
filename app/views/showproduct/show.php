@@ -179,8 +179,7 @@ require_once ('/opt/lampp/htdocs/mvcshop/app/views/layouts/navbar.php');
                 <div class="mt-10">
                     <div class="flex items-center mb-5">
                         <h3 class="font-normal text-lg">Rating</h3>
-                        <span id="writereview" class="m-3 cursor-pointer"
-                            onclick="document.getElementById('reviewmodal').classList.toggle('hidden')">Write
+                        <span id="writereview" class="m-3 cursor-pointer" onclick="onclickfun()">Write
                             review
                             <span>(
 
@@ -329,7 +328,7 @@ require_once ('/opt/lampp/htdocs/mvcshop/app/views/layouts/navbar.php');
         <div class="w-[1100px] bg-stone-200 modal  px-10">
             <div class="w-full h-20 border-b border-b-gray-100 relative">
                 <div class="w-full h-full flex justify-center items-center">
-                    <h1 class="text-2xl">Write a Review</h1>
+                    <h1 class="text-2xl" id="review_title">Write a Review</h1>
 
                 </div>
                 <div class="absolute top-[50%] right-0 transform translate-y-[-50%] hover:bg-gray-300 rounded-full p-1"
@@ -388,7 +387,8 @@ require_once ('/opt/lampp/htdocs/mvcshop/app/views/layouts/navbar.php');
                                             <select name="rating" id="rating"
                                                 value="<?php echo !empty($data['errmessage']) ? $data['rating'] : '' ?>"
                                                 class="block appearance-none w-full bg-white border border-gray-300  transition-all duration-300  hover:border-gray-400 px-4 py-2 pr-8 rounded-md shadow-sm focus:outline-none focus:border-gray-500 focus:ring-1 focus:ring-gray-100 focus:ring-opacity-50">
-                                                <option selected disabled>Choose rating..</option>
+                                                <option value="0" id="choose_rating" selected disabled>Choose rating..
+                                                </option>
 
                                                 <option value="1" <?php echo $data['rating'] == 1 ? 'selected' : '' ?>>1
                                                     star</option>
@@ -422,9 +422,9 @@ require_once ('/opt/lampp/htdocs/mvcshop/app/views/layouts/navbar.php');
                                             </span>
                                         </label>
                                         <input type="text" name="username" id="username"
-                                            class="w-full rounded-md px-3 py-3 focus:outline-none focus:border-gray-500 focus:ring-1 focus:ring-gray-100 focus:ring-opacity-50"
+                                            class="w-full <?php echo $_SESSION['user_id'] ? 'opacity-70' : '' ?> rounded-md px-3 py-3 focus:outline-none focus:border-gray-500 focus:ring-1 focus:ring-gray-100 focus:ring-opacity-50"
                                             value="<?php echo $_SESSION['user_id'] ? $data['user']['name'] : '' ?>"
-                                            placeholder="Enter your name" autofocus="on">
+                                            placeholder="Enter your name" autofocus="on" <?php echo $_SESSION['user_id'] ? 'readonly' : '' ?>>
                                     </div>
 
                                     <div class="w-full">
@@ -436,9 +436,9 @@ require_once ('/opt/lampp/htdocs/mvcshop/app/views/layouts/navbar.php');
                                             </span>
                                         </label>
                                         <input type="email" name="useremail" id="useremail"
-                                            class="w-full rounded-md px-3 py-3 focus:outline-none focus:border-gray-500 focus:ring-1 focus:ring-gray-100 focus:ring-opacity-50"
+                                            class="w-full <?php echo $_SESSION['user_id'] ? 'opacity-70' : '' ?> rounded-md px-3 py-3 focus:outline-none focus:border-gray-500 focus:ring-1 focus:ring-gray-100 focus:ring-opacity-50"
                                             value="<?php echo $_SESSION['user_id'] ? $data['user']['email'] : '' ?>"
-                                            placeholder="Enter your email">
+                                            placeholder="Enter your email" <?php echo $_SESSION['user_id'] ? 'readonly' : '' ?>>
                                     </div>
 
                                     <div class="w-full">
@@ -461,6 +461,7 @@ require_once ('/opt/lampp/htdocs/mvcshop/app/views/layouts/navbar.php');
                                     <button type="submit" name="reviewbtn" class="w-full bg-gray-400 p-3"
                                         id="submitreview">Submit</button>
                                     <input type="hidden" name="itemid" value="<?php echo $data['singledata']['id']; ?>">
+                                    <input type="hidden" name="reviewid" id="reviewid" value="">
                                 </div>
                             </div>
                         </div>
@@ -471,7 +472,21 @@ require_once ('/opt/lampp/htdocs/mvcshop/app/views/layouts/navbar.php');
     </div>
 </section>
 
+<script>
+    function onclickfun() {
+        document.getElementById('reviewmodal').classList.toggle('hidden');
+        const getoldreview = document.getElementById('userreview');
+        const rating = document.getElementById('rating');
+        const review_title = document.getElementById('review_title');
+        const submitreview = document.getElementById('submitreview');
 
+
+        review_title.innerText = "Write a Review"
+        getoldreview.value = '';
+        rating.value = "0"
+        submitreview.name = "reviewbtn"
+    }
+</script>
 
 <script src="<?php echo URLROOT; ?>/public/js/allfragrance.js"></script>
 

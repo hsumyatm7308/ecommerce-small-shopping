@@ -232,6 +232,9 @@
 
 
 
+    // Start Edit 
+
+    // primary edit include rating 
 
 
     // review edit and delete modal 
@@ -267,20 +270,64 @@
 
                 })
             } else {
-                editbutton_fun()
+                sec_editbutton_fun();
+                pri_editbutton_fun();
             }
+
 
 
         })
     });
 
+    function pri_editbutton_fun() {
+        const pri_edit_btn = document.querySelectorAll('.pri_edit_btn');
+
+        pri_edit_btn.forEach(btn => {
+            btn.addEventListener('click', (e) => {
 
 
-    function editbutton_fun() {
-        const edit_btn = document.querySelectorAll('.edit_btn');
+                const getid = btn.getAttribute('data-id');
+                const getreplies = btn.getAttribute('data-content');
+                const getrating = btn.getAttribute('data-rating');
+
+                const reviewmodal = document.getElementById('reviewmodal').classList.toggle('hidden')
+
+                console.log(getid, getreplies, getrating)
 
 
-        edit_btn.forEach(btn => {
+                // const secondary_reply = document.querySelector('.secondary_reply_' + getid);
+
+                const getoldreview = document.getElementById('userreview');
+                const rating = document.getElementById('rating');
+                const review_title = document.getElementById('review_title');
+                const submitreview = document.getElementById('submitreview');
+                const reviewid = document.getElementById('reviewid');
+                reviewid.value = getid;
+
+
+                review_title.innerText = "Edit your Review"
+
+                getoldreview.value = getreplies;
+                getoldreview.innerHTML = getreplies;
+                rating.value = getrating;
+                submitreview.name = "editreviewbtn"
+                submitreview.innerText = 'Update'
+
+
+            })
+
+        });
+
+
+
+    }
+
+
+    function sec_editbutton_fun() {
+        const sec_edit_btn = document.querySelectorAll('.sec_edit_btn');
+
+
+        sec_edit_btn.forEach(btn => {
             btn.addEventListener('click', (e) => {
 
 
@@ -409,6 +456,9 @@
     }
 
 
+
+
+    // End Edit 
 
 
 

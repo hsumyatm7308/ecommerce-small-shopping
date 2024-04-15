@@ -164,7 +164,7 @@ class Allfragrance extends Controller
         ];
 
         // check review err 
-        if (isset($_POST['reviewbtn'])) {
+        if (isset($_POST['reviewbtn']) || isset($_POST['editreviewbtn'])) {
             if (empty($data['review'])) {
                 $data['errmessage'] = "required";
                 $data['reviewerr'] = "required";
