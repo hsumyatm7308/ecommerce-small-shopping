@@ -4,8 +4,8 @@ $countreply = new Review();
 $vote = new Vote();
 $curid = new Curitemid();
 ?>
-<section class="py-10">
-    <div class="w-full mt-10">
+<section class="py-20 mt-10">
+    <div class="w-ful mt-10l">
         <div class="flex font-medium space-x-4">
 
             <a href="<?php echo URLROOT; ?>/allfragrance/show/<?php echo $curid->getitemid() ?>" class=" text-xl flex items-center cursor-pointer p-2 mb-5 border-2 border-b-transparent rounded-md
@@ -13,31 +13,34 @@ $curid = new Curitemid();
                 <span class="uppercase text-sm">Description</span>
             </a>
 
-            <h3 class="text-xl flex items-center p-2 mb-5 cursor-pointer rounded-md des_and_rev">
+            <?php if ($countreply->reviewcount($curid->getitemid()) > 0): ?>
+                <h3 class="text-xl font-medium flex items-center p-2 mb-5 cursor-pointer rounded-md des_and_rev">
 
-                <a href="<?php echo URLROOT; ?>/allfragrance/show/<?php echo $curid->getitemid() ?>?page=1">
-                    <span class="uppercase text-sm">
-                        <?php echo $countreply->reviewcount($curid->getitemid()); ?>
-                        <?php if ($countreply->reviewcount($curid->getitemid()) > 1): ?>
-                            Reviews
-                        <?php else: ?>
-                            Review
-                        <?php endif; ?>
-                    </span>
-                </a>
-            </h3>
+                    <a href="<?php echo URLROOT; ?>/allfragrance/show/<?php echo $curid->getitemid() ?>?page=1">
+                        <span class="uppercase text-sm">
+                            <?php echo $countreply->reviewcount($curid->getitemid()); ?>
+                            <?php if ($countreply->reviewcount($curid->getitemid()) > 1): ?>
+                                Reviews
+                            <?php else: ?>
+                                Review
+                            <?php endif; ?>
+                        </span>
+                    </a>
+                </h3>
+
+            <?php endif; ?>
 
         </div>
 
 
-        <div class="w-full flex pb-10 mt-5">
+        <div class="w-full flex pt-5 mt-5">
 
             <!-- Description  -->
             <div id="" class="des_and_rev_text ">
                 <?php echo $data['singledata']['description'] ?>
             </div>
 
-            <div class="w-full des_and_rev_text space-y-5 hidden">
+            <div class="w-full des_and_rev_text space-y-5 mt-5 hidden">
 
 
                 <?php foreach ($data['allreviews'] as $review): ?>

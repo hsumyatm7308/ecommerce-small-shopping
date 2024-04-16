@@ -13,7 +13,7 @@ class All
 
     public $filter;
 
-    public $sortDirection;
+    public $sortDirection = 'ASC';
 
 
     public function __construct()
@@ -38,7 +38,7 @@ class All
                 $sortDirection = 'ASC';
             } elseif ($sortby == "price_desc") {
                 $sortDirection = 'DESC';
-            } else {
+            } elseif ($sortby == 'random') {
                 $sortDirection = '';
             }
 
@@ -50,6 +50,7 @@ class All
         $letter = $this->pagination->getparameter()['letter'];
 
 
+
         $min = $this->pagination->getparameter()['minprice'];
         $max = $this->pagination->getparameter()['maxprice'];
 
@@ -58,8 +59,10 @@ class All
         $sortdirection = $sorting();
 
 
-        $query = 'SELECT * FROM items WHERE 1=1';
+        $query = 'SELECT i.*, b.name AS brandname FROM items i INNER JOIN brands b ON b.id = i.brand_id WHERE 1=1';
         $bindparams = [];
+
+
 
         if (isset($types)) {
             $query .= ' AND category_id = :category';
@@ -78,8 +81,9 @@ class All
         }
 
         if (isset($letter)) {
-            $query .= ' AND name LIKE :name';
-            $bindparams[':name'] = '%' . $letter . '%';
+            $query .= ' AND i.name LIKE :item_name';
+            $bindparams[':item_name'] = '%' . $letter . '%';
+
         }
 
         if (isset($sortdirection)) {

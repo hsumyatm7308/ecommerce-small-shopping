@@ -12,6 +12,8 @@ class Allfragrance extends Controller
 
     public $ratingmodal;
 
+    public $recommendmodal;
+
     public function __construct()
     {
         $this->allmodal = $this->model('All');
@@ -19,6 +21,7 @@ class Allfragrance extends Controller
         $this->reviewmodal = $this->model('Review');
         $this->votemodal = $this->model('Vote');
         $this->ratingmodal = $this->model('Rating');
+        $this->recommendmodal = $this->model('Recommend');
         $this->pagination = new Pagination;
 
     }
@@ -111,6 +114,7 @@ class Allfragrance extends Controller
 
         $replyreviews = $this->reviewmodal->replyreview($id);
 
+        $showrecommenditems = $this->recommendmodal->show_recommend_items($singledata['brand_id'], $singledata['name']);
 
 
 
@@ -158,7 +162,9 @@ class Allfragrance extends Controller
 
             'currentPage' => $page,
             'totalPages' => $totalPages,
-            'totalitems' => $totalreviews
+            'totalitems' => $totalreviews,
+
+            'showrecommenditems' => $showrecommenditems
 
 
         ];
@@ -189,9 +195,7 @@ class Allfragrance extends Controller
 
         }
         $this->reviewmodal->insertreply();
-
         $this->votemodal->insertvoting();
-
 
 
 

@@ -320,6 +320,12 @@ $curid = new Curitemid();
     require_once ('/opt/lampp/htdocs/mvcshop/app/views/reviews/index.php');
     ?>
 
+    <!-- Recommend  -->
+    <?php
+    require_once ('/opt/lampp/htdocs/mvcshop/app/views/recommends/index.php');
+    ?>
+
+
 </section>
 
 
