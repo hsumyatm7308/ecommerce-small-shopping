@@ -15,8 +15,8 @@ $curid = new Curitemid();
 <section class="container mx-auto text-[#4c5372] mt-20 px-10 ">
 
 
-    <div class="w-full h-full grid grid-cols-2 gap-12">
-        <div class="flex justify-start items-center">
+    <div class="w-full h-full grid md:grid-cols-2 grid-cols-1 gap-12">
+        <div class="flex justify-start items-center py-5">
             <div class="w-[500px] h-[590px] border flex justify-start items-center rounded-md relative overflow-hidden">
                 <img src="<?php echo IMG_ROOT; ?><?php echo $data['singledata']['image'] ?>" alt=""
                     class="object-fit w-full h-full">
@@ -29,7 +29,8 @@ $curid = new Curitemid();
                 <?php endif; ?>
             </div>
         </div>
-        <div>
+
+        <div class="py-5">
 
 
             <div class="">
@@ -112,7 +113,7 @@ $curid = new Curitemid();
 
 
                         <button type="submit" name="addtocart"
-                            class="border border-gray-200 bg-gray-200 <?php echo $data['singledata']['status_id'] == '1' ? 'text-gray-100 border-gray-500 bg-gray-500' : 'text-gray-400 ' ?> flex justify-center items-center drop-shadow-lg rounded-md px-6 py-3 hover:drop-shadow-[0_7px_7px_#d4d4d8] hover:opacity-90"
+                            class="border border-gray-200 bg-[#4c5372] <?php echo $data['singledata']['status_id'] == '1' ? 'text-gray-100 border-gray-500 bg-[#4c5372]' : 'text-gray-400 ' ?> flex justify-center items-center drop-shadow-lg rounded-md px-6 py-3 hover:drop-shadow-[0_7px_7px_#d4d4d8] hover:opacity-90"
                             id="addtocart" <?php echo $data['singledata']['status_id'] == '1' ? '' : 'disabled' ?>>Add to
                             cart</button>
 
@@ -489,6 +490,53 @@ $curid = new Curitemid();
     </div>
 </section>
 
+
+
+<!-- get letter  -->
+<section class=" w-full bg-[#fdfdfdfd] text-[#] mt-20 px-10 py-32">
+
+    <div class="w-full container mx-auto">
+
+        <div class="w-full flex justify-center items-center flex-col">
+            <div>
+                <div class="w-10 h-1 bg-yellow-500"></div>
+                <div>
+                    <h6>More Information</h6>
+                </div>
+
+            </div>
+            <div class="py-10">
+                <h1 class="capitalize text-3xl">Discover a World of Knowledge with Us</h1>
+            </div>
+
+            <form action="" class="flex justify-center items-center mt-10">
+
+                <div class="w-full justify-center items-center">
+                    <input type="text"
+                        class="bg-[#ffff] border border-1 border-yellow-500 rounded-md focus:outline-none focus:ring-1 focus:ring-yellow-500 px-3 py-3"
+                        placeholder="Enter your email">
+                    <button class="border rounded-md px-4 py-3 bg-yellow-500">Send</button>
+                </div>
+            </form>
+        </div>
+
+
+    </div>
+
+
+    </div>
+
+
+    </div>
+
+</section>
+
+
+<?php
+require_once ('/opt/lampp/htdocs/mvcshop/app/views/layouts/footer.php');
+?>
+
+
 <script>
     function onclickfun() {
         document.getElementById('reviewmodal').classList.toggle('hidden');
@@ -504,7 +552,6 @@ $curid = new Curitemid();
         submitreview.name = "reviewbtn"
     }
 </script>
-
 
 
 </body>

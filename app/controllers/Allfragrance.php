@@ -34,7 +34,7 @@ class Allfragrance extends Controller
         $getpage = $this->pagination->getparameter()['page'];
         $page = isset($getpage) ? $getpage : 1;
 
-        $itemsperpage = 8;
+        $itemsperpage = 12;
         $offset = ($page - 1) * $itemsperpage;
 
         $totalitems = $this->allmodal->countItems();

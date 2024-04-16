@@ -2,7 +2,7 @@
 <section class="py-20">
     <div class="w-full flex justify-center items-start flex-col mt-10">
         <div class="">
-            <h1 class="text-2xl uppercase font-medium">You may also like</h1>
+            <h1 class="text-2xl uppercase font-medium text-[#4c5372]">You may also like</h1>
         </div>
         <div class="w-full grid md:grid-cols-4 grid-cols-2 gap-10 place-content-center py-20">
 

@@ -79,7 +79,7 @@ parse_str($urlparts['query'], $parameter);
                                 class="object-fit w-full h-full">
                         </div>
 
-                        <div class="w-full py-4">
+                        <div class="w-full py-4 text-[#4c5372]">
                             <p class="mb-4">
                                 <?php echo $item['name'] ?> By <?php echo $item['brandname'] ?> EDT
                             </p>
@@ -189,6 +189,10 @@ parse_str($urlparts['query'], $parameter);
 </div>
 </section>
 
+
+<?php
+require_once ('/opt/lampp/htdocs/mvcshop/app/views/layouts/footer.php');
+?>
 
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 <script src="https://unpkg.com/axios/dist/axios.min.js"></script>

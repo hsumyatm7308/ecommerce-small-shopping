@@ -5,16 +5,17 @@ $vote = new Vote();
 $curid = new Curitemid();
 ?>
 <section class="py-20 mt-10">
-    <div class="w-ful mt-10l">
-        <div class="flex font-medium space-x-4">
+    <div class="w-ful mt-10">
+        <div class="text-[#4c5372] flex font-medium space-x-4">
 
-            <a href="<?php echo URLROOT; ?>/allfragrance/show/<?php echo $curid->getitemid() ?>" class=" text-xl flex items-center cursor-pointer p-2 mb-5 border-2 border-b-transparent rounded-md
+            <a href="<?php echo URLROOT; ?>/allfragrance/show/<?php echo $curid->getitemid() ?>" class=" text-xl text-[#4c5372]  flex items-center cursor-pointer p-2 mb-5 border-2 border-b-transparent rounded-md
                 des_and_rev">
                 <span class="uppercase text-sm">Description</span>
             </a>
 
             <?php if ($countreply->reviewcount($curid->getitemid()) > 0): ?>
-                <h3 class="text-xl font-medium flex items-center p-2 mb-5 cursor-pointer rounded-md des_and_rev">
+                <h3
+                    class="text-xl text-[#4c5372]  font-medium flex items-center p-2 mb-5 cursor-pointer rounded-md des_and_rev">
 
                     <a href="<?php echo URLROOT; ?>/allfragrance/show/<?php echo $curid->getitemid() ?>?page=1">
                         <span class="uppercase text-sm">
