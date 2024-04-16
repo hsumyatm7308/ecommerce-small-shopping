@@ -499,7 +499,6 @@ $curid = new Curitemid();
     }
 </script>
 
-<script src="<?php echo URLROOT; ?>/public/js/allfragrance.js"></script>
 
 
 </body>
