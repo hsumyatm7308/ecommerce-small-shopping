@@ -203,6 +203,8 @@ class All
                 $this->db->dbbind(':user_id', $userid);
 
                 if ($this->db->dbexecute()) {
+                    redirect('allfragrance?page=1');
+
                     return true;
                 } else {
                     return false;

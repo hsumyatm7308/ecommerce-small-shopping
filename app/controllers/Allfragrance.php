@@ -14,6 +14,8 @@ class Allfragrance extends Controller
 
     public $recommendmodal;
 
+    public $navbarmodal;
+
     public function __construct()
     {
         $this->allmodal = $this->model('All');
@@ -22,6 +24,7 @@ class Allfragrance extends Controller
         $this->votemodal = $this->model('Vote');
         $this->ratingmodal = $this->model('Rating');
         $this->recommendmodal = $this->model('Recommend');
+        $this->navbarmodal = $this->model('Nav');
         $this->pagination = new Pagination;
 
     }
@@ -29,6 +32,9 @@ class Allfragrance extends Controller
 
     public function index()
     {
+
+        $orderitemcount = $this->navbarmodal->order_item_count();
+        $this->allmodal->shopcardlist();
 
 
         $getpage = $this->pagination->getparameter()['page'];
@@ -53,6 +59,8 @@ class Allfragrance extends Controller
 
 
         $data = [
+            'orderitemcount' => $orderitemcount,
+
             'title' => 'All',
             'items' => $items,
             'types' => $types,
@@ -79,6 +87,7 @@ class Allfragrance extends Controller
 
 
 
+        $orderitemcount = $this->navbarmodal->order_item_count();
 
 
 
@@ -130,6 +139,9 @@ class Allfragrance extends Controller
 
 
         $data = [
+            'orderitemcount' => $orderitemcount,
+
+
             'singledata' => $singledata,
             'brand' => $brand,
             'status' => $status,

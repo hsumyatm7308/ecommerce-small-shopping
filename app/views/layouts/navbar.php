@@ -88,7 +88,7 @@
                             <?php echo $data['user']['name'] ?>
                         </h1>
                         <ul id="account-dropdown"
-                            class="w-36 bg-gray-200 border rounded-md  shadow-lg absolute p-2 mt-4">
+                            class="w-36 bg-gray-200 border rounded-md  shadow-lg absolute p-2 mt-4 hidden">
                             <li class="p-2"><a href="">My Profile</a></li>
                             <div class="w-full h-[1px] bg-gray-100"></div>
                             <?php if (isset($_SESSION['user_id'])): ?>
@@ -124,7 +124,10 @@
                         <sup id="bag-count" class="bg-[#4c5372] font-semibold px-2 py-2 rounded-full">
                             <span class="text-gray-100 countcart">
 
-                                0
+                                <?php
+
+                                echo $data['orderitemcount'];
+                                ?>
 
 
                             </span>

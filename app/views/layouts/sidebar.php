@@ -265,10 +265,14 @@ parse_str($urlparts['query'], $parameter);
             const letterbtn = document.querySelectorAll('.letterbtn');
 
             updatebtn.addEventListener('click', function () {
-                updatebtn.form.submit()
                 const min = document.getElementById('minprice').value;
                 const max = document.getElementById('maxprice').value;
-                window.location.href = window.location.href + "&minprice=" + min + "&maxprice=" + max + "&page=1";
+                if (min && max) {
+                    updatebtn.form.submit()
+
+                    window.location.href = window.location.href + "&minprice=" + min + "&maxprice=" + max + "&page=1";
+
+                }
             })
 
             const radioButtons = document.querySelectorAll('.types-radio')
