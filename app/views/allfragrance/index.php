@@ -58,20 +58,21 @@ parse_str($urlparts['query'], $parameter);
 
 
 
-    <div class="w-full grid md:grid-cols-4 grid-cols-2 gap-10 place-content-center">
 
 
-        <?php if ($data['totalitems'] == 0): ?>
+    <?php if ($data['totalitems'] == 0): ?>
 
-            <div class="w-full border p-3">
-                <div>No Data</div>
-            </div>
+        <div class="w-full border p-3">
+            <div>No Data</div>
+        </div>
 
 
-        <?php else: ?>
+    <?php else: ?>
 
+        <div class="w-full grid md:grid-cols-4 grid-cols-2 gap-10 place-content-center">
 
             <?php foreach ($data['items'] as $item): ?>
+
                 <div class="w-full border  border-1 rounded-md relative p-3 product-item">
                     <a href="">
                         <div class="w-full h-[250px] bg-gray-100">
@@ -100,6 +101,11 @@ parse_str($urlparts['query'], $parameter);
                                     </div>
                                 </div>
                             <?php endif; ?>
+                        </div>
+
+                        <div
+                            class="tiny-box-<?php echo $item['id'] ?> absolute top-[45%] left-[0%] z-30 bg-black text-white text-xs p-1 rounded-md hidden">
+                            Copied!
                         </div>
 
                         <div class="hover-overlay">
@@ -149,14 +155,13 @@ parse_str($urlparts['query'], $parameter);
                                 <div class="flex justify-center items-center space-x-1">
                                     <!-- share  -->
                                     <div>
-                                        <div
-                                            class="flex justify-center items-center bg-[#4c5372] text-white hover:opacity-80 rounded-sm px-3 py-2">
+                                        <div class="flex justify-center items-center bg-[#4c5372] text-white hover:opacity-80 rounded-sm px-3 py-2 copy_link_item"
+                                            data-id="<?php echo $item['id'] ?>">
                                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                                 stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
                                                 <path stroke-linecap="round" stroke-linejoin="round"
-                                                    d="M7.217 10.907a2.25 2.25 0 1 0 0 2.186m0-2.186c.18.324.283.696.283 1.093s-.103.77-.283 1.093m0-2.186 9.566-5.314m-9.566 7.5 9.566 5.314m0 0a2.25 2.25 0 1 0 3.935 2.186 2.25 2.25 0 0 0-3.935-2.186Zm0-12.814a2.25 2.25 0 1 0 3.933-2.185 2.25 2.25 0 0 0-3.933 2.185Z" />
+                                                    d="M13.19 8.688a4.5 4.5 0 0 1 1.242 7.244l-4.5 4.5a4.5 4.5 0 0 1-6.364-6.364l1.757-1.757m13.35-.622 1.757-1.757a4.5 4.5 0 0 0-6.364-6.364l-4.5 4.5a4.5 4.5 0 0 0 1.242 7.244" />
                                             </svg>
-
                                         </div>
                                     </div>
                                     <!-- add to card  -->
@@ -194,14 +199,15 @@ parse_str($urlparts['query'], $parameter);
                         </div>
                     </a>
                 </div>
+
             <?php endforeach; ?>
+        </div>
 
-        <?php endif; ?>
+    <?php endif; ?>
 
 
 
 
-    </div>
 
     <div class="py-10">
         <!-- pagination  -->
@@ -242,6 +248,34 @@ require_once ('/opt/lampp/htdocs/mvcshop/app/views/layouts/footer.php');
 
     })
 
+
+    const copy_link_items = document.querySelectorAll('.copy_link_item');
+
+    copy_link_items.forEach((element) => {
+        element.addEventListener('click', function (event) {
+            event.preventDefault();
+
+            const getid = element.getAttribute('data-id');
+
+            const cururl = window.location.href;
+
+            const copylink = cururl.split('?')[0] + '/show/' + getid;
+            const tinybox = document.querySelector('.tiny-box-' + getid)
+
+            navigator.clipboard.writeText(copylink)
+                .then(() => {
+                    tinybox.classList.toggle('hidden')
+                    setTimeout(() => {
+                        tinybox.classList.toggle('hidden')
+                    }, 250);
+                })
+                .catch((error) => {
+                    console.error('Unable to copy link to clipboard:', error);
+                });
+
+
+        });
+    });
 
 
 </script>
