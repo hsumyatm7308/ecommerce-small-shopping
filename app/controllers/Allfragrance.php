@@ -17,6 +17,8 @@ class Allfragrance extends Controller
     public $navbarmodal;
     public $curitemidmodal;
 
+    public $wishmodal;
+
     public function __construct()
     {
         $this->allmodal = $this->model('All');
@@ -26,6 +28,7 @@ class Allfragrance extends Controller
         $this->ratingmodal = $this->model('Rating');
         $this->recommendmodal = $this->model('Recommend');
         $this->navbarmodal = $this->model('Nav');
+        $this->wishmodal = $this->model('Wish');
         $this->pagination = new Pagination;
         $this->curitemidmodal = new Curitemid();
 
@@ -35,8 +38,10 @@ class Allfragrance extends Controller
     public function index()
     {
 
+
         $orderitemcount = $this->navbarmodal->order_item_count();
         $this->allmodal->shopcardlist();
+        $this->wishmodal->addtowish();
 
 
         $getpage = $this->pagination->getparameter()['page'];
@@ -58,6 +63,8 @@ class Allfragrance extends Controller
         $minprice = $this->pagination->getparameter()['minprice'];
         $maxprice = $this->pagination->getparameter()['maxprice'];
         $userinfo = $this->allmodal->getuserinfo();
+
+
 
 
         $data = [
@@ -94,8 +101,6 @@ class Allfragrance extends Controller
 
 
         $singledata = $this->allmodal->getsingleitem($id);
-
-
         $brand = $this->allmodal->getbrand($singledata['id']);
         $status = $this->allmodal->getstatus($singledata['status_id']);
         $authuser = $this->allmodal->getuserinfo();
@@ -127,19 +132,6 @@ class Allfragrance extends Controller
 
         $showrecommenditems = $this->recommendmodal->show_recommend_items($singledata['brand_id'], $singledata['name']);
 
-
-
-
-        // if (isset($_POST['addtocart'])) {
-        //     if ($this->allmodal->shopcardlist()) {
-        //         redirect('allfragrance/show/' . $this->curitemidmodal->getitemid());
-        //         flash('added', 'Item added successfully');
-
-        //     } else {
-        //         flash('already_added', 'Item already added');
-
-        //     }
-        // }
 
         if (isset($_POST['addtocart'])) {
             if ($this->allmodal->shopcardlist()) {
@@ -223,7 +215,7 @@ class Allfragrance extends Controller
         }
         $this->reviewmodal->insertreply();
         $this->votemodal->insertvoting();
-
+        $this->wishmodal->addtowish();
 
 
 

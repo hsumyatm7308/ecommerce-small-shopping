@@ -183,7 +183,7 @@ class All
 
 
 
-    // insert item 
+    // add to cart  
     public function shopcardlist()
     {
         if (isset($_POST['addtocart']) || isset($_POST['addtocart_index']) && $_SERVER['REQUEST_METHOD'] === 'POST') {

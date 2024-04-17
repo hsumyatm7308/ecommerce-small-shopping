@@ -119,15 +119,18 @@ $pagination = new Pagination();
                             cart</button>
 
 
+
+                        <button type="submit" name="addtowish" id="addtowish"
+                            class=" border border-gray-500 flex justify-center items-center drop-shadow-lg rounded-md px-6 py-3 hover:drop-shadow-[0_7px_7px_#d4d4d8] hover:opacity-90"
+                            id="addtocart">Add to wish</button>
+
+
+
                         <input type="hidden" name="singlename" value="<?php echo $data['singledata']['name']; ?>">
                         <input type="hidden" name="singlebrand" value=" <?php echo $data['singledata']['brand_id'] ?>">
                         <input type="hidden" name="singleprice" value="<?php echo $data['singledata']['price']; ?>">
+                        <input type="hidden" name="addtowish_itemid" value="<?php echo $data['singledata']['id']; ?>">
 
-
-
-                        <button type="button" name="addtocart"
-                            class=" border border-gray-500 flex justify-center items-center drop-shadow-lg rounded-md px-6 py-3 hover:drop-shadow-[0_7px_7px_#d4d4d8] hover:opacity-90"
-                            id="addtocart">Add to wish</button>
                     </div>
                 </form>
 
@@ -136,9 +139,6 @@ $pagination = new Pagination();
 
 
                 <!-- flash  -->
-
-
-
                 <div id="alertcart">
                     <?php $message = $pagination->getparameter()['message']; ?>
                     <?php if ($message === 'added'): ?>
