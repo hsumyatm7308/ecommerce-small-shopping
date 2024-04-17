@@ -18,6 +18,7 @@ class Allfragrance extends Controller
     public $curitemidmodal;
 
     public $wishmodal;
+    public $cardmodal;
 
     public function __construct()
     {
@@ -29,6 +30,8 @@ class Allfragrance extends Controller
         $this->recommendmodal = $this->model('Recommend');
         $this->navbarmodal = $this->model('Nav');
         $this->wishmodal = $this->model('Wish');
+        $this->cardmodal = $this->model('Cart');
+
         $this->pagination = new Pagination;
         $this->curitemidmodal = new Curitemid();
 
@@ -40,7 +43,7 @@ class Allfragrance extends Controller
 
 
         $orderitemcount = $this->navbarmodal->order_item_count();
-        $this->allmodal->shopcardlist();
+        $this->cardmodal->shopcardlist();
         $this->wishmodal->addtowish();
 
 
@@ -123,22 +126,31 @@ class Allfragrance extends Controller
         $allreviews = $this->reviewmodal->showreview($id, $offset, $itemsperpage);
 
 
-
         $averagerating = $this->ratingmodal->average_rating();
         $rating_numbers = $this->ratingmodal->rating_number_count();
 
 
         $replyreviews = $this->reviewmodal->replyreview($id);
 
+
+        // recommend 
         $showrecommenditems = $this->recommendmodal->show_recommend_items($singledata['brand_id'], $singledata['name']);
 
 
+        //add to cart on show page
         if (isset($_POST['addtocart'])) {
-            if ($this->allmodal->shopcardlist()) {
+            if ($this->cardmodal->shopcardlist()) {
                 $redirect_url = 'allfragrance/show/' . $this->curitemidmodal->getitemid() . '?message=added';
                 redirect($redirect_url);
             } else {
                 $redirect_url = 'allfragrance/show/' . $this->curitemidmodal->getitemid() . '?message=already_added';
+                redirect($redirect_url);
+            }
+
+        } elseif (isset($_POST['addtocart_index'])) {
+            $single_recom_itemid = $_POST['single_recom_itemid'];
+            if ($this->cardmodal->shopcardlist()) {
+                $redirect_url = 'allfragrance/show/' . $single_recom_itemid;
                 redirect($redirect_url);
             }
         }
@@ -216,6 +228,7 @@ class Allfragrance extends Controller
         $this->reviewmodal->insertreply();
         $this->votemodal->insertvoting();
         $this->wishmodal->addtowish();
+
 
 
 

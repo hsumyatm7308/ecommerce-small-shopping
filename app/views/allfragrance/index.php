@@ -62,7 +62,7 @@ parse_str($urlparts['query'], $parameter);
 
     <?php if ($data['totalitems'] == 0): ?>
 
-        <div class="w-full border p-3">
+        <div class="w-full h-[50vh] border p-3">
             <div>No Data</div>
         </div>
 
@@ -167,7 +167,7 @@ parse_str($urlparts['query'], $parameter);
                                     <!-- add to card  -->
                                     <div>
 
-                                        <?php $getallmodal = new All(); ?>
+                                        <?php $getallmodal = new Cart(); ?>
                                         <div
                                             class="flex justify-center items-center bg-[#4c5372] <?php echo $getallmodal->hasitem($item['name']) ? 'opacity-50 ' : '' ?>  text-white hover:opacity-80 rounded-sm px-3 py-2">
                                             <form action="" id="add_form" method="POST"
