@@ -3,6 +3,11 @@
 $countreply = new Review();
 $vote = new Vote();
 $curid = new Curitemid();
+
+$newcuritem = new Curitemid();
+$segment = $newcuritem->getmethod();
+$new_url = URLROOT . '/' . $segment . '/show/' . $curid->getitemid();
+
 ?>
 <section class="py-20 mt-10">
     <div class="w-ful mt-10">
@@ -17,7 +22,7 @@ $curid = new Curitemid();
                 <h3
                     class="text-xl text-[#4c5372]  font-medium flex items-center p-2 mb-5 cursor-pointer rounded-md des_and_rev">
 
-                    <a href="<?php echo URLROOT; ?>/allfragrance/show/<?php echo $curid->getitemid() ?>?page=1">
+                    <a href="<?php echo $new_url ?>?page=1">
                         <span class="uppercase text-sm">
                             <?php echo $countreply->reviewcount($curid->getitemid()); ?>
                             <?php if ($countreply->reviewcount($curid->getitemid()) > 1): ?>
