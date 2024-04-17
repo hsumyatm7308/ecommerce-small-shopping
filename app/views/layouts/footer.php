@@ -101,6 +101,21 @@
     </div>
 
 </section>
+<section class=" w-full px-10 py-5">
+    <div class="container mx-auto">
+        <div class="flex justify-between items-center">
+            <div>
+                <span class="text-sm"> &copy; 2024 All right reserved</span>
+            </div>
+
+            <div>
+                <span class="text-sm"> Developed by <a href="" class="font-medium">Hsu M. Moe</a></span>
+            </div>
+
+
+        </div>
+    </div>
+</section>
 <script src="<?php echo URLROOT; ?>/public/js/script.js" type="text/javascript"></script>
 
 </body>

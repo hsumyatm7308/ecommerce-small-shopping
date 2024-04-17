@@ -15,6 +15,7 @@ class Allfragrance extends Controller
     public $recommendmodal;
 
     public $navbarmodal;
+    public $curitemidmodal;
 
     public function __construct()
     {
@@ -26,6 +27,7 @@ class Allfragrance extends Controller
         $this->recommendmodal = $this->model('Recommend');
         $this->navbarmodal = $this->model('Nav');
         $this->pagination = new Pagination;
+        $this->curitemidmodal = new Curitemid();
 
     }
 
@@ -128,14 +130,27 @@ class Allfragrance extends Controller
 
 
 
+        // if (isset($_POST['addtocart'])) {
+        //     if ($this->allmodal->shopcardlist()) {
+        //         redirect('allfragrance/show/' . $this->curitemidmodal->getitemid());
+        //         flash('added', 'Item added successfully');
+
+        //     } else {
+        //         flash('already_added', 'Item already added');
+
+        //     }
+        // }
+
         if (isset($_POST['addtocart'])) {
             if ($this->allmodal->shopcardlist()) {
-                flash('added', 'Item added successfully');
+                $redirect_url = 'allfragrance/show/' . $this->curitemidmodal->getitemid() . '?message=added';
+                redirect($redirect_url);
             } else {
-                flash('already_added', 'Item already added');
-
+                $redirect_url = 'allfragrance/show/' . $this->curitemidmodal->getitemid() . '?message=already_added';
+                redirect($redirect_url);
             }
         }
+
 
 
         $data = [

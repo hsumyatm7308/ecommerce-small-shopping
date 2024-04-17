@@ -186,7 +186,7 @@ class All
     // insert item 
     public function shopcardlist()
     {
-        if (isset($_POST['addtocart']) && $_SERVER['REQUEST_METHOD'] === 'POST') {
+        if (isset($_POST['addtocart']) || isset($_POST['addtocart_index']) && $_SERVER['REQUEST_METHOD'] === 'POST') {
             $name = $_POST['singlename'];
             $brand = $_POST['singlebrand'];
             $price = $_POST['singleprice'];
@@ -203,9 +203,12 @@ class All
                 $this->db->dbbind(':user_id', $userid);
 
                 if ($this->db->dbexecute()) {
-                    redirect('allfragrance?page=1');
-
+                    if (isset($_POST['addtocart_index'])) {
+                        redirect('allfragrance?page=1');
+                    }
                     return true;
+
+
                 } else {
                     return false;
                 }

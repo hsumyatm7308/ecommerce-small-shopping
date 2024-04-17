@@ -8,6 +8,7 @@ require_once ('/opt/lampp/htdocs/mvcshop/app/views/layouts/navbar.php');
 $countreply = new Review();
 $vote = new Vote();
 $curid = new Curitemid();
+$pagination = new Pagination();
 ?>
 
 
@@ -135,8 +136,12 @@ $curid = new Curitemid();
 
 
                 <!-- flash  -->
+
+
+
                 <div id="alertcart">
-                    <?php if (flash('added')): ?>
+                    <?php $message = $pagination->getparameter()['message']; ?>
+                    <?php if ($message === 'added'): ?>
                         <div class="w-[400px]  flex justify-between items-center mt-3 rounded-md">
                             <span class="flex justify-start items-center p-1">
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
@@ -153,7 +158,7 @@ $curid = new Curitemid();
                             </a>
                         </div>
 
-                    <?php elseif (flash('already_added')): ?>
+                    <?php elseif ($message === 'already_added'): ?>
                         <div class="w-[400px]  flex justify-between items-center mt-3 rounded-md">
                             <span class="flex justify-start items-center p-1">
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
