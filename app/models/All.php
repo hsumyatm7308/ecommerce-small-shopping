@@ -56,10 +56,11 @@ class All
 
         $types = $this->pagination->getparameter()['types'];
 
+
         $sortdirection = $sorting();
 
 
-        $query = 'SELECT i.*, b.name AS brandname FROM items i INNER JOIN brands b ON b.id = i.brand_id WHERE 1=1';
+        $query = 'SELECT i.*, b.name AS brandname FROM items i INNER JOIN brands b ON b.id = i.brand_id WHERE i.category_id IN (1,2,3) AND 1=1';
         $bindparams = [];
 
 
@@ -121,7 +122,7 @@ class All
         $max = $this->pagination->getparameter()['maxprice'];
         $types = $this->pagination->getparameter()['types'];
 
-        $query = 'SELECT COUNT(*) AS totalItems FROM items WHERE 1 = 1';
+        $query = 'SELECT COUNT(*) AS totalItems FROM items i WHERE i.category_id IN (1,2,3) AND 1 = 1';
         $bindParams = [];
 
         if (isset($types)) {

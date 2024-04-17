@@ -201,7 +201,7 @@ parse_str($urlparts['query'], $parameter);
 
                 <!-- types  -->
                 <div>
-                    <h1 class="text-[#4c5372] font-medium mb-1">Gender</h1>
+                    <h1 class="text-[#4c5372] font-medium mb-1">Types</h1>
                     <form id="clothingForm" action="" method="get" class="mt-3 flex flex-col">
 
                         <?php foreach ($data['types'] as $type): ?>

@@ -6,13 +6,14 @@ class Cart
 
     private $db;
 
-
+    public $curmethodmodal;
 
 
     public function __construct()
     {
         $this->db = new Database();
 
+        $this->curmethodmodal = new Curitemid();
     }
     // add to cart  
     public function shopcardlist()
@@ -23,6 +24,7 @@ class Cart
             $price = $_POST['singleprice'];
             $quantity = $_POST['singlequantity'];
             $userid = $_SESSION['user_id'];
+
 
             if (!$this->hasitem($name)) {
 
@@ -35,7 +37,10 @@ class Cart
 
                 if ($this->db->dbexecute()) {
                     if (isset($_POST['addtocart_index'])) {
-                        redirect('allfragrance?page=1');
+
+                        $curmethod = $this->curmethodmodal->getmethod();
+                        redirect($curmethod . '?page=1');
+
                     }
                     return true;
 

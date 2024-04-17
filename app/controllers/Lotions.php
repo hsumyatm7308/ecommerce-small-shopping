@@ -1,9 +1,9 @@
 <?php
 
-class Allfragrance extends Controller
+class Lotions extends Controller
 {
 
-    public $allmodal;
+    public $lotionmodal;
     public $sidebarmodal;
     public $pagination;
 
@@ -22,7 +22,7 @@ class Allfragrance extends Controller
 
     public function __construct()
     {
-        $this->allmodal = $this->model('All');
+        $this->lotionmodal = $this->model('Lotion');
         $this->sidebarmodal = $this->model('Side');
         $this->reviewmodal = $this->model('Review');
         $this->votemodal = $this->model('Vote');
@@ -53,22 +53,21 @@ class Allfragrance extends Controller
         $itemsperpage = 12;
         $offset = ($page - 1) * $itemsperpage;
 
-        $totalitems = $this->allmodal->countItems();
+        $totalitems = $this->lotionmodal->countItems();
 
         $totalPages = ceil($totalitems / $itemsperpage);
 
 
-        $items = $this->allmodal->items($offset, $itemsperpage);
-        $types = $this->allmodal->types();
+        $items = $this->lotionmodal->items($offset, $itemsperpage);
+        $types = $this->lotionmodal->types();
 
-        // var_dump($types);
 
         $sidebaritems = $this->sidebarmodal->sidebaritems();
 
 
         $minprice = $this->pagination->getparameter()['minprice'];
         $maxprice = $this->pagination->getparameter()['maxprice'];
-        $userinfo = $this->allmodal->getuserinfo();
+        $userinfo = $this->lotionmodal->getuserinfo();
 
 
 
@@ -76,7 +75,7 @@ class Allfragrance extends Controller
         $data = [
             'orderitemcount' => $orderitemcount,
 
-            'title' => 'All',
+            'title' => 'Lotion',
             'items' => $items,
             'types' => $types,
             'sidebaritems' => $sidebaritems,
@@ -92,7 +91,7 @@ class Allfragrance extends Controller
         ];
 
 
-        $this->view('allfragrance/index', $data);
+        $this->view('lotions/index', $data);
     }
 
 
@@ -106,10 +105,10 @@ class Allfragrance extends Controller
 
 
 
-        $singledata = $this->allmodal->getsingleitem($id);
-        $brand = $this->allmodal->getbrand($singledata['id']);
-        $status = $this->allmodal->getstatus($singledata['status_id']);
-        $authuser = $this->allmodal->getuserinfo();
+        $singledata = $this->lotionmodal->getsingleitem($id);
+        $brand = $this->lotionmodal->getbrand($singledata['id']);
+        $status = $this->lotionmodal->getstatus($singledata['status_id']);
+        $authuser = $this->lotionmodal->getuserinfo();
 
 
 
@@ -143,17 +142,17 @@ class Allfragrance extends Controller
         //add to cart on show page
         if (isset($_POST['addtocart'])) {
             if ($this->cardmodal->shopcardlist()) {
-                $redirect_url = 'allfragrance/show/' . $this->curitemidmodal->getitemid() . '?message=added';
+                $redirect_url = 'lotions/show/' . $this->curitemidmodal->getitemid() . '?message=added';
                 redirect($redirect_url);
             } else {
-                $redirect_url = 'allfragrance/show/' . $this->curitemidmodal->getitemid() . '?message=already_added';
+                $redirect_url = 'lotions/show/' . $this->curitemidmodal->getitemid() . '?message=already_added';
                 redirect($redirect_url);
             }
 
         } elseif (isset($_POST['addtocart_index'])) {
             $single_recom_itemid = $_POST['single_recom_itemid'];
             if ($this->cardmodal->shopcardlist()) {
-                $redirect_url = 'allfragrance/show/' . $single_recom_itemid;
+                $redirect_url = 'lotions/show/' . $single_recom_itemid;
                 redirect($redirect_url);
             }
         }
@@ -245,7 +244,7 @@ class Allfragrance extends Controller
         $this->reviewmodal->destroy($id);
 
 
-        redirect('allfragrance/show/' . $id);
+        redirect('lotions/show/' . $id);
 
 
 

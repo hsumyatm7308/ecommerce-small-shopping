@@ -12,6 +12,17 @@ class Curitemid
         return end($item_id);
     }
 
+    public function getmethod()
+    {
+        $cururl = $_SERVER['REQUEST_URI'];
+
+        $url_parts = explode('/', $cururl);
+        $segment = $url_parts[2];
+
+        return $segment;
+
+    }
+
 
 }
 

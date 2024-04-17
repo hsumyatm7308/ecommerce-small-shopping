@@ -1,17 +1,78 @@
-<!-- Recommend  -->
-<section class="py-20">
-    <div class="w-full flex justify-center items-start flex-col mt-10">
+<?php
+
+ini_set('display_errors', 0);
+
+require_once ('/opt/lampp/htdocs/mvcshop/app/views/layouts/header.php');
+require_once ('/opt/lampp/htdocs/mvcshop/app/views/layouts/navbar.php');
+require_once ('/opt/lampp/htdocs/mvcshop/app/views/layouts/sidebar.php');
+?>
+
+
+<?php
+
+
+$currentURL = $_SERVER['REQUEST_SCHEME'] . '://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
+
+$urlparts = parse_url($currentURL);
+parse_str($urlparts['query'], $parameter);
+
+
+
+
+?>
+
+
+
+<style>
+
+</style>
+
+
+
+
+<div class="col-span-3 md:py-0 py-10">
+
+
+
+    <div class="flex justify-between items-center mb-10">
         <div class="">
-            <h1 class="text-2xl uppercase font-medium text-[#4c5372]">You may also like</h1>
+            <span class="uppercase text-xs">Home <span class="m-1">|</span> All's Fragrances</span>
         </div>
-        <div class="w-full grid md:grid-cols-4 grid-cols-2 gap-10 place-content-center py-20">
+
+        <div>
+            <form id="" action="" method="GET">
+                <label for="sortby">Sort by:</label>
+                <select name="sortby" id="sortby">
+                    <option value="random">Choose..</option>
+                    <option value="price_asc" <?php echo $parameter['sortby'] == 'price_asc' ? 'selected' : ''; ?>>
+                        Price Low to High</option>
+                    <option value="price_desc" <?php echo $parameter['sortby'] == 'price_desc' ? 'selected' : ''; ?>>Price
+                        High to Low</option>
+                </select>
+
+            </form>
+
+        </div>
+    </div>
 
 
 
 
 
 
-            <?php foreach ($data['showrecommenditems'] as $item): ?>
+    <?php if ($data['totalitems'] == 0): ?>
+
+        <div class="w-full h-[50vh] border p-3">
+            <div>No Data</div>
+        </div>
+
+
+    <?php else: ?>
+
+        <div class="w-full grid md:grid-cols-4 grid-cols-2 gap-10 place-content-center">
+
+            <?php foreach ($data['items'] as $item): ?>
+
                 <div class="w-full border  border-1 rounded-md relative p-3 product-item">
                     <a href="">
                         <div class="w-full h-[250px] bg-gray-100">
@@ -19,7 +80,7 @@
                                 class="object-fit w-full h-full">
                         </div>
 
-                        <div class="w-full py-4">
+                        <div class="w-full py-4 text-[#4c5372]">
                             <p class="mb-4">
                                 <?php echo $item['name'] ?> By <?php echo $item['brandname'] ?> EDT
                             </p>
@@ -52,12 +113,7 @@
                                 <div class="flex justify-center items-center space-x-1">
                                     <!-- show  -->
                                     <div class="">
-                                        <?php
-                                        $newcuritem = new Curitemid();
-                                        $segment = $newcuritem->getmethod();
-                                        $new_url = URLROOT . '/' . $segment . '/show/' . $item['id'];
-                                        ?>
-                                        <a href="<?php echo $new_url ?>"
+                                        <a href="<?php echo URLROOT; ?>/lotions/show/<?php echo $item['id'] ?>"
                                             class="flex justify-center items-center bg-[#4c5372] text-white hover:opacity-80 rounded-sm px-3 py-2">
                                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                                 stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
@@ -87,8 +143,7 @@
 
                                                 </button>
 
-                                                <input type="hidden" name="addtowish_itemid"
-                                                    value="<?php echo $item['id'] ?>">
+                                                <input type="hidden" name="addtowish_itemid" value="<?php echo $item['id'] ?>">
                                             </form>
                                         </div>
 
@@ -129,11 +184,8 @@
                                                 <input type="hidden" name="singlename" value="<?php echo $item['name']; ?>">
                                                 <input type="hidden" name="singlebrand"
                                                     value=" <?php echo $item['brand_id'] ?>">
-                                                <input type="hidden" name="singleprice"
-                                                    value="<?php echo $item['price']; ?>">
+                                                <input type="hidden" name="singleprice" value="<?php echo $item['price']; ?>">
                                                 <input type="hidden" name="singlequantity" value="1">
-                                                <input type="hidden" name="single_recom_itemid"
-                                                    value="<?php echo $item['id'] ?>">
                                             </form>
 
 
@@ -147,18 +199,55 @@
                         </div>
                     </a>
                 </div>
+
             <?php endforeach; ?>
-
-
-
-
-
         </div>
 
+    <?php endif; ?>
+
+
+
+
+
+    <div class="py-10">
+        <!-- pagination  -->
+        <?php
+        $newpagination = new Pagination();
+        $newpagination->pagination($data);
+        ?>
+
     </div>
+</div>
+
+</div>
+
+
+</div>
 </section>
 
+
+<?php
+require_once ('/opt/lampp/htdocs/mvcshop/app/views/layouts/footer.php');
+?>
+
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
 <script>
+    const sortby = document.getElementById('sortby');
+
+    const options = sortby.children;
+    sortby.addEventListener('change', function () {
+        sortby.form.submit();
+
+        window.location.href = window.location.href + "&sortby=" + sortby.value;
+
+
+
+
+
+    })
+
 
     const copy_link_items = document.querySelectorAll('.copy_link_item');
 
@@ -187,4 +276,11 @@
 
         });
     });
+
+
 </script>
+
+
+</body>
+
+</html>

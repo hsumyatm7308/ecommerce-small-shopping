@@ -32,8 +32,8 @@
                     </li>
 
                     <li
-                        class="mr-5 <?php echo strpos($currenturl, 'lotion') !== false ? 'border' : ''; ?> px-2 py-2 rounded-full hover:bg-gray-100">
-                        <a href="<?php echo URLROOT; ?>/lotion?page=1">Lotion</a>
+                        class="mr-5 <?php echo strpos($currenturl, 'lotions') !== false ? 'border' : ''; ?> px-2 py-2 rounded-full hover:bg-gray-100">
+                        <a href="<?php echo URLROOT; ?>/lotions?page=1">Lotion</a>
                     </li>
 
                     <li

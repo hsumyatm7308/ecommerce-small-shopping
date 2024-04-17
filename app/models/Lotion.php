@@ -1,7 +1,7 @@
 <?php
 ini_set('display_errors', 0);
 
-class Lotions
+class Lotion
 {
 
     private $db;
@@ -13,7 +13,7 @@ class Lotions
 
     public $filter;
 
-    public $sortDirection;
+    public $sortDirection = 'ASC';
 
 
     public function __construct()
@@ -38,7 +38,7 @@ class Lotions
                 $sortDirection = 'ASC';
             } elseif ($sortby == "price_desc") {
                 $sortDirection = 'DESC';
-            } else {
+            } elseif ($sortby == 'random') {
                 $sortDirection = '';
             }
 
@@ -50,6 +50,7 @@ class Lotions
         $letter = $this->pagination->getparameter()['letter'];
 
 
+
         $min = $this->pagination->getparameter()['minprice'];
         $max = $this->pagination->getparameter()['maxprice'];
 
@@ -58,14 +59,17 @@ class Lotions
         $sortdirection = $sorting();
 
 
-        $query = 'SELECT * FROM items WHERE 1=1';
+        $query = 'SELECT i.*, b.name AS brandname FROM items i INNER JOIN brands b ON b.id = i.brand_id WHERE i.category_id IN (4,5) AND 1=1';
         $bindparams = [];
+
+
 
         if (isset($types)) {
             $query .= ' AND category_id = :category';
             $bindparams[':category'] = $types;
 
-            echo "types";
+
+
         }
 
 
@@ -74,14 +78,12 @@ class Lotions
             $bindparams[':min'] = $min;
             $bindparams[':max'] = $max;
 
-            echo "min";
         }
 
         if (isset($letter)) {
-            $query .= ' AND name LIKE :name';
-            $bindparams[':name'] = '%' . $letter . '%';
+            $query .= ' AND i.name LIKE :item_name';
+            $bindparams[':item_name'] = '%' . $letter . '%';
 
-            echo "letter";
         }
 
         if (isset($sortdirection)) {
@@ -107,7 +109,7 @@ class Lotions
 
     public function types()
     {
-        $this->db->dbquery('SELECT * FROM categories WHERE id IN (1,2,3)');
+        $this->db->dbquery('SELECT * FROM categories WHERE id IN (4,5)');
         return $this->db->getmultidata();
     }
 
@@ -119,7 +121,7 @@ class Lotions
         $max = $this->pagination->getparameter()['maxprice'];
         $types = $this->pagination->getparameter()['types'];
 
-        $query = 'SELECT COUNT(*) AS totalItems FROM items WHERE 1 = 1';
+        $query = 'SELECT COUNT(*) AS totalItems FROM items i WHERE i.category_id IN (4,5) AND 1 = 1';
         $bindParams = [];
 
         if (isset($types)) {
@@ -145,6 +147,58 @@ class Lotions
 
         return $this->db->getsingledata()['totalItems'];
     }
+
+
+
+    //show each item
+    public function getsingleitem($id)
+    {
+
+        $this->db->dbquery('SELECT * FROM items WHERE id = :id');
+        $this->db->dbbind(':id', $id);
+
+        return $this->db->getsingledata();
+
+    }
+
+
+    public function getbrand($id)
+    {
+        $this->db->dbquery('SELECT b.* FROM items i JOIN brands b ON i.brand_id = b.id WHERE i.id = :id');
+        $this->db->dbbind(':id', $id);
+        return $this->db->getsingledata();
+    }
+
+
+
+    public function getstatus($id)
+    {
+
+        $this->db->dbquery('SELECT * FROM `status` WHERE id = :id');
+        $this->db->dbbind(':id', $id);
+        return $this->db->getsingledata();
+
+
+    }
+
+
+
+
+
+
+    public function getuserinfo()
+    {
+        $userid = $_SESSION['user_id'];
+
+        $this->db->dbquery('SELECT * FROM users WHERE id = :id');
+        $this->db->dbbind(':id', $userid);
+        return $this->db->getsingledata();
+    }
+
+
+
+
+
 
 
 
