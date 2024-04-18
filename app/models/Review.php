@@ -50,7 +50,7 @@ class Review
                     $this->db->dbbind(':itemid', $itemid);
                     if ($this->db->dbexecute()) {
                         $curmethod = $this->curitemid->getmethod();
-                        redirect($curmethod . '/show/' . $itemid . '?page=1');
+                        redirect('allfragrance/show/' . $itemid . '?page=1&' . $curmethod);
                     } else {
                         return false;
                     }
@@ -69,7 +69,7 @@ class Review
                     if ($this->db->dbexecute()) {
                         $curmethod = $this->curitemid->getmethod();
 
-                        redirect($curmethod . '/show/' . $itemid . '?page=1');
+                        redirect('allfragrance/show/' . $itemid . '?page=1&' . $curmethod);
                     } else {
                         return false;
                     }
@@ -122,7 +122,7 @@ class Review
             if ($this->db->dbexecute()) {
                 $curmethod = $this->curitemid->getmethod();
 
-                redirect($curmethod . '/show/' . $item_id . '?page=1');
+                redirect('allfragrance/show/' . $item_id . '?page=1&' . $curmethod);
 
             } else {
                 return false;
@@ -152,7 +152,7 @@ class Review
             if ($this->db->dbexecute()) {
                 $curmethod = $this->curitemid->getmethod();
 
-                redirect($curmethod . '/show/' . $item_id . '?page=1');
+                redirect('allfragrance/show/' . $item_id . '?page=1&' . $curmethod);
             } else {
                 return false;
 

@@ -92,6 +92,7 @@ class Allfragrance extends Controller
         ];
 
 
+
         $this->view('allfragrance/index', $data);
     }
 
@@ -141,6 +142,7 @@ class Allfragrance extends Controller
 
 
         //add to cart on show page
+
         if (isset($_POST['addtocart'])) {
             if ($this->cardmodal->shopcardlist()) {
                 $redirect_url = 'allfragrance/show/' . $this->curitemidmodal->getitemid() . '?message=added';
@@ -153,7 +155,9 @@ class Allfragrance extends Controller
         } elseif (isset($_POST['addtocart_index'])) {
             $single_recom_itemid = $_POST['single_recom_itemid'];
             if ($this->cardmodal->shopcardlist()) {
-                $redirect_url = 'allfragrance/show/' . $single_recom_itemid;
+                $curmethod = $this->curitemidmodal->getmethod();
+
+                $redirect_url = 'allfragrance/show/' . $single_recom_itemid . '&' . $curmethod;
                 redirect($redirect_url);
             }
         }

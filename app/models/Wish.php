@@ -6,12 +6,14 @@ class Wish
 
     private $db;
 
+    public $curitemid;
 
 
 
     public function __construct()
     {
         $this->db = new Database();
+        $this->curitemid = new Curitemid;
 
 
 
@@ -33,7 +35,9 @@ class Wish
 
                 if ($this->db->dbexecute()) {
                     if (isset($_POST['addtowish_index'])) {
-                        redirect('allfragrance?page=1');
+                        $curmethod = $this->curitemid->getmethod();
+
+                        redirect('allfragrance?page=1&' . $curmethod);
                     }
                     return true;
 

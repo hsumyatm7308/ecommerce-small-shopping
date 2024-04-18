@@ -39,7 +39,7 @@ class Cart
                     if (isset($_POST['addtocart_index'])) {
 
                         $curmethod = $this->curmethodmodal->getmethod();
-                        redirect($curmethod . '?page=1');
+                        redirect('allfragrance?page=1&' . $curmethod);
 
                     }
                     return true;

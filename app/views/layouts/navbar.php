@@ -23,22 +23,21 @@
                     $param = explode('=', $currenturl)[1];
 
                     isset($param) ? $param : 1;
-                    ?>
+                    // <?php echo strpos($currenturl, 'all') !== false ? 'border' : ''; ?>
+
+                    <!-- ?> -->
 
 
-                    <li
-                        class="mr-5 <?php echo strpos($currenturl, 'allfragrance') !== false ? 'border' : ''; ?>  px-2 py-2 rounded-full hover:bg-gray-100">
-                        <a href="<?php echo URLROOT; ?>/allfragrance?page=1">Fragrance</a>
+                    <li class="mr-5   px-2 py-2 rounded-full hover:bg-gray-100 nav_categ">
+                        <a href="<?php echo URLROOT; ?>/allfragrance?page=1&all">Fragrance</a>
                     </li>
 
-                    <li
-                        class="mr-5 <?php echo strpos($currenturl, 'lotions') !== false ? 'border' : ''; ?> px-2 py-2 rounded-full hover:bg-gray-100">
-                        <a href="<?php echo URLROOT; ?>/lotions?page=1">Lotion</a>
+                    <li class="mr-5  px-2 py-2 rounded-full hover:bg-gray-100 nav_categ">
+                        <a href="<?php echo URLROOT; ?>/allfragrance?page=1&lotions">Lotion</a>
                     </li>
 
-                    <li
-                        class="mr-5 <?php echo strpos($currenturl, 'cosmetics') !== false ? 'border' : ''; ?> px-2 py-2 rounded-full hover:bg-gray-100 ">
-                        <a href="<?php echo URLROOT; ?>/cosmetics?page=1">Cosmetics</a>
+                    <li class="mr-5 px-2 py-2 rounded-full hover:bg-gray-100 nav_categ">
+                        <a href="<?php echo URLROOT; ?>/allfragrance?page=1&cosmetics">Cosmetics</a>
                     </li>
 
 
@@ -149,3 +148,22 @@
 
 
     </header>
+
+    <script>
+        const currenturl = window.location.href;
+        const nav_categs = document.querySelectorAll('.nav_categ');
+        nav_categs.forEach((ele, idx) => {
+            const ismatch = (currenturl.includes('all') && idx == 0) || (currenturl.includes('lotions') && idx == 1) || (currenturl.includes('cosmetics') && idx == 2);
+
+            ele.classList.toggle('border', ismatch);
+
+            if (ismatch) {
+                nav_categs.forEach((othele, othidx) => {
+                    if (othidx !== idx) {
+                        othele.classList.remove('border')
+                    }
+                })
+            }
+        });
+
+    </script>

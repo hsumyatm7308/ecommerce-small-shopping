@@ -54,10 +54,9 @@
                                     <div class="">
                                         <?php
                                         $newcuritem = new Curitemid();
-                                        $segment = $newcuritem->getmethod();
-                                        $new_url = URLROOT . '/' . $segment . '/show/' . $item['id'];
+                                        $curmethod = $newcuritem->getmethod();
                                         ?>
-                                        <a href="<?php echo $new_url ?>"
+                                        <a href="<?php echo URLROOT; ?>/allfragrance/show/<?php echo $item['id'] . '&' . $curmethod ?>"
                                             class="flex justify-center items-center bg-[#4c5372] text-white hover:opacity-80 rounded-sm px-3 py-2">
                                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                                 stroke-width="1.5" stroke="currentColor" class="w-6 h-6">

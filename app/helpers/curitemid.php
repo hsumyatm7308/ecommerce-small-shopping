@@ -16,8 +16,9 @@ class Curitemid
     {
         $cururl = $_SERVER['REQUEST_URI'];
 
-        $url_parts = explode('/', $cururl);
-        $segment = $url_parts[2];
+        $url_parts = explode('&', $cururl);
+        $segment = $url_parts[1];
+
 
         return $segment;
 

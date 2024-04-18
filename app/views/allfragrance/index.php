@@ -112,8 +112,13 @@ parse_str($urlparts['query'], $parameter);
                             <div class="w-full h-full flex flex-col justify-center items-center space-y-1">
                                 <div class="flex justify-center items-center space-x-1">
                                     <!-- show  -->
+                                    <?php
+                                    $curmethodmodal = new Curitemid();
+                                    $curmethod = $curmethodmodal->getmethod();
+
+                                    ?>
                                     <div class="">
-                                        <a href="<?php echo URLROOT; ?>/allfragrance/show/<?php echo $item['id'] ?>"
+                                        <a href="<?php echo URLROOT; ?>/allfragrance/show/<?php echo $item['id'] . '&' . $curmethod ?>"
                                             class="flex justify-center items-center bg-[#4c5372] text-white hover:opacity-80 rounded-sm px-3 py-2">
                                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                                 stroke-width="1.5" stroke="currentColor" class="w-6 h-6">

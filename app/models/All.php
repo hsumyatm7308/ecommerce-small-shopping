@@ -14,6 +14,7 @@ class All
     public $filter;
 
     public $sortDirection = 'ASC';
+    public $curmethodmodal;
 
 
     public function __construct()
@@ -21,6 +22,7 @@ class All
         $this->db = new Database();
 
         $this->pagination = new Pagination();
+        $this->curmethodmodal = new Curitemid();
 
 
     }
@@ -60,7 +62,7 @@ class All
         $sortdirection = $sorting();
 
 
-        $query = 'SELECT i.*, b.name AS brandname FROM items i INNER JOIN brands b ON b.id = i.brand_id WHERE i.category_id IN (1,2,3) AND 1=1';
+        $query = 'SELECT i.*, b.name AS brandname FROM items i INNER JOIN brands b ON b.id = i.brand_id WHERE i.category_id IN' . $this->choose_nav_item() . 'AND 1=1';
         $bindparams = [];
 
 
@@ -101,6 +103,9 @@ class All
         foreach ($bindparams as $param => $value) {
             $this->db->dbbind($param, $value);
         }
+
+
+
         return $this->db->getmultidata();
 
 
@@ -110,7 +115,7 @@ class All
 
     public function types()
     {
-        $this->db->dbquery('SELECT * FROM categories WHERE id IN (1,2,3)');
+        $this->db->dbquery('SELECT * FROM categories WHERE id IN' . $this->choose_nav_item());
         return $this->db->getmultidata();
     }
 
@@ -122,7 +127,7 @@ class All
         $max = $this->pagination->getparameter()['maxprice'];
         $types = $this->pagination->getparameter()['types'];
 
-        $query = 'SELECT COUNT(*) AS totalItems FROM items i WHERE i.category_id IN (1,2,3) AND 1 = 1';
+        $query = 'SELECT COUNT(*) AS totalItems FROM items i WHERE i.category_id IN ' . $this->choose_nav_item() . ' AND 1 = 1';
         $bindParams = [];
 
         if (isset($types)) {
@@ -202,6 +207,25 @@ class All
 
 
 
+    function choose_nav_item()
+    {
+        $curarray = function () {
+            $curmethod = $this->curmethodmodal->getmethod();
+
+            $curmethod = explode('?', $curmethod)[0];
+
+            if ($curmethod === 'all') {
+                $array = '(1,2,3)';
+            } elseif ($curmethod === 'lotions') {
+                $array = '(5,6)';
+            } else {
+                $array = '(7,8,9)';
+            }
+            return $array;
+        };
+
+        return $curarray();
+    }
 
 
 

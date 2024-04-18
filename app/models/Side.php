@@ -23,7 +23,7 @@ class Side
 
             $curmethod = explode('?', $curmethod)[0];
 
-            if ($curmethod === 'allfragrance') {
+            if ($curmethod === 'all') {
                 $array = '(1,2,3)';
             } elseif ($curmethod === 'lotions') {
                 $array = '(5,6)';
