@@ -176,13 +176,20 @@
         const search = document.getElementById('search');
 
         searchbtn.addEventListener('click', function (e) {
-            searchbtn.form.submit();
-            window.location.href = "allfragrance&search?page=1" + '&srh=' + search.value;
+            if (searchbtn.form.submit()) {
+                window.location.href = "allfragrance&search?page=1" + '&srh=' + search.value;
 
+            };
             e.preventDefault();
         });
 
 
+        search.addEventListener('keydown', function (e) {
+            if (e.key === 'Enter') {
+                e.preventDefault(); // Prevent form submission
+                window.location.href = "allfragrance&search?page=1" + '&srh=' + search.value;
+            }
+        });
 
 
 
