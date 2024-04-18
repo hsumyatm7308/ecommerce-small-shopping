@@ -19,15 +19,15 @@
                 <ul class=" flex justify-start items-center tracking-wide  cursor-pointer">
 
                     <li class="mr-5   px-2 py-2 rounded-full hover:bg-gray-100 nav_categ">
-                        <a href="<?php echo URLROOT; ?>/allfragrance?page=1&all">Fragrance</a>
+                        <a href="<?php echo URLROOT; ?>/allfragrance&all?page=1">Fragrance</a>
                     </li>
 
                     <li class="mr-5  px-2 py-2 rounded-full hover:bg-gray-100 nav_categ">
-                        <a href="<?php echo URLROOT; ?>/allfragrance?page=1&lotions">Lotion</a>
+                        <a href="<?php echo URLROOT; ?>/allfragrance&all?page=1">Lotion</a>
                     </li>
 
                     <li class="mr-5 px-2 py-2 rounded-full hover:bg-gray-100 nav_categ">
-                        <a href="<?php echo URLROOT; ?>/allfragrance?page=1&cosmetics">Cosmetics</a>
+                        <a href="<?php echo URLROOT; ?>/allfragrance&cosmetics?page=1">Cosmetics</a>
                     </li>
 
 
@@ -43,7 +43,8 @@
                     <div class="w-full h-full flex justify-center items-center  rounded-lg py-3 pl-1 pr-5">
                         <?php
                         $pagination = new Pagination();
-                        $search = $pagination->getparameter()['search'];
+                        $search = $pagination->getparameter()['srh'];
+
 
                         ?>
                         <input type="search" name="search" id="search" value="<?php echo $search ?>"
@@ -176,7 +177,7 @@
 
         searchbtn.addEventListener('click', function (e) {
             searchbtn.form.submit();
-            window.location.href = "allfragrance?page=1&search&search=" + search.value;
+            window.location.href = "allfragrance&search?page=1" + '&srh=' + search.value;
 
             e.preventDefault();
         });

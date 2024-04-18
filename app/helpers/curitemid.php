@@ -19,7 +19,6 @@ class Curitemid
         $url_parts = explode('&', $cururl);
         $segment = $url_parts[1];
 
-
         return $segment;
 
     }

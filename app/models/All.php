@@ -50,7 +50,7 @@ class All
 
 
         $letter = $this->pagination->getparameter()['letter'];
-        $search = $this->pagination->getparameter()['search'];
+        $search = $this->pagination->getparameter()['srh'];
 
 
 
@@ -143,7 +143,7 @@ class All
         $min = $this->pagination->getparameter()['minprice'];
         $max = $this->pagination->getparameter()['maxprice'];
         $types = $this->pagination->getparameter()['types'];
-        $search = $this->pagination->getparameter()['search'];
+        $search = $this->pagination->getparameter()['srh'];
 
         $query = 'SELECT COUNT(*) AS totalItems FROM items i WHERE i.category_id IN ' . $this->choose_nav_item() . ' AND 1 = 1';
         $bindParams = [];

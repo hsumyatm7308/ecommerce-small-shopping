@@ -11,7 +11,7 @@ parse_str($urlparts['query'], $parameter);
 
 
 
-<section class="container mx-auto text-[#4c5372] mt-20 px-2 ">
+<section class="container mx-auto text-[#4c5372] mt-20 px-2 mb-10">
     <div class="w-full h-auto  flex items-start grid md:grid-cols-4 grid-cols-1 md:gap-6 gap-0">
 
 
