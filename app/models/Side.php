@@ -22,13 +22,14 @@ class Side
             $curmethod = $this->curmethodmodal->getmethod();
 
             $curmethod = explode('?', $curmethod)[0];
-
             if ($curmethod === 'all') {
                 $array = '(1,2,3)';
             } elseif ($curmethod === 'lotions') {
                 $array = '(5,6)';
-            } else {
+            } elseif ($curmethod === 'cosmetics') {
                 $array = '(7,8,9)';
+            } elseif ($curmethod === 'search') {
+                $array = '(1,2,3,4,5,6,7,8)';
             }
             return $array;
         };

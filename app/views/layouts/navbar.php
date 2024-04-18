@@ -18,16 +18,6 @@
             <div class="flex justify-start items-center">
                 <ul class=" flex justify-start items-center tracking-wide  cursor-pointer">
 
-                    <?php
-                    $currenturl = $_SERVER['REQUEST_URI'];
-                    $param = explode('=', $currenturl)[1];
-
-                    isset($param) ? $param : 1;
-                    // <?php echo strpos($currenturl, 'all') !== false ? 'border' : ''; ?>
-
-                    <!-- ?> -->
-
-
                     <li class="mr-5   px-2 py-2 rounded-full hover:bg-gray-100 nav_categ">
                         <a href="<?php echo URLROOT; ?>/allfragrance?page=1&all">Fragrance</a>
                     </li>
@@ -46,30 +36,38 @@
 
 
 
-            <!-- <form action="" class=""> -->
 
             <div class="w-full h-full  flex justify-center items-center flex-col relative ">
-                <div class="w-full h-full flex justify-center items-center  rounded-lg py-3 pl-1 pr-5 searchbox">
-                    <input type="search" name="search" id="search"
-                        class="w-full h-full bg-[#7c7e9d] ml-4 p-3 pr-9 rounded-md opacity-80 focus:outline-none text-[#fffdf6] placeholder-[#fffdf6]  placeholder-opacity-75 active:transparent "
-                        placeholder="Search..." autocomplete="off">
-                    <button type="submit">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                            stroke="currentColor" class="w-6 h-6 text-gray-500 ml-5">
-                            <path stroke-linecap="round" stroke-linejoin="round"
-                                d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
-                        </svg>
+                <form action="" method="GET" class="w-full inline-block">
 
-                    </button>
+                    <div class="w-full h-full flex justify-center items-center  rounded-lg py-3 pl-1 pr-5">
+                        <?php
+                        $pagination = new Pagination();
+                        $search = $pagination->getparameter()['search'];
+
+                        ?>
+                        <input type="search" name="search" id="search" value="<?php echo $search ?>"
+                            class="w-full h-full border border-[#949ab1] bg-transparent ml-4 p-3 pr-9 rounded-md opacity-80 focus:outline-none   placeholder-opacity-75 active:transparent "
+                            placeholder="Search..." autocomplete="off">
+                        <button type="button" id="searchbtn">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                                stroke="currentColor" class="w-6 h-6 text-gray-500 ml-5">
+                                <path stroke-linecap="round" stroke-linejoin="round"
+                                    d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
+                            </svg>
+
+                        </button>
 
 
-                </div>
+
+                    </div>
+                </form>
+
                 <div
                     class="w-[82%] max-h-52 overflow-y-scroll bg-gray-100 rounded-b-lg flex justify-start items-center flex-col absolute top-12 mt-1 result">
 
                 </div>
             </div>
-            <!-- </form> -->
 
             <div class="flex justify-center items-center p-3">
 
@@ -152,18 +150,39 @@
     <script>
         const currenturl = window.location.href;
         const nav_categs = document.querySelectorAll('.nav_categ');
+
         nav_categs.forEach((ele, idx) => {
-            const ismatch = (currenturl.includes('all') && idx == 0) || (currenturl.includes('lotions') && idx == 1) || (currenturl.includes('cosmetics') && idx == 2);
+            const ismatch = (currenturl.includes('all') && idx === 0) ||
+                (currenturl.includes('lotions') && idx === 1) ||
+                (currenturl.includes('cosmetics') && idx === 2);
 
             ele.classList.toggle('border', ismatch);
 
             if (ismatch) {
                 nav_categs.forEach((othele, othidx) => {
                     if (othidx !== idx) {
-                        othele.classList.remove('border')
+                        othele.classList.remove('border');
                     }
-                })
+                });
+            }
+
+            if (currenturl.includes('search')) {
+                ele.classList.remove('border')
             }
         });
+
+        const searchbtn = document.getElementById('searchbtn');
+        const search = document.getElementById('search');
+
+        searchbtn.addEventListener('click', function (e) {
+            searchbtn.form.submit();
+            window.location.href = "allfragrance?page=1&search&search=" + search.value;
+
+            e.preventDefault();
+        });
+
+
+
+
 
     </script>

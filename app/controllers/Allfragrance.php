@@ -20,6 +20,7 @@ class Allfragrance extends Controller
     public $wishmodal;
     public $cardmodal;
 
+
     public function __construct()
     {
         $this->allmodal = $this->model('All');
@@ -61,7 +62,6 @@ class Allfragrance extends Controller
         $items = $this->allmodal->items($offset, $itemsperpage);
         $types = $this->allmodal->types();
 
-        // var_dump($types);
 
         $sidebaritems = $this->sidebarmodal->sidebaritems();
 
@@ -245,14 +245,8 @@ class Allfragrance extends Controller
 
     public function destroy($id)
     {
-
         $this->reviewmodal->destroy($id);
-
-
         redirect('allfragrance/show/' . $id);
-
-
-
     }
 
 

@@ -50,6 +50,7 @@ class All
 
 
         $letter = $this->pagination->getparameter()['letter'];
+        $search = $this->pagination->getparameter()['search'];
 
 
 
@@ -60,6 +61,8 @@ class All
 
 
         $sortdirection = $sorting();
+
+
 
 
         $query = 'SELECT i.*, b.name AS brandname FROM items i INNER JOIN brands b ON b.id = i.brand_id WHERE i.category_id IN' . $this->choose_nav_item() . 'AND 1=1';
@@ -89,6 +92,14 @@ class All
 
         }
 
+        if (isset($search)) {
+            $query .= ' AND i.name LIKE :searchname';
+            $bindparams[':searchname'] = '%' . $search . '%';
+
+        }
+
+
+
         if (isset($sortdirection)) {
             $query .= ' ORDER BY price ' . $sortdirection;
         }
@@ -99,10 +110,16 @@ class All
             $bindparams[':limit'] = $limit;
         }
 
+
+
+
         $this->db->dbquery($query);
         foreach ($bindparams as $param => $value) {
             $this->db->dbbind($param, $value);
         }
+
+
+
 
 
 
@@ -126,6 +143,7 @@ class All
         $min = $this->pagination->getparameter()['minprice'];
         $max = $this->pagination->getparameter()['maxprice'];
         $types = $this->pagination->getparameter()['types'];
+        $search = $this->pagination->getparameter()['search'];
 
         $query = 'SELECT COUNT(*) AS totalItems FROM items i WHERE i.category_id IN ' . $this->choose_nav_item() . ' AND 1 = 1';
         $bindParams = [];
@@ -145,6 +163,13 @@ class All
             $query .= ' AND name LIKE :name';
             $bindParams[':name'] = '%' . $letter . '%';
         }
+
+        if (isset($search)) {
+            $query .= ' AND i.name LIKE :searchname';
+            $bindParams[':searchname'] = '%' . $search . '%';
+
+        }
+
 
         $this->db->dbquery($query);
         foreach ($bindParams as $param => $value) {
@@ -218,14 +243,17 @@ class All
                 $array = '(1,2,3)';
             } elseif ($curmethod === 'lotions') {
                 $array = '(5,6)';
-            } else {
+            } elseif ($curmethod === 'cosmetics') {
                 $array = '(7,8,9)';
+            } elseif ($curmethod === 'search') {
+                $array = '(1,2,3,4,5,6,7,8)';
             }
             return $array;
         };
 
         return $curarray();
     }
+
 
 
 
