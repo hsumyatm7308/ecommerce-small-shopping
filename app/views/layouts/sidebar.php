@@ -11,13 +11,54 @@ parse_str($urlparts['query'], $parameter);
 
 
 
-<section class="container mx-auto text-[#4c5372] mt-20 px-2 mb-10">
+<section class="container mx-auto text-[#4c5372]  px-2  mb-10">
     <div class="w-full h-auto  flex items-start grid md:grid-cols-4 grid-cols-1 md:gap-6 gap-0">
 
 
 
 
         <div class="flex flex-col  justify-start ">
+            <div class="">
+
+                <div class="flex justify-center items-center md:hidden mb-5">
+
+                    <a href="http://localhost/perumdej/Perum-Dej/index.php" class="">
+                        <h1 class="text-[#4c5372] font-bold text-2xl">Perum Dej</h1>
+
+                    </a>
+                </div>
+
+
+                <div class="w-full h-full flex justify-center items-center md:invisible visible">
+                    <form action="" method="GET" class="w-full inline-block">
+                        <div class="w-full h-full flex justify-center items-center  rounded-lg py-3 pl-1 pr-5">
+                            <?php
+                            $pagination = new Pagination();
+                            $search = $pagination->getparameter()['srh'];
+
+
+                            ?>
+                            <input type="search" name="search" id="search" value="<?php echo $search ?>"
+                                class="w-full h-full border border-[#949ab1] bg-transparent ml-4 p-3 pr-9 rounded-md opacity-80 focus:outline-none   placeholder-opacity-75 active:transparent search"
+                                placeholder="Search..." autocomplete="off">
+                            <button type="button" id="searchbtn" class="searchbtn">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                    stroke-width="1.5" stroke="currentColor" class="w-6 h-6 text-gray-500 ml-5">
+                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                        d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
+                                </svg>
+
+                            </button>
+
+
+
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+
+
             <!-- dropdown for sm  -->
             <div class="w-full h-14 border rounded-md flex justify-between items-center text-sm px-3 md:hidden"
                 onclick="document.getElementById('filter').classList.toggle('hidden'); ">
@@ -33,60 +74,8 @@ parse_str($urlparts['query'], $parameter);
                 </div>
             </div>
 
-            <div id="filter" class="md:flex md:flex-col hidden mt-3">
-                <!-- 
-                <div class="h-auto mb-10">
-                    <h1 class="font-[500] uppercase mb-3">Filter by</h1>
-                    <div class=" flex flex-wrap leading-3">
-                        <span
-                            class=" bg-stone-100 text-stone-400 capitalize border rounded p-1 m-1 flex justify-center items-center">
-                            <span> Unisex</span>
-                            <span class="text-xs text-stone-500 font-sans mx-1">x</span>
-                        </span>
+            <div id="filter" class="md:flex md:flex-col hidden ">
 
-                        <span
-                            class=" bg-stone-100 text-stone-400 capitalize border rounded p-1 m-1 flex justify-center items-center">
-                            <span> Women</span>
-                            <span class="text-xs text-stone-500 font-sans mx-1">x</span>
-                        </span>
-
-
-                        <span
-                            class=" bg-stone-100 text-stone-400 capitalize border rounded p-1 m-1 flex justify-center items-center">
-                            <span> A</span>
-                            <span class="text-xs text-stone-500 font-sans mx-1">x</span>
-                        </span>
-
-
-                        <span
-                            class=" bg-stone-100 text-stone-400 capitalize border rounded p-1 m-1 flex justify-center items-center">
-                            <span> C</span>
-                            <span class="text-xs text-stone-500 font-sans mx-1">x</span>
-                        </span>
-
-
-                        <span
-                            class=" bg-stone-100 text-stone-400 capitalize border rounded p-1 m-1 flex justify-center items-center">
-                            <span> E</span>
-                            <span class="text-xs text-stone-500 font-sans mx-1">x</span>
-                        </span>
-
-                        <span
-                            class=" bg-stone-100 text-stone-400 capitalize border rounded p-1 m-1 flex justify-center items-center">
-                            <span class=""> Male
-                            </span>
-                            <span class="text-xs text-stone-500 font-sans mx-1">x</span>
-                        </span>
-
-
-                        <span
-                            class=" bg-stone-100 text-stone-400 capitalize border rounded p-1 m-1 flex justify-center items-center">
-                            <span> Male</span>
-                            <span class="text-xs text-stone-500 font-sans mx-1">x</span>
-                        </span>
-
-                    </div>
-                </div> -->
 
                 <div class="h-auto mb-10">
 
@@ -296,5 +285,33 @@ parse_str($urlparts['query'], $parameter);
 
 
             }
+
+
+
+
+
+
+
+            const side_searchbtn = document.querySelector('.searchbtn');
+            const side_search = document.querySelector('.search');
+
+            console.log(side_search)
+
+            side_searchbtn.addEventListener('click', function (e) {
+                side_searchbtn.form.submit()
+                window.location.href = "allfragrance&search?page=1" + '&srh=' + side_search.value;
+
+
+            });
+
+
+            side_search.addEventListener('keydown', function (e) {
+                if (e.key === 'Enter') {
+                    e.preventDefault(); // Prevent form submission
+                    window.location.href = "allfragrance&search?page=1" + '&srh=' + side_search.value;
+                }
+            });
+
+
 
         </script>

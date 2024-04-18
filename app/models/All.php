@@ -64,10 +64,10 @@ class All
 
 
 
-
-        $query = 'SELECT i.*, b.name AS brandname FROM items i INNER JOIN brands b ON b.id = i.brand_id WHERE i.category_id IN' . $this->choose_nav_item() . 'AND 1=1';
-        $bindparams = [];
-
+        $query = 'SELECT i.*, b.name AS brandname 
+        FROM items i 
+        INNER JOIN brands b ON b.id = i.brand_id 
+        WHERE i.category_id IN ' . $this->choose_nav_item() . ' AND 1=1';
 
 
         if (isset($types)) {
@@ -92,12 +92,15 @@ class All
 
         }
 
+
+
         if (isset($search)) {
-            $query .= ' AND i.name LIKE :searchname';
-            $bindparams[':searchname'] = '%' . $search . '%';
 
+            $searchname = $search;
+
+            $query .= ' AND i.name LIKE  :searchname OR b.name LIKE :searchname';
+            $bindparams[':searchname'] = '%' . $searchname . '%';
         }
-
 
 
         if (isset($sortdirection)) {

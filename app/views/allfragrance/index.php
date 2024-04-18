@@ -30,7 +30,7 @@ parse_str($urlparts['query'], $parameter);
 
 
 
-<div class="col-span-3 md:py-0 py-10">
+<div class="col-span-3 md:py-0 mt-10 py-10">
 
 
 
