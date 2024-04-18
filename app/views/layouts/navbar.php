@@ -1,15 +1,15 @@
-<body class="w-srceen bg-[#fffdf6] text-[#4c5372]">
+<body class=" bg-[#fffdf6] text-[#4c5372]">
 
 
 
 
 
-    <header class="container mx-auto text-[#4c5372] mt-5 px-2 mb-10">
-        <!-- start nav  -->
-        <div>
-            <nav class="w-full h-auto font-medium flex items-center grid md:grid-cols-4 grid-cols-1 gap-6">
+    <section class="w-full">
+        <header class="w-full container mx-auto text-[#4c5372] mt-5 px-2 mb-10">
+            <!-- start nav  -->
+            <nav class="w-full  h-auto font-medium flex items-center grid md:grid-cols-4 grid-cols-1 md:gap-6">
 
-                <div class="md:flex justify-start items-center hidden">
+                <div class="md:visible justify-start items-center invisible">
 
                     <a href="http://localhost/perumdej/Perum-Dej/index.php" class="">
                         <h1 class="text-[#4c5372] font-bold text-2xl">Perum Dej</h1>
@@ -18,7 +18,7 @@
                 </div>
 
 
-                <div class="md:col-span-3 flex justify-center items-center md:py-0 ">
+                <div class="md:col-span-3 w-full flex justify-center items-center md:py-0 ">
 
                     <div class="flex justify-start items-center">
                         <ul class=" flex justify-start items-center tracking-wide  cursor-pointer">
@@ -119,7 +119,7 @@
 
 
                         <div id="bag-container" class=" flex justify-center items-center">
-                            <a href="shopcartpage.php" class=" flex justify-center items-center ">
+                            <a href="<?php echo URLROOT; ?>/cartsummarys" class=" flex justify-center items-center ">
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                     stroke-width="1.5" stroke="currentColor"
                                     class="w-6 h-6 text-[#4c5372] cursor-pointer">
@@ -151,12 +151,12 @@
 
             </nav>
 
-        </div>
 
 
 
 
-    </header>
+        </header>
+    </section>
 
     <script>
         const currenturl = window.location.href;

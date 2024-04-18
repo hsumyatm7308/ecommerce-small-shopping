@@ -9,15 +9,9 @@ require_once ('/opt/lampp/htdocs/mvcshop/app/views/layouts/sidebar.php');
 
 
 <?php
-
-
 $currentURL = $_SERVER['REQUEST_SCHEME'] . '://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
-
 $urlparts = parse_url($currentURL);
 parse_str($urlparts['query'], $parameter);
-
-
-
 
 ?>
 
