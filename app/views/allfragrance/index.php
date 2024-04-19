@@ -166,9 +166,10 @@ parse_str($urlparts['query'], $parameter);
                                     <!-- add to card  -->
                                     <div>
 
-                                        <?php $getallmodal = new Cart(); ?>
+                                        <?php $getallmodal = new Cart();
+                                        ?>
                                         <div
-                                            class="flex justify-center items-center bg-[#4c5372] <?php echo $getallmodal->hasitem($item['name']) ? 'opacity-50 ' : '' ?>  text-white hover:opacity-80 rounded-sm px-3 py-2">
+                                            class="flex justify-center items-center bg-[#4c5372] <?php echo $getallmodal->hasitem($item['id']) ? 'opacity-50 ' : '' ?>  text-white hover:opacity-80 rounded-sm px-3 py-2">
                                             <form action="" id="add_form" method="POST"
                                                 class="flex justify-center items-center inline-block">
 
@@ -180,7 +181,7 @@ parse_str($urlparts['query'], $parameter);
                                                     </svg>
                                                 </button>
 
-                                                <input type="hidden" name="singlename" value="<?php echo $item['name']; ?>">
+                                                <input type="hidden" name="singleid" value="<?php echo $item['id']; ?>">
                                                 <input type="hidden" name="singlebrand"
                                                     value=" <?php echo $item['brand_id'] ?>">
                                                 <input type="hidden" name="singleprice" value="<?php echo $item['price']; ?>">

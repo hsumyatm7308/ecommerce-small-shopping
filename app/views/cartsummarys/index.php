@@ -9,7 +9,7 @@ require_once ('/opt/lampp/htdocs/mvcshop/app/views/layouts/navbar.php');
 
 
 
-<section class="container mx-auto text-[#4c5372] mt-20  px-2">
+<section class="container mx-auto text-[#4c5372] mt-20 mb-10  px-2">
     <div class="mb-20">
         <div class="w-full flex flex-col justify-center items-center">
             <h1 class="text-3xl">Your Cart</h1>
@@ -19,13 +19,13 @@ require_once ('/opt/lampp/htdocs/mvcshop/app/views/layouts/navbar.php');
     </div>
     <div class="w-full py-5">
 
-        <div class="w-full h-full font-medium grid grid-cols-2  gap-12 border-b pb-5 mb-5 ">
+        <div class="w-full h-full font-medium grid grid-cols-2  gap-12 border-b pb-5 ">
 
             <div class="w-full flex items-center b grid grid-cols-2 gap-32 text-lg">
                 <div class="w-full flex items-center grid grid-cols-2">
                     <span>Product</span>
                 </div>
-                <div>
+                <div class="ml-5">
                     Quantity
                 </div>
             </div>
@@ -48,48 +48,79 @@ require_once ('/opt/lampp/htdocs/mvcshop/app/views/layouts/navbar.php');
             </div>
         </div>
 
-        <div class="w-full h-full border-b grid grid-cols-2  gap-12 pb-5">
+        <?php foreach ($data['cartitems'] as $cartitem): ?>
+            <div class="w-full h-full border-b grid grid-cols-2  gap-12 py-5">
 
-            <div class="w-full flex items-center b grid grid-cols-2 gap-32">
-                <div class="w-full flex items-center grid grid-cols-2 gap-12">
-                    <!-- img  -->
-                    <div class="w-[150px] h-[150px] border bg-gray-500">
-                        <img src="" alt="" width="200px">
+                <div class="w-full flex items-center b grid grid-cols-2 gap-32">
+                    <div class="w-full flex items-center grid grid-cols-2 gap-12">
+                        <!-- img  -->
+                        <div class="w-[100px] h-[100px] border bg-gray-500">
+                            <img src="<?php echo IMG_ROOT; ?><?php echo $cartitem['image'] ?>" alt="" width="200px">
+                        </div>
+                        <!-- name  -->
+                        <div class="">
+                            <div>
+                                <h1><?php echo $cartitem['itemname'] ?></h1>
+                                <span class="text-slate-400">by <?php echo $cartitem['brandname'] ?> EDT</span>
+
+                            </div>
+                            <div class="mt-3">
+
+                                <button type="button" name="cart_removebtn" id="cart_removebtn"
+                                    data-id="<?php echo $cartitem['cartorderid'] ?>" class="cart_removebtn">Remove</button>
+                            </div>
+                        </div>
                     </div>
-                    <!-- name  -->
                     <div>
-                        <h1>Brit CHANNEl</h1>
-                        <span class="text-slate-400">by CK Edt 60 OTD blah 30 OZ</span>
+                        <form action="<?php echo URLROOT; ?>/cartsummarys/update" method="POST"
+                            class="flex justify-start items-center">
 
+                            <div>
+                                <button type="submit" name="qty_decrease" id="qty_decrease"
+                                    class="border rounded-md px-2 py-1 m-1 increase hover:bg-gray-200">
+                                    <i class="fa-solid fa-chevron-down text-gray-300 hover:text-gray-500"></i>
+                                </button>
+                                <input type="hidden" name="cart_qty_dec" value="<?php echo $cartitem['oquantity'] - 1 ?>">
+
+                            </div>
+
+                            <input type="text" name="" id="cart_qty"
+                                class="w-10 text-center rounded-md border border-2 inline-block bg-gray-200 px-2 py-1"
+                                value="<?php echo $cartitem['oquantity'] ?>" min="1">
+
+                            <div>
+                                <button type="submit" name="qty_increase" id="qty_increase"
+                                    class="border rounded-md px-2 py-1 m-1 increase hover:bg-gray-200">
+                                    <i class="fa-solid fa-chevron-up text-gray-300 hover:text-gray-500"></i>
+                                </button>
+                                <input type="hidden" name="cart_qty_inc" id="cart_qty_inc"
+                                    value="<?php echo $cartitem['oquantity'] + 1 ?>">
+                            </div>
+
+                            <input type="hidden" name="cart_qty_id" value="<?php echo $cartitem['cartorderid'] ?>">
+                        </form>
                     </div>
                 </div>
-                <div>
-                    <form action="">
-                        <input type="number" class="w-20 rounded-md border border-2 inline-block bg-gray-200 pl-3"
-                            value="1" min="1">
 
-                    </form>
+                <div class="flex items-center justify-end grid grid-cols-2 px-10">
+                    <div class="flex justify-end items-center">
+                        <!-- price  -->
+                        <div class="flex justify-end items-center">
+                            <span>$ <?php echo $cartitem['price'] ?></span>
+                        </div>
+
+                    </div>
+                    <div class="flex justify-end items-center">
+                        <!-- total price  -->
+                        <div class="flex justify-end items-center ">
+                            $ <span class="each_total_price">
+                                <?php echo $cartitem['price'] * $cartitem['oquantity'] ?></span>
+
+                        </div>
+                    </div>
                 </div>
             </div>
-
-            <div class="flex items-center justify-end grid grid-cols-2 px-10">
-                <div class="flex justify-end items-center">
-                    <!-- price  -->
-                    <div class="flex justify-end items-center">
-                        <span>$ 100</span>
-                    </div>
-
-                </div>
-                <div class="flex justify-end items-center">
-                    <!-- total price  -->
-                    <div class="flex justify-end items-center">
-                        <span>$ 200</span>
-
-                    </div>
-                </div>
-            </div>
-        </div>
-
+        <?php endforeach; ?>
 
 
         <div class="w-full h-full  grid md:grid-cols-3 grid-cols-1  gap-12  pb-5 mb-5 ">
@@ -143,7 +174,7 @@ require_once ('/opt/lampp/htdocs/mvcshop/app/views/layouts/navbar.php');
 
             <div class="flex justify-end items-center b grid grid-cols-2 gap-y-5 text-lg px-10 py-5">
                 <div class="flex justify-start items-center">
-                    <!-- price  -->
+                    <!-- subtotal  -->
                     <div class="flex justify-end items-center">
                         <span class="font-normal">Subtotal</span>
                     </div>
@@ -152,15 +183,15 @@ require_once ('/opt/lampp/htdocs/mvcshop/app/views/layouts/navbar.php');
 
                 </div>
                 <div class="flex justify-end items-center">
-                    <!-- total price  -->
+                    <!-- subtotal price  -->
                     <div class="flex justify-end items-center">
-                        <span>$ 100</span>
+                        $<span class="subtotalprice"> </span>
 
                     </div>
                 </div>
 
                 <div class="flex justify-start items-center">
-                    <!-- price  -->
+                    <!-- sale tax  -->
                     <div class="flex justify-end items-center">
                         <span>Sales Tax</span>
                     </div>
@@ -169,15 +200,15 @@ require_once ('/opt/lampp/htdocs/mvcshop/app/views/layouts/navbar.php');
 
                 </div>
                 <div class="flex justify-end items-center">
-                    <!-- total price  -->
+                    <!-- sale tax   -->
                     <div class="flex justify-end items-center">
-                        <span>$ 100</span>
+                        $<span class="saletax"> </span>
 
                     </div>
                 </div>
 
                 <div class="flex justify-start items-center">
-                    <!-- price  -->
+                    <!-- shipping  -->
                     <div class="flex justify-end items-center">
                         <span>Shipping</span>
                     </div>
@@ -186,7 +217,7 @@ require_once ('/opt/lampp/htdocs/mvcshop/app/views/layouts/navbar.php');
 
                 </div>
                 <div class="flex justify-end items-center">
-                    <!-- total price  -->
+                    <!-- shipping  -->
                     <div class="flex justify-end items-center">
                         <span>$ 100</span>
 
@@ -199,7 +230,7 @@ require_once ('/opt/lampp/htdocs/mvcshop/app/views/layouts/navbar.php');
 
 
                 <div class="flex justify-start items-center">
-                    <!-- price  -->
+                    <!-- estimate  -->
                     <div class="flex justify-end items-center">
                         <span>Estimated Total</span>
                     </div>
@@ -208,7 +239,7 @@ require_once ('/opt/lampp/htdocs/mvcshop/app/views/layouts/navbar.php');
 
                 </div>
                 <div class="flex justify-end items-center">
-                    <!-- total price  -->
+                    <!-- estimate price  -->
                     <div class="flex justify-end items-center">
                         <span>$ 100</span>
 
@@ -227,7 +258,7 @@ require_once ('/opt/lampp/htdocs/mvcshop/app/views/layouts/navbar.php');
             <form action="" method="post" class="inline-block w-full flex flex-col items-end justify-center">
                 <div class="flex flex-col justify-center items-center">
                     <button type="" id="checkout" name="checkout"
-                        class="text-xl w-[400px] h-16 bg-gray-400 text-white flex justify-center items-center border hover:border-2">Checkout</button>
+                        class="text-xl w-[400px] h-16 bg-[#4c5372] text-white flex justify-center items-center border hover:border-2">Checkout</button>
 
                     <div class="w-full flex justify-center items-center py-3">
                         <a href="" class="w-full flex justify-center items-center inline-block">Continue
@@ -242,3 +273,96 @@ require_once ('/opt/lampp/htdocs/mvcshop/app/views/layouts/navbar.php');
         </div>
     </div>
 </section>
+
+
+<!-- Delete modal  -->
+<div id="deletemodal" class="w-full h-auto hidden">
+    <div
+        class="w-full h-screen flex justify-center items-center bg-[linear-gradient(rgba(0,0,0,.8),rgba(0,0,0,.8))]   overflow-x-auto  fixed left-0 top-0 z-20 md:p-20">
+        <div
+            class="w-[350px]  bg-stone-100  shadow-lg rounded-md border flex flex-col justify-center items-center py-5 px-10">
+
+
+            <div class="flex justify-between items-center space-x-10 mt-3">
+
+
+                <div class="delte_text">
+                    <div class="w-full text-lg ">
+                        <span>Are you sure to delete?.</span>
+
+                    </div>
+
+
+                </div>
+            </div>
+
+
+            <div class="w-full flex justify-end items-center mt-10 space-x-2">
+                <button
+                    class="bg-slate-200 hover:bg-slate-300 transition-all duration-300 rounded-md px-3 py-2 cancledelete"
+                    onclick="window.location.href = window.location.href">Cancel</button>
+                <form id="deleteform" action="<?php echo URLROOT; ?>/cartsummarys/destroy" method="POST">
+                    <button type="submit" name="cart_delmodal_btn"
+                        class="bg-red-500 rounded-md hover:opacity-90 px-3 py-2 deletemodal_btn">Delete</button>
+                    <input type="hidden" name="cart_delete_id" id="delete_id" value="">
+                </form>
+
+            </div>
+
+        </div>
+    </div>
+
+
+
+
+</div>
+
+
+
+
+<?php
+require_once ('/opt/lampp/htdocs/mvcshop/app/views/layouts/footer.php');
+?>
+
+<script>
+    const cart_removebtns = document.querySelectorAll('.cart_removebtn');
+    cart_removebtns.forEach((ele, idx) => {
+        ele.addEventListener('click', function () {
+            document.getElementById('deletemodal').classList.toggle('hidden')
+            const orderid = ele.getAttribute('data-id');
+
+            document.getElementById('delete_id').value = orderid;
+
+
+        })
+    })
+
+    const each_total_prices = document.querySelectorAll('.each_total_price');
+    let totalsum = 0;
+    let totaltax = 0;
+    let taxrate = 0.08;
+    each_total_prices.forEach((ele) => {
+
+        totalsum += parseFloat(ele.textContent);
+
+        const productprice = parseFloat(ele.textContent);
+        document.querySelector('.saletax').innerHTML = caculatesaletax(productprice, taxrate)
+    })
+
+    document.querySelector('.subtotalprice').innerHTML = totalsum;
+
+    function caculatesaletax(productprice, taxrate) {
+        const taxamount = productprice * taxrate;
+        totaltax += taxamount;
+
+        return totaltax;
+    }
+
+
+
+
+
+
+
+
+</script>

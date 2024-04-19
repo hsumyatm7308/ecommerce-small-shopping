@@ -126,7 +126,7 @@ $pagination = new Pagination();
 
 
 
-                        <input type="hidden" name="singlename" value="<?php echo $data['singledata']['name']; ?>">
+                        <input type="hidden" name="singleid" value="<?php echo $data['singledata']['id']; ?>">
                         <input type="hidden" name="singlebrand" value=" <?php echo $data['singledata']['brand_id'] ?>">
                         <input type="hidden" name="singleprice" value="<?php echo $data['singledata']['price']; ?>">
                         <input type="hidden" name="addtowish_itemid" value="<?php echo $data['singledata']['id']; ?>">

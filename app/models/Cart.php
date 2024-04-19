@@ -19,17 +19,17 @@ class Cart
     public function shopcardlist()
     {
         if (isset($_POST['addtocart']) || isset($_POST['addtocart_index']) && $_SERVER['REQUEST_METHOD'] === 'POST') {
-            $name = $_POST['singlename'];
+            $item_id = $_POST['singleid'];
             $brand = $_POST['singlebrand'];
             $price = $_POST['singleprice'];
             $quantity = $_POST['singlequantity'];
             $userid = $_SESSION['user_id'];
 
 
-            if (!$this->hasitem($name)) {
+            if (!$this->hasitem($item_id)) {
 
-                $this->db->dbquery('INSERT INTO orders (name, price, quantity, brand_id, user_id) VALUES (:name, :price, :quantity, :brand, :user_id)');
-                $this->db->dbbind(':name', $name);
+                $this->db->dbquery('INSERT INTO orders (item_id, price, quantity, brand_id, user_id) VALUES (:itemid, :price, :quantity, :brand, :user_id)');
+                $this->db->dbbind(':itemid', $item_id);
                 $this->db->dbbind(':price', $price);
                 $this->db->dbbind(':quantity', $quantity);
                 $this->db->dbbind(':brand', $brand);
@@ -42,10 +42,14 @@ class Cart
                         redirect('allfragrance?page=1&' . $curmethod);
 
                     }
+                    echo $item_id . "= item ", $brand . "= brand id ", $price . "= price ", $quantity . "= quan ", $userid;
+
+                    echo "yes ";
                     return true;
 
 
                 } else {
+                    echo "no";
                     return false;
                 }
 
@@ -57,13 +61,57 @@ class Cart
         }
     }
 
+
+
+    public function cart_items_show()
+    {
+        $this->db->dbquery('SELECT *,o.quantity AS oquantity,o.id AS cartorderid,i.name AS itemname, b.name AS brandname FROM orders o LEFT JOIN items i ON i.id = o.item_id LEFT JOIN brands b ON b.id = i.brand_id WHERE o.user_id = :userid');
+        $this->db->dbbind(':userid', $_SESSION['user_id']);
+        return $this->db->getmultidata();
+
+    }
+
+    public function update()
+    {
+
+        if (isset($_POST['qty_increase'])) {
+            $qty = $_POST['cart_qty_inc'];
+        } elseif (isset($_POST['qty_decrease'])) {
+            $qty = $_POST['cart_qty_dec'] <= 1 ? 1 : $_POST['cart_qty_dec'];
+        }
+
+
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $id = $_POST['cart_qty_id'];
+            $this->db->dbquery('UPDATE orders SET quantity = :qty WHERE id = :id');
+            $this->db->dbbind(':qty', $qty);
+            $this->db->dbbind(':id', $id);
+            $this->db->dbexecute();
+        }
+
+    }
+
+
+
+    // delete cart items
+    public function destroy()
+    {
+        if (isset($_POST['cart_delmodal_btn']) && $_SERVER['REQUEST_METHOD'] === 'POST') {
+            $id = $_POST['cart_delete_id'];
+            $this->db->dbquery("DELETE FROM orders WHERE id = :id");
+            $this->db->dbbind(':id', $id);
+            $this->db->dbexecute();
+        }
+    }
+
+
     // check item exit or not 
-    public function hasitem($name)
+    public function hasitem($item_id)
     {
         $userid = $_SESSION['user_id'];
 
-        $this->db->dbquery('SELECT name FROM orders WHERE name = :name AND user_id = :user_id');
-        $this->db->dbbind(':name', $name);
+        $this->db->dbquery('SELECT item_id FROM orders WHERE item_id = :item_id AND user_id = :user_id');
+        $this->db->dbbind(':item_id', $item_id);
         $this->db->dbbind(':user_id', $userid);
 
 
