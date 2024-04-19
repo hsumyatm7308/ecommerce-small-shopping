@@ -63,6 +63,9 @@ class Allfragrance extends Controller
         $types = $this->allmodal->types();
 
 
+
+
+
         $sidebaritems = $this->sidebarmodal->sidebaritems();
 
 

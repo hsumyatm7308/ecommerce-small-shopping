@@ -3,8 +3,7 @@
     //description and review
 
     const current_url = window.location.href;
-    console.log(current_url.includes('page'))
-    if (current_url.includes('page')) {
+    if (current_url.includes('reviewpage')) {
         const des_and_rev = document.querySelectorAll('.des_and_rev');
         const des_and_rev_text = document.querySelectorAll('.des_and_rev_text');
 

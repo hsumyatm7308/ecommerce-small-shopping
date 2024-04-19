@@ -21,7 +21,7 @@ $curmethod = $newcuritem->getmethod();
                 <h3
                     class="text-xl text-[#4c5372]  font-medium flex items-center p-2 mb-5 cursor-pointer rounded-md des_and_rev">
 
-                    <a href="<?php echo URLROOT; ?>/allfragrance/show/<?php echo $curid->getitemid() ?>?page=1&"
+                    <a href="<?php echo URLROOT; ?>/allfragrance/show/<?php echo $curid->getitemid() ?>?reviewpage=1&"
                         .$curmethod>
                         <span class="uppercase text-sm">
                             <?php echo $countreply->reviewcount($curid->getitemid()); ?>

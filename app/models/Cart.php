@@ -42,14 +42,11 @@ class Cart
                         redirect('allfragrance?page=1&' . $curmethod);
 
                     }
-                    echo $item_id . "= item ", $brand . "= brand id ", $price . "= price ", $quantity . "= quan ", $userid;
 
-                    echo "yes ";
                     return true;
 
 
                 } else {
-                    echo "no";
                     return false;
                 }
 
@@ -128,7 +125,56 @@ class Cart
     }
 
 
+    // Ship 
+    public function insertshipcost()
+    {
+        $shipvalue = $_POST['shipcost'];
 
+        if (!$this->hasuser()) {
+            $this->db->dbquery('INSERT INTO shipping (user_id,method) VALUES (:user_id,:method)');
+            $this->db->dbbind(':user_id', $_SESSION['user_id']);
+            $this->db->dbbind(":method", $shipvalue);
+            $this->db->dbexecute();
+        } else {
+            $this->db->dbquery('UPDATE shipping SET method = :method WHERE user_id = :user_id');
+            $this->db->dbbind(':user_id', $_SESSION['user_id']);
+            $this->db->dbbind(":method", $shipvalue);
+            $this->db->dbexecute();
+        }
+
+    }
+
+
+    public function selectshipcost()
+    {
+
+        $this->db->dbquery('SELECT method FROM shipping WHERE user_id = :userid');
+        $this->db->dbbind(':userid', $_SESSION['user_id']);
+        return $this->db->getsingledata();
+
+
+    }
+
+    // check user has or not 
+    public function hasuser()
+    {
+        $userid = $_SESSION['user_id'];
+
+        $this->db->dbquery('SELECT user_id FROM shipping WHERE user_id = :user_id');
+        $this->db->dbbind(':user_id', $userid);
+
+
+        $this->db->getsingledata();
+
+        if ($this->db->getsingledata() > 0) {
+            return true;
+        } else {
+            return false;
+        }
+
+
+
+    }
 
 }
 

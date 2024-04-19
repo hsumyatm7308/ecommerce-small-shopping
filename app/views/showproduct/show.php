@@ -153,7 +153,8 @@ $pagination = new Pagination();
                                     Items added successfully
                                 </span>
                             </span>
-                            <a href="shopcartpage.php" class="text-indigo-500 mr-4 hover:text-indigo-700">
+                            <a href="<?php echo URLROOT; ?>/cartsummarys"
+                                class="text-indigo-500 mr-4 hover:text-indigo-700">
                                 View cart
                             </a>
                         </div>
@@ -170,7 +171,8 @@ $pagination = new Pagination();
                                     Items already added
                                 </span>
                             </span>
-                            <a href="shopcartpage.php" class="text-indigo-500 mr-4 hover:text-indigo-700">
+                            <a href="<?php echo URLROOT; ?>/cartsummarys"
+                                class="text-indigo-500 mr-4 hover:text-indigo-700">
                                 View cart
                             </a>
                         </div>

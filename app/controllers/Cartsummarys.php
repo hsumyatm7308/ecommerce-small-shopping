@@ -33,10 +33,12 @@ class Cartsummarys extends Controller
     {
         $orderitemcount = $this->navbarmodal->order_item_count();
         $cartitems = $this->cardmodal->cart_items_show();
+        $showship = $this->cardmodal->selectshipcost();
 
         $data = [
             'orderitemcount' => $orderitemcount,
-            'cartitems' => $cartitems
+            'cartitems' => $cartitems,
+            'shipmethod' => $showship,
         ];
         $this->view('cartsummarys/index', $data);
     }
@@ -64,6 +66,14 @@ class Cartsummarys extends Controller
 
     }
 
+
+    public function insertshipcost()
+    {
+        if ($_SERVER['REQUEST_METHOD'] === "POST") {
+            $this->cardmodal->insertshipcost();
+            redirect('cartsummarys');
+        }
+    }
 }
 
 
