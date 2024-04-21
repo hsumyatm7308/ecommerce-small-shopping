@@ -19,6 +19,7 @@ class Allfragrance extends Controller
 
     public $wishmodal;
     public $cardmodal;
+    public $usermodal;
 
 
     public function __construct()
@@ -32,6 +33,8 @@ class Allfragrance extends Controller
         $this->navbarmodal = $this->model('Nav');
         $this->wishmodal = $this->model('Wish');
         $this->cardmodal = $this->model('Cart');
+
+        $this->usermodal = $this->model('User');
 
         $this->pagination = new Pagination;
         $this->curitemidmodal = new Curitemid();
@@ -71,7 +74,7 @@ class Allfragrance extends Controller
 
         $minprice = $this->pagination->getparameter()['minprice'];
         $maxprice = $this->pagination->getparameter()['maxprice'];
-        $userinfo = $this->allmodal->getuserinfo();
+        $userinfo = $this->usermodal->getuserinfo();
 
 
 
@@ -113,7 +116,7 @@ class Allfragrance extends Controller
         $singledata = $this->allmodal->getsingleitem($id);
         $brand = $this->allmodal->getbrand($singledata['id']);
         $status = $this->allmodal->getstatus($singledata['status_id']);
-        $authuser = $this->allmodal->getuserinfo();
+        $authuser = $this->usermodal->getuserinfo();
 
 
 

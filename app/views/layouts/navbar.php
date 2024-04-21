@@ -88,7 +88,7 @@
                             </svg>
 
                             <span class="ml-3 cursor-pointer">
-                                <h1 class="accountbtn">
+                                <h1 class="accountbtn capitalize">
                                     <?php echo $data['user']['name'] ?>
                                 </h1>
                                 <ul id="account-dropdown"

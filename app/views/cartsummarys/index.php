@@ -19,29 +19,34 @@ require_once ('/opt/lampp/htdocs/mvcshop/app/views/layouts/navbar.php');
     </div>
     <div class="w-full py-5">
 
-        <div class="w-full h-full font-medium grid grid-cols-2  gap-12 border-b pb-5 ">
 
-            <div class="w-full flex items-center b grid grid-cols-2 gap-32 text-lg">
-                <div class="w-full flex items-center grid grid-cols-2">
+
+        <div class="w-full h-full font-medium border-b grid md:grid-cols-2 grid-cols-3  md:gap-12 gap-1 py-5">
+
+            <div
+                class="md:col-span-1 col-span-2 w-full flex items-center b grid md:grid-cols-2 grid-cols-3 md:gap-32 gap-3 ">
+                <div class="md:col-span-1 col-span-2 w-full flex items-center grid grid-cols-2  md:gap-12 gap-2">
                     <span>Product</span>
+
                 </div>
-                <div class="ml-5">
+                <div class="flex justify-start translate scale-95 ml-5">
                     Quantity
+
                 </div>
             </div>
 
-            <div class="flex justify-end items-center b grid grid-cols-2 text-lg px-10">
-                <div class="flex justify-end items-center">
+            <div class="flex items-center justify-end grid grid-cols-2 md:px-10 px-5 ">
+                <div class="flex md:justify-end justify-start items-center">
                     <!-- price  -->
-                    <div class="flex justify-end items-center">
+                    <div class="flex md:justify-end justify-start items-center">
                         <span>Price</span>
                     </div>
 
                 </div>
-                <div class="flex justify-end items-center">
+                <div class="flex md:justify-end justify-start items-center">
                     <!-- total price  -->
-                    <div class="flex justify-end items-center">
-                        <span>Total Price</span>
+                    <div class="flex md:justify-end justify-start items-center ">
+                        <span class="flex">Total <span class="md:flex ml-2 hidden">Price</span></span>
 
                     </div>
                 </div>
@@ -49,18 +54,19 @@ require_once ('/opt/lampp/htdocs/mvcshop/app/views/layouts/navbar.php');
         </div>
 
         <?php foreach ($data['cartitems'] as $cartitem): ?>
-            <div class="w-full h-full border-b grid grid-cols-2  gap-12 py-5">
+            <div class="w-full h-full border-b grid md:grid-cols-2 grid-cols-3  md:gap-12 gap-1 py-5">
 
-                <div class="w-full flex items-center b grid grid-cols-2 gap-32">
-                    <div class="w-full flex items-center grid grid-cols-2 gap-12">
+                <div
+                    class="md:col-span-1 col-span-2 w-full flex items-center b grid md:grid-cols-2 grid-cols-3 md:gap-32 gap-3 ">
+                    <div class="md:col-span-1 col-span-2 w-full flex items-center grid grid-cols-2  md:gap-12 gap-2">
                         <!-- img  -->
-                        <div class="w-[100px] h-[100px] border bg-gray-500">
+                        <div class="md:w-[100px] md:h-[100px] w-[75px] h-[75px] border bg-gray-500">
                             <img src="<?php echo IMG_ROOT; ?><?php echo $cartitem['image'] ?>" alt="" width="200px">
                         </div>
                         <!-- name  -->
-                        <div class="">
+                        <div class="bg-red-00">
                             <div>
-                                <h1><?php echo $cartitem['itemname'] ?></h1>
+                                <h1 class=""><?php echo $cartitem['itemname'] ?></h1>
                                 <span class="text-slate-400">by <?php echo $cartitem['brandname'] ?> EDT</span>
 
                             </div>
@@ -71,7 +77,7 @@ require_once ('/opt/lampp/htdocs/mvcshop/app/views/layouts/navbar.php');
                             </div>
                         </div>
                     </div>
-                    <div>
+                    <div class="flex justify-start translate scale-95">
                         <form action="<?php echo URLROOT; ?>/cartsummarys/update" method="POST"
                             class="flex justify-start items-center">
 
@@ -102,17 +108,17 @@ require_once ('/opt/lampp/htdocs/mvcshop/app/views/layouts/navbar.php');
                     </div>
                 </div>
 
-                <div class="flex items-center justify-end grid grid-cols-2 px-10">
-                    <div class="flex justify-end items-center">
+                <div class="flex items-center justify-end grid grid-cols-2 md:px-10 px-5 ">
+                    <div class="flex md:justify-end justify-start items-center">
                         <!-- price  -->
-                        <div class="flex justify-end items-center">
+                        <div class="flex md:justify-end justify-start items-center">
                             <span>$ <?php echo $cartitem['price'] ?></span>
                         </div>
 
                     </div>
-                    <div class="flex justify-end items-center">
+                    <div class="flex md:justify-end justify-start items-center">
                         <!-- total price  -->
-                        <div class="flex justify-end items-center ">
+                        <div class="flex md:justify-end justify-start items-center ">
                             $ <span class="each_total_price">
                                 <?php echo $cartitem['price'] * $cartitem['oquantity'] ?></span>
 
@@ -125,8 +131,9 @@ require_once ('/opt/lampp/htdocs/mvcshop/app/views/layouts/navbar.php');
 
         <div class="w-full h-full  grid md:grid-cols-3 grid-cols-1  gap-12  pb-5 mb-5 ">
 
-            <div class="md:col-span-2 col-span-1 w-full flex flex-col justify-center items-start text-lg py-5">
-                <div class="w-full flex items-center">
+            <div
+                class="md:col-span-2 col-span-1 w-full md:flex flex-col justify-center md:items-start items-center text-lg py-5 md:px-0 px-10 mt-5">
+                <div class="flex items-center">
                     <span class="font-medium">Shipping Method</span>
                 </div>
 
@@ -260,7 +267,7 @@ require_once ('/opt/lampp/htdocs/mvcshop/app/views/layouts/navbar.php');
 
 
             <div class="w-full flex justify-between">
-                <div class=" flex flex-col justify-start items-start py-3">
+                <div class=" md:flex flex-col justify-start items-start py-3 hidden">
                     <a href="<?php echo URLROOT; ?>/allfragrance&all?page=1"
                         class="w-full flex justify-center items-center inline-block">Continue
                         Shopping</a>

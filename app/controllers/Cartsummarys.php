@@ -19,12 +19,14 @@ class Cartsummarys extends Controller
 
     public $wishmodal;
     public $cardmodal;
+    public $usermodal;
 
 
     public function __construct()
     {
         $this->cardmodal = $this->model('Cart');
         $this->navbarmodal = $this->model('Nav');
+        $this->usermodal = $this->model('User');
 
     }
 
@@ -34,11 +36,14 @@ class Cartsummarys extends Controller
         $orderitemcount = $this->navbarmodal->order_item_count();
         $cartitems = $this->cardmodal->cart_items_show();
         $showship = $this->cardmodal->selectshipcost();
+        $userinfo = $this->usermodal->getuserinfo();
 
         $data = [
             'orderitemcount' => $orderitemcount,
             'cartitems' => $cartitems,
             'shipmethod' => $showship,
+            'user' => $userinfo
+
         ];
         $this->view('cartsummarys/index', $data);
     }

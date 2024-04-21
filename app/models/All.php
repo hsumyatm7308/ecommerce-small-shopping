@@ -220,16 +220,6 @@ class All
 
 
 
-    public function getuserinfo()
-    {
-        $userid = $_SESSION['user_id'];
-
-        $this->db->dbquery('SELECT * FROM users WHERE id = :id');
-        $this->db->dbbind(':id', $userid);
-        return $this->db->getsingledata();
-    }
-
-
 
 
 
