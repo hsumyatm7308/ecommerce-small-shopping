@@ -60,7 +60,7 @@ require_once ('/opt/lampp/htdocs/mvcshop/app/views/layouts/navbar.php');
                     class="md:col-span-1 col-span-2 w-full flex items-center b grid md:grid-cols-2 grid-cols-3 md:gap-32 gap-3 ">
                     <div class="md:col-span-1 col-span-2 w-full flex items-center grid grid-cols-2  md:gap-12 gap-2">
                         <!-- img  -->
-                        <div class="md:w-[100px] md:h-[100px] w-[75px] h-[75px] border bg-gray-500">
+                        <div class="md:w-[100px] md:h-[100px] w-[75px] h-[75px] border rounded-md bg-gray-500">
                             <img src="<?php echo IMG_ROOT; ?><?php echo $cartitem['image'] ?>" alt="" width="200px">
                         </div>
                         <!-- name  -->
@@ -278,7 +278,7 @@ require_once ('/opt/lampp/htdocs/mvcshop/app/views/layouts/navbar.php');
                 <div class=" flex justify-center items-center px-10">
                     <form action="" method="post" class="w-full inline-block ">
                         <button type="" id="checkout" name="checkout"
-                            class="text-xl w-[400px] h-16 bg-[#4c5372] text-white flex justify-center items-center border hover:border-2">Checkout</button>
+                            class="text-xl w-[400px] h-16 bg-[#4c5372] text-white flex justify-center items-center border hover:border-2 rounded-md">Checkout</button>
 
                     </form>
 

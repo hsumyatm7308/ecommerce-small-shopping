@@ -125,14 +125,19 @@
                                                     </svg>
                                                 </button>
 
-                                                <input type="hidden" name="singlename" value="<?php echo $item['name']; ?>">
+
+
+                                                <input type="hidden" name="single_recom_itemid"
+                                                    value="<?php echo $item['id'] ?>">
+
+
+
+                                                <input type="hidden" name="singleid" value="<?php echo $item['id']; ?>">
                                                 <input type="hidden" name="singlebrand"
                                                     value=" <?php echo $item['brand_id'] ?>">
                                                 <input type="hidden" name="singleprice"
                                                     value="<?php echo $item['price']; ?>">
                                                 <input type="hidden" name="singlequantity" value="1">
-                                                <input type="hidden" name="single_recom_itemid"
-                                                    value="<?php echo $item['id'] ?>">
                                             </form>
 
 
