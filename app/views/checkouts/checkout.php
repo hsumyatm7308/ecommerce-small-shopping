@@ -56,11 +56,27 @@ require_once ('/opt/lampp/htdocs/mvcshop/app/views/layouts/navbar.php');
 
         <div class="w-full grid grid-cols-3 gap-10">
             <div class="col-span-2">
-                <div class="w-full bg-red-500">
+                <div class="w-full ">
                     <!-- deli  -->
                     <div>
-                        <div>
-                            <h1>Delivery Method</h1>
+                        <div class="flex justify-between items-center">
+                            <div class="text-xl font-medium">
+                                Delivery Method
+                            </div>
+                            <div>
+                                Edit
+                            </div>
+                        </div>
+
+                        <div class="mt-5">
+                            <h1 class="text-lg font-medium">Shipment</h1>
+                            <div class="mt-3">
+                                <ul class="space-y-2">
+                                    <li>Standard Shipping</li>
+                                    <li>Estimated Arrival: <span>April 22 -</span> <span>April 33</span></li>
+                                    <li>Shipping as flat rate - $ 9.99</li>
+                                </ul>
+                            </div>
                         </div>
 
                     </div>

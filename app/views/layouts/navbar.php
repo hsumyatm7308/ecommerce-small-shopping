@@ -12,7 +12,7 @@
                 <div class="md:visible justify-start items-center invisible">
 
                     <a href="http://localhost/perumdej/Perum-Dej/index.php" class="">
-                        <h1 class="text-[#4c5372] font-bold text-2xl">Perum Dej</h1>
+                        <h1 class="text-[#4c5372] font-semibold text-2xl">Perum Dej</h1>
 
                     </a>
                 </div>
