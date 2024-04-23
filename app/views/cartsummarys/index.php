@@ -278,7 +278,7 @@ require_once ('/opt/lampp/htdocs/mvcshop/app/views/layouts/navbar.php');
                 <div class=" flex justify-center items-center px-10">
                     <form action="" method="post" class="w-full inline-block ">
                         <button type="" id="checkout" name="checkout"
-                            class="text-xl w-[400px] h-16 bg-[#4c5372] text-white flex justify-center items-center border hover:border-2 rounded-md">Checkout</button>
+                            class="text-xl w-[400px] h-14 bg-[#4c5372] text-white flex justify-center items-center border hover:border-2 rounded-md">Checkout</button>
 
                     </form>
 
