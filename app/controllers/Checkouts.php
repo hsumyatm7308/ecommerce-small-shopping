@@ -48,6 +48,12 @@ class Checkouts extends Controller
         $this->view('checkouts/checkout', $data);
     }
 
+    public function authcheck()
+    {
+        $this->view('checkouts/authcheck');
+
+    }
+
 
 
 

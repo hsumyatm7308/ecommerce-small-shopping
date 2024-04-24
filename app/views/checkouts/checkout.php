@@ -60,7 +60,7 @@ require_once ('/opt/lampp/htdocs/mvcshop/app/views/layouts/navbar.php');
                     <!-- deli  -->
                     <div class="mb-20">
                         <div class="flex justify-between items-center">
-                            <div class="text-xl font-medium">
+                            <div class="text-2xl font-medium">
                                 Delivery Method
                             </div>
                             <div>
@@ -83,88 +83,44 @@ require_once ('/opt/lampp/htdocs/mvcshop/app/views/layouts/navbar.php');
                     <!-- ship  -->
                     <div class="mb-20">
                         <div class="flex justify-between items-center">
-                            <div class="text-xl font-medium">
+                            <div class="text-2xl font-medium">
                                 Shipping Method
                             </div>
 
                         </div>
 
-                        <!-- address  -->
-                        <div class="grid grid-cols-4 mt-10 rounded  mb-5">
+                        <form action="">
+                            <!-- address  -->
+                            <div class="grid grid-cols-4 mt-10 rounded  mb-5">
 
 
-                            <div class="col-span-3 w-full   mb-8 flex justify-center items-center flex-col  guestinfo">
+                                <div
+                                    class="col-span-3 w-full   mb-8 flex justify-center items-center flex-col  guestinfo">
 
-                                <div class="w-full grid grid-cols-2">
+                                    <div class="w-full grid grid-cols-2">
+
+                                        <div class="w-full mb-8">
+                                            <label for="">First Name</label>
+                                            <input type="text" name="firstname"
+                                                class="w-full border border-[#4c5372] rounded bg-transparent focus:outline-none mt-2 p-2 "
+                                                placeholder="">
+                                        </div>
+
+
+                                        <div class="w inputval mb-2 ml-5">
+                                            <label for="">Last Name *</label>
+
+                                            <input type="text" name="lastname"
+                                                class="w-full border border-[#4c5372]  rounded bg-transparent focus:outline-none mt-2 p-2 val"
+                                                placeholder="">
+                                        </div>
+
+                                    </div>
+
 
                                     <div class="w-full mb-8">
-                                        <label for="">First Name</label>
-                                        <input type="text" name="firstname"
-                                            class="w-full border border-[#4c5372] rounded bg-transparent focus:outline-none mt-2 p-2 "
-                                            placeholder="">
-                                    </div>
-
-
-                                    <div class="w inputval mb-2 ml-5">
-                                        <label for="">Last Name *</label>
-
-                                        <input type="text" name="lastname"
-                                            class="w-full border border-[#4c5372]  rounded bg-transparent focus:outline-none mt-2 p-2 val"
-                                            placeholder="">
-                                    </div>
-
-                                </div>
-
-
-                                <div class="w-full mb-8">
-                                    <label for="">Company</label>
-                                    <input type="text" name="company"
-                                        class="w-full border border-[#4c5372]  rounded bg-transparent focus:outline-none mt-2 p-2 "
-                                        placeholder="option">
-                                </div>
-
-
-
-
-                                <div class="w-full inputval mb-8">
-                                    <label for="">Address *</label>
-                                    <input type="text" name="address"
-                                        class="w-full border border-[#4c5372]  rounded  bg-transparent focus:outline-none mt-2 p-2 val"
-                                        placeholder="">
-                                </div>
-
-
-
-
-                                <div class="w-full grid grid-cols-2">
-
-                                    <div class="w-full mb-8">
-                                        <label for="">Phone</label>
-                                        <input type="text" name="phone"
-                                            class="w-full border border-[#4c5372]  rounded bg-transparent focus:outline-none mt-2 p-2 "
-                                            placeholder="option">
-                                    </div>
-
-
-                                    <div class="w inputval mb-2 ml-5">
-                                        <label for="">Zip *</label>
-
-                                        <input type="text" name="state"
-                                            class="w-full border border-[#4c5372]  rounded bg-transparent focus:outline-none mt-2 p-2 val"
-                                            placeholder="">
-                                    </div>
-
-                                </div>
-
-
-
-
-
-                                <div class="w-full grid grid-cols-2">
-
-                                    <div class="w-full mb-8">
-                                        <label for="">City</label>
-                                        <input type="text" name="city"
+                                        <label for="">Company</label>
+                                        <input type="text" name="company"
                                             class="w-full border border-[#4c5372]  rounded bg-transparent focus:outline-none mt-2 p-2 "
                                             placeholder="option">
                                     </div>
@@ -172,11 +128,84 @@ require_once ('/opt/lampp/htdocs/mvcshop/app/views/layouts/navbar.php');
 
 
 
+                                    <div class="w-full inputval mb-8">
+                                        <label for="">Address *</label>
+                                        <input type="text" name="address"
+                                            class="w-full border border-[#4c5372]  rounded  bg-transparent focus:outline-none mt-2 p-2 val"
+                                            placeholder="">
+                                    </div>
 
 
-                                    <div class="inputval relative mb-8 ml-5">
 
-                                        <label for="">State *</label>
+
+                                    <div class="w-full grid grid-cols-2">
+
+                                        <div class="w-full mb-8">
+                                            <label for="">Phone</label>
+                                            <input type="text" name="phone"
+                                                class="w-full border border-[#4c5372]  rounded bg-transparent focus:outline-none mt-2 p-2 "
+                                                placeholder="option">
+                                        </div>
+
+
+                                        <div class="w inputval mb-2 ml-5">
+                                            <label for="">Zip *</label>
+
+                                            <input type="text" name="state"
+                                                class="w-full border border-[#4c5372]  rounded bg-transparent focus:outline-none mt-2 p-2 val"
+                                                placeholder="">
+                                        </div>
+
+                                    </div>
+
+
+
+
+
+                                    <div class="w-full grid grid-cols-2">
+
+                                        <div class="w-full mb-8">
+                                            <label for="">City</label>
+                                            <input type="text" name="city"
+                                                class="w-full border border-[#4c5372]  rounded bg-transparent focus:outline-none mt-2 p-2 "
+                                                placeholder="option">
+                                        </div>
+
+
+
+
+
+
+                                        <div class="inputval relative mb-8 ml-5">
+
+                                            <label for="">State *</label>
+
+                                            <select
+                                                class="w-full border border-[#4c5372]  rounded  bg-transparent focus:outline-none mt-2 p-2 val select-box">
+                                                <option value="">Auslia</option>
+                                                <option value="">Myanmar</option>
+
+                                            </select>
+
+                                            <div class="arrow">
+                                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                                    stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                                        d="m19.5 8.25-7.5 7.5-7.5-7.5" />
+                                                </svg>
+
+                                            </div>
+
+
+                                        </div>
+
+                                    </div>
+
+
+
+                                    <div class="w-full inputval relative mb-5 custom-select">
+
+                                        <label for="">Country *</label>
 
                                         <select
                                             class="w-full border border-[#4c5372]  rounded  bg-transparent focus:outline-none mt-2 p-2 val select-box">
@@ -193,76 +222,38 @@ require_once ('/opt/lampp/htdocs/mvcshop/app/views/layouts/navbar.php');
                                             </svg>
 
                                         </div>
-
-
                                     </div>
 
+
+
+
                                 </div>
-
-
-
-                                <div class="w-full inputval relative mb-5 custom-select">
-
-                                    <label for="">Country *</label>
-
-                                    <select
-                                        class="w-full border border-[#4c5372]  rounded  bg-transparent focus:outline-none mt-2 p-2 val select-box">
-                                        <option value="">Auslia</option>
-                                        <option value="">Myanmar</option>
-
-                                    </select>
-
-                                    <div class="arrow">
-                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                            stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
-                                            <path stroke-linecap="round" stroke-linejoin="round"
-                                                d="m19.5 8.25-7.5 7.5-7.5-7.5" />
-                                        </svg>
-
-                                    </div>
-                                </div>
-
-
 
 
                             </div>
 
-
-                        </div>
-
-                        <!-- billing address  -->
-                        <div class="">
-                            <h1 class="text-lg font-medium">Billing Address</h1>
-                            <form action="" class="mt-5">
-                                <input type="checkbox" name="billaddresscheck" checked>
-                                <label for="">Use this address for billing</label>
-                            </form>
-                        </div>
+                            <!-- billing address  -->
+                            <div class="">
+                                <h1 class="text-lg font-medium">Billing Address</h1>
+                                <div class="mt-5">
+                                    <input type="checkbox" name="billaddresscheck" checked>
+                                    <label for="">Use this address for billing</label>
+                                </div>
+                            </div>
 
 
 
-                        <div class="grid grid-cols-4 mt-10 rounded  mb-10">
-
-
-                            <div class="col-span-3 w-full   mb-8 flex justify-center items-center flex-col  guestinfo">
-
-
-
-                                <form action="" method="post" class="w-full inline-block ">
+                            <div class="grid grid-cols-4 mt-10 rounded  mb-10">
+                                <div
+                                    class="col-span-3 w-full   mb-8 flex justify-center items-center flex-col  guestinfo">
                                     <button type="" id="shipping_ctn" name="shipping_ctn"
                                         class="text-xl w-full h-14 bg-[#4c5372] text-white flex justify-center items-center border hover:border-2 rounded-md">Save
                                         & Continue</button>
-
-                                </form>
-
-
-
+                                </div>
                             </div>
 
 
-                        </div>
-
-
+                        </form>
 
 
                     </div>
@@ -271,7 +262,7 @@ require_once ('/opt/lampp/htdocs/mvcshop/app/views/layouts/navbar.php');
                     <!-- payment  -->
                     <div class="mb-10">
                         <div class="flex justify-between items-center">
-                            <div class="text-xl font-medium">
+                            <div class="text-2xl font-medium">
                                 Payment
                             </div>
                             <div>
@@ -279,15 +270,101 @@ require_once ('/opt/lampp/htdocs/mvcshop/app/views/layouts/navbar.php');
                             </div>
                         </div>
 
-                        <div class="mt-5">
-                            <h1 class="text-lg font-medium">Shipment</h1>
-                            <div class="mt-3">
-                                <ul class="space-y-2">
-                                    <li>Standard Shipping</li>
-                                    <li>Estimated Arrival: <span>April 22 -</span> <span>April 33</span></li>
-                                    <li>Shipping as flat rate - $ 9.99</li>
-                                </ul>
-                            </div>
+                        <div class="mt-10">
+                            <form action="" class=" justify-between items-center">
+                                <!-- credit  -->
+                                <div>
+                                    <h1 class="text-lg font-medium">Credit Card</h1>
+                                    <div class="grid grid-cols-4 mt-5 rounded  mb-5">
+
+
+                                        <div
+                                            class="col-span-3 w-full   mb-8 flex justify-center items-center flex-col  guestinfo">
+
+
+                                            <div class="w-full mb-8">
+                                                <label for="">Name On Card</label>
+                                                <input type="text" name="credit_name" id="credit_name"
+                                                    class="w-full border border-[#4c5372] rounded bg-transparent focus:outline-none mt-2 p-2 "
+                                                    placeholder="">
+                                            </div>
+
+
+
+
+
+                                            <div class="w-full mb-8">
+                                                <label for="">Credit Card Number</label>
+                                                <input type="number" name="creditnumber"
+                                                    class="w-full border border-[#4c5372]  rounded bg-transparent focus:outline-none mt-2 p-2 "
+                                                    placeholder="xxxx xxxx xxxx xxxx">
+                                            </div>
+
+
+
+
+
+                                            <div class="w-full grid grid-cols-2">
+
+
+
+                                                <div class="w-full mb-8">
+                                                    <label for="">Expired Date</label>
+                                                    <input type="date" name="expireddate"
+                                                        class="w-full border border-[#4c5372]  rounded  bg-transparent focus:outline-none mt-2 p-2 val"
+                                                        placeholder="">
+                                                </div>
+
+
+
+                                                <div class="w inputval mb-2 ml-5">
+                                                    <label for="">Security Code</label>
+                                                    <input type="number" name="address"
+                                                        class="w-full border border-[#4c5372]  rounded  bg-transparent focus:outline-none mt-2 p-2 val"
+                                                        placeholder="">
+                                                </div>
+
+
+
+                                            </div>
+                                        </div>
+
+
+                                    </div>
+
+
+                                    <div class="grid grid-cols-4 rounded  mb-10">
+                                        <div
+                                            class="col-span-3 w-full   mb-8 flex justify-center items-center flex-col  guestinfo ">
+
+                                            <button type="" id="shipping_ctn" name="shipping_ctn"
+                                                class="text-xl w-full h-14 bg-[#4c5372] text-white flex justify-center items-center border hover:border-2 rounded-md mb-10">Save
+                                                & Continue</button>
+
+
+                                            <div class="w-full border-t border-t-[#415a77] pt-5 ">
+                                                <button type="" id="shipping_ctn" name="shipping_ctn"
+                                                    class="text-xl w-full h-14 bg-yellow-500 text-white flex justify-center items-center border hover:border-2 rounded-md mb-5">
+                                                    <i class="fa-brands fa-paypal"></i>
+                                                    <span class="ml-3">Paypal</span></button>
+
+                                                <button type="" id="shipping_ctn" name="shipping_ctn"
+                                                    class="text-xl w-full h-14 bg-blue-500 text-white flex justify-center items-center border hover:border-2 rounded-md">
+                                                    <img src="<?php echo URLROOT; ?>/public/assets/kbz/kbz1.png" alt=""
+                                                        width="30px">
+                                                    <span class="ml-3">KBZPay</span></button>
+                                            </div>
+
+
+
+
+
+
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </form>
                         </div>
 
                     </div>
