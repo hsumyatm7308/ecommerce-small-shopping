@@ -19,7 +19,7 @@ require_once ('/opt/lampp/htdocs/mvcshop/app/views/layouts/header.php');
             </div>
 
             <form action="<?php echo URLROOT; ?>/users/login" method="POST" class="space-y-10">
-                <div class="text-[#e0e1dd]  space-y-4">
+                <div class="space-y-4">
 
 
 

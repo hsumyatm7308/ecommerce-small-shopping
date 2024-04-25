@@ -343,8 +343,6 @@ $pagination = new Pagination();
 
 
 
-
-
 <!-- modal  -->
 <section id="reviewmodal"
     class="w-full h-screen fixed top-0 left-0 <?php echo !empty($data['errmessage']) ? 'flex' : 'hidden' ?> ">
