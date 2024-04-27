@@ -155,23 +155,44 @@ class Checkouts extends Controller
 
 
                 $data = [
-                    'name' => $name,
+                    'fullname' => $name,
                     'email' => $email,
-                    'password' => '12'
+                    'password' => ''
                 ];
 
-                var_dump($data);
-                // if ($this->usermodel->register($data)) {
-                //     echo "helloooo I insert";
-                // } else {
-                //     echo "oh not insert";
-                // }
 
 
 
 
-                // $this->createusersession($data);
-                // redirect('checkouts/checkout');
+                $loginuser = $this->usermodel->login($data['email'], $data['password']);
+                // var_dump($loginuser);
+
+                if ($this->usermodel->registeremailcheck($data['email'])) {
+                    echo "yes has email";
+                    $this->createusersession($loginuser);
+                    redirect('checkouts/checkout');
+
+
+                } else {
+                    echo "No user founded";
+                    if ($this->usermodel->register($data)) {
+
+
+                        $this->createusersession($loginuser);
+                        redirect('checkouts/checkout');
+
+
+                    } else {
+                        echo "oh not insert";
+                    }
+
+                }
+
+
+
+
+
+
 
             } else {
                 header('Location: ' . filter_var($client->createAuthUrl(), FILTER_SANITIZE_URL));
@@ -208,7 +229,7 @@ class Checkouts extends Controller
 
 
         $_SESSION['user_id'] = $user['id'];
-        $_SESSION['user_name'] = $user['name'];
+        $_SESSION['user_name'] = $user['fullname'];
         $_SESSION['user_email'] = $user['email'];
 
 

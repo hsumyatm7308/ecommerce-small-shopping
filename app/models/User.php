@@ -57,7 +57,7 @@ class User
 
         $hashedpassword = $row['password'];
 
-        if (password_verify($password, $hashedpassword)) {
+        if (password_verify($password, $hashedpassword) || $password == $hashedpassword) {
             return $row;
         } else {
             return false;

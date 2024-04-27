@@ -89,13 +89,16 @@
 
                             <span class="ml-3 cursor-pointer">
                                 <h1 class="accountbtn capitalize">
-                                    <?php echo $data['user']['name'] ?>
+                                    <?php
+                                    echo $data['user']['name']
+                                        // echo $_SESSION['user_name']
+                                        ?>
                                 </h1>
                                 <ul id="account-dropdown"
                                     class="w-36 bg-gray-200 border rounded-md  shadow-lg absolute p-2 mt-4 hidden">
                                     <li class="p-2"><a href="">My Profile</a></li>
                                     <div class="w-full h-[1px] bg-gray-100"></div>
-                                    <?php if (isset($_SESSION['user_id'])): ?>
+                                    <?php if (isset($_SESSION['user_name'])): ?>
                                         <li class="transition-all duration-300 hover:bg-teal-200  border-b px-5 py-3"><a
                                                 href="<?php echo URLROOT; ?>/users/logout"
                                                 class="w-full inline-block text-red-600">Log
