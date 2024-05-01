@@ -21,6 +21,9 @@ class Checkouts extends Controller
     public $cardmodal;
     public $usermodel;
 
+    private $googlemodal;
+
+
 
     public function __construct()
     {
@@ -30,6 +33,10 @@ class Checkouts extends Controller
         $this->pagination = new Pagination();
 
         require ('Googlelogin.php');
+
+
+
+
 
     }
 
@@ -53,6 +60,13 @@ class Checkouts extends Controller
 
     public function authcheck()
     {
+
+
+
+
+
+
+
 
 
 
@@ -135,77 +149,15 @@ class Checkouts extends Controller
             ];
         }
 
+
+
         if (isset($_POST['googlelogin']) && $_SERVER['REQUEST_METHOD'] === 'POST') {
-            // $this->googlelogin();
-
-            $code = $this->pagination->getparameter()['code'];
-
-            $googleLogin = new Googlelogin();
-
-            $client = $googleLogin->createClient();
-
-            if (isset($code)) {
-                $token = $client->fetchAccessTokenWithAuthCode($code);
-                $client->setAccessToken($token['access_token']);
-
-                $google_oauth = new Google_Service_Oauth2($client);
-                $google_account_info = $google_oauth->userinfo->get();
-                $email = $google_account_info->email;
-                $name = $google_account_info->name;
-
-
-                $data = [
-                    'fullname' => $name,
-                    'email' => $email,
-                    'password' => ''
-                ];
-
-
-
-
-
-                $loginuser = $this->usermodel->login($data['email'], $data['password']);
-                // var_dump($loginuser);
-
-                if ($this->usermodel->registeremailcheck($data['email'])) {
-                    echo "yes has email";
-                    $this->createusersession($loginuser);
-                    redirect('checkouts/checkout');
-
-
-                } else {
-                    echo "No user founded";
-                    if ($this->usermodel->register($data)) {
-
-
-                        $this->createusersession($loginuser);
-                        redirect('checkouts/checkout');
-
-
-                    } else {
-                        echo "oh not insert";
-                    }
-
-                }
-
-
-
-
-
-
-
-            } else {
-                header('Location: ' . filter_var($client->createAuthUrl(), FILTER_SANITIZE_URL));
-                exit();
-
-            }
-
-
-
-
-
-
+            $this->googlelogin();
         }
+
+
+
+
 
         $this->view('checkouts/authcheck', $data);
 
@@ -213,13 +165,71 @@ class Checkouts extends Controller
 
 
 
+
+
+
+
+
     public function googlelogin()
     {
 
 
-        // $client = $this->createclient();
+        $data = [];
+
+
+        $code = $this->pagination->getparameter()['code'];
+
+        $googleLogin = new Googlelogin();
+        $client = $googleLogin->createClient();
+
+
+
+        if (isset($code)) {
+            $token = $client->fetchAccessTokenWithAuthCode($code);
+            $client->setAccessToken($token['access_token']);
+
+            $google_oauth = new Google_Service_Oauth2($client);
+            $google_account_info = $google_oauth->userinfo->get();
+            $email = $google_account_info->email;
+            $name = $google_account_info->name;
+
+
+
+
+            $data = [
+                'fullname' => $name,
+                'email' => $email,
+                'password' => ''
+            ];
+            $loginuser = $this->usermodel->login($data['email'], $data['password']);
+            var_dump($loginuser);
+
+            if ($this->usermodel->registeremailcheck($data['email'])) {
+                echo "yes has email";
+                $this->createusersession($loginuser);
+                redirect('checkouts/checkout');
+
+
+            } else {
+                echo "No user founded";
+                if ($this->usermodel->register($data)) {
+                    $this->createusersession($loginuser);
+                    redirect('checkouts/checkout');
+                } else {
+                    echo "oh not insert";
+                }
+            }
+
+        } else {
+            header('Location: ' . filter_var($client->createAuthUrl(), FILTER_SANITIZE_URL));
+            exit();
+        }
+
+
 
     }
+
+
 
 
 
@@ -240,15 +250,7 @@ class Checkouts extends Controller
 
 
 
-
-
-
-
-
-
-
 }
-
 
 
 

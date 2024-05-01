@@ -150,6 +150,8 @@ class Allfragrance extends Controller
         //add to cart on show page
 
         if (isset($_POST['addtocart'])) {
+            var_dump($_COOKIE['cart']);
+
             if ($this->cardmodal->shopcardlist()) {
                 $redirect_url = 'allfragrance/show/' . $this->curitemidmodal->getitemid() . '?message=added';
                 redirect($redirect_url);

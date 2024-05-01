@@ -1,9 +1,11 @@
 <?php
 
-require_once ('/opt/lampp/htdocs/mvcshop/vendor/autoload.php');
+require_once ('/opt/lampp/htdocs/mvcshop/vendorfolder/google/vendor/autoload.php');
 
 class Googlelogin
 {
+
+
 
 
     public function createclient()
@@ -21,9 +23,13 @@ class Googlelogin
         $client->addScope("email");
         $client->addScope("profile");
 
+
+
         return $client;
 
     }
+
+
 
 
 

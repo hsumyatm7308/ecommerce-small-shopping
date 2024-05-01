@@ -14,11 +14,20 @@ class Cart
         $this->db = new Database();
 
         $this->curmethodmodal = new Curitemid();
+
+
+
+
     }
     // add to cart  
     public function shopcardlist()
     {
+
+
+
         if (isset($_POST['addtocart']) || isset($_POST['addtocart_index']) && $_SERVER['REQUEST_METHOD'] === 'POST') {
+
+
             $item_id = $_POST['singleid'];
             $brand = $_POST['singlebrand'];
             $price = $_POST['singleprice'];
@@ -26,37 +35,97 @@ class Cart
             $userid = $_SESSION['user_id'];
 
 
-            if (!$this->hasitem($item_id)) {
 
-                $this->db->dbquery('INSERT INTO orders (item_id, price, quantity, brand_id, user_id) VALUES (:itemid, :price, :quantity, :brand, :user_id)');
-                $this->db->dbbind(':itemid', $item_id);
-                $this->db->dbbind(':price', $price);
-                $this->db->dbbind(':quantity', $quantity);
-                $this->db->dbbind(':brand', $brand);
-                $this->db->dbbind(':user_id', $userid);
 
-                if ($this->db->dbexecute()) {
-                    if (isset($_POST['addtocart_index'])) {
+            if ($userid != '') {
+                if (!$this->hasitem($item_id)) {
 
-                        $curmethod = $this->curmethodmodal->getmethod();
-                        redirect('allfragrance?page=1&' . $curmethod);
+                    $this->db->dbquery('INSERT INTO orders (item_id, price, quantity, brand_id, user_id) VALUES (:itemid, :price, :quantity, :brand, :user_id)');
+                    $this->db->dbbind(':itemid', $item_id);
+                    $this->db->dbbind(':price', $price);
+                    $this->db->dbbind(':quantity', $quantity);
+                    $this->db->dbbind(':brand', $brand);
+                    $this->db->dbbind(':user_id', $userid);
 
+                    if ($this->db->dbexecute()) {
+                        if (isset($_POST['addtocart_index'])) {
+
+                            $curmethod = $this->curmethodmodal->getmethod();
+                            redirect('allfragrance?page=1&' . $curmethod);
+
+                        }
+
+                        return true;
+
+
+                    } else {
+                        return false;
                     }
 
-                    return true;
-
-
-                } else {
-                    return false;
                 }
+            } else {
+
+
+                $cart = isset($_COOKIE['cart']) ? json_decode($_COOKIE['cart'], true) : [];
+                // echo (count($cart));
+
+                $new_item = [
+                    'product_cook_id' => $item_id,
+                    'brand_cook_id' => $brand,
+                    'price_cook' => $price,
+                    'quantity' => $quantity,
+                ];
+
+                $item_exists = false;
+
+
+                foreach ($cart as $item) {
+                    if ($item['product_cook_id'] == $item_id) {
+                        $item_exists = true;
+                        break;
+                    }
+                }
+
+                if (!$item_exists) {
+                    $cart[] = $new_item;
+                    setcookie("cart", json_encode($cart), time() + (3 * 24 * 60 * 60));
+                } else {
+
+                    echo "Item already exists in the cart.";
+                }
+
+
+
+                $curmethod = $this->curmethodmodal->getmethod();
+                redirect('allfragrance?page=1&' . $curmethod);
+
+
+
 
             }
 
 
 
 
+
+
         }
+
+
+
     }
+
+    // public function double($product_id, $cart)
+    // {
+    //     foreach ($cart as $item) {
+
+    //         if ($item->product_cook_id == $product_id) {
+    //             return true;
+    //         }
+
+    //     }
+    //     return false;
+    // }
 
 
 

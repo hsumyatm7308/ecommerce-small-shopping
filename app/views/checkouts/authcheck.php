@@ -72,6 +72,7 @@ require_once ('/opt/lampp/htdocs/mvcshop/app/views/layouts/navbar.php');
 
 
                 <div class="border-t border-t-[#415a77] pt-5 space-y-5 mt-10">
+
                     <button type="" id="googlelogin" name="googlelogin"
                         class="text-normal w-full h-14  bg-yellow-500 flex justify-center items-center border hover:border-2 rounded-md">
                         <i class="fa-brands fa-google"></i>
@@ -79,8 +80,13 @@ require_once ('/opt/lampp/htdocs/mvcshop/app/views/layouts/navbar.php');
                     </button>
 
 
-                    <button type="" id="shipping_ctn" name="shipping_ctn"
+
+
+
+                    <button type="" id="facebooklogin" name="facebooklogin"
                         class="text-normal w-full h-14 bg-blue-500 text-white flex justify-center items-center border hover:border-2 rounded-md">
+
+
                         <i class="fa-brands fa-facebook"></i>
                         <span class="ml-3">Facebook</span>
                     </button>

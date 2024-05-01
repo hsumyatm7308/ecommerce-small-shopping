@@ -98,7 +98,7 @@
                                     class="w-36 bg-gray-200 border rounded-md  shadow-lg absolute p-2 mt-4 hidden">
                                     <li class="p-2"><a href="">My Profile</a></li>
                                     <div class="w-full h-[1px] bg-gray-100"></div>
-                                    <?php if (isset($_SESSION['user_name'])): ?>
+                                    <?php if (isset($_SESSION['user_id'])): ?>
                                         <li class="transition-all duration-300 hover:bg-teal-200  border-b px-5 py-3"><a
                                                 href="<?php echo URLROOT; ?>/users/logout"
                                                 class="w-full inline-block text-red-600">Log
@@ -135,7 +135,17 @@
 
                                         <?php
 
-                                        echo $data['orderitemcount'];
+                                        if ($_SESSION['user_id']) {
+                                            echo $data['orderitemcount'];
+
+                                        } else {
+                                            $cart = isset($_COOKIE['cart']) ? json_decode($_COOKIE['cart'], true) : [];
+                                            echo (count($cart));
+                                        }
+
+
+
+
                                         ?>
 
 

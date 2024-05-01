@@ -10,7 +10,6 @@ class Users extends Controller
 
     public function __construct()
     {
-
         $this->usermodel = $this->model('User');
 
     }
