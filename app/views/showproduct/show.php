@@ -131,6 +131,14 @@ $pagination = new Pagination();
                         <input type="hidden" name="singleprice" value="<?php echo $data['singledata']['price']; ?>">
                         <input type="hidden" name="addtowish_itemid" value="<?php echo $data['singledata']['id']; ?>">
 
+
+                        <!-- for cookie  -->
+
+                        <input type="hidden" name="single_ck_img" value="<?php echo $data['singledata']['image'] ?>">
+                        <input type="hidden" name="single_ck_name" value="<?php echo $data['singledata']['name']; ?>">
+                        <input type="hidden" name="single_ck_brand"
+                            value=" <?php echo $data['singledata']['brandname'] ?>">
+
                     </div>
                 </form>
 
@@ -140,7 +148,13 @@ $pagination = new Pagination();
 
                 <!-- flash  -->
                 <div id="alertcart">
-                    <?php $message = $pagination->getparameter()['message']; ?>
+                    <?php $message = $pagination->getparameter()['message'];
+
+
+
+
+
+                    ?>
                     <?php if ($message === 'added'): ?>
                         <div class="w-[400px]  flex justify-between items-center mt-3 rounded-md">
                             <span class="flex justify-start items-center p-1">

@@ -138,6 +138,16 @@
                                                 <input type="hidden" name="singleprice"
                                                     value="<?php echo $item['price']; ?>">
                                                 <input type="hidden" name="singlequantity" value="1">
+
+
+
+                                                <!-- for cookie  -->
+                                                <input type="hidden" name="single_ck_img"
+                                                    value="<?php echo $item['image'] ?>">
+                                                <input type="hidden" name="single_ck_name"
+                                                    value="<?php echo $item['name']; ?>">
+                                                <input type="hidden" name="single_ck_brand"
+                                                    value=" <?php echo $item['brandname'] ?>">
                                             </form>
 
 

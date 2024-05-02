@@ -53,7 +53,6 @@ parse_str($urlparts['query'], $parameter);
 
 
 
-
     <?php if ($data['totalitems'] == 0): ?>
 
         <div class="w-full h-[50vh] border p-3">
@@ -186,6 +185,14 @@ parse_str($urlparts['query'], $parameter);
                                                     value=" <?php echo $item['brand_id'] ?>">
                                                 <input type="hidden" name="singleprice" value="<?php echo $item['price']; ?>">
                                                 <input type="hidden" name="singlequantity" value="1">
+
+
+                                                <!-- for cookie  -->
+                                                <input type="hidden" name="single_ck_img" value="<?php echo $item['image'] ?>">
+                                                <input type="hidden" name="single_ck_name" value="<?php echo $item['name']; ?>">
+                                                <input type="hidden" name="single_ck_brand"
+                                                    value=" <?php echo $item['brandname'] ?>">
+
                                             </form>
 
 

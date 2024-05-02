@@ -18,6 +18,7 @@ require_once ('/opt/lampp/htdocs/mvcshop/app/views/layouts/navbar.php');
 
     </div>
     <?php if (count($data['cartitems']) >= 1): ?>
+
         <div class="w-full py-5">
 
 
@@ -54,7 +55,9 @@ require_once ('/opt/lampp/htdocs/mvcshop/app/views/layouts/navbar.php');
                 </div>
             </div>
 
+
             <?php foreach ($data['cartitems'] as $cartitem): ?>
+
                 <div class="w-full h-full border-b grid md:grid-cols-2 grid-cols-3  md:gap-12 gap-1 py-5">
 
                     <div

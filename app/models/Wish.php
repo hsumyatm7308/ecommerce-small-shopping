@@ -20,33 +20,40 @@ class Wish
     }
     public function addtowish()
     {
+        $userid = $_SESSION['user_id'];
+
         if (isset($_POST['addtowish']) || isset($_POST['addtowish_index']) && $_SERVER['REQUEST_METHOD'] === 'POST') {
 
-            $userid = $_SESSION['user_id'];
             $itemid = $_POST['addtowish_itemid'];
 
+            if (!empty($userid)) {
 
-            if (!$this->hasitem($itemid)) {
 
-                $this->db->dbquery('INSERT INTO wishes (item_id, user_id) VALUES (:itemid,:user_id)');
-                $this->db->dbbind(':itemid', $itemid);
+                if (!$this->hasitem($itemid)) {
 
-                $this->db->dbbind(':user_id', $userid);
+                    $this->db->dbquery('INSERT INTO wishes (item_id, user_id) VALUES (:itemid,:user_id)');
+                    $this->db->dbbind(':itemid', $itemid);
 
-                if ($this->db->dbexecute()) {
-                    if (isset($_POST['addtowish_index'])) {
-                        $curmethod = $this->curitemid->getmethod();
+                    $this->db->dbbind(':user_id', $userid);
 
-                        redirect('allfragrance?page=1&' . $curmethod);
+                    if ($this->db->dbexecute()) {
+                        if (isset($_POST['addtowish_index'])) {
+                            $curmethod = $this->curitemid->getmethod();
+
+                            redirect('allfragrance?page=1&' . $curmethod);
+                        }
+                        return true;
+
+
+                    } else {
+                        return false;
                     }
-                    return true;
 
-
-                } else {
-                    return false;
                 }
-
+            } else {
+                redirect('users/login');
             }
+
 
         }
     }

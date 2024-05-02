@@ -34,9 +34,20 @@ class Cartsummarys extends Controller
     public function index()
     {
         $orderitemcount = $this->navbarmodal->order_item_count();
-        $cartitems = $this->cardmodal->cart_items_show();
+        // $cartitems = $orderitemcount < 1 ? $this->cardmodal->cart_items_show() : json_decode($_COOKIE['cart']);
         $showship = $this->cardmodal->selectshipcost();
         $userinfo = $this->usermodal->getuserinfo();
+
+
+
+
+        if ($_SESSION['user_id']) {
+            $cartitems = $this->cardmodal->cart_items_show();
+        } else {
+            $cartitems = json_decode($_COOKIE['cart'], true);
+        }
+
+
 
         $data = [
             'orderitemcount' => $orderitemcount,

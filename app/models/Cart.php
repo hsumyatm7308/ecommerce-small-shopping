@@ -66,41 +66,31 @@ class Cart
             } else {
 
 
-                $cart = isset($_COOKIE['cart']) ? json_decode($_COOKIE['cart'], true) : [];
-                // echo (count($cart));
 
-                $new_item = [
-                    'product_cook_id' => $item_id,
-                    'brand_cook_id' => $brand,
-                    'price_cook' => $price,
-                    'quantity' => $quantity,
+
+                $data = [
+                    'itemimage' => $_POST['single_ck_img'],
+                    'itemname' => $_POST['single_ck_name'],
+                    'brandname' => $_POST['single_ck_brand'],
+                    'oquantity' => $quantity,
+                    'price' => $price,
+                    'brandid' => $brand,
+                    'itemid' => $item_id
+
                 ];
 
-                $item_exists = false;
+                if (item_cookie($data)) {
+                    if (isset($_POST['addtocart_index'])) {
 
+                        $curmethod = $this->curmethodmodal->getmethod();
+                        redirect('allfragrance?page=1&' . $curmethod);
 
-                foreach ($cart as $item) {
-                    if ($item['product_cook_id'] == $item_id) {
-                        $item_exists = true;
-                        break;
                     }
-                }
 
-                if (!$item_exists) {
-                    $cart[] = $new_item;
-                    setcookie("cart", json_encode($cart), time() + (3 * 24 * 60 * 60));
+                    return true;
                 } else {
-
-                    echo "Item already exists in the cart.";
+                    return false;
                 }
-
-
-
-                $curmethod = $this->curmethodmodal->getmethod();
-                redirect('allfragrance?page=1&' . $curmethod);
-
-
-
 
             }
 
@@ -114,18 +104,6 @@ class Cart
 
 
     }
-
-    // public function double($product_id, $cart)
-    // {
-    //     foreach ($cart as $item) {
-
-    //         if ($item->product_cook_id == $product_id) {
-    //             return true;
-    //         }
-
-    //     }
-    //     return false;
-    // }
 
 
 
