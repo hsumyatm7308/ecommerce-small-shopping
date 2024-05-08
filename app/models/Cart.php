@@ -92,6 +92,7 @@ class Cart
                     return false;
                 }
 
+
             }
 
 
@@ -118,19 +119,69 @@ class Cart
     public function update()
     {
 
-        if (isset($_POST['qty_increase'])) {
-            $qty = $_POST['cart_qty_inc'];
-        } elseif (isset($_POST['qty_decrease'])) {
-            $qty = $_POST['cart_qty_dec'] <= 1 ? 1 : $_POST['cart_qty_dec'];
-        }
+        if ($_SESSION['user_id']) {
+
+            if (isset($_POST['qty_increase'])) {
+                $qty = $_POST['cart_qty_inc'];
+            } elseif (isset($_POST['qty_decrease'])) {
+                $qty = $_POST['cart_qty_dec'] <= 1 ? 1 : $_POST['cart_qty_dec'];
+            }
 
 
-        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            $id = $_POST['cart_qty_id'];
-            $this->db->dbquery('UPDATE orders SET quantity = :qty WHERE id = :id');
-            $this->db->dbbind(':qty', $qty);
-            $this->db->dbbind(':id', $id);
-            $this->db->dbexecute();
+            if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+                $id = $_POST['cart_qty_id'];
+                $this->db->dbquery('UPDATE orders SET quantity = :qty WHERE id = :id');
+                $this->db->dbbind(':qty', $qty);
+                $this->db->dbbind(':id', $id);
+                $this->db->dbexecute();
+            }
+
+            echo "yes you are right";
+
+        } else {
+
+            if (isset($_POST['qty_increase'])) {
+                $qty = $_POST['cart_qty_inc'];
+            } elseif (isset($_POST['qty_decrease'])) {
+                $qty = $_POST['cart_qty_dec'] <= 1 ? 1 : $_POST['cart_qty_dec'];
+            }
+
+
+            if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+                $item_id = $_POST['cart_qty_id'];
+
+                $data = [
+
+                    'oquantity' => $qty,
+
+                    'itemid' => $item_id
+
+                ];
+
+
+                if (item_update_cookie($data)) {
+
+                    return true;
+
+
+                } else {
+                    return false;
+
+
+                }
+
+
+
+            }
+
+
+
+
+
+
+
+
+
         }
 
     }

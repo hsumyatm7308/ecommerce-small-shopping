@@ -19,7 +19,7 @@ class Core
         // for class 
 
         if (file_exists('../app/controllers/' . $this->curcontroller . '.php')) {
-            require_once('../app/controllers/' . $this->curcontroller . '.php');
+            require_once ('../app/controllers/' . $this->curcontroller . '.php');
             $this->curcontroller = new $this->curcontroller;
 
             unset($url[0]);

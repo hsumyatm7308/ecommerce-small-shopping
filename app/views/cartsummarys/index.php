@@ -103,7 +103,7 @@ require_once ('/opt/lampp/htdocs/mvcshop/app/views/layouts/navbar.php');
                                         class="border rounded-md px-2 py-1 m-1 increase hover:bg-gray-200">
                                         <i class="fa-solid fa-chevron-up text-gray-300 hover:text-gray-500"></i>
                                     </button>
-                                    <input type="hidden" name="cart_qty_inc" id="cart_qty_inc"
+                                    <input type="hidden" name="cart_qty_inc" id="cart_qty_inc" class="cart_qty_incs"
                                         value="<?php echo $cartitem['oquantity'] + 1 ?>">
                                 </div>
 
@@ -408,6 +408,7 @@ require_once ('/opt/lampp/htdocs/mvcshop/app/views/layouts/footer.php');
             shipform.submit()
         })
     }
+
 
 
 
