@@ -136,7 +136,6 @@ class Cart
                 $this->db->dbexecute();
             }
 
-            echo "yes you are right";
 
         } else {
 
@@ -151,27 +150,16 @@ class Cart
                 $item_id = $_POST['cart_qty_id'];
 
                 $data = [
-
                     'oquantity' => $qty,
-
                     'itemid' => $item_id
-
                 ];
 
 
                 if (item_update_cookie($data)) {
-
                     return true;
-
-
                 } else {
                     return false;
-
-
                 }
-
-
-
             }
 
 
@@ -228,17 +216,33 @@ class Cart
     {
         $shipvalue = $_POST['shipcost'];
 
-        if (!$this->hasuser()) {
-            $this->db->dbquery('INSERT INTO shipping (user_id,method) VALUES (:user_id,:method)');
-            $this->db->dbbind(':user_id', $_SESSION['user_id']);
-            $this->db->dbbind(":method", $shipvalue);
-            $this->db->dbexecute();
-        } else {
-            $this->db->dbquery('UPDATE shipping SET method = :method WHERE user_id = :user_id');
-            $this->db->dbbind(':user_id', $_SESSION['user_id']);
-            $this->db->dbbind(":method", $shipvalue);
-            $this->db->dbexecute();
+        // login 
+        if ($_SESSION['user_id']) {
+            if (!$this->hasuser()) {
+                $this->db->dbquery('INSERT INTO shipping (user_id,method) VALUES (:user_id,:method)');
+                $this->db->dbbind(':user_id', $_SESSION['user_id']);
+                $this->db->dbbind(":method", $shipvalue);
+                $this->db->dbexecute();
+            } else {
+                $this->db->dbquery('UPDATE shipping SET method = :method WHERE user_id = :user_id');
+                $this->db->dbbind(':user_id', $_SESSION['user_id']);
+                $this->db->dbbind(":method", $shipvalue);
+                $this->db->dbexecute();
+            }
         }
+
+
+
+        // cookie 
+
+        $shipmethod = [
+            'method' => $_POST['shipcost'] ? $_POST['shipcost'] : 0,
+        ];
+
+        shipmethod_update_cookie($shipmethod);
+
+
+
 
     }
 
@@ -246,12 +250,18 @@ class Cart
     public function selectshipcost()
     {
 
-        $this->db->dbquery('SELECT method FROM shipping WHERE user_id = :userid');
-        $this->db->dbbind(':userid', $_SESSION['user_id']);
-        return $this->db->getsingledata();
+
+        if ($_SESSION['user_id']) {
+            $this->db->dbquery('SELECT method FROM shipping WHERE user_id = :userid');
+            $this->db->dbbind(':userid', $_SESSION['user_id']);
+            return $this->db->getsingledata();
+
+        }
+
 
 
     }
+
 
     // check user has or not 
     public function hasuser()

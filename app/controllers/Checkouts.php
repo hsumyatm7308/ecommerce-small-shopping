@@ -61,15 +61,6 @@ class Checkouts extends Controller
     public function authcheck()
     {
 
-
-
-
-
-
-
-
-
-
         $orderitemcount = $this->navbarmodal->order_item_count();
         $cartitems = $this->cardmodal->cart_items_show();
         $userinfo = $this->usermodel->getuserinfo();

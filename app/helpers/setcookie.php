@@ -1,5 +1,6 @@
 <?php
 $item_exists = false;
+$shipmethod_exit = false;
 
 function item_cookie($data)
 {
@@ -53,6 +54,29 @@ function item_update_cookie($data)
 
 
 
+
+// shipping 
+
+function shipmethod_update_cookie($shipmethod)
+{
+    global $defship;
+
+    $ship = isset($_COOKIE['ship']) ? json_decode($_COOKIE['ship'], true) : [];
+
+    $ship = [$shipmethod];
+
+    setcookie("ship", json_encode($ship), time() + (3 * 24 * 60 * 60), '/mvcshop');
+
+
+}
+
+
+
+
+
+
+
+
 function item_exist_cookie($item_id)
 {
     global $item_exists;
@@ -66,6 +90,7 @@ function item_exist_cookie($item_id)
         }
     }
 }
+
 
 
 ?>
