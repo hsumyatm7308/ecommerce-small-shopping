@@ -397,7 +397,7 @@ require_once ('/opt/lampp/htdocs/mvcshop/app/views/layouts/footer.php');
         const taxamount = productprice * taxrate;
         totaltax += taxamount;
 
-        return totaltax;
+        return totaltax.toFixed(2);
     }
 
 

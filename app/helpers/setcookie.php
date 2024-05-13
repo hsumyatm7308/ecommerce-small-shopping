@@ -54,22 +54,20 @@ function item_update_cookie($data)
 
 
 
-
-// shipping 
-
-function shipmethod_update_cookie($shipmethod)
+function item_destroy_cookie($data)
 {
-    global $defship;
+    global $item_exists;
+    $cart = isset($_COOKIE['cart']) ? json_decode($_COOKIE['cart'], true) : [];
 
-    $ship = isset($_COOKIE['ship']) ? json_decode($_COOKIE['ship'], true) : [];
-
-    $ship = [$shipmethod];
-
-    setcookie("ship", json_encode($ship), time() + (3 * 24 * 60 * 60), '/mvcshop');
-
-
+    foreach ($cart as $key => $value) {
+        if ($value['cartorderid'] == $data['itemid']) {
+            // var_dump($cart[$key]);
+            unset($cart[$key]);
+            break;
+        }
+    }
+    setcookie("cart", json_encode($cart), time() + (3 * 24 * 60 * 60), '/mvcshop');
 }
-
 
 
 
@@ -90,6 +88,23 @@ function item_exist_cookie($item_id)
         }
     }
 }
+
+
+// shipping 
+
+function shipmethod_update_cookie($shipmethod)
+{
+    global $defship;
+
+    $ship = isset($_COOKIE['ship']) ? json_decode($_COOKIE['ship'], true) : [];
+
+    $ship = [$shipmethod];
+
+    setcookie("ship", json_encode($ship), time() + (3 * 24 * 60 * 60), '/mvcshop');
+
+
+}
+
 
 
 

@@ -179,11 +179,26 @@ class Cart
     // delete cart items
     public function destroy()
     {
-        if (isset($_POST['cart_delmodal_btn']) && $_SERVER['REQUEST_METHOD'] === 'POST') {
+        if (isset($_POST['cart_delmodal_btn']) && $_SERVER['REQUEST_METHOD'] === 'POST' && isset($_SESSION['user_id'])) {
             $id = $_POST['cart_delete_id'];
             $this->db->dbquery("DELETE FROM orders WHERE id = :id");
             $this->db->dbbind(':id', $id);
             $this->db->dbexecute();
+        }
+
+
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $item_id = $_POST['cart_delete_id'];
+
+            $data = [
+                'itemid' => $item_id
+            ];
+
+            if (item_destroy_cookie($data)) {
+                return true;
+            } else {
+                return false;
+            }
         }
     }
 
