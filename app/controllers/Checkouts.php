@@ -44,9 +44,17 @@ class Checkouts extends Controller
     public function index()
     {
         $orderitemcount = $this->navbarmodal->order_item_count();
-        $cartitems = $this->cardmodal->cart_items_show();
         $showship = $this->cardmodal->selectshipcost();
         $userinfo = $this->usermodel->getuserinfo();
+
+        // if ($_SESSION['user_id']) {
+        //     $cartitems = $this->cardmodal->cart_items_show();
+        // } else {
+
+        // }
+
+        $cartitems = json_decode($_COOKIE['cart'], true);
+        $showship = json_decode($_COOKIE['ship'], true);
 
         $data = [
             'orderitemcount' => $orderitemcount,
@@ -88,15 +96,6 @@ class Checkouts extends Controller
                 $this->googlelogin();
             } elseif (isset($_POST['checkregister'])) {
                 $this->manualregister($data);
-
-
-                // ----------------------------- 
-
-
-
-
-                // ------------------------ 
-
             }
         }
 

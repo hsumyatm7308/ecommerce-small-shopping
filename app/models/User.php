@@ -70,10 +70,10 @@ class User
 
     public function getuserinfo()
     {
-        $userid = $_SESSION['user_id'];
+        $useremail = $_SESSION['user_email'];
 
-        $this->db->dbquery('SELECT * FROM users WHERE id = :id');
-        $this->db->dbbind(':id', $userid);
+        $this->db->dbquery('SELECT * FROM users WHERE email = :email');
+        $this->db->dbbind(':email', $useremail);
         return $this->db->getsingledata();
     }
 

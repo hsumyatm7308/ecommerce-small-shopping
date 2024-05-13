@@ -282,8 +282,17 @@ require_once ('/opt/lampp/htdocs/mvcshop/app/views/layouts/navbar.php');
                     </div>
 
                     <div class=" flex justify-center items-center px-10">
-                        <form action="<?php echo URLROOT; ?>/checkouts/authcheck" method="post"
-                            class="w-full inline-block ">
+                        <form action="<?php
+
+                        // if ($_SESSION['user_name'] || $_SESSION['user_id']) {
+                        //     echo URLROOT . '/checkouts/checkout';
+                    
+                        // } else {
+                        //     echo URLROOT . '/checkouts/authcheck';
+                    
+                        // }
+                    
+                        ?>" method="post" class="w-full inline-block ">
                             <button type="submit" id="checkout" name="checkout"
                                 class="text-xl w-[400px] h-14 bg-[#4c5372] text-white flex justify-center items-center border hover:border-2 rounded-md">Checkout</button>
 

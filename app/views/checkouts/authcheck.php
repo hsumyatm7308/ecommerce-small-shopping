@@ -204,10 +204,11 @@ require_once ('/opt/lampp/htdocs/mvcshop/app/views/layouts/navbar.php');
 
 
                     <div class="pt-5 ">
-                        <button type="" id="shipping_ctn" name="shipping_ctn"
+                        <a href="<?php echo URLROOT; ?>/checkouts/checkout" type="" id="shipping_ctn"
+                            name="shipping_ctn"
                             class="text-xl w-full h-14 bg-[#4c5372] text-white flex justify-center items-center border hover:border-2 rounded-md">
                             Checkout As Guest
-                        </button>
+                        </a>
                     </div>
                 </div>
             </div>

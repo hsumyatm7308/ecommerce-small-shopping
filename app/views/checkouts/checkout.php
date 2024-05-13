@@ -57,6 +57,59 @@ require_once ('/opt/lampp/htdocs/mvcshop/app/views/layouts/navbar.php');
         <div class="w-full grid grid-cols-3 gap-12">
             <div class="col-span-2">
                 <div class="w-full ">
+                    <!-- email  -->
+                    <div class="mb-20">
+                        <div class="flex justify-between items-center">
+                            <div class="text-2xl font-medium">
+                                Customer
+                            </div>
+                            <div>
+                                Edit
+                            </div>
+                        </div>
+                        <form action="">
+                            <!-- address  -->
+                            <div class="grid grid-cols-4 mt-10 rounded  mb-5">
+
+
+                                <div
+                                    class="col-span-3 w-full   mb-8 flex justify-center items-center flex-col  guestinfo">
+
+                                    <div class="w-full  flex justify-center items-center space-x-2">
+
+                                        <div class="w-full mb-8">
+                                            <label for="">Email</label>
+                                            <input type="email" name="email"
+                                                class="w-full border border-[#4c5372] rounded bg-transparent focus:outline-none mt-2 p-2 "
+                                                placeholder="Your email">
+                                        </div>
+
+                                        <div class="px-10 py-2 text-white bg-[#4c5372] rounded-md">
+                                            <button type="submit">Continue</button>
+                                        </div>
+
+                                    </div>
+
+
+
+
+
+
+
+                                </div>
+
+
+                            </div>
+
+
+
+                        </form>
+
+
+                    </div>
+
+
+
                     <!-- deli  -->
                     <div class="mb-20">
                         <div class="flex justify-between items-center">

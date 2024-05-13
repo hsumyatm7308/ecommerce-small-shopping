@@ -143,14 +143,14 @@
 
                                         <?php
 
-                                        if ($_SESSION['user_id']) {
-                                            echo $data['orderitemcount'];
-
-                                        } else {
-                                            $cart = isset($_COOKIE['cart']) ? json_decode($_COOKIE['cart'], true) : [];
-                                            echo (count($cart));
-                                        }
-
+                                        // if ($_SESSION['user_id']) {
+                                        //     echo $data['orderitemcount'];
+                                        
+                                        // } else {
+                                        
+                                        // }
+                                        $cart = isset($_COOKIE['cart']) ? json_decode($_COOKIE['cart'], true) : [];
+                                        echo (count($cart));
 
 
 

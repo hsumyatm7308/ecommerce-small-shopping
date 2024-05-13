@@ -46,7 +46,7 @@ class Allfragrance extends Controller
     {
 
 
-        $orderitemcount = $this->navbarmodal->order_item_count();
+        // $orderitemcount = $this->navbarmodal->order_item_count();
         $this->cardmodal->shopcardlist();
         $this->wishmodal->addtowish();
 
@@ -80,7 +80,7 @@ class Allfragrance extends Controller
 
 
         $data = [
-            'orderitemcount' => $orderitemcount,
+            // 'orderitemcount' => $orderitemcount,
 
             'title' => 'All',
             'items' => $items,
