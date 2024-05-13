@@ -74,6 +74,9 @@ class Cartsummarys extends Controller
 
     public function destroy()
     {
+
+        // Remove btn not done yet    => Google login and Cookie 
+
         if ($_SERVER['REQUEST_METHOD'] === "POST") {
             $this->cardmodal->destroy();
             redirect('cartsummarys');

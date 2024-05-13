@@ -52,7 +52,7 @@ class User
         // var_dump($row);
 
         // echo $row->password; //// Attampt to property = asso ko obj nae swal htote htar loh   fetch(PDO::FETCH_ASSOC)
-        echo $row['password'];
+        // echo $row['password'];
 
 
         $hashedpassword = $row['password'];
