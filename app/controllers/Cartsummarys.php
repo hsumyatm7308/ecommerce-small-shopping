@@ -38,7 +38,7 @@ class Cartsummarys extends Controller
     {
         // $orderitemcount = $this->navbarmodal->order_item_count();
         $userinfo = $this->usermodal->getuserinfo();
-        $showship = $this->cardmodal->selectshipcost();
+        // $showship = $this->cardmodal->selectshipcost();
 
 
         // if ($_SESSION['user_id']) {
@@ -50,16 +50,18 @@ class Cartsummarys extends Controller
         $showship = json_decode($_COOKIE['ship'], true);
 
 
-        $userid = $userinfo['id'];
-        $this->ordermodel->orders($userid);
+
+        // $userid = $userinfo['id'];
+        // $this->ordermodel->orders($userid);
 
         $data = [
             // 'orderitemcount' => $orderitemcount,
             'cartitems' => $cartitems,
             'shipmethod' => $showship[0],
-            'user' => $userinfo
+            // 'user' => $userinfo
 
         ];
+
 
 
         $this->view('cartsummarys/index', $data);

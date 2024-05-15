@@ -227,20 +227,20 @@ class Cart
     {
         $shipvalue = $_POST['shipcost'];
 
-        // login 
-        if ($_SESSION['user_id']) {
-            if (!$this->hasuser()) {
-                $this->db->dbquery('INSERT INTO shipping (user_id,method) VALUES (:user_id,:method)');
-                $this->db->dbbind(':user_id', $_SESSION['user_id']);
-                $this->db->dbbind(":method", $shipvalue);
-                $this->db->dbexecute();
-            } else {
-                $this->db->dbquery('UPDATE shipping SET method = :method WHERE user_id = :user_id');
-                $this->db->dbbind(':user_id', $_SESSION['user_id']);
-                $this->db->dbbind(":method", $shipvalue);
-                $this->db->dbexecute();
-            }
-        }
+        // // login 
+        // if ($_SESSION['user_id']) {
+        //     if (!$this->hasuser()) {
+        //         $this->db->dbquery('INSERT INTO shipping (user_id,method) VALUES (:user_id,:method)');
+        //         $this->db->dbbind(':user_id', $_SESSION['user_id']);
+        //         $this->db->dbbind(":method", $shipvalue);
+        //         $this->db->dbexecute();
+        //     } else {
+        //         $this->db->dbquery('UPDATE shipping SET method = :method WHERE user_id = :user_id');
+        //         $this->db->dbbind(':user_id', $_SESSION['user_id']);
+        //         $this->db->dbbind(":method", $shipvalue);
+        //         $this->db->dbexecute();
+        //     }
+        // }
 
 
 

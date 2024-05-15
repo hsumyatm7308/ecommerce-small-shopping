@@ -27,39 +27,42 @@ class Order
         $cart = new Cart();
 
 
+        if (isset($_POST['complete_order'])) {
 
-        if (!empty($order_items)) {
-            foreach ($order_items as $item) {
-                $item_id = $item->cartorderid;
-                $price = $item->price;
-                $quantity = $item->oquantity;
-                $brand = $item->brand_cook_id;
+            if (!empty($order_items)) {
+                foreach ($order_items as $item) {
+                    $item_id = $item->cartorderid;
+                    $price = $item->price;
+                    $quantity = $item->oquantity;
+                    $brand = $item->brand_cook_id;
 
 
-                if (!$cart->hasitem($item_id)) {
-                    $this->db->dbquery('INSERT INTO orders (item_id, price, quantity, brand_id, user_id) VALUES (:itemid, :price, :quantity, :brand, :user_id)');
-                    $this->db->dbbind(':itemid', $item_id);
-                    $this->db->dbbind(':price', $price);
-                    $this->db->dbbind(':quantity', $quantity);
-                    $this->db->dbbind(':brand', $brand);
-                    $this->db->dbbind(':user_id', $userid);
+                    if (!$cart->hasitem($item_id)) {
+                        $this->db->dbquery('INSERT INTO orders (item_id, price, quantity, brand_id, user_id) VALUES (:itemid, :price, :quantity, :brand, :user_id)');
+                        $this->db->dbbind(':itemid', $item_id);
+                        $this->db->dbbind(':price', $price);
+                        $this->db->dbbind(':quantity', $quantity);
+                        $this->db->dbbind(':brand', $brand);
+                        $this->db->dbbind(':user_id', $userid);
 
-                    if (!$this->db->dbexecute()) {
-                        return false;
+                        if (!$this->db->dbexecute()) {
+                            return false;
+                        }
                     }
                 }
+
+                if (isset($_POST['addtocart_index'])) {
+                    $curmethod = $this->curmethodmodal->getmethod();
+                    redirect('allfragrance?page=1&' . $curmethod);
+                }
+
+                return true;
+            } else {
+
+                return false;
             }
-
-            if (isset($_POST['addtocart_index'])) {
-                $curmethod = $this->curmethodmodal->getmethod();
-                redirect('allfragrance?page=1&' . $curmethod);
-            }
-
-            return true;
-        } else {
-
-            return false;
         }
+
     }
 
 

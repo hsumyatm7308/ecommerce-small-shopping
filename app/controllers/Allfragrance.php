@@ -59,6 +59,10 @@ class Allfragrance extends Controller
 
         $totalitems = $this->allmodal->countItems();
 
+
+
+
+
         $totalPages = ceil($totalitems / $itemsperpage);
 
 
@@ -74,7 +78,7 @@ class Allfragrance extends Controller
 
         $minprice = $this->pagination->getparameter()['minprice'];
         $maxprice = $this->pagination->getparameter()['maxprice'];
-        $userinfo = $this->usermodal->getuserinfo();
+        // $userinfo = $this->usermodal->getuserinfo();
 
 
 
@@ -94,7 +98,7 @@ class Allfragrance extends Controller
             'minprice' => $minprice,
             'maxprice' => $maxprice,
 
-            'user' => $userinfo
+            // 'user' => $userinfo
         ];
 
 
@@ -109,14 +113,14 @@ class Allfragrance extends Controller
 
 
 
-        $orderitemcount = $this->navbarmodal->order_item_count();
+        // $orderitemcount = $this->navbarmodal->order_item_count();
 
 
 
         $singledata = $this->allmodal->getsingleitem($id);
         $brand = $this->allmodal->getbrand($singledata['id']);
         $status = $this->allmodal->getstatus($singledata['status_id']);
-        $authuser = $this->usermodal->getuserinfo();
+        // $authuser = $this->usermodal->getuserinfo();
 
 
 
@@ -176,13 +180,13 @@ class Allfragrance extends Controller
 
 
         $data = [
-            'orderitemcount' => $orderitemcount,
+            // 'orderitemcount' => $orderitemcount,
 
 
             'singledata' => $singledata,
             'brand' => $brand,
             'status' => $status,
-            'user' => $authuser,
+            // 'user' => $authuser,
             'allreviews' => $allreviews,
 
 

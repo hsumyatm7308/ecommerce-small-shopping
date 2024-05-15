@@ -454,7 +454,7 @@ require_once ('/opt/lampp/htdocs/mvcshop/app/views/layouts/navbar.php');
 
                                 <!-- qty  -->
                                 <div class="">
-                                    <form action="<?php echo URLROOT; ?>/cartsummarys/update" method="POST"
+                                    <form action="<?php echo URLROOT; ?>/checkouts/update" method="POST"
                                         class="flex justify-start items-center">
 
                                         <div>
@@ -603,7 +603,7 @@ require_once ('/opt/lampp/htdocs/mvcshop/app/views/layouts/navbar.php');
                 <div class="w-full  text-lg mt-5">
                     <div class="w-full flex justify-center items-center">
                         <form action="" method="post" class="w-full inline-block ">
-                            <button type="" id="checkout" name="checkout"
+                            <button type="" id="complete_order" name="complete_order"
                                 class="text-xl w-full h-14 bg-[#4c5372] text-white flex justify-center items-center rounded-md border hover:border-2">Complete
                                 Order</button>
                         </form>

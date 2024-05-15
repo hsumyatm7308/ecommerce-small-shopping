@@ -23,6 +23,7 @@ class Checkouts extends Controller
 
     private $googlemodal;
 
+    public $ordermodel;
 
 
     public function __construct()
@@ -31,6 +32,7 @@ class Checkouts extends Controller
             $this->cardmodal = $this->model('Cart');
             $this->navbarmodal = $this->model('Nav');
             $this->usermodel = $this->model('User');
+            $this->ordermodel = $this->model('Order');
             $this->pagination = new Pagination();
 
             require ('Googlelogin.php');
@@ -56,6 +58,9 @@ class Checkouts extends Controller
         $cartitems = json_decode($_COOKIE['cart'], true);
         $showship = json_decode($_COOKIE['ship'], true);
 
+        $userid = $userinfo['id'];
+        $this->ordermodel->orders($userid);
+
         $data = [
             'orderitemcount' => $orderitemcount,
             'cartitems' => $cartitems,
@@ -68,16 +73,19 @@ class Checkouts extends Controller
 
     public function authcheck()
     {
-        $orderitemcount = $this->navbarmodal->order_item_count();
-        $cartitems = $this->cardmodal->cart_items_show();
-        $userinfo = $this->usermodel->getuserinfo();
+        // $orderitemcount = $this->navbarmodal->order_item_count();
+        // $cartitems = $this->cardmodal->cart_items_show();
+        // $userinfo = $this->usermodel->getuserinfo();
+
+        $cartitems = json_decode($_COOKIE['cart'], true);
+
 
         $data = [];
 
         $data = [
-            'orderitemcount' => $orderitemcount,
+            // 'orderitemcount' => $orderitemcount,
             'cartitems' => $cartitems,
-            'user' => $userinfo,
+            // 'user' => $userinfo,
             "email" => "",
             "password" => "",
             "emailerr" => "",
@@ -103,7 +111,15 @@ class Checkouts extends Controller
     }
 
 
+    public function update()
+    {
+        if ($_SERVER['REQUEST_METHOD'] === "POST") {
+            $this->cardmodal->update();
+            redirect('checkouts/checkout');
+        }
 
+
+    }
 
 
 
@@ -116,15 +132,18 @@ trait ManualLogin
     public function manuallogin($data)
     {
 
-        $orderitemcount = $this->navbarmodal->order_item_count();
-        $cartitems = $this->cardmodal->cart_items_show();
-        $userinfo = $this->usermodel->getuserinfo();
+        // $orderitemcount = $this->navbarmodal->order_item_count();
+        // $cartitems = $this->cardmodal->cart_items_show();
+        // $userinfo = $this->usermodel->getuserinfo();
+        $cartitems = json_decode($_COOKIE['cart'], true);
+
         $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
 
+
         $data = [
-            'orderitemcount' => $orderitemcount,
+            // 'orderitemcount' => $orderitemcount,
             'cartitems' => $cartitems,
-            'user' => $userinfo,
+            // 'user' => $userinfo,
 
             "email" => trim($_POST['email']),
             "password" => trim($_POST['password']),
@@ -240,11 +259,13 @@ trait ManualRegister
 
                 $data['password'] = password_hash($data['password'], PASSWORD_DEFAULT);
 
-                $loginuser = [
-                    'fullname' => $data['fullname'],
-                    'email' => $data['email'],
-                    'password' => $data['password']
-                ];
+                // $loginuser = [
+                //     'fullname' => $data['fullname'],
+                //     'email' => $data['email'],
+                //     'password' => $data['password']
+                // ];
+
+                $loginuser = $this->usermodel->login($data['email'], $data['password']);
 
                 if ($this->usermodel->register($data)) {
 
@@ -303,11 +324,11 @@ trait Google
                 'email' => $email,
                 'password' => ''
             ];
-            // $loginuser = $this->usermodel->login($data['email'], $data['password']);
+            $loginuser = $this->usermodel->login($data['email'], $data['password']);
             // var_dump($loginuser);
 
             if ($this->usermodel->registeremailcheck($data['email'])) {
-                createusersession($data);
+                createusersession($loginuser);
                 redirect('checkouts/checkout');
 
 
