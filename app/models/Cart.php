@@ -118,6 +118,7 @@ class Cart
     {
 
 
+
         if (isset($_POST['qty_increase'])) {
             $qty = $_POST['cart_qty_inc'];
         } elseif (isset($_POST['qty_decrease'])) {
@@ -175,27 +176,34 @@ class Cart
     // delete cart items
     public function destroy()
     {
-        if (isset($_POST['cart_delmodal_btn']) && $_SERVER['REQUEST_METHOD'] === 'POST' && isset($_SESSION['user_id'])) {
-            $id = $_POST['cart_delete_id'];
-            $this->db->dbquery("DELETE FROM orders WHERE id = :id");
-            $this->db->dbbind(':id', $id);
-            $this->db->dbexecute();
-        }
 
+        $item_id = $_POST['cart_delete_id'];
+
+
+        $this->db->dbquery("DELETE FROM orders WHERE item_id = :id AND user_id = :userid");
+        $this->db->dbbind(':id', $item_id);
+        $this->db->dbbind(':userid', $_SESSION['user_id']);
+        $this->db->dbexecute();
 
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            $item_id = $_POST['cart_delete_id'];
 
             $data = [
                 'itemid' => $item_id
             ];
 
             if (item_destroy_cookie($data)) {
+
+
                 return true;
+
+
             } else {
                 return false;
             }
         }
+
+
+
     }
 
 

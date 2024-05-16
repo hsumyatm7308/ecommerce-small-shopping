@@ -54,6 +54,8 @@ class Cartsummarys extends Controller
         // $userid = $userinfo['id'];
         // $this->ordermodel->orders($userid);
 
+        // var_dump($cartitems);
+
         $data = [
             // 'orderitemcount' => $orderitemcount,
             'cartitems' => $cartitems,

@@ -45,8 +45,6 @@ class Checkouts extends Controller
 
     public function index()
     {
-        $orderitemcount = $this->navbarmodal->order_item_count();
-        $showship = $this->cardmodal->selectshipcost();
         $userinfo = $this->usermodel->getuserinfo();
 
         // if ($_SESSION['user_id']) {
@@ -62,20 +60,51 @@ class Checkouts extends Controller
         $this->ordermodel->orders($userid);
 
         $data = [
-            'orderitemcount' => $orderitemcount,
             'cartitems' => $cartitems,
             'shipmethod' => $showship,
             'user' => $userinfo
 
         ];
+
+
+
+        $guestemail = $_POST['guest_email'];
+
+        $guestemail_db = $this->usermodel->guest_user_info($guestemail);
+
+        $_SESSION['guest_email_ss'] = $guestemail_db;
+
+        if (isset($_POST[''])) {
+            if (!$this->usermodel->guest_email_check($guestemail)) {
+
+                $this->usermodel->guest_email($guestemail);
+
+                $data = [
+                    'cartitems' => $cartitems,
+                    'shipmethod' => $showship,
+                    'ctn_btn' => true
+                ];
+                $_SESSION['guest_email_ss'] = $guestemail;
+
+
+            } else {
+                $data = [
+                    'cartitems' => $cartitems,
+                    'shipmethod' => $showship,
+                    'user' => $userinfo,
+                    'email_exit' => 'email already exit'
+                ];
+
+            }
+        }
+
+
         $this->view('checkouts/checkout', $data);
     }
 
     public function authcheck()
     {
-        // $orderitemcount = $this->navbarmodal->order_item_count();
-        // $cartitems = $this->cardmodal->cart_items_show();
-        // $userinfo = $this->usermodel->getuserinfo();
+
 
         $cartitems = json_decode($_COOKIE['cart'], true);
 
@@ -83,9 +112,7 @@ class Checkouts extends Controller
         $data = [];
 
         $data = [
-            // 'orderitemcount' => $orderitemcount,
             'cartitems' => $cartitems,
-            // 'user' => $userinfo,
             "email" => "",
             "password" => "",
             "emailerr" => "",
@@ -122,7 +149,26 @@ class Checkouts extends Controller
     }
 
 
+    public function destroy()
+    {
 
+        if ($_SERVER['REQUEST_METHOD'] === "POST") {
+            $this->cardmodal->destroy();
+            redirect('checkouts/checkout');
+        }
+
+
+    }
+
+
+    public function guest_email()
+    {
+
+
+
+
+
+    }
 
 }
 

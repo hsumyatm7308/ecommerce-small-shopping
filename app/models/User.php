@@ -81,6 +81,42 @@ class User
         return $this->db->getsingledata();
     }
 
+
+    public function guest_email($email)
+    {
+        if (isset($_POST['guest_email_btn'])) {
+            $this->db->dbquery('INSERT INTO guests (email) VALUES (:email)');
+            $this->db->dbbind(':email', $email);
+            if ($this->db->dbexecute()) {
+                return true;
+            } else {
+                return false;
+            }
+        }
+    }
+
+
+    public function guest_email_check($email)
+    {
+        $this->db->dbquery("SELECT * FROM guests WHERE email=:email");
+        $this->db->dbbind(':email', $email);
+
+
+        $this->db->getsingledata();
+
+        if ($this->db->rowcount() > 0) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public function guest_user_info($email)
+    {
+        $this->db->dbquery("SELECT * FROM guests WHERE email=:email");
+        $this->db->dbbind(':email', $email);
+        return $this->db->getsingledata();
+    }
 }
 
 

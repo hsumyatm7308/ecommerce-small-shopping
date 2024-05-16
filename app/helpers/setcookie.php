@@ -37,14 +37,13 @@ function item_update_cookie($data)
     global $item_exists;
     $oldcart = isset($_COOKIE['cart']) ? json_decode($_COOKIE['cart'], true) : [];
 
-    foreach ($oldcart as $newitem) {
-        if ($newitem['cartorderid'] == $data['itemid']) {
-            $index = array_search($data['itemid'], array_column($oldcart, 'cartorderid'));
-            $oldcart[$index]['oquantity'] = $data['oquantity'];
+
+    foreach ($oldcart as $key => $value) {
+        if ($value['cartorderid'] == $data['itemid']) {
+            $oldcart[$key]['oquantity'] = $data['oquantity'];
             break;
         }
     }
-
     setcookie("cart", json_encode($oldcart), time() + (3 * 24 * 60 * 60), '/mvcshop');
 
 }

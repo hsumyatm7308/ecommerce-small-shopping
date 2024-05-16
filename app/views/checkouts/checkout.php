@@ -61,42 +61,68 @@ require_once ('/opt/lampp/htdocs/mvcshop/app/views/layouts/navbar.php');
                     <div class="mb-20">
                         <div class="flex justify-between items-center">
                             <div class="text-2xl font-medium">
-                                Customer
+                                Guest
                             </div>
                             <div>
                                 Edit
                             </div>
                         </div>
-                        <form action="">
+                        <form action="" method="POST">
                             <!-- address  -->
                             <div class="grid grid-cols-4 mt-10 rounded  mb-5">
 
 
                                 <div
-                                    class="col-span-3 w-full   mb-8 flex justify-center items-center flex-col  guestinfo">
+                                    class="col-span-3 w-full   mb-8 flex justify-center items-start flex-col  guestinfo ">
 
                                     <div class="w-full  flex justify-center items-center space-x-2">
 
                                         <div class="w-full mb-8">
                                             <label for="">Email</label>
-                                            <input type="email" name="email"
-                                                class="w-full border border-[#4c5372] rounded bg-transparent focus:outline-none mt-2 p-2 "
-                                                placeholder="Your email">
+                                            <input type="email" name="guest_email"
+                                                class="w-full border border-[#4c5372]  <?php echo $_SESSION['guest_email_ss'] ? 'border-green-500' : 'border-[#4c5372]' ?> rounded bg-transparent focus:outline-none mt-2 p-2 "
+                                                placeholder="Your email"
+                                                value="<?php echo $_SESSION['guest_email_ss'] ?>">
                                         </div>
 
-                                        <div class="px-10 py-2 text-white bg-[#4c5372] rounded-md">
-                                            <button type="submit">Continue</button>
+                                        <div
+                                            class="px-10 py-2 text-white bg-[#4c5372] rounded-md <?php echo $_SESSION['guest_email_ss'] ? 'opacity-80' : '' ?>">
+                                            <button type="submit" name="guest_email_btn" <?php echo $_SESSION['guest_email_ss'] ? 'disabled' : '' ?>>Continue</button>
                                         </div>
+
+                                    </div>
+
+                                    <span class="text-sm text-red-500"><?php echo $data['email_exit'] ?></span>
+
+
+
+                                </div>
+
+
+
+
+
+                                <div
+                                    class="col-span-3 w-full   mb-8 flex justify-center items-start flex-col  guest_info ">
+
+                                    <div class="w-full  flex justify-center items-center space-x-2">
+
+                                        <div class="w-full mb-8">
+                                            <label for="">Email</label>
+                                            <input type="email" name="guest_email"
+                                                class="w-full border border-[#4c5372]  <?php echo $_SESSION['guest_email_ss'] ? 'border-green-500' : 'border-[#4c5372]' ?> rounded bg-transparent focus:outline-none mt-2 p-2 "
+                                                placeholder="Your email"
+                                                value="<?php echo $_SESSION['guest_email_ss'] ?>">
+                                        </div>
+
 
                                     </div>
 
 
 
 
-
-
-
                                 </div>
+
 
 
                             </div>
@@ -434,7 +460,7 @@ require_once ('/opt/lampp/htdocs/mvcshop/app/views/layouts/navbar.php');
                     <?php foreach ($data['cartitems'] as $cartitem): ?>
                         <div class="w-full h-full border-b grid grid-cols-4 gap-5 py-5">
 
-                            <div class="col-span-3 w-full flex  items-center">
+                            <div class="col-span-3 w-full flex  items-center gap-2">
                                 <!-- img  -->
                                 <div class="w-full flex justify-center items-center grid grid-cols-2">
                                     <div class="w-[75px] h-[75px] border bg-gray-500">
@@ -453,7 +479,7 @@ require_once ('/opt/lampp/htdocs/mvcshop/app/views/layouts/navbar.php');
                                 </div>
 
                                 <!-- qty  -->
-                                <div class="">
+                                <div class="scale-75">
                                     <form action="<?php echo URLROOT; ?>/checkouts/update" method="POST"
                                         class="flex justify-start items-center">
 
@@ -506,6 +532,26 @@ require_once ('/opt/lampp/htdocs/mvcshop/app/views/layouts/navbar.php');
                                 </div>
 
                             </div>
+
+
+                            <div class="flex items-center justify-end grid grid-cols-2 md:px-10 px-5 hidden">
+                                <div class="flex md:justify-end justify-start items-center">
+                                    <!-- price  -->
+                                    <div class="flex md:justify-end justify-start items-center">
+                                        <span>$ <?php echo $cartitem['price'] ?></span>
+                                    </div>
+
+                                </div>
+                                <div class="flex md:justify-end justify-start items-center">
+                                    <!-- total price  -->
+                                    <div class="flex md:justify-end justify-start items-center ">
+                                        $ <span class="each_total_price">
+                                            <?php echo $cartitem['price'] * $cartitem['oquantity'] ?></span>
+
+                                    </div>
+                                </div>
+                            </div>
+
 
 
                         </div>
@@ -649,7 +695,7 @@ require_once ('/opt/lampp/htdocs/mvcshop/app/views/layouts/navbar.php');
                 <button
                     class="bg-slate-200 hover:bg-slate-300 transition-all duration-300 rounded-md px-3 py-2 cancledelete"
                     onclick="window.location.href = window.location.href">Cancel</button>
-                <form id="deleteform" action="<?php echo URLROOT; ?>/cartsummarys/destroy" method="POST">
+                <form id="deleteform" action="<?php echo URLROOT; ?>/checkouts/destroy" method="POST">
                     <button type="submit" name="cart_delmodal_btn"
                         class="bg-red-500 rounded-md hover:opacity-90 px-3 py-2 deletemodal_btn">Delete</button>
                     <input type="hidden" name="cart_delete_id" id="delete_id" value="">
@@ -716,6 +762,8 @@ require_once ('/opt/lampp/htdocs/mvcshop/app/views/layouts/footer.php');
 
             document.getElementById('delete_id').value = orderid;
 
+            console.log(orderid);
+
 
         })
     })
@@ -744,7 +792,7 @@ require_once ('/opt/lampp/htdocs/mvcshop/app/views/layouts/footer.php');
         const taxamount = productprice * taxrate;
         totaltax += taxamount;
 
-        return totaltax;
+        return totaltax.toFixed(2);
     }
 
 
