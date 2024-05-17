@@ -74,7 +74,10 @@ class Checkouts extends Controller
 
         $_SESSION['guest_email_ss'] = $guestemail_db;
 
-        if (isset($_POST[''])) {
+        // var_dump($guestemail_db['id']);
+
+
+        if (isset($_POST['guest_email_btn'])) {
             if (!$this->usermodel->guest_email_check($guestemail)) {
 
                 $this->usermodel->guest_email($guestemail);
@@ -82,10 +85,14 @@ class Checkouts extends Controller
                 $data = [
                     'cartitems' => $cartitems,
                     'shipmethod' => $showship,
-                    'ctn_btn' => true
+                    'ctn_btn' => true,
                 ];
-                $_SESSION['guest_email_ss'] = $guestemail;
 
+                $email = [
+                    'id' => $guestemail_db['id'],
+                    'email' => $guestemail
+                ];
+                createusersession($email);
 
             } else {
                 $data = [
