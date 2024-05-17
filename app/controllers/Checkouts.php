@@ -59,6 +59,8 @@ class Checkouts extends Controller
         $userid = $userinfo['id'];
         $this->ordermodel->orders($userid);
 
+
+
         $data = [
             'cartitems' => $cartitems,
             'shipmethod' => $showship,
@@ -68,42 +70,10 @@ class Checkouts extends Controller
 
 
 
-        $guestemail = $_POST['guest_email'];
+        $this->guest_email($data);
 
-        $guestemail_db = $this->usermodel->guest_user_info($guestemail);
+        $this->update_email($data);
 
-        $_SESSION['guest_email_ss'] = $guestemail_db;
-
-        // var_dump($guestemail_db['id']);
-
-
-        if (isset($_POST['guest_email_btn'])) {
-            if (!$this->usermodel->guest_email_check($guestemail)) {
-
-                $this->usermodel->guest_email($guestemail);
-
-                $data = [
-                    'cartitems' => $cartitems,
-                    'shipmethod' => $showship,
-                    'ctn_btn' => true,
-                ];
-
-                $email = [
-                    'id' => $guestemail_db['id'],
-                    'email' => $guestemail
-                ];
-                createusersession($email);
-
-            } else {
-                $data = [
-                    'cartitems' => $cartitems,
-                    'shipmethod' => $showship,
-                    'user' => $userinfo,
-                    'email_exit' => 'email already exit'
-                ];
-
-            }
-        }
 
 
         $this->view('checkouts/checkout', $data);
@@ -168,11 +138,87 @@ class Checkouts extends Controller
     }
 
 
-    public function guest_email()
+    public function guest_email($data)
     {
+        $userinfo = $this->usermodel->getuserinfo();
+
+        $showship = json_decode($_COOKIE['ship'], true);
+
+        $cartitems = json_decode($_COOKIE['cart'], true);
+
+        $guestemail = $_POST['guest_email'];
+
+        // create guest email
+
+        if (isset($_POST['guest_email_btn'])) {
+            if (!$this->usermodel->guest_email_check($guestemail)) {
+
+                $this->usermodel->guest_email($guestemail);
+
+                $data = [
+                    'cartitems' => $cartitems,
+                    'shipmethod' => $showship,
+                    'ctn_btn' => true,
+                ];
+
+                $email = [
+                    'email' => $guestemail
+                ];
+
+                createusersession($email);
+
+                $this->view('checkouts/checkout', $data);
 
 
 
+
+
+            } else {
+                $data = [
+                    'cartitems' => $cartitems,
+                    'shipmethod' => $showship,
+                    'user' => $userinfo,
+                    'email_exit' => 'email already exit'
+                ];
+
+            }
+        }
+
+
+
+        // $this->view('checkouts/checkout', $data);
+
+
+    }
+
+
+
+    // update email 
+    public function update_email($data)
+    {
+        // create update email 
+
+        $oldemail = $_POST['upd_email_id'];
+
+        $guestemail = $_POST['guest_email'];
+
+        if (isset($_POST['upd_email'])) {
+
+            $guestemail_db = $this->usermodel->guest_user_info($oldemail);
+
+            $upd_data = [
+                'id' => $guestemail_db['id'],
+                'email' => $guestemail
+            ];
+
+            $this->usermodel->guest_email_update($upd_data);
+
+            createusersession($upd_data);
+
+
+            $this->view('checkouts/checkout', $data);
+
+        }
 
 
     }

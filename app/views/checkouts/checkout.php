@@ -79,13 +79,17 @@ require_once ('/opt/lampp/htdocs/mvcshop/app/views/layouts/navbar.php');
                                         <div class="w-full mb-8">
                                             <label for="">Email</label>
                                             <input type="email" name="guest_email"
-                                                class="w-full border border-[#4c5372]  rounded bg-transparent focus:outline-none mt-2 p-2 "
+                                                class="w-full border border-[#4c5372]  rounded bg-transparent focus:outline-none mt-2 p-2 guest_email_input"
                                                 placeholder="Your email" value="">
                                         </div>
 
+
+                                        <input type="hidden" name="upd_email_id" value="" class="upd_email">
+
+
                                         <div class="px-10 py-2 text-white bg-[#4c5372] rounded-md ">
                                             <button type="submit" name="guest_email_btn" class="guest_action"
-                                                data-id="<?php echo $_SESSION['user_id'] ?>">Continue</button>
+                                                data-email="<?php echo $_SESSION['user_email'] ?>">Continue</button>
                                         </div>
 
                                     </div>
@@ -93,6 +97,7 @@ require_once ('/opt/lampp/htdocs/mvcshop/app/views/layouts/navbar.php');
                                     <span class="text-sm text-red-500"><?php echo $data['email_exit'] ?></span>
 
                                 </div>
+
 
 
 
@@ -808,13 +813,27 @@ require_once ('/opt/lampp/htdocs/mvcshop/app/views/layouts/footer.php');
     const guestinfo_input = document.querySelector('.guestinfo_input');
     const guestinfo_read = document.querySelector('.guestinfo_read');
     const guest_action = document.querySelector('.guest_action');
+    const upd_email = document.querySelector('.upd_email');
+
+    const guest_email_input = document.querySelector('.guest_email_input');
     guest_edit.addEventListener('click', () => {
 
         guestinfo_input.classList.remove('hidden');
         guestinfo_read.classList.add('hidden');
         guest_action.textContent = 'Update';
 
-        console.log(guest_action.getAttribute('data-id'))
+
+        const oldemail = guest_action.getAttribute('data-email')
+        guest_email_input.value = oldemail;
+
+        upd_email.setAttribute('value', oldemail);
+
+        guest_action.name = 'upd_email';
+
+        console.log(guest_action)
+
+
+
 
     })
 
