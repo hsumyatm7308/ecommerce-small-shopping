@@ -1,6 +1,8 @@
 <?php
 
+
 require_once ('/opt/lampp/htdocs/mvcshop/vendorfolder/google/vendor/autoload.php');
+
 
 class Googlelogin
 {
@@ -35,6 +37,10 @@ class Googlelogin
 
 
 }
+
+
+
+
 
 
 

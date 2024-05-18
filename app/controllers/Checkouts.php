@@ -2,7 +2,7 @@
 
 class Checkouts extends Controller
 {
-    use Google, ManualLogin, ManualRegister;
+    use Google, ManualLogin, ManualRegister, Guest;
     public $allmodal;
     public $sidebarmodal;
     public $pagination;
@@ -28,17 +28,15 @@ class Checkouts extends Controller
 
     public function __construct()
     {
-        try {
-            $this->cardmodal = $this->model('Cart');
-            $this->navbarmodal = $this->model('Nav');
-            $this->usermodel = $this->model('User');
-            $this->ordermodel = $this->model('Order');
-            $this->pagination = new Pagination();
 
-            require ('Googlelogin.php');
-        } catch (Exception $e) {
-            echo 'Error: ' . $e->getMessage();
-        }
+        $this->cardmodal = $this->model('Cart');
+        $this->navbarmodal = $this->model('Nav');
+        $this->usermodel = $this->model('User');
+        $this->ordermodel = $this->model('Order');
+        $this->pagination = new Pagination();
+
+        require ('Googlelogin.php');
+
     }
 
 
@@ -47,11 +45,6 @@ class Checkouts extends Controller
     {
         $userinfo = $this->usermodel->getuserinfo();
 
-        // if ($_SESSION['user_id']) {
-        //     $cartitems = $this->cardmodal->cart_items_show();
-        // } else {
-
-        // }
 
         $cartitems = json_decode($_COOKIE['cart'], true);
         $showship = json_decode($_COOKIE['ship'], true);
@@ -63,10 +56,13 @@ class Checkouts extends Controller
 
         $data = [
             'cartitems' => $cartitems,
-            'shipmethod' => $showship,
+            'shipmethod' => $showship[0],
             'user' => $userinfo
 
         ];
+
+
+        var_dump($data['shipmethod'][0]['method']);
 
 
 
@@ -138,90 +134,7 @@ class Checkouts extends Controller
     }
 
 
-    public function guest_email($data)
-    {
-        $userinfo = $this->usermodel->getuserinfo();
 
-        $showship = json_decode($_COOKIE['ship'], true);
-
-        $cartitems = json_decode($_COOKIE['cart'], true);
-
-        $guestemail = $_POST['guest_email'];
-
-        // create guest email
-
-        if (isset($_POST['guest_email_btn'])) {
-            if (!$this->usermodel->guest_email_check($guestemail)) {
-
-                $this->usermodel->guest_email($guestemail);
-
-                $data = [
-                    'cartitems' => $cartitems,
-                    'shipmethod' => $showship,
-                    'ctn_btn' => true,
-                ];
-
-                $email = [
-                    'email' => $guestemail
-                ];
-
-                createusersession($email);
-
-                $this->view('checkouts/checkout', $data);
-
-
-
-
-
-            } else {
-                $data = [
-                    'cartitems' => $cartitems,
-                    'shipmethod' => $showship,
-                    'user' => $userinfo,
-                    'email_exit' => 'email already exit'
-                ];
-
-            }
-        }
-
-
-
-        // $this->view('checkouts/checkout', $data);
-
-
-    }
-
-
-
-    // update email 
-    public function update_email($data)
-    {
-        // create update email 
-
-        $oldemail = $_POST['upd_email_id'];
-
-        $guestemail = $_POST['guest_email'];
-
-        if (isset($_POST['upd_email'])) {
-
-            $guestemail_db = $this->usermodel->guest_user_info($oldemail);
-
-            $upd_data = [
-                'id' => $guestemail_db['id'],
-                'email' => $guestemail
-            ];
-
-            $this->usermodel->guest_email_update($upd_data);
-
-            createusersession($upd_data);
-
-
-            $this->view('checkouts/checkout', $data);
-
-        }
-
-
-    }
 
 }
 
@@ -448,14 +361,104 @@ trait Google
     }
 }
 
-
-
 function createusersession($user)
 {
     $_SESSION['user_id'] = $user['id'];
     $_SESSION['user_name'] = $user['fullname'];
     $_SESSION['user_email'] = $user['email'];
     redirect('checkouts/checkout');
+}
+
+
+
+// Guest  
+trait Guest
+{
+
+
+
+    public function guest_email($data)
+    {
+        $userinfo = $this->usermodel->getuserinfo();
+
+        $showship = json_decode($_COOKIE['ship'], true);
+
+        $cartitems = json_decode($_COOKIE['cart'], true);
+
+        $guestemail = $_POST['guest_email'];
+
+        // create guest email
+
+        if (isset($_POST['guest_email_btn'])) {
+            if (!$this->usermodel->guest_email_check($guestemail)) {
+
+                $this->usermodel->guest_email($guestemail);
+
+                $data = [
+                    'cartitems' => $cartitems,
+                    'shipmethod' => $showship,
+                    'ctn_btn' => true,
+                ];
+
+                $email = [
+                    'email' => $guestemail
+                ];
+
+                createusersession($email);
+
+                $this->view('checkouts/checkout', $data);
+
+
+
+
+
+            } else {
+                $data = [
+                    'cartitems' => $cartitems,
+                    'shipmethod' => $showship,
+                    'user' => $userinfo,
+                    'email_exit' => 'email already exit'
+                ];
+
+            }
+        }
+
+
+
+
+    }
+
+
+
+    // update email 
+    public function update_email($data)
+    {
+        // create update email 
+
+        $oldemail = $_POST['upd_email_id'];
+
+        $guestemail = $_POST['guest_email'];
+
+        if (isset($_POST['upd_email'])) {
+
+            $guestemail_db = $this->usermodel->guest_user_info($oldemail);
+
+            $upd_data = [
+                'id' => $guestemail_db['id'],
+                'email' => $guestemail
+            ];
+
+            $this->usermodel->guest_email_update($upd_data);
+
+            createusersession($upd_data);
+
+
+            $this->view('checkouts/checkout', $data);
+
+        }
+
+
+    }
 }
 
 

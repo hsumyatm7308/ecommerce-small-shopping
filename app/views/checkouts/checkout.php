@@ -63,7 +63,7 @@ require_once ('/opt/lampp/htdocs/mvcshop/app/views/layouts/navbar.php');
                             <div class="text-2xl font-medium">
                                 Guest
                             </div>
-                            <div class="guest_edit">
+                            <div class="guest_edit <?php echo $_SESSION['user_email'] ? '' : 'hidden' ?>">
                                 Edit
                             </div>
                         </div>
@@ -148,10 +148,28 @@ require_once ('/opt/lampp/htdocs/mvcshop/app/views/layouts/navbar.php');
                         <div class="mt-5">
                             <div class="mt-3">
                                 <ul class="space-y-2">
-                                    <li>Standard Shipping</li>
-                                    <li>Estimated Arrival: <span>April 22 -</span> <span>April 33</span></li>
-                                    <li>Shipping as flat rate - $ 9.99</li>
+                                    <li>
+                                        <?php
+                                        $shippingMethod = $data['shipmethod']['method'];
+                                        echo ($shippingMethod == 0) ? "Free Shipping" : (($shippingMethod == 1) ? "Standard Shipping" : "Fastest Shipping");
+                                        ?>
+                                    </li>
+                                    <?php
+                                    $currentDate = time();
+                                    $shippingDates = [
+                                        0 => date('M d', strtotime('+10 days', $currentDate)),
+                                        1 => date('M d', strtotime('+5 days', $currentDate)),
+                                        2 => date('M d', strtotime('+3 days', $currentDate))
+                                    ];
+                                    ?>
+                                    <li>Estimated Arrival: <span><?php echo date('M d', $currentDate) ?> -
+                                            <?php echo $shippingDates[$shippingMethod] ?></span></li>
+                                    <li>Shipping as flat rate -
+                                        <?php echo ($shippingMethod == 0) ? "$ 0.00" : (($shippingMethod == 1) ? "$ 12.00" : "$ 25.00"); ?>
+                                    </li>
                                 </ul>
+
+
                             </div>
                         </div>
 
