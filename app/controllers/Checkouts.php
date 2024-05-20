@@ -49,6 +49,7 @@ class Checkouts extends Controller
         $cartitems = json_decode($_COOKIE['cart'], true);
         $showship = json_decode($_COOKIE['ship'], true);
 
+
         $userid = $userinfo['id'];
         $this->ordermodel->orders($userid);
 
@@ -62,7 +63,6 @@ class Checkouts extends Controller
         ];
 
 
-        var_dump($data['shipmethod'][0]['method']);
 
 
 
@@ -419,6 +419,7 @@ trait Guest
                     'user' => $userinfo,
                     'email_exit' => 'email already exit'
                 ];
+                $this->view('checkouts/checkout', $data);
 
             }
         }
@@ -458,6 +459,16 @@ trait Guest
         }
 
 
+    }
+
+
+
+    public function insertshipcost()
+    {
+        if ($_SERVER['REQUEST_METHOD'] === "POST") {
+            $this->cardmodal->insertshipcost();
+            redirect('checkouts');
+        }
     }
 }
 
