@@ -63,7 +63,7 @@ require_once ('/opt/lampp/htdocs/mvcshop/app/views/layouts/navbar.php');
                             <div class="text-2xl font-medium">
                                 Guest
                             </div>
-                            <div class="guest_edit <?php echo $_SESSION['user_email'] ? '' : 'hidden' ?>">
+                            <div class="guest_edit <?php echo $_SESSION['guest_email'] ? '' : 'hidden' ?>">
                                 Edit
                             </div>
                         </div>
@@ -72,7 +72,7 @@ require_once ('/opt/lampp/htdocs/mvcshop/app/views/layouts/navbar.php');
                             <div class="grid grid-cols-4 mt-10 rounded  mb-5">
 
                                 <div
-                                    class="col-span-3 w-full   mb-8 flex justify-center items-start flex-col  guestinfo_input <?php echo $_SESSION['user_email'] ? 'hidden' : '' ?> ">
+                                    class="col-span-3 w-full   mb-8 flex justify-center items-start flex-col  guestinfo_input <?php echo $_SESSION['guest_email'] ? 'hidden' : '' ?> ">
 
                                     <div class="w-full  flex justify-center items-center space-x-2">
 
@@ -89,7 +89,7 @@ require_once ('/opt/lampp/htdocs/mvcshop/app/views/layouts/navbar.php');
 
                                         <div class="px-10 py-2 text-white bg-[#4c5372] rounded-md ">
                                             <button type="submit" name="guest_email_btn" class="guest_action"
-                                                data-email="<?php echo $_SESSION['user_email'] ?>">Continue</button>
+                                                data-email="<?php echo $_SESSION['guest_email'] ?>">Continue</button>
                                         </div>
 
                                     </div>
@@ -103,15 +103,15 @@ require_once ('/opt/lampp/htdocs/mvcshop/app/views/layouts/navbar.php');
 
 
                                 <div
-                                    class="col-span-3 w-full   mb-8 flex justify-center items-start flex-col  guestinfo_read <?php echo $_SESSION['user_email'] ? '' : 'hidden' ?>">
+                                    class="col-span-3 w-full   mb-8 flex justify-center items-start flex-col  guestinfo_read <?php echo $_SESSION['guest_email'] ? '' : 'hidden' ?>">
 
                                     <div class="w-full  flex justify-center items-center space-x-2">
 
                                         <div class="w-full mb-8">
                                             <label for="">Email</label>
                                             <input type="email" name=""
-                                                class="w-full border border-[#4c5372]  <?php echo $_SESSION['user_email'] ? 'border-green-500' : 'border-[#4c5372]' ?> rounded bg-transparent focus:outline-none mt-2 p-2 "
-                                                placeholder="Your email" value="<?php echo $_SESSION['user_email'] ?>">
+                                                class="w-full border border-[#4c5372]  <?php echo $_SESSION['guest_email'] ? 'border-green-500' : 'border-[#4c5372]' ?> rounded bg-transparent focus:outline-none mt-2 p-2 "
+                                                placeholder="Your email" value="<?php echo $_SESSION['guest_email'] ?>">
                                         </div>
 
 
@@ -250,7 +250,7 @@ require_once ('/opt/lampp/htdocs/mvcshop/app/views/layouts/navbar.php');
 
                         </div>
 
-                        <form action="">
+                        <form action="<?php echo URLROOT; ?>/checkouts/shipping_address" method="POST">
                             <!-- address  -->
                             <div class="grid grid-cols-4 mt-10 rounded  mb-5">
 

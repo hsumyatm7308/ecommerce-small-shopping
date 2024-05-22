@@ -67,7 +67,6 @@ class Checkouts extends Controller
 
 
         $this->guest_email($data);
-
         $this->update_email($data);
 
 
@@ -133,6 +132,32 @@ class Checkouts extends Controller
 
     }
 
+
+    public function shipping_address()
+    {
+        $userinfo = $this->usermodel->getuserinfo();
+
+
+        $cartitems = json_decode($_COOKIE['cart'], true);
+        $showship = json_decode($_COOKIE['ship'], true);
+
+
+        $userid = $userinfo['id'];
+        $this->ordermodel->orders($userid);
+
+
+
+        $data = [
+            'cartitems' => $cartitems,
+            'shipmethod' => $showship[0],
+            'user' => $userinfo
+
+        ];
+
+
+        $this->view('checkouts/checkout', $data);
+
+    }
 
 
 
@@ -366,6 +391,7 @@ function createusersession($user)
     $_SESSION['user_id'] = $user['id'];
     $_SESSION['user_name'] = $user['fullname'];
     $_SESSION['user_email'] = $user['email'];
+    $_SESSION['guest_email'] = $user['guest_email'];
     redirect('checkouts/checkout');
 }
 
@@ -401,7 +427,7 @@ trait Guest
                 ];
 
                 $email = [
-                    'email' => $guestemail
+                    'guest_email' => $guestemail
                 ];
 
                 createusersession($email);
@@ -446,7 +472,7 @@ trait Guest
 
             $upd_data = [
                 'id' => $guestemail_db['id'],
-                'email' => $guestemail
+                'guest_email' => $guestemail
             ];
 
             $this->usermodel->guest_email_update($upd_data);

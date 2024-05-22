@@ -114,7 +114,7 @@ class User
     public function guest_email_update($data)
     {
         $this->db->dbquery('UPDATE guests SET email=:email WHERE id = :id');
-        $this->db->dbbind(':email', $data['email']);
+        $this->db->dbbind(':email', $data['guest_email']);
 
         $this->db->dbbind(":id", $data['id']);
 

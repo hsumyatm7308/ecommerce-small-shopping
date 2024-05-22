@@ -132,14 +132,6 @@ user_id INT
  );
 
 
- - Ship 
-
- CREATE TABLE IF NOT EXISTS shipping(
-  id INT AUTO_INCREMENT NOT NULL PRIMARY KEY,
-  user_id INT,
-  method INT DEFAULT 0 COMMENT '0 free, 1 standard, 2 fastest',
-  FOREIGN KEY(user_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE CASCADE
- )
 
 
  - Guest email 
@@ -150,3 +142,27 @@ CREATE TABLE IF NOT EXISTS guests(
   created_at TIMESTAMP DEFAULT now(),
   updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
  )
+
+
+ - Ship Address 
+
+CREATE TABLE IF NOT EXISTS ship_address(
+  id INT AUTO_INCREMENT NOT NULL PRIMARY KEY,
+  firstname VARCHAR(50),
+  lastname VARCHAR(50),
+  company VARCHAR(50) DEFAULT NULL,
+  address VARCHAR(255),
+  phone VARCHAR(25),
+  zip INT,
+  city VARCHAR(50),
+  state_id INT,
+  country_id INT,
+  
+  user_id INT DEFAULT NULL,
+  guest_id INT DEFAULT NULL,
+  created_at TIMESTAMP DEFAULT now(),
+  updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  FOREIGN KEY(user_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE CASCADE,
+  FOREIGN KEY(guest_id) REFERENCES guests(id) ON UPDATE CASCADE ON DELETE CASCADE
+ );
+
