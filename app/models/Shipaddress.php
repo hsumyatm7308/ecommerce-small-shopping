@@ -25,7 +25,7 @@ class Shipaddress
         $company = $data['company'];
         $address = $data['address'];
         $phone = $data['phone'];
-        $zip = $data['zip'];
+        $zip = (int) $data['zip'];
         $city = $data['city'];
         $state_id = (int) $data['state_id'];
         $country_id = (int) $data['country_id'];
@@ -33,7 +33,6 @@ class Shipaddress
         $guest_id = $this->usermodal->guest_user_info($_SESSION['guest_email'])['id'];
         $user_id = $_SESSION['user_id'] ? $_SESSION['user_id'] : null;
 
-        // var_dump($firstname, $lastname, $company, $address, $phone, $zip, $city, $state_id, $country_id, $user_id, $guest_id, $_SESSION['guest_email']);
 
 
         try {

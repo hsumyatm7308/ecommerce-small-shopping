@@ -245,12 +245,12 @@ require_once ('/opt/lampp/htdocs/mvcshop/app/views/layouts/navbar.php');
                     <div class="mb-20">
                         <div class="flex justify-between items-center">
                             <div class="text-2xl font-medium">
-                                Shipping Method
+                                Shipping Address
                             </div>
 
                         </div>
 
-                        <form action="<?php echo URLROOT; ?>/checkouts/shipping_address" method="POST" class="hidden">
+                        <form action="" method="POST" class="">
                             <!-- address  -->
                             <div class="grid grid-cols-4 mt-10 rounded  mb-5">
 
@@ -258,13 +258,14 @@ require_once ('/opt/lampp/htdocs/mvcshop/app/views/layouts/navbar.php');
                                 <div
                                     class="col-span-3 w-full   mb-8 flex justify-center items-center flex-col  guestinfo">
 
-                                    <div class="w-full grid grid-cols-2">
+                                    <div class="w-full grid grid-cols-2 mb-5">
 
-                                        <div class="w-full mb-8">
+                                        <div class="w-full ">
                                             <label for="">First Name</label>
                                             <input type="text" name="firstname"
-                                                class="w-full border border-[#4c5372] rounded bg-transparent focus:outline-none mt-2 p-2 "
-                                                placeholder="">
+                                                class="w-full border border-[#4c5372] <?php echo !empty($data['firstnameerr']) ? 'border-red-500' : '' ?> rounded bg-transparent focus:outline-none mt-2 p-2 mb-2"
+                                                placeholder="" value="">
+                                            <span class="text-sm text-red-500" <?php echo !empty($data['firstnameerr']) ? '' : 'hidden' ?>><?php echo $data['firstnameerr']; ?></span>
                                         </div>
 
 
@@ -272,49 +273,54 @@ require_once ('/opt/lampp/htdocs/mvcshop/app/views/layouts/navbar.php');
                                             <label for="">Last Name *</label>
 
                                             <input type="text" name="lastname"
-                                                class="w-full border border-[#4c5372]  rounded bg-transparent focus:outline-none mt-2 p-2 val"
-                                                placeholder="">
+                                                class="w-full border border-[#4c5372] <?php echo !empty($data['lastnameerr']) ? 'border-red-500' : '' ?> rounded bg-transparent focus:outline-none mt-2 p-2 val mb-2"
+                                                placeholder="" value="">
+                                            <span class="text-sm text-red-500" <?php echo !empty($data['lastnameerr']) ? '' : 'hidden' ?>><?php echo $data['lastnameerr']; ?></span>
                                         </div>
 
                                     </div>
 
 
-                                    <div class="w-full mb-8">
+                                    <div class="w-full mb-5">
                                         <label for="">Company</label>
                                         <input type="text" name="company"
-                                            class="w-full border border-[#4c5372]  rounded bg-transparent focus:outline-none mt-2 p-2 "
-                                            placeholder="option">
+                                            class="w-full border border-[#4c5372]  rounded bg-transparent focus:outline-none mt-2 p-2 mb-2"
+                                            placeholder="option" value="">
                                     </div>
 
 
 
 
-                                    <div class="w-full inputval mb-8">
+                                    <div class="w-full inputval mb-5">
                                         <label for="">Address *</label>
                                         <input type="text" name="address"
-                                            class="w-full border border-[#4c5372]  rounded  bg-transparent focus:outline-none mt-2 p-2 val"
-                                            placeholder="">
+                                            class="w-full border border-[#4c5372] <?php echo !empty($data['addresserr']) ? 'border-red-500' : '' ?> rounded  bg-transparent focus:outline-none mt-2 p-2 val mb-2"
+                                            placeholder="" value="">
+                                        <span class="text-sm text-red-500" <?php echo !empty($data['addresserr']) ? '' : 'hidden' ?>><?php echo $data['addresserr']; ?></span>
+
                                     </div>
 
 
 
 
-                                    <div class="w-full grid grid-cols-2">
+                                    <div class="w-full grid grid-cols-2 mb-5">
 
-                                        <div class="w-full mb-8">
+                                        <div class="w-full">
                                             <label for="">Phone</label>
                                             <input type="text" name="phone"
-                                                class="w-full border border-[#4c5372]  rounded bg-transparent focus:outline-none mt-2 p-2 "
-                                                placeholder="option">
+                                                class="w-full border border-[#4c5372]  rounded bg-transparent focus:outline-none mt-2 p-2 mb-2"
+                                                placeholder="option" value="">
                                         </div>
 
 
-                                        <div class="w inputval mb-2 ml-5">
+                                        <div class="inputval mb-2 ml-5">
                                             <label for="">Zip *</label>
 
                                             <input type="text" name="zip"
-                                                class="w-full border border-[#4c5372]  rounded bg-transparent focus:outline-none mt-2 p-2 val"
-                                                placeholder="">
+                                                class="w-full border border-[#4c5372] <?php echo !empty($data['ziperr']) ? 'border-red-500' : '' ?> rounded bg-transparent focus:outline-none mt-2 p-2 mb-2 val "
+                                                placeholder="" value="">
+                                            <span class="text-sm text-red-500" <?php echo !empty($data['ziperr']) ? '' : 'hidden' ?>><?php echo $data['ziperr']; ?></span>
+
                                         </div>
 
                                     </div>
@@ -323,13 +329,16 @@ require_once ('/opt/lampp/htdocs/mvcshop/app/views/layouts/navbar.php');
 
 
 
-                                    <div class="w-full grid grid-cols-2">
+                                    <div class="w-full grid grid-cols-2 mb-5">
 
-                                        <div class="w-full mb-8">
+                                        <div class="w-full h-14 ">
                                             <label for="">City</label>
                                             <input type="text" name="city"
-                                                class="w-full border border-[#4c5372]  rounded bg-transparent focus:outline-none mt-2 p-2 "
-                                                placeholder="option">
+                                                class="w-full border border-[#4c5372] <?php echo !empty($data['cityerr']) ? 'border-red-500' : '' ?>  rounded bg-transparent focus:outline-none mt-2 p-2 mb-2"
+                                                placeholder="option" value="">
+                                            <span class="text-sm text-red-500" <?php echo !empty($data['cityerr']) ? '' : 'hidden' ?>>
+                                                <?php echo $data['cityerr']; ?></span>
+
                                         </div>
 
 
@@ -337,14 +346,18 @@ require_once ('/opt/lampp/htdocs/mvcshop/app/views/layouts/navbar.php');
 
 
 
-                                        <div class="inputval relative mb-8 ml-5">
+                                        <div class=" inputval relative  ml-5 mb-5">
 
                                             <label for="">State *</label>
 
                                             <select name="state_id"
                                                 class="w-full border border-[#4c5372]  rounded  bg-transparent focus:outline-none mt-2 p-2 val select-box">
-                                                <option value="1">Auslia</option>
-                                                <option value="2">Myanmar</option>
+                                                <option>Choose State..</option>
+                                                <option value="1" <?php echo $data['state_id'] == 1 ? 'selected' : '' ?>>
+                                                    Auslia
+                                                </option>
+                                                <option value="2" <?php echo $data['state_id'] == 2 ? 'selected' : '' ?>>
+                                                    Myanmar</option>
 
                                             </select>
 
@@ -359,6 +372,7 @@ require_once ('/opt/lampp/htdocs/mvcshop/app/views/layouts/navbar.php');
 
 
                                         </div>
+
 
                                     </div>
 
@@ -421,17 +435,17 @@ require_once ('/opt/lampp/htdocs/mvcshop/app/views/layouts/navbar.php');
 
 
 
+                        <div class="mt-5">
 
-                        <div>
-                            <div>
-                                <h1>Shipping Address</h1>
+                            <div class="space-y-2">
+
+                                <p>Hsu Myat</p>
+                                <p>123 Easy Street, Hantar Wati</p>
+                                <p>Yangon</p>
                             </div>
-                            <p>Hsu Myat</p>
-                            <p>123 Easy Street, Hantar Wati</p>
-                            <p>Yangon</p>
+
+
                         </div>
-
-
                     </div>
 
 

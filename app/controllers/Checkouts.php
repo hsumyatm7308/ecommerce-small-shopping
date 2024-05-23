@@ -60,7 +60,27 @@ class Checkouts extends Controller
         $data = [
             'cartitems' => $cartitems,
             'shipmethod' => $showship[0],
-            'user' => $userinfo
+            'user' => $userinfo,
+
+
+            "firstname" => trim($_POST['firstname']),
+            "lastname" => trim($_POST['lastname']),
+            "company" => trim($_POST['company']),
+            "address" => trim($_POST['address']),
+            "phone" => trim($_POST['phone']),
+            "zip" => trim($_POST['zip']),
+            "city" => trim($_POST['city']),
+            "state_id" => trim($_POST['state_id']),
+            "country_id" => trim($_POST['country_id']),
+            "user_id" => $_SESSION['user_id'],
+
+            'firstnameerr' => '',
+            'lastnameerr' => '',
+            'addresserr' => '',
+            'ziperr' => '',
+            'cityerr' => '',
+            'state_iderr' => '',
+            'country_iderr' => ''
 
         ];
 
@@ -70,8 +90,7 @@ class Checkouts extends Controller
 
         $this->guest_email($data);
         $this->update_email($data);
-
-
+        $this->shipping_address($data);
 
         $this->view('checkouts/checkout', $data);
     }
@@ -135,52 +154,106 @@ class Checkouts extends Controller
     }
 
 
-    public function shipping_address()
+    public function shipping_address($data)
     {
-        // $userinfo = $this->usermodel->getuserinfo();
-
-
-        // $cartitems = json_decode($_COOKIE['cart'], true);
-        // $showship = json_decode($_COOKIE['ship'], true);
-
-
-        // $userid = $userinfo['id'];
-        // $this->ordermodel->orders($userid);
 
 
 
-        // $data = [
-        //     'cartitems' => $cartitems,
-        //     'shipmethod' => $showship[0],
-        //     'user' => $userinfo
-
-        // ];
-
-
-        // $this->view('checkouts/checkout', $data);
-        $data = [
-            "firstname" => $_POST['firstname'],
-            "lastname" => $_POST['lastname'],
-            "company" => $_POST['company'],
-            "address" => $_POST['address'],
-            "phone" => $_POST['phone'],
-            "zip" => $_POST['zip'],
-            "city" => $_POST['city'],
-            "state_id" => $_POST['state_id'],
-            "country_id" => $_POST['country_id'],
-            "user_id" => $_SESSION['user_id']
-        ];
 
 
 
-        if ($this->shipaddressmodel->create_address($data)) {
-            redirect('checkouts/checkout');
 
+
+
+
+
+
+
+        // if (empty($data['firstnameerr']) && empty($data['lastnameerr']) && empty($data['addresserr']) && empty($data['ziperr']) && empty($data['cityerr']) && empty($data['state_iderr']) && empty($data['country_iderr'])) {
+
+
+        //     echo "hhhhhhh";
+        //     $this->shipaddressmodel->create_address($data);
+
+        // } else {
+
+        //     // if () {
+        //     //     redirect('checkouts/checkout');
+
+        //     // }
+        //     // ;
+        //     echo "iiii";
+
+
+        // }
+
+
+
+        if (empty($data['firstname'])) {
+            $data['firstnameerr'] = 'firstname is reqired';
+        }
+        ;
+
+        if (empty($data['lastname'])) {
+            $data['lastnameerr'] = 'lastname is reqired';
+        }
+        ;
+
+        if (empty($data['address'])) {
+            $data['addresserr'] = 'address is reqired';
+        }
+        ;
+
+        if (empty($data['zip'])) {
+            $data['ziperr'] = 'ziperr is reqired';
+        }
+        ;
+
+        if (empty($data['city'])) {
+            $data['cityerr'] = 'city is reqired';
+        }
+        ;
+
+        if (empty($data['state_id'])) {
+            $data['state_iderr'] = 'state is reqired';
+        }
+        ;
+
+        if (empty($data['country_id'])) {
+            $data['country_iderr'] = 'country is reqired';
         }
         ;
 
 
 
+
+
+        if (empty($data['firstnameerr']) && empty($data['lastnameerr']) && empty($data['addresserr']) && empty($data['ziperr']) && empty($data['cityerr']) && empty($data['state_iderr']) && empty($data['country_iderr'])) {
+            die('success');
+
+
+
+            // if ($this->shipaddressmodel->create_address($data)) {
+
+            //     // $redirecturl = URLROOT . '/users/login';
+            //     // header('location:' . $redirecturl);
+
+
+            //     // flash("register_success", "You are registered successfully");
+            //     redirect('checkouts/checkout');
+            // } else {
+            //     die('Something Wrong');
+            // }
+
+        } else {
+            $this->view('checkouts/checkout', $data);
+
+        }
+
+
+
+
+        $this->view('checkouts/checkout', $data);
 
     }
 
