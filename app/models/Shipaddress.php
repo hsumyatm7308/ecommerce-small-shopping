@@ -16,36 +16,54 @@ class Shipaddress
         $this->usermodal = new User();
     }
 
-    public function create_address()
+    public function create_address($data)
     {
 
-        $firstname = $_POST['firstname'];
-        $lastname = $_POST['lastname'];
-        $company = $_POST['company'];
-        $address = $_POST['address'];
-        $phone = $_POST['phone'];
-        $zip = $_POST['zip'];
-        $city = $_POST['city'];
-        $state_id = $_POST['state_id'];
-        $country_id = $_POST['country_id'];
-        $user_id = $_SESSION['user_id'];
+
+        $firstname = $data['firstname'];
+        $lastname = $data['lastname'];
+        $company = $data['company'];
+        $address = $data['address'];
+        $phone = $data['phone'];
+        $zip = $data['zip'];
+        $city = $data['city'];
+        $state_id = (int) $data['state_id'];
+        $country_id = (int) $data['country_id'];
+
+        $guest_id = $this->usermodal->guest_user_info($_SESSION['guest_email'])['id'];
+        $user_id = $_SESSION['user_id'] ? $_SESSION['user_id'] : null;
+
+        // var_dump($firstname, $lastname, $company, $address, $phone, $zip, $city, $state_id, $country_id, $user_id, $guest_id, $_SESSION['guest_email']);
 
 
-        $guest_id = $this->usermodal->guest_user_info($_SESSION['guest_email'])->id;
+        try {
+            $this->db->dbquery('INSERT INTO ship_address (firstname, lastname, company, address, phone, zip, city, state_id, country_id, user_id, guest_id) VALUES (:firstname, :lastname, :company, :address, :phone, :zip, :city, :state_id, :country_id, :user_id, :guest_id)');
 
+            $this->db->dbbind(':firstname', $firstname);
+            $this->db->dbbind(':lastname', $lastname);
+            $this->db->dbbind(':company', $company);
+            $this->db->dbbind(':address', $address);
+            $this->db->dbbind(':phone', $phone);
+            $this->db->dbbind(':zip', $zip);
+            $this->db->dbbind(':city', $city);
+            $this->db->dbbind(':state_id', $state_id);
+            $this->db->dbbind(':country_id', $country_id);
+            $this->db->dbbind(':user_id', $user_id);
+            $this->db->dbbind(':guest_id', $guest_id);
 
-        $this->db->dbquery('INSERT INTO ship_address (firstname,lastname,company,address,phone,zip,city,state_id,country_id,user_id,guest_id) VALUES (:firstname,:lastname,:company,:address,:phone,:zip,:city,:state_id,:country_id,:user_id,:guest_id)');
-        $this->db->dbbind(':firstname', $firstname);
-        $this->db->dbbind(':lastname', $lastname);
-        $this->db->dbbind(':company', $company);
-        $this->db->dbbind(':address', $address);
-        $this->db->dbbind(':phone', $phone);
-        $this->db->dbbind(':zip', $zip);
-        $this->db->dbbind(':city', $city);
-        $this->db->dbbind(':state_id', $state_id);
-        $this->db->dbbind(':country_id', $country_id);
-        $this->db->dbbind(':user_id', $user_id);
-        $this->db->dbbind(':guest_id', $guest_id);
+            if ($this->db->dbexecute()) {
+
+                var_dump("yes");
+                return true;
+            } else {
+                var_dump('noooo');
+                return false;
+            }
+        } catch (Exception $e) {
+            var_dump('Error: ' . $e->getMessage());
+            return false;
+        }
+
     }
 }
 

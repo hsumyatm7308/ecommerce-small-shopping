@@ -250,7 +250,7 @@ require_once ('/opt/lampp/htdocs/mvcshop/app/views/layouts/navbar.php');
 
                         </div>
 
-                        <form action="<?php echo URLROOT; ?>/checkouts/shipping_address" method="POST">
+                        <form action="<?php echo URLROOT; ?>/checkouts/shipping_address" method="POST" class="hidden">
                             <!-- address  -->
                             <div class="grid grid-cols-4 mt-10 rounded  mb-5">
 
@@ -312,7 +312,7 @@ require_once ('/opt/lampp/htdocs/mvcshop/app/views/layouts/navbar.php');
                                         <div class="w inputval mb-2 ml-5">
                                             <label for="">Zip *</label>
 
-                                            <input type="text" name="state"
+                                            <input type="text" name="zip"
                                                 class="w-full border border-[#4c5372]  rounded bg-transparent focus:outline-none mt-2 p-2 val"
                                                 placeholder="">
                                         </div>
@@ -341,10 +341,10 @@ require_once ('/opt/lampp/htdocs/mvcshop/app/views/layouts/navbar.php');
 
                                             <label for="">State *</label>
 
-                                            <select
+                                            <select name="state_id"
                                                 class="w-full border border-[#4c5372]  rounded  bg-transparent focus:outline-none mt-2 p-2 val select-box">
-                                                <option value="">Auslia</option>
-                                                <option value="">Myanmar</option>
+                                                <option value="1">Auslia</option>
+                                                <option value="2">Myanmar</option>
 
                                             </select>
 
@@ -368,7 +368,7 @@ require_once ('/opt/lampp/htdocs/mvcshop/app/views/layouts/navbar.php');
 
                                         <label for="">Country *</label>
 
-                                        <select
+                                        <select name="country_id"
                                             class="w-full border border-[#4c5372]  rounded  bg-transparent focus:outline-none mt-2 p-2 val select-box">
                                             <option value="">Auslia</option>
                                             <option value="">Myanmar</option>
@@ -393,6 +393,9 @@ require_once ('/opt/lampp/htdocs/mvcshop/app/views/layouts/navbar.php');
 
                             </div>
 
+
+
+
                             <!-- billing address  -->
                             <div class="">
                                 <h1 class="text-lg font-medium">Billing Address</h1>
@@ -407,7 +410,7 @@ require_once ('/opt/lampp/htdocs/mvcshop/app/views/layouts/navbar.php');
                             <div class="grid grid-cols-4 mt-10 rounded  mb-10">
                                 <div
                                     class="col-span-3 w-full   mb-8 flex justify-center items-center flex-col  guestinfo">
-                                    <button type="" id="shipping_ctn" name="shipping_ctn"
+                                    <button type="" id="shipping_ctn" name="shipping_address_btn"
                                         class="text-xl w-full h-14 bg-[#4c5372] text-white flex justify-center items-center border hover:border-2 rounded-md">Save
                                         & Continue</button>
                                 </div>
@@ -415,6 +418,18 @@ require_once ('/opt/lampp/htdocs/mvcshop/app/views/layouts/navbar.php');
 
 
                         </form>
+
+
+
+
+                        <div>
+                            <div>
+                                <h1>Shipping Address</h1>
+                            </div>
+                            <p>Hsu Myat</p>
+                            <p>123 Easy Street, Hantar Wati</p>
+                            <p>Yangon</p>
+                        </div>
 
 
                     </div>

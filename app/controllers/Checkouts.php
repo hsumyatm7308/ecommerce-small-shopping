@@ -25,6 +25,7 @@ class Checkouts extends Controller
 
     public $ordermodel;
 
+    public $shipaddressmodel;
 
     public function __construct()
     {
@@ -33,6 +34,7 @@ class Checkouts extends Controller
         $this->navbarmodal = $this->model('Nav');
         $this->usermodel = $this->model('User');
         $this->ordermodel = $this->model('Order');
+        $this->shipaddressmodel = $this->model('Shipaddress');
         $this->pagination = new Pagination();
 
         require ('Googlelogin.php');
@@ -135,27 +137,50 @@ class Checkouts extends Controller
 
     public function shipping_address()
     {
-        $userinfo = $this->usermodel->getuserinfo();
+        // $userinfo = $this->usermodel->getuserinfo();
 
 
-        $cartitems = json_decode($_COOKIE['cart'], true);
-        $showship = json_decode($_COOKIE['ship'], true);
+        // $cartitems = json_decode($_COOKIE['cart'], true);
+        // $showship = json_decode($_COOKIE['ship'], true);
 
 
-        $userid = $userinfo['id'];
-        $this->ordermodel->orders($userid);
+        // $userid = $userinfo['id'];
+        // $this->ordermodel->orders($userid);
 
 
 
+        // $data = [
+        //     'cartitems' => $cartitems,
+        //     'shipmethod' => $showship[0],
+        //     'user' => $userinfo
+
+        // ];
+
+
+        // $this->view('checkouts/checkout', $data);
         $data = [
-            'cartitems' => $cartitems,
-            'shipmethod' => $showship[0],
-            'user' => $userinfo
-
+            "firstname" => $_POST['firstname'],
+            "lastname" => $_POST['lastname'],
+            "company" => $_POST['company'],
+            "address" => $_POST['address'],
+            "phone" => $_POST['phone'],
+            "zip" => $_POST['zip'],
+            "city" => $_POST['city'],
+            "state_id" => $_POST['state_id'],
+            "country_id" => $_POST['country_id'],
+            "user_id" => $_SESSION['user_id']
         ];
 
 
-        $this->view('checkouts/checkout', $data);
+
+        if ($this->shipaddressmodel->create_address($data)) {
+            redirect('checkouts/checkout');
+
+        }
+        ;
+
+
+
 
     }
 
