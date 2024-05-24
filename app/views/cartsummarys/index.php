@@ -392,6 +392,7 @@ require_once ('/opt/lampp/htdocs/mvcshop/app/views/layouts/footer.php');
 
         totalsum += parseFloat(ele.textContent);
 
+        console.log(totalsum)
         const productprice = parseFloat(ele.textContent);
         document.querySelector('.saletax').innerHTML = caculatesaletax(productprice, taxrate);
 
