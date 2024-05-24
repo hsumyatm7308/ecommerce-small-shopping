@@ -64,6 +64,20 @@ class Shipaddress
         }
 
     }
+
+    public function ship_address_show()
+    {
+        $guest_id = $this->usermodal->guest_user_info($_SESSION['guest_email'])['id'];
+        $user_id = $_SESSION['user_id'] ? $_SESSION['user_id'] : null;
+
+
+        $this->db->dbquery('SELECT * FROM ship_address WHERE guest_id = :guestid OR user_id = :userid');
+        $this->db->dbbind(':guestid', $guest_id);
+        $this->db->dbbind(':userid', $user_id);
+        return $this->db->getsingledata();
+
+
+    }
 }
 
 

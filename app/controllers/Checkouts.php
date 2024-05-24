@@ -80,7 +80,8 @@ class Checkouts extends Controller
             'ziperr' => '',
             'cityerr' => '',
             'state_iderr' => '',
-            'country_iderr' => ''
+            'country_iderr' => '',
+
 
         ];
 
@@ -91,6 +92,9 @@ class Checkouts extends Controller
         $this->guest_email($data);
         $this->update_email($data);
         $this->shipping_address($data);
+
+
+
 
         $this->view('checkouts/checkout', $data);
     }
@@ -189,71 +193,84 @@ class Checkouts extends Controller
 
 
 
-        if (empty($data['firstname'])) {
-            $data['firstnameerr'] = 'firstname is reqired';
+
+
+        if (isset($_POST['shipping_address_btn'])) {
+
+            if (empty($data['firstname'])) {
+                $data['firstnameerr'] = 'firstname is reqired';
+            }
+
+
+            if (empty($data['lastname'])) {
+                $data['lastnameerr'] = 'lastname is reqired';
+            }
+
+
+            if (empty($data['address'])) {
+                $data['addresserr'] = 'address is reqired';
+            }
+
+
+            if (empty($data['zip'])) {
+                $data['ziperr'] = 'ziperr is reqired';
+            }
+
+
+            if (empty($data['city'])) {
+                $data['cityerr'] = 'city is reqired';
+            }
+
+
+            if (empty($data['state_id'])) {
+                $data['state_iderr'] = 'state is reqired';
+            }
+
+
+            if (empty($data['country_id'])) {
+                $data['country_iderr'] = 'country is reqired';
+            }
+
+            if (!empty($data['firstname']) && !empty($data['lastname']) && !empty($data['address']) && !empty($data['zip']) && !empty($data['city'])) {
+                // echo "all fill value";
+                if ($this->shipaddressmodel->create_address($data)) {
+
+
+                    $shipaddress = [
+                        'shipaddress' => $this->shipaddressmodel->ship_address_show()
+                    ];
+
+
+
+                    createshipaddresssession($shipaddress);
+
+
+
+                }
+
+            } else {
+                // echo "yes empty";
+                $this->view('checkouts/checkout', $data);
+            }
+
+
+
+
         }
-        ;
-
-        if (empty($data['lastname'])) {
-            $data['lastnameerr'] = 'lastname is reqired';
-        }
-        ;
-
-        if (empty($data['address'])) {
-            $data['addresserr'] = 'address is reqired';
-        }
-        ;
-
-        if (empty($data['zip'])) {
-            $data['ziperr'] = 'ziperr is reqired';
-        }
-        ;
-
-        if (empty($data['city'])) {
-            $data['cityerr'] = 'city is reqired';
-        }
-        ;
-
-        if (empty($data['state_id'])) {
-            $data['state_iderr'] = 'state is reqired';
-        }
-        ;
-
-        if (empty($data['country_id'])) {
-            $data['country_iderr'] = 'country is reqired';
-        }
-        ;
 
 
 
 
 
-        if (empty($data['firstnameerr']) && empty($data['lastnameerr']) && empty($data['addresserr']) && empty($data['ziperr']) && empty($data['cityerr']) && empty($data['state_iderr']) && empty($data['country_iderr'])) {
-            die('success');
-
-
-
-            // if ($this->shipaddressmodel->create_address($data)) {
-
-            //     // $redirecturl = URLROOT . '/users/login';
-            //     // header('location:' . $redirecturl);
-
-
-            //     // flash("register_success", "You are registered successfully");
-            //     redirect('checkouts/checkout');
-            // } else {
-            //     die('Something Wrong');
-            // }
-
-        } else {
-            $this->view('checkouts/checkout', $data);
-
-        }
 
 
 
 
-        $this->view('checkouts/checkout', $data);
+
+
+
+
+        // $this->view('checkouts/checkout', $data);
 
     }
 
@@ -490,6 +507,13 @@ function createusersession($user)
     $_SESSION['user_name'] = $user['fullname'];
     $_SESSION['user_email'] = $user['email'];
     $_SESSION['guest_email'] = $user['guest_email'];
+
+
+}
+
+function createshipaddresssession($user)
+{
+    $_SESSION['shipaddress'] = $user['shipaddress'];
     redirect('checkouts/checkout');
 }
 
