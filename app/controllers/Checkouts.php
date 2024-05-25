@@ -92,6 +92,7 @@ class Checkouts extends Controller
         $this->guest_email($data);
         $this->update_email($data);
         $this->shipping_address($data);
+        $this->shipping_address_update($data);
 
 
 
@@ -161,40 +162,6 @@ class Checkouts extends Controller
     public function shipping_address($data)
     {
 
-
-
-
-
-
-
-
-
-
-
-
-
-        // if (empty($data['firstnameerr']) && empty($data['lastnameerr']) && empty($data['addresserr']) && empty($data['ziperr']) && empty($data['cityerr']) && empty($data['state_iderr']) && empty($data['country_iderr'])) {
-
-
-        //     echo "hhhhhhh";
-        //     $this->shipaddressmodel->create_address($data);
-
-        // } else {
-
-        //     // if () {
-        //     //     redirect('checkouts/checkout');
-
-        //     // }
-        //     // ;
-        //     echo "iiii";
-
-
-        // }
-
-
-
-
-
         if (isset($_POST['shipping_address_btn'])) {
 
             if (empty($data['firstname'])) {
@@ -262,18 +229,21 @@ class Checkouts extends Controller
 
 
 
-
-
-
-
-
-
-
-
-        // $this->view('checkouts/checkout', $data);
-
     }
 
+
+    public function shipping_address_update($data)
+    {
+        if (isset($_POST['shipping_address_update'])) {
+            $this->shipaddressmodel->shipping_address_update($data);
+
+            $shipaddress = [
+                'shipaddress' => $this->shipaddressmodel->ship_address_show()
+            ];
+
+            createshipaddresssession($shipaddress);
+        }
+    }
 
 
 }
@@ -514,7 +484,7 @@ function createusersession($user)
 function createshipaddresssession($user)
 {
     $_SESSION['shipaddress'] = $user['shipaddress'];
-    redirect('checkouts/checkout');
+    // redirect('checkouts/checkout');
 }
 
 

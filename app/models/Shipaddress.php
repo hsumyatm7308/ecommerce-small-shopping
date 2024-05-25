@@ -52,10 +52,8 @@ class Shipaddress
 
             if ($this->db->dbexecute()) {
 
-                var_dump("yes");
                 return true;
             } else {
-                var_dump('noooo');
                 return false;
             }
         } catch (Exception $e) {
@@ -75,6 +73,52 @@ class Shipaddress
         $this->db->dbbind(':guestid', $guest_id);
         $this->db->dbbind(':userid', $user_id);
         return $this->db->getsingledata();
+
+
+    }
+
+    public function shipping_address_update($data)
+    {
+
+
+        $firstname = $data['firstname'];
+        $lastname = $data['lastname'];
+        $company = $data['company'];
+        $address = $data['address'];
+        $phone = $data['phone'];
+        $zip = (int) $data['zip'];
+        $city = $data['city'];
+        $state_id = (int) $data['state_id'];
+        $country_id = (int) $data['country_id'];
+
+        $guest_id = $this->usermodal->guest_user_info($_SESSION['guest_email'])['id'];
+        $user_id = $_SESSION['user_id'] ? $_SESSION['user_id'] : null;
+
+        try {
+            $this->db->dbquery('UPDATE ship_address SET firstname = :firstname, lastname = :lastname, company = :company, address=:address, phone =:phone, zip=:zip, city=:city, state_id=:state_id, country_id=:country_id WHERE user_id = :user_id OR guest_id = :guest_id');
+
+            $this->db->dbbind(':firstname', $firstname);
+            $this->db->dbbind(':lastname', $lastname);
+            $this->db->dbbind(':company', $company);
+            $this->db->dbbind(':address', $address);
+            $this->db->dbbind(':phone', $phone);
+            $this->db->dbbind(':zip', $zip);
+            $this->db->dbbind(':city', $city);
+            $this->db->dbbind(':state_id', $state_id);
+            $this->db->dbbind(':country_id', $country_id);
+            $this->db->dbbind(':user_id', $user_id);
+            $this->db->dbbind(':guest_id', $guest_id);
+
+            if ($this->db->dbexecute()) {
+
+                return true;
+            } else {
+                return false;
+            }
+        } catch (Exception $e) {
+            var_dump('Error: ' . $e->getMessage());
+            return false;
+        }
 
 
     }
