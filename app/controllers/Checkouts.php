@@ -3,29 +3,13 @@
 class Checkouts extends Controller
 {
     use Google, ManualLogin, ManualRegister, Guest;
-    public $allmodal;
-    public $sidebarmodal;
     public $pagination;
-
-    public $reviewmodal;
-    public $votemodal;
-
-    public $ratingmodal;
-
-    public $recommendmodal;
-
     public $navbarmodal;
-    public $curitemidmodal;
-
-    public $wishmodal;
     public $cardmodal;
     public $usermodel;
-
-    private $googlemodal;
-
     public $ordermodel;
-
     public $shipaddressmodel;
+    public $paymentmodal;
 
     public function __construct()
     {
@@ -36,6 +20,7 @@ class Checkouts extends Controller
         $this->ordermodel = $this->model('Order');
         $this->shipaddressmodel = $this->model('Shipaddress');
         $this->pagination = new Pagination();
+        $this->paymentmodal = $this->model('Payment');
 
         require ('Googlelogin.php');
 
@@ -299,6 +284,7 @@ trait ManualLogin
 
             if ($loginuser) {
                 createusersession($loginuser);
+                redirect('checkouts/checkout');
             } else {
                 $data['passworderr'] = "Password incorrect";
                 $this->view('checkouts/authcheck', $data);
@@ -471,22 +457,6 @@ trait Google
     }
 }
 
-function createusersession($user)
-{
-    $_SESSION['user_id'] = $user['id'];
-    $_SESSION['user_name'] = $user['fullname'];
-    $_SESSION['user_email'] = $user['email'];
-    $_SESSION['guest_email'] = $user['guest_email'];
-
-
-}
-
-function createshipaddresssession($user)
-{
-    $_SESSION['shipaddress'] = $user['shipaddress'];
-    // redirect('checkouts/checkout');
-}
-
 
 
 // Guest  
@@ -589,6 +559,24 @@ trait Guest
         }
     }
 }
+
+
+function createusersession($user)
+{
+    $_SESSION['user_id'] = $user['id'];
+    $_SESSION['user_name'] = $user['fullname'];
+    $_SESSION['user_email'] = $user['email'];
+    $_SESSION['guest_email'] = $user['guest_email'];
+
+
+}
+
+function createshipaddresssession($user)
+{
+    $_SESSION['shipaddress'] = $user['shipaddress'];
+    // redirect('checkouts/checkout');
+}
+
 
 
 

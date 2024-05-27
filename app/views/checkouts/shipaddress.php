@@ -3,7 +3,7 @@
         <div class="text-2xl font-medium">
             Shipping Address
         </div>
-        <div class="shipping_address_edit <?php echo $_SESSION['guest_email'] || $_SESSION['user_email'] ? '' : 'hidden' ?>"
+        <div class="shipping_address_edit <?php echo $_SESSION['shipaddress'] || $_SESSION['id'] ? '' : 'hidden' ?>"
             data-firstname="<?php echo $_SESSION['shipaddress']['firstname']; ?>"
             data-lastname="<?php echo $_SESSION['shipaddress']['lastname'] ?>"
             data-company="<?php echo $_SESSION['shipaddress']['company'] ?>"
