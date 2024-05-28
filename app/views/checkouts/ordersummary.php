@@ -185,12 +185,27 @@
     <div class="w-full  text-lg mt-5">
         <div class="w-full flex justify-center items-center">
             <form action="" method="post" class="w-full inline-block ">
-                <button type="" id="complete_order" name="complete_order"
-                    class="text-xl w-full h-14 bg-[#4c5372] text-white flex justify-center items-center rounded-md border hover:border-2">Complete
-                    Order</button>
+                <button type="" id="complete_order" name="complete_order" class="text-xl w-full h-14  text-white  
+              <?php
+              if ($_SESSION['guest_email'] || $_SESSION['user_id'] && $_SESSION['shipaddress']['id'] && $data['payment']) {
+                  echo 'bg-[#4c5372]';
+
+              } else {
+                  echo "bg-red-500";
+              }
+              ?>
+ flex justify-center items-center rounded-md border hover:border-2" <?php
+ if ($_SESSION['guest_email'] || $_SESSION['user_id'] && $_SESSION['shipaddress']['id'] && $data['payment']) {
+     echo 'bg-[#4c5372]';
+
+ } else {
+     echo "disabled";
+ }
+ ?>>Complete Order</button>
             </form>
         </div>
     </div>
+
 
 </div>
 

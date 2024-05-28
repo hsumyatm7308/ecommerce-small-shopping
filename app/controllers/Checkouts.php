@@ -9,7 +9,6 @@ class Checkouts extends Controller
     public $usermodel;
     public $ordermodel;
     public $shipaddressmodel;
-    public $paymentmodal;
 
     public function __construct()
     {
@@ -20,7 +19,6 @@ class Checkouts extends Controller
         $this->ordermodel = $this->model('Order');
         $this->shipaddressmodel = $this->model('Shipaddress');
         $this->pagination = new Pagination();
-        $this->paymentmodal = $this->model('Payment');
 
         require ('Googlelogin.php');
 
@@ -38,7 +36,10 @@ class Checkouts extends Controller
 
 
         $userid = $userinfo['id'];
-        $this->ordermodel->orders($userid);
+        $guest_id = $this->usermodel->guest_user_info($_SESSION['guest_email'])['id'];
+
+        // echo $guest_id;
+        $this->ordermodel->orders($userid, $guest_id);
 
 
 
@@ -67,6 +68,8 @@ class Checkouts extends Controller
             'state_iderr' => '',
             'country_iderr' => '',
 
+            'payment' => $_POST['payment']
+
 
         ];
 
@@ -79,6 +82,7 @@ class Checkouts extends Controller
         $this->shipping_address($data);
         $this->shipping_address_update($data);
 
+        $this->payment();
 
 
 
@@ -230,6 +234,13 @@ class Checkouts extends Controller
         }
     }
 
+
+    public function payment()
+    {
+        $payment_method = $_POST['payment'];
+        echo $payment_method;
+
+    }
 
 }
 

@@ -224,16 +224,6 @@
 
 <script type="text/javascript">
 
-    // delivary 
-
-    const shippingbtn = document.querySelectorAll('.ships-radio')
-    const shipform = document.getElementById('ship-edit-form');
-    for (let i = 0; i < shippingbtn.length; i++) {
-        shippingbtn[i].addEventListener('change', function () {
-            shipform.submit()
-        })
-    }
-
 
     const shipaddress_edit_btn = document.querySelector('.shipping_address_edit');
     const shipaddressform = document.getElementById('shipaddressform');

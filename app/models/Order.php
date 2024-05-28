@@ -17,7 +17,7 @@ class Order
     }
 
 
-    public function orders($userid)
+    public function orders($userid, $guest_id)
     {
         $order_items = json_decode($_COOKIE['cart']);
 
@@ -38,16 +38,23 @@ class Order
 
 
                     if (!$cart->hasitem($item_id)) {
-                        $this->db->dbquery('INSERT INTO orders (item_id, price, quantity, brand_id, user_id) VALUES (:itemid, :price, :quantity, :brand, :user_id)');
+                        $this->db->dbquery('INSERT INTO orders (item_id, price, quantity, brand_id, user_id,guest_id) VALUES (:itemid, :price, :quantity, :brand, :user_id,:guest_id)');
                         $this->db->dbbind(':itemid', $item_id);
                         $this->db->dbbind(':price', $price);
                         $this->db->dbbind(':quantity', $quantity);
                         $this->db->dbbind(':brand', $brand);
                         $this->db->dbbind(':user_id', $userid);
+                        $this->db->dbbind(':guest_id', $guest_id);
 
-                        if (!$this->db->dbexecute()) {
+                        if ($this->db->dbexecute()) {
+                            redirect('thankyous/thankyou');
+
+                            return true;
+
+                        } else {
                             return false;
                         }
+
                     }
                 }
 
@@ -66,5 +73,9 @@ class Order
     }
 
 
+
 }
+
+
+
 ?>

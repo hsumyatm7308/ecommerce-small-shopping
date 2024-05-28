@@ -9,9 +9,28 @@
     </div>
 
     <div class="mt-10">
-        <form action="" class=" justify-between items-center">
+        <form id="payment_form" action="" class=" justify-between items-center" method="POST">
+            <div class="flex items-center space-x-10">
+
+                <div class="payment-radio">
+
+                    <input type="radio" name="payment" id="cod" value="0" <?php echo $data['payment'] == 0 ? 'checked' : ''; ?>>
+                    <label for="cod">Cash On Delivery</label>
+
+                </div>
+
+
+                <div class="payment-radio">
+
+                    <input type="radio" name="payment" id="credit" value="1" <?php echo $data['payment'] == 1 ? 'checked' : ''; ?>>
+                    <label for="credit">Credit Card</label>
+
+                </div>
+
+            </div>
+
             <!-- credit  -->
-            <div>
+            <div class="mt-10">
                 <h1 class="text-lg font-medium">Credit Card</h1>
                 <div class="grid grid-cols-4 mt-5 rounded  mb-5">
 
@@ -104,3 +123,14 @@
     </div>
 
 </div>
+
+<script type="text/javascript">
+    const paymentradio = document.querySelectorAll('.payment-radio')
+    const payment_form = document.getElementById('payment_form');
+    for (let i = 0; i < paymentradio.length; i++) {
+        paymentradio[i].addEventListener('change', function () {
+            payment_form.submit()
+        })
+    }
+
+</script>

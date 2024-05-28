@@ -51,7 +51,7 @@
 
                         <div class="mt-5  deli_method hidden">
                             <form id="ship-edit-form" action="<?php echo URLROOT; ?>/checkouts/insertshipcost"
-                                method="POST" class="">
+                                method="GET" class="">
 
 
                                 <div class="grid grid-cols-4">
@@ -105,6 +105,18 @@
                     </div>
 
 <script type="text/javascript">
+
+
+    // delivary 
+
+    const shippingbtn = document.querySelectorAll('.ships-radio')
+    const shipform = document.getElementById('ship-edit-form');
+    for (let i = 0; i < shippingbtn.length; i++) {
+        shippingbtn[i].addEventListener('change', function () {
+            shipform.submit()
+        })
+    }
+
 
       // deli method 
 
