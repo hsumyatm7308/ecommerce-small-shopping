@@ -27,8 +27,21 @@ class Thankyous extends Controller
 
     public function index()
     {
+        $cartitems = json_decode($_COOKIE['cart'], true);
+        $showship = json_decode($_COOKIE['ship'], true);
 
-        $this->view('thankyous/thankyou');
+
+
+
+
+        $data = [
+            'cartitems' => $cartitems,
+            'shipmethod' => $showship[0],
+
+        ];
+
+
+        $this->view('thankyous/thankyou', $data);
     }
 
 
