@@ -14,7 +14,7 @@
 
                 <div class="payment-radio">
 
-                    <input type="radio" name="payment" id="cod" value="0" <?php echo $data['payment'] == 0 ? 'checked' : ''; ?>>
+                    <input type="radio" name="payment" id="cod" value="1" <?php echo $data['payment'] == 1 ? 'checked' : ''; ?>>
                     <label for="cod">Cash On Delivery</label>
 
                 </div>
@@ -22,7 +22,7 @@
 
                 <div class="payment-radio">
 
-                    <input type="radio" name="payment" id="credit" value="1" <?php echo $data['payment'] == 1 ? 'checked' : ''; ?>>
+                    <input type="radio" name="credit" id="credit" value="2" <?php echo $data['payment'] == 2 ? 'checked' : ''; ?>>
                     <label for="credit">Credit Card</label>
 
                 </div>
@@ -30,7 +30,7 @@
             </div>
 
             <!-- credit  -->
-            <div class="mt-10">
+            <div class="mt-10 hidden">
                 <h1 class="text-lg font-medium">Credit Card</h1>
                 <div class="grid grid-cols-4 mt-5 rounded  mb-5">
 

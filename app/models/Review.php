@@ -109,25 +109,27 @@ class Review
 
 
 
+            if ($userid) {
 
-            $this->db->dbquery('INSERT INTO `review_reply` (`replies`, `review_id`, `replyitem_id`, `reply_id`, `replyuser_id`, `touser_name`) VALUES (:replies, :review_id, :replyitem_id, :reply_id, :replyuser_id, :touser_name)');
-            $this->db->dbbind(':replies', $replytext);
-            $this->db->dbbind(':review_id', $review_id);
-            $this->db->dbbind(':replyitem_id', $item_id);
-            $this->db->dbbind(':reply_id', $reply_id);
-            $this->db->dbbind(':replyuser_id', $userid);
-            $this->db->dbbind(':touser_name', $touser_name);
-
-
-            if ($this->db->dbexecute()) {
-                $curmethod = $this->curitemid->getmethod();
-
-                redirect('allfragrance/show/' . $item_id . '?page=1&' . $curmethod);
-
-            } else {
-                return false;
+                $this->db->dbquery('INSERT INTO `review_reply` (`replies`, `review_id`, `replyitem_id`, `reply_id`, `replyuser_id`, `touser_name`) VALUES (:replies, :review_id, :replyitem_id, :reply_id, :replyuser_id, :touser_name)');
+                $this->db->dbbind(':replies', $replytext);
+                $this->db->dbbind(':review_id', $review_id);
+                $this->db->dbbind(':replyitem_id', $item_id);
+                $this->db->dbbind(':reply_id', $reply_id);
+                $this->db->dbbind(':replyuser_id', $userid);
+                $this->db->dbbind(':touser_name', $touser_name);
 
 
+                if ($this->db->dbexecute()) {
+                    $curmethod = $this->curitemid->getmethod();
+
+                    redirect('allfragrance/show/' . $item_id . '?page=1&' . $curmethod);
+
+                } else {
+                    return false;
+
+
+                }
             }
 
 

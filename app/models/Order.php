@@ -29,6 +29,9 @@ class Order
 
         if (isset($_POST['complete_order'])) {
 
+            // payment 
+
+
             if (!empty($order_items)) {
                 foreach ($order_items as $item) {
                     $item_id = $item->cartorderid;
@@ -52,8 +55,12 @@ class Order
                             return true;
 
                         } else {
+
                             return false;
                         }
+
+                    } else {
+                        redirect('thankyous/thankyou');
 
                     }
                 }
@@ -65,7 +72,6 @@ class Order
 
                 return true;
             } else {
-
                 return false;
             }
         }

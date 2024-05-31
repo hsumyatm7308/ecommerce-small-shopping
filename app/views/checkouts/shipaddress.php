@@ -3,7 +3,7 @@
         <div class="text-2xl font-medium">
             Shipping Address
         </div>
-        <div class="shipping_address_edit <?php echo $_SESSION['shipaddress'] || $_SESSION['id'] ? '' : 'hidden' ?>"
+        <div class="shipping_address_edit <?php echo $_SESSION['shipaddress'] || $data['shippingaddress']['id'] ? '' : 'hidden' ?>"
             data-firstname="<?php echo $_SESSION['shipaddress']['firstname']; ?>"
             data-lastname="<?php echo $_SESSION['shipaddress']['lastname'] ?>"
             data-company="<?php echo $_SESSION['shipaddress']['company'] ?>"
@@ -22,7 +22,7 @@
 
     <div class="<?php echo $_SESSION['guest_email'] || $_SESSION['user_email'] ? '' : 'hidden' ?>">
         <form id="shipaddressform" action="" method="POST"
-            class="<?php echo $_SESSION['shipaddress']['id'] ? 'hidden' : '' ?>">
+            class="<?php echo $data['shippingaddress']['id'] ? 'hidden' : '' ?>">
             <!-- address  -->
             <div class="grid grid-cols-4 mt-10 rounded  mb-5 ">
 
@@ -203,22 +203,11 @@
         </form>
 
 
-
-        <div class="mt-5">
-
-            <div class="space-y-2">
-
-                <p>
-                    <span><?php echo $_SESSION['shipaddress']['firstname']; ?></span>
-
-                    <span><?php echo $_SESSION['shipaddress']['lastname'] ?></span>
-                </p>
-                <p><?php echo $_SESSION['shipaddress']['address'] ?></p>
-                <p><?php echo $_SESSION['shipaddress']['city'] ?></p>
-            </div>
+        <?php
+        require_once ('/opt/lampp/htdocs/mvcshop/app/views/reusable/shipaddress.php');
+        ?>
 
 
-        </div>
     </div>
 </div>
 

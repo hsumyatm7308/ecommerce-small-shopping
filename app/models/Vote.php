@@ -49,23 +49,25 @@ class Vote
     public function insert($voteid, $column)
     {
         $userid = $_SESSION['user_id'];
+        if ($userid) {
+            if (!$this->checkvote($voteid, $column)) {
+
+                $this->db->dbquery("INSERT INTO votes ($column, user_id) VALUES(:review_id, :userid)");
+                $this->db->dbbind(':review_id', $voteid);
+                $this->db->dbbind(':userid', $userid);
+                $this->db->dbexecute();
 
 
-        if (!$this->checkvote($voteid, $column)) {
+            } else {
+                $this->db->dbquery("DELETE FROM votes WHERE $column = :revid AND user_id = :userid");
+                $this->db->dbbind(':revid', $voteid);
+                $this->db->dbbind(':userid', $userid);
+                $this->db->dbexecute();
 
-            $this->db->dbquery("INSERT INTO votes ($column, user_id) VALUES(:review_id, :userid)");
-            $this->db->dbbind(':review_id', $voteid);
-            $this->db->dbbind(':userid', $userid);
-            $this->db->dbexecute();
-
-
-        } else {
-            $this->db->dbquery("DELETE FROM votes WHERE $column = :revid AND user_id = :userid");
-            $this->db->dbbind(':revid', $voteid);
-            $this->db->dbbind(':userid', $userid);
-            $this->db->dbexecute();
-
+            }
         }
+
+
 
 
 

@@ -10,6 +10,8 @@ class Checkouts extends Controller
     public $ordermodel;
     public $shipaddressmodel;
 
+    public $paymentmodel;
+
     public function __construct()
     {
 
@@ -18,6 +20,7 @@ class Checkouts extends Controller
         $this->usermodel = $this->model('User');
         $this->ordermodel = $this->model('Order');
         $this->shipaddressmodel = $this->model('Shipaddress');
+        $this->paymentmodel = $this->model('Payment');
         $this->pagination = new Pagination();
 
         require ('Googlelogin.php');
@@ -34,6 +37,8 @@ class Checkouts extends Controller
         $cartitems = json_decode($_COOKIE['cart'], true);
         $showship = json_decode($_COOKIE['ship'], true);
 
+        $shippingaddress = $this->shipaddressmodel->ship_address_show();
+
 
         $userid = $userinfo['id'];
         $guest_id = $this->usermodel->guest_user_info($_SESSION['guest_email'])['id'];
@@ -47,6 +52,7 @@ class Checkouts extends Controller
             'cartitems' => $cartitems,
             'shipmethod' => $showship[0],
             'user' => $userinfo,
+            'shippingaddress' => $shippingaddress,
 
 
             "firstname" => trim($_POST['firstname']),
@@ -82,8 +88,11 @@ class Checkouts extends Controller
         $this->shipping_address($data);
         $this->shipping_address_update($data);
 
-        $this->payment();
 
+        if (isset($_POST['payment'])) {
+            $this->paymentmodel->payment($userid, $guest_id);
+
+        }
 
 
         $this->view('checkouts/checkout', $data);
@@ -235,12 +244,7 @@ class Checkouts extends Controller
     }
 
 
-    public function payment()
-    {
-        $payment_method = $_POST['payment'];
-        echo $payment_method;
 
-    }
 
 }
 

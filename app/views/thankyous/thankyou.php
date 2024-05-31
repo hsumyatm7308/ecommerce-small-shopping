@@ -101,11 +101,11 @@ require_once ('/opt/lampp/htdocs/mvcshop/app/views/layouts/navbar.php');
             <?php endforeach; ?>
 
 
-            <div class="w-full h-full  grid md:grid-cols-3 grid-cols-1  gap-12  pb-5 mb-5 ">
+            <div class="w-full h-full  flex justify-end  pb-5 mb-20">
 
 
 
-                <div class="flex justify-end items-center b grid grid-cols-2 gap-y-5 text-lg px-10 py-5">
+                <div class="flex justify-end items-center b grid grid-cols-2 gap-y-5 gap-x-20 text-lg px-10 py-5 ">
                     <div class="flex justify-start items-center">
                         <!-- subtotal  -->
                         <div class="flex justify-end items-center">
@@ -183,8 +183,60 @@ require_once ('/opt/lampp/htdocs/mvcshop/app/views/layouts/navbar.php');
 
                 </div>
             </div>
+
+
+
+            <div class="mb-20">
+                <div class="border-b py-5">
+                    <h1 class="text-2xl">Shipping Details</h1>
+                </div>
+                <div class="flex items-start space-x-20 mt-10">
+                    <div class="">
+                        <div class="text-lg"> Email</div>
+                        <div class="mt-5">
+                            <?php
+                            echo $_SESSION['user_email'] ? $_SESSION['user_email'] : $_SESSION['guest_email'];
+
+                            ?>
+                        </div>
+                    </div>
+
+                    <div>
+                        <div class="text-lg"> Delivery Method</div>
+                        <?php
+                        require_once ('/opt/lampp/htdocs/mvcshop/app/views/reusable/delimethod.php');
+
+                        ?>
+                    </div>
+
+                    <div>
+                        <div class="text-lg"> Shipping Address</div>
+                        <?php
+                        require_once ('/opt/lampp/htdocs/mvcshop/app/views/reusable/shipaddress.php');
+                        ?>
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div>
+                <div class=" border-b py-5">
+                    <h1 class="text-2xl">Payment</h1>
+                </div>
+                <div class="mt-5">
+                    <?php echo $data['paymethod']['method'] == 'cod' ? "Cash On Delivery" : "Credit Card" ?>
+
+                </div>
+            </div>
+
+
         </div>
     </section>
+
+
+
+
 
 
     <?php

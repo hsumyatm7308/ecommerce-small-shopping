@@ -187,7 +187,7 @@
             <form action="" method="post" class="w-full inline-block ">
                 <button type="" id="complete_order" name="complete_order" class="text-xl w-full h-14  text-white  
               <?php
-              if ($_SESSION['guest_email'] || $_SESSION['user_id'] && $_SESSION['shipaddress']['id'] && $data['payment']) {
+              if (($_SESSION['guest_email'] || $_SESSION['user_id']) && $data['shippingaddress']['id'] && $data['payment']) {
                   echo 'bg-[#4c5372]';
 
               } else {
@@ -195,7 +195,7 @@
               }
               ?>
  flex justify-center items-center rounded-md border hover:border-2" <?php
- if ($_SESSION['guest_email'] || $_SESSION['user_id'] && $_SESSION['shipaddress']['id'] && $data['payment']) {
+ if (($_SESSION['guest_email'] || $_SESSION['user_id']) && $data['shippingaddress']['id'] && $data['payment']) {
      echo 'bg-[#4c5372]';
 
  } else {
