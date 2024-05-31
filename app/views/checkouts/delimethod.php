@@ -15,7 +15,7 @@
 
                         <div class="mt-5  deli_method hidden">
                             <form id="ship-edit-form" action="<?php echo URLROOT; ?>/checkouts/insertshipcost"
-                                method="GET" class="">
+                                method="POST" class="">
 
 
                                 <div class="grid grid-cols-4">

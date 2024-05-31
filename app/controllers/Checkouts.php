@@ -570,7 +570,7 @@ trait Guest
     {
         if ($_SERVER['REQUEST_METHOD'] === "POST") {
             $this->cardmodal->insertshipcost();
-            redirect('checkouts');
+            redirect('checkouts/checkout');
         }
     }
 }
@@ -589,7 +589,6 @@ function createusersession($user)
 function createshipaddresssession($user)
 {
     $_SESSION['shipaddress'] = $user['shipaddress'];
-    // redirect('checkouts/checkout');
 }
 
 

@@ -144,6 +144,8 @@ require_once ('/opt/lampp/htdocs/mvcshop/app/views/layouts/navbar.php');
                     require_once ('/opt/lampp/htdocs/mvcshop/app/views/checkouts/shipaddress.php');
                     ?>
 
+
+
                     <!-- payment  -->
                     <?php
                     require_once ('/opt/lampp/htdocs/mvcshop/app/views/checkouts/payment.php');
