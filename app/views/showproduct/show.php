@@ -459,8 +459,8 @@ $pagination = new Pagination();
                                             </span>
                                         </label>
                                         <input type="text" name="username" id="username"
-                                            class="w-full <?php echo $_SESSION['user_id'] ? 'opacity-70' : '' ?> rounded-md px-3 py-3 focus:outline-none focus:border-gray-500 focus:ring-1 focus:ring-gray-100 focus:ring-opacity-50"
-                                            value="<?php echo $_SESSION['user_id'] ? $data['user']['name'] : '' ?>"
+                                            class="w-full rounded-md px-3 py-3 focus:outline-none focus:border-gray-500 focus:ring-1 focus:ring-gray-100 focus:ring-opacity-50"
+                                            value="<?php echo $_SESSION['user_id'] ? $_SESSION['user_name'] : '' ?>"
                                             placeholder="Enter your name" autofocus="on" <?php echo $_SESSION['user_id'] ? 'readonly' : '' ?>>
                                     </div>
 
@@ -473,12 +473,9 @@ $pagination = new Pagination();
                                             </span>
                                         </label>
                                         <input type="email" name="useremail" id="useremail"
-                                            class="w-full <?php echo $_SESSION['user_id'] || $_SESSION['user_name'] ? 'opacity-70' : '' ?> rounded-md px-3 py-3 focus:outline-none focus:border-gray-500 focus:ring-1 focus:ring-gray-100 focus:ring-opacity-50"
-                                            value="<?php if (empty($_SESSION['user_id']) || empty($_SESSION['user_email'])) {
-                                                echo $data['user']['email'];
-                                            } ?>" placeholder="Enter your email" <?php if (empty($_SESSION['user_id']) || empty($_SESSION['user_email'])) {
-                                                 echo 'readonly';
-                                             } ?>>
+                                            class="w-full  rounded-md px-3 py-3 focus:outline-none focus:border-gray-500 focus:ring-1 focus:ring-gray-100 focus:ring-opacity-50"
+                                            value="<?php echo $_SESSION['user_email'] ?>"
+                                            placeholder="Enter your email">
                                     </div>
 
                                     <div class="w-full">

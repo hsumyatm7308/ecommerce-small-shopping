@@ -41,20 +41,30 @@ class Review
 
             if (isset($_POST['reviewbtn'])) {
 
-                if (!empty($review) && !empty($username) && !empty($email) && !empty($rating)) {
+                if (isset($userid)) {
 
-                    $this->db->dbquery('INSERT INTO reviews (reviews,rating,user_id,item_id) VALUES(:review,:rating,:userid,:itemid)');
-                    $this->db->dbbind(':review', $review);
-                    $this->db->dbbind(':rating', $rating);
-                    $this->db->dbbind(':userid', $userid);
-                    $this->db->dbbind(':itemid', $itemid);
-                    if ($this->db->dbexecute()) {
-                        $curmethod = $this->curitemid->getmethod();
-                        redirect('allfragrance/show/' . $itemid . '?page=1&' . $curmethod);
-                    } else {
-                        return false;
+                    if (!empty($review) && !empty($username) && !empty($email) && !empty($rating)) {
+
+                        $this->db->dbquery('INSERT INTO reviews (reviews,rating,user_id,item_id) VALUES(:review,:rating,:userid,:itemid)');
+                        $this->db->dbbind(':review', $review);
+                        $this->db->dbbind(':rating', $rating);
+                        $this->db->dbbind(':userid', $userid);
+                        $this->db->dbbind(':itemid', $itemid);
+                        if ($this->db->dbexecute()) {
+                            $curmethod = $this->curitemid->getmethod();
+                            redirect('allfragrance/show/' . $itemid . '?page=1&' . $curmethod);
+                        } else {
+                            return false;
+                        }
                     }
+
+                    var_dump('yes');
+                } else {
+                    var_dump('no $userid');
                 }
+
+
+
             }
 
             if (isset($_POST['editreviewbtn'])) {
@@ -85,6 +95,7 @@ class Review
 
 
         }
+
 
 
 
