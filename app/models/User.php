@@ -10,10 +10,10 @@ class User
 
     public function register($data)
     {
-        $this->db->dbquery('INSERT INTO users(name,email,password) VALUES (:name,:email,:password)');
-        $this->db->dbbind(':name', $data['fullname']);
-        $this->db->dbbind(':email', $data['email']);
+        $this->db->dbquery('INSERT INTO users(username,password,email) VALUES (:username,:password,:email)');
+        $this->db->dbbind(':username', $data['username']);
         $this->db->dbbind(':password', $data['password']);
+        $this->db->dbbind(':email', $data['email']);
         if ($this->db->dbexecute()) {
             return true;
         } else {
@@ -39,31 +39,47 @@ class User
 
     }
 
-
-    public function login($email, $password)
-    {
-        $this->db->dbquery("SELECT * FROM users WHERE email=:email");
-        $this->db->dbbind(':email', $email);
-
-
+    public function getchallenge($email){
+        $this->db->dbquery("SELECT password FROM users WHERE email = :email");
+        $this->db->dbbind(":email",$email);
         $row = $this->db->getsingledata();
+        if(!$row){
+            return null;
+        }
+        $challenge_code = bin2hex(random_bytes(16));
+        $_SESSION['challenge'] = $challenge_code;
+        return ['challenge' => $challenge_code];
+    }
 
 
-        // var_dump($row);
+    public function login($data)
+    {
+        $this->db->dbquery("SELECT password FROM users WHERE email = :email");
+        $this->db->dbbind(":email", $data['email']);
+        $row = $this->db->getsingledata();
+        if (!$row) return false;
 
-        // echo $row->password; //// Attampt to property = asso ko obj nae swal htote htar loh   fetch(PDO::FETCH_ASSOC)
-        // echo $row['password'];
+        $pw_sha = $data['pw_sha'];
+        $response = $data['response'];
+        $stored_hash = $row['password'];   // bcrypt stored hash
+        $challenge = $_SESSION['challenge'] ?? '';
 
-
-        $hashedpassword = $row['password'];
-
-        if (password_verify($password, $hashedpassword) || $password == $hashedpassword) {
-            return $row;
+        if (password_verify($pw_sha, $stored_hash)) {
+            $expected = hash('sha256', $pw_sha . $challenge);
+            if (hash_equals($expected, $response)) {
+                return true;
+            } else {
+                return false;
+            }
         } else {
-            return false;
+            echo false;
         }
 
+    
+
+
     }
+
 
 
 
@@ -71,13 +87,13 @@ class User
     public function getuserinfo()
     {
         // $useremail = $_SESSION['user_email'];
-        $useremail = $_SESSION['user_id'];
+        $userid = $_SESSION['user_id'];
 
         // $this->db->dbquery('SELECT * FROM users WHERE email = :email');
         // $this->db->dbbind(':email', $useremail);
 
-        $this->db->dbquery('SELECT * FROM users WHERE id = :id');
-        $this->db->dbbind(':id', $useremail);
+        $this->db->dbquery('SELECT * FROM customers WHERE id = :id');
+        $this->db->dbbind(':id', $userid);
         return $this->db->getsingledata();
     }
 

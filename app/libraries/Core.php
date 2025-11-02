@@ -39,9 +39,13 @@ class Core
                 unset($url[1]);
             } else {
                 $this->curmethod = 'index';
+                              echo $url[1];
+
             }
         } else {
             $this->curmethod = 'index';
+            echo $url[1];
+
         }
 
 
@@ -50,9 +54,11 @@ class Core
         $this->params = $url ? array_values($url) : [];
 
         if (method_exists($this->curcontroller, $this->curmethod)) {
+
             call_user_func_array([$this->curcontroller, $this->curmethod], $this->params);
         } else {
-            echo "Method does not exist: " . $this->curmethod;
+            echo "Method does not exist: aa " . $this->curmethod;      
+
         }
     }
 

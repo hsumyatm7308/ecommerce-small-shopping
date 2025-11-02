@@ -1,5 +1,0 @@
-
-
-    // Display the history of clicked letters
-    const historyElement = document.getElementById('history');
-    historyElement.textContent = `History: ${updatedLetters}`;

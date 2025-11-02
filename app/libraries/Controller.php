@@ -11,6 +11,7 @@ class Controller
         } else {
             die("View file didn't exit");
         }
+
     }
     public function model($model)
     {

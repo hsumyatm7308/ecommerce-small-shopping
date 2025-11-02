@@ -20,24 +20,6 @@
 
                 <div class="md:col-span-3 w-full flex justify-center items-center md:py-0 ">
 
-                    <div class="flex justify-start items-center">
-                        <ul class=" flex justify-start items-center tracking-wide  cursor-pointer">
-
-                            <li class="mr-5   px-2 py-2 rounded-full hover:bg-gray-100 nav_categ">
-                                <a href="<?php echo URLROOT; ?>/allfragrance&all?page=1">Fragrance</a>
-                            </li>
-
-                            <li class="mr-5  px-2 py-2 rounded-full hover:bg-gray-100 nav_categ">
-                                <a href="<?php echo URLROOT; ?>/allfragrance&lotions?page=1">Lotion</a>
-                            </li>
-
-                            <li class="mr-5 px-2 py-2 rounded-full hover:bg-gray-100 nav_categ">
-                                <a href="<?php echo URLROOT; ?>/allfragrance&cosmetics?page=1">Cosmetics</a>
-                            </li>
-
-
-                        </ul>
-                    </div>
 
 
 
@@ -78,54 +60,18 @@
 
                     <div class="flex justify-center items-center p-3">
 
-
-                        <div class="flex justify-center items-center mr-10"
-                            onclick="document.getElementById('account-dropdown').classList.toggle('hidden')">
+                        <!-- <div class="mr-3">
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                                stroke="currentColor" class="w-6 h-6 text-gray-600 cursor-pointer">
+                                stroke="currentColor" class="size-6">
                                 <path stroke-linecap="round" stroke-linejoin="round"
-                                    d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z" />
+                                    d="M17.593 3.322c1.1.128 1.907 1.077 1.907 2.185V21L12 17.25 4.5 21V5.507c0-1.108.806-2.057 1.907-2.185a48.507 48.507 0 0 1 11.186 0Z" />
                             </svg>
 
-                            <span class="ml-3 cursor-pointer">
-                                <h1 class="accountbtn capitalize">
-                                    <?php
-                                    // echo $data['user']['name'];
-                                    // echo $_SESSION['user_name']
-                                    
-                                    if ($data['user']['name']) {
-                                        echo $data['user']['name'];
-
-                                    } elseif ($_SESSION['user_name']) {
-                                        echo $_SESSION['user_name'];
-
-                                    }
-                                    ?>
-                                </h1>
-                                <ul id="account-dropdown"
-                                    class="w-36 bg-gray-200 border rounded-md  shadow-lg absolute p-2 mt-4 hidden">
-                                    <li class="p-2"><a href="">My Profile</a></li>
-                                    <div class="w-full h-[1px] bg-gray-100"></div>
-                                    <?php if (isset($_SESSION['user_name']) || isset($_SESSION['user_id'])): ?>
-                                        <li class="transition-all duration-300 hover:bg-teal-200  border-b px-5 py-3"><a
-                                                href="<?php echo URLROOT; ?>/users/logout"
-                                                class="w-full inline-block text-red-600">Log
-                                                Out</a>
-                                        </li>
-                                    <?php else: ?>
-
-                                        <li
-                                            class="transition-all duration-300 hover:bg-teal-200 text-red-600  border-b px-5 py-3">
-                                            <a href="<?php echo URLROOT; ?>/users/login" class="w-full inline-block">Sign
-                                                In</a>
-                                        </li>
-
-                                    <?php endif; ?>
-                                </ul>
-                            </span>
+                        </div> -->
 
 
-                        </div>
+
+
 
 
 
@@ -141,28 +87,67 @@
                                 <sup id="bag-count" class="bg-[#4c5372] font-semibold px-2 py-2 rounded-full">
                                     <span class="text-gray-100 countcart">
 
-                                        <?php
-
-                                        // if ($_SESSION['user_id']) {
-                                        //     echo $data['orderitemcount'];
-                                        
-                                        // } else {
-                                        
-                                        // }
-                                        $cart = isset($_COOKIE['cart']) ? json_decode($_COOKIE['cart'], true) : [];
-                                        echo (count($cart));
-
-
-
-                                        ?>
-
-
                                     </span>
                                 </sup>
                             </a>
 
                         </div>
+
+
+                        <div class="flex justify-center items-center ml-5"
+                            onclick="document.getElementById('account-dropdown').classList.toggle('hidden')">
+                            <div class="p-2">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                    stroke-width="1.5" stroke="currentColor"
+                                    class="w-6 h-6 text-gray-600 cursor-pointer">
+                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                        d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z" />
+                                </svg>
+                            </div>
+
+                            <span class="ml-3 cursor-pointer">
+                                <h1 class="accountbtn capitalize font-semibold">
+                                    <!-- 
+                                    // echo $data['user']['name'];
+                                    // echo $_SESSION['user_name']
+
+                                    // if ($data['user']['name']) {
+                                    // echo $data['user']['name'];
+
+                                    // } elseif ($_SESSION['user_name']) {
+                                    // echo $_SESSION['user_name'];
+
+                                    // } -->
+
+                                </h1>
+                                <ul id="account-dropdown"
+                                    class="w-36 bg-gray-200 border rounded-md  shadow-lg absolute p-2 mt-4 hidden">
+                                    <li class="p-2"><a href="">My Profile</a></li>
+                                    <div class="w-full h-[1px] bg-gray-100"></div>
+
+                                    <li class="transition-all duration-300 hover:bg-teal-200  border-b px-5 py-3"><a
+                                            href="" class="w-full inline-block text-red-600">Log
+                                            Out</a>
+                                    </li>
+
+                                    <li
+                                        class="transition-all duration-300 hover:bg-teal-200 text-red-600  border-b px-5 py-3">
+                                        <a href="" class="w-full inline-block">Sign
+                                            In</a>
+                                    </li>
+
+                                </ul>
+                            </span>
+
+
+
+
+
+
+                        </div>
+
                     </div>
+
 
 
 

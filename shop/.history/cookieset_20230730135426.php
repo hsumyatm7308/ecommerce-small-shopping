@@ -1,9 +1,0 @@
-<?php 
-
-setcookie('cookiename','abc');
-
-
-
-
-
-?>

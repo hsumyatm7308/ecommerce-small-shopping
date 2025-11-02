@@ -1,6 +1,0 @@
-<?php
-
-@section('contentzzyyyyyyyyy')
-
-
-    ?>
