@@ -83,8 +83,7 @@ class Users extends Controller
                 }
 
                 $data = [
-                    'email' => trim($input['email'] ?? ''),
-                    // 'password' => trim($input['password'] ?? ''),
+                    'email' => htmlspecialchars(trim($input['email'] ?? ''), ENT_QUOTES, 'UTF-8')                    // 'password' => trim($input['password'] ?? ''),
                 ];
 
 
@@ -129,12 +128,10 @@ class Users extends Controller
                     throw new Exception("Invalid JSON sent from frontend.");
                 }
 
-               
-
                 $data = [
-                    'email' => trim($input['email'] ?? ''),
-                    'pw_sha' => trim($input['pw_sha'] ?? ''),
-                    'response' => trim($input['res_code'] ?? '')
+                    'email' => htmlspecialchars(trim($input['email'] ?? ''), ENT_QUOTES, 'UTF-8'),                    
+                    'pw_sha' => htmlspecialchars(trim($input['pw_sha'] ?? '')),
+                    'response' => htmlspecialchars(trim($input['res_code'] ?? ''))
                 ];
                 $verifyres = $this->usermodel->login($data);
 

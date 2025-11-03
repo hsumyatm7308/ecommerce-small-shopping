@@ -44,7 +44,7 @@ class User
         $this->db->dbbind(":email",$email);
         $row = $this->db->getsingledata();
         if(!$row){
-            return null;
+            return false;
         }
         $challenge_code = bin2hex(random_bytes(16));
         $_SESSION['challenge'] = $challenge_code;
@@ -54,7 +54,7 @@ class User
 
     public function login($data)
     {
-        $this->db->dbquery("SELECT password FROM users WHERE email = :email");
+        $this->db->dbquery("SELECT id,password FROM users WHERE email = :email");
         $this->db->dbbind(":email", $data['email']);
         $row = $this->db->getsingledata();
         if (!$row) return false;
@@ -63,6 +63,8 @@ class User
         $response = $data['response'];
         $stored_hash = $row['password'];   // bcrypt stored hash
         $challenge = $_SESSION['challenge'] ?? '';
+        $_SESSION['session_uid'] = $row['id'];
+        $_SESSION['session_email'] = $data['email'];
 
         if (password_verify($pw_sha, $stored_hash)) {
             $expected = hash('sha256', $pw_sha . $challenge);
@@ -72,7 +74,7 @@ class User
                 return false;
             }
         } else {
-            echo false;
+            return false;
         }
 
     
