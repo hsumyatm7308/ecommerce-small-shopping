@@ -26,34 +26,95 @@
             </div>
 
             <div class="w-full text-center mt-5">
-                <p class="text-cyan-800">00:00</p>
-                <p class="text-gray-500">Resent OTP code</p>
-                <span class="text-xs text-red-500">You tried to attempt over 3 times</span>
+                <p class="text-cyan-800"><span class="min"> </span> <span class="sec"></span></p>
             </div>
-            <div class="w-full flex justify-center mt-14">
-                <button class="w-full bg-cyan-700 text-gray-200 rounded-md py-2">Next</button>
+            <div class="w-full text-center mt-24">
+                <span class="text-xs text-red-500"><span class="atm_time"></span></span>
+                <p id="resentotp" class="text-gray-500 text-sm mt-2">Resent OTP code</p>
+
             </div>
         </div>
     </section>
     <script>
         const inputs = document.querySelectorAll("input");
-        console.log(inputs)
         inputs.forEach((input, index) => {
             input.addEventListener('input', (e) => {
                 const value = e.target.value;
 
                 // Move to next box when typing a digit
                 if (value.length === 1 && index < inputs.length - 1) {
-                inputs[index + 1].focus();
+                    inputs[index + 1].focus();
                 }
                 
                 // Move to previous box when deleting
                 if (value.length === 0 && index > 0 && e.inputType === 'deleteContentBackward') {
-                inputs[index - 1].focus();
+                    inputs[index - 1].focus();
+                }
+                const otp = Array.from(inputs).map(input => input.value).join('');
+                if(otp.length === inputs.length){
+                    sendOtpToServer(otp);
                 }
                 
             });
         });
+
+        let attemptCount = 0;
+        function sendOtpToServer(otp){
+            const atm_time = document.querySelector('.atm_time');
+            attemptCount++;
+            atm_time.innerHTML = attemptCount + " times";
+
+            const data = {otp : otp};
+
+            fetch("http://localhost/perfumesite/mvcshop/otps/otpVerify",{
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(data),
+            })
+            .then(res => res.json())
+            .then(data => {
+                if(data.otp_try_status){
+                    console.log('yes otp success');
+                }else{
+                    if(attemptCount >= 3){
+                        atm_time.innerHTML = "You tried to attempt over 3 times!";
+                    }
+                }
+            })
+            .catch(err => {
+                console.error('Error sending OTP:', err);
+            });
+        }
+
+        function setTimer() {
+            let count = 1 * 60;
+            const min = document.querySelector('.min');
+            const sec = document.querySelector('.sec');
+
+            const timer = setInterval(() => {
+            let minutes = Math.floor(count / 60);
+            let seconds = count % 60;
+
+            min.innerHTML = minutes + " : ";
+            sec.innerHTML = seconds < 10 ? '0' + seconds : seconds;
+
+            if(seconds == 00){
+                min.innerHTML = "Expired OTP";
+                sec.innerHTML = " ";
+            }
+
+            if (count <= 0) clearInterval(timer);
+                count--;
+            }, 1000);
+
+
+        }
+        window.onload = setTimer;
+
+        const resentotp = document.querySelector("#resentotp");
+        resentotp.addEventListener('click',()=>{
+            window.location.href = window.location.href;
+        })
     </script>
 </body>
 </html>
