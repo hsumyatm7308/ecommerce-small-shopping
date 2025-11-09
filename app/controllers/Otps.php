@@ -4,7 +4,7 @@
 class Otps extends Controller{ 
     protected $usermodel;
     protected $otpmodel;
-    protected $smtpserver;
+    protected $otpmailserver;
     protected $userid;
 
 
@@ -12,7 +12,7 @@ class Otps extends Controller{
     {
         $this->usermodel = $this->model('User');
         $this->otpmodel = $this->model('Otp');
-        $this->smtpserver = new Mailserver();
+        $this->otpmailserver = new OtpMailServer();
         if (isset($_SESSION['session_uid'])) {
             $this->userid = $_SESSION['session_uid'];
         } else {
@@ -24,14 +24,14 @@ class Otps extends Controller{
     public function otp(){
         $otp = $this->generateOtpCode(6);
         $otp_hash = password_hash($otp,PASSWORD_DEFAULT);
-        // $toEmail = $_SESSION['session_email'];
-        $toEmail = 'hsumyatm7308@gmail.com';
+        $toEmail = $_SESSION['session_email'];
+        // $toEmail = 'hsumyatm7308@gmail.com';
         // $toEmail = 'hsu956653@gmail.com';
         $expires = (new DateTime("+1 minutes"))->format('Y-m-d H:i:s');
         $storeotp = $this->otpmodel->storeotp($otp_hash,$this->userid,$expires);
 
         if($storeotp){
-            $this->smtpserver->sendEmailOtp($toEmail,$otp);
+            $this->otpmailserver->otpMailServer($toEmail,$otp);
         }
         $this->view('otps/otp');
     }
@@ -43,7 +43,7 @@ class Otps extends Controller{
     }
 
     public function otpVerify(){
-    if($_SERVER['REQUEST_METHOD'] === 'POST'){
+        if($_SERVER['REQUEST_METHOD'] === 'POST'){
             try {
                 $input = json_decode(file_get_contents("php://input"), true);
                 $client_otp = $input['otp'];

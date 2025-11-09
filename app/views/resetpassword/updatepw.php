@@ -2,7 +2,6 @@
     require_once ('/Applications/XAMPP/htdocs/perfumesite/mvcshop/app/views/layouts/header.php');
 ?>
 
-
 <!DOCTYPE html>
 <html>
 
@@ -25,10 +24,6 @@
 
     }
 
-    #emailvalid {
-        display: none;
-    }
-
     .psw_invalid_hide {
         display: none;
     }
@@ -39,25 +34,13 @@
 </style>
 
 <body>
-
     <section class="w-full h-[100vh] bg-gray-200 flex justify-center items-center">
-        <div class="w-[600px] min-h-[500px] bg-gray-100 rounded-lg px-14 py-10">
-            <h3 class="text-cyan-800 text-2xl text-center mb-4">Register</h3>
-             <div class=" mt-8">    
-                <input type="text" placeholder="username" name="username" value=""
-                    class="w-[475px] h-12 border border-1 rounded-lg p-5 mx-2 focus:outline focus:border focus:border-cyan-200 p-5 error_alert_border" autofocus>
-            </div>
-
-            <div class="mt-3">        
-                <input type="email" placeholder="email" name="email" value=""
-                    class="w-[475px] h-12 border border-1 rounded-lg p-5 mx-2 focus:outline focus:border focus:border-cyan-200 p-5 error_alert_border">
-                <span class="emailvalid " id="emailvalid" style="color: red; font-size: 13px;">Email
-                    is already exist.</span>
-            </div>
-
-            <div class="relative mt-3">            
-                <input type="password" placeholder="password" name="password" id="password" value="1Aa@23456"
-                    class="w-[475px] h-12 border border-1 rounded-lg p-5 mx-2 focus:outline focus:border focus:border-cyan-200 p-5 error_alert_border">
+        <div class="w-[600px] min-h-[400px] bg-gray-100 rounded-lg px-14 py-10">
+            <h3 class="text-cyan-800 text-2xl mb-4">Reset Password</h3>
+            <span class="text-gray-500">If that email is registered, we sent a reset link. </span>
+            <div class="relative mt-8">
+                <input type="password"  placeholder="old password" name="compassword" 
+                    id="compassword" value="" class="w-[475px] h-12 border border-1 rounded-lg p-5 mx-2 focus:outline focus:border focus:border-cyan-200 p-5 ">
                 <span class="absolute right-7 top-[12px]">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                         stroke-width="1.5" stroke="currentColor" class="size-6 psw_open_eye"
@@ -73,8 +56,34 @@
                         <path stroke-linecap="round" stroke-linejoin="round"
                         d="M3.98 8.223A10.477 10.477 0 0 0 1.934 12C3.226 16.338 7.244 19.5 12 19.5c.993 0 1.953-.138 2.863-.395M6.228 6.228A10.451 10.451 0 0 1 12 4.5c4.756 0 8.773 3.162 10.065 7.498a10.522 10.522 0 0 1-4.293 5.774M6.228 6.228 3 3m3.228 3.228 3.65 3.65m7.894 7.894L21 21m-3.228-3.228-3.65-3.65m0 0a3 3 0 1 0-4.243-4.243m4.242 4.242L9.88 9.88" />
                     </svg>
-                </span>                  
-                <div class="psw_invalid_ctn psw_invalid_hide px-3  mb-5">
+                </span>
+                <br>
+                <div class="px-3 mt-[-20px] mb-5">
+                    <span id="matchornot" style="font-size: 13px;color: red;"></span>
+                </div>
+            </div>
+
+            <div class="relative ">
+                <input type="password"  placeholder="new password" name="password" id="password" value="" 
+                    class="w-[475px] h-12 border border-1 rounded-lg p-5 mx-2 focus:outline focus:border focus:border-cyan-200 p-5 ">
+                <span class="absolute right-7 top-[12px]">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                        stroke-width="1.5" stroke="currentColor" class="size-6 psw_open_eye"
+                        style="width: 15px; ">
+                        <path stroke-linecap="round" stroke-linejoin="round"
+                        d="M2.036 12.322a1.012 1.012 0 0 1 0-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178Z" />
+                        <path stroke-linecap="round" stroke-linejoin="round"
+                        d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
+                    </svg>
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                        stroke-width="1.5" stroke="currentColor" class="size-6 psw_close_eye"
+                        style="width: 15px;">
+                        <path stroke-linecap="round" stroke-linejoin="round"
+                        d="M3.98 8.223A10.477 10.477 0 0 0 1.934 12C3.226 16.338 7.244 19.5 12 19.5c.993 0 1.953-.138 2.863-.395M6.228 6.228A10.451 10.451 0 0 1 12 4.5c4.756 0 8.773 3.162 10.065 7.498a10.522 10.522 0 0 1-4.293 5.774M6.228 6.228 3 3m3.228 3.228 3.65 3.65m7.894 7.894L21 21m-3.228-3.228-3.65-3.65m0 0a3 3 0 1 0-4.243-4.243m4.242 4.242L9.88 9.88" />
+                    </svg>
+                </span>
+                <br>
+                <div class="psw_invalid_ctn psw_invalid_hide px-3 mt-[-20px] mb-5">
                     <span class="psw_invalid_txt " id="specialchar"
                         style="color: red; font-size: 13px;">Specialcase
                         character</span>
@@ -93,45 +102,19 @@
                     <span class="psw_invalid_txt" id="pwlength"
                         style="color: red; font-size: 13px;">password
                         must be 8</span>
-
                 </div>
             </div>
 
-            <div class="relative mt-3">                
-                <input type="password" placeholder="comfirm password" name="compassword"
-                        id="compassword" value="1Aa@23456" class="w-[475px] h-12 border border-1 rounded-lg p-5 mx-2 focus:outline focus:border focus:border-cyan-200 p-5 error_alert_border">
-                <span class="absolute right-7 top-[12px]">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                        stroke-width="1.5" stroke="currentColor" class="size-6 psw_open_eye"
-                        style="width: 15px;">
-                        <path stroke-linecap="round" stroke-linejoin="round"
-                        d="M2.036 12.322a1.012 1.012 0 0 1 0-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178Z" />
-                        <path stroke-linecap="round" stroke-linejoin="round"
-                        d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
-                    </svg>
-                    <!-- close eye  -->
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                        stroke-width="1.5" stroke="currentColor" class="size-6 psw_close_eye"
-                        style="width: 15px;">
-                        <path stroke-linecap="round" stroke-linejoin="round"
-                        d="M3.98 8.223A10.477 10.477 0 0 0 1.934 12C3.226 16.338 7.244 19.5 12 19.5c.993 0 1.953-.138 2.863-.395M6.228 6.228A10.451 10.451 0 0 1 12 4.5c4.756 0 8.773 3.162 10.065 7.498a10.522 10.522 0 0 1-4.293 5.774M6.228 6.228 3 3m3.228 3.228 3.65 3.65m7.894 7.894L21 21m-3.228-3.228-3.65-3.65m0 0a3 3 0 1 0-4.243-4.243m4.242 4.242L9.88 9.88" />
-                    </svg>
-                </span>
 
-                <span id="matchornot" class="px-3" style="font-size: 13px;color: red;"></span>
+
+
+            <div class="w-full flex justify-center mt-2">
+                <button type="button" id="submitbtn" class="w-[469px] h-11 rounded-lg text-white bg-cyan-800">Submit</button>
             </div>
 
-            <div class="w-full flex justify-center">
-                <button type="button" class="w-[469px] h-11 rounded-lg text-white bg-cyan-800 registerregister_btn">Register</button>
-            </div>
-            
-            <div class="mt-10" style="font-size: 13px; display: flex; justify-content: center; align-items: center;">
-                <span>Don't you have an account? <a href="">register</a></span>
-            </div>
-       
         </div>
     </section>
-    
+
 
     <script>
 
@@ -194,18 +177,12 @@
 
 
         function checkPasswordMatch() {
-            if (password.value === compassword.value) {
-                matchornot.textContent = "password match!";
-                matchornot.style.color = "green";
-                password.style.border = "1px solid rgb(120, 120, 196)";
-                compassword.style.border = "1px solid rgb(120, 120, 196)";
-                return true;
-            } else {
+
                 matchornot.textContent = "password doesn't match!!";
                 matchornot.style.color = "red";
                 compassword.style.border = "1px solid red";
                 return false;
-            }
+            
         }
 
         // show and hide password
@@ -241,10 +218,9 @@
         // all rules are completed ?
         document.addEventListener("DOMContentLoaded", () => {
             const inputs = document.getElementsByTagName('input');
-            const register_btn = document.querySelector(".registerregister_btn");
-            const emailvalid = document.querySelector('.emailvalid');
+            const submitbtn = document.querySelector("#submitbtn");
 
-            register_btn.addEventListener("click", () => {
+            submitbtn.addEventListener("click", () => {
                 for (let i = 0; i < inputs.length; i++) {
                     if (!inputs[i].value.trim() == "") {
                         inputs[i].style.border = "1px solid rgb(120, 120, 196)";
@@ -257,24 +233,18 @@
 
                     // fetch api
                     const data = {
-                        username: safeInput("username"),
-                        email: safeInput("email"),
                         password: safeInput("password"),
                         compassword: safeInput("compassword"),
                     };
 
-                    fetch("http://localhost/perfumesite/mvcshop/users/register", {
+                    fetch("http://localhost/perfumesite/mvcshop/resetpassword/resetpassword", {
                         method: "POST",
                         headers: { "Content-Type": "application/json" },
                         body: JSON.stringify(data),
                     })
                         .then(res => res.json())
                         .then(res => {
-                            if (res.email == true) {
-                                emailvalid.style.display = "block";
-                            } else if (res.status == 'success') {
-                                window.location.href = res.redirect;
-                            }
+                          console.log(res);
                         }
 
                         )
@@ -311,6 +281,7 @@
 
 
     </script>
+
 
 </body>
 

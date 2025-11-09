@@ -1,3 +1,8 @@
+<?php
+    require_once ('/Applications/XAMPP/htdocs/perfumesite/mvcshop/app/views/layouts/header.php');
+?>
+
+
 <!DOCTYPE html>
 <html>
 
@@ -21,158 +26,17 @@
 
     }
 
-    .container {
-        width: 100%;
-        height: 100vh;
-        background-color: #ffff;
-        display: grid;
-        grid-template-columns: 3fr 3fr;
-        padding: 0;
-        margin: 0;
-    }
 
-    .welcome {
-        width: 100%;
-        height: 100vh;
-        background-image: url("../public/img/banner/authpage.jpg");
-        background-repeat: no-repeat;
-        background-position: center;
-        background-size: cover;
-        position: relative;
-    }
-
-    .welcome>.transparent {
-        width: 100%;
-        height: 100vh;
-        background-image: linear-gradient(#001010, #0001);
-
-        display: flex;
-        justify-content: center;
-        align-items: start;
-
-        position: absolute;
-        left: 0;
-        top: 0;
-    }
-
-    .start_line {
-        width: 35px;
-        height: 2px;
-        background-color: yellow;
-    }
-
-    .text1 {
-        color: #efe0e0;
-        font-size: 40px;
-        margin-top: 100px;
-    }
-
-    .text2 {
-        color: #efe0e0;
-        font-size: 20px;
-    }
-
-    .login {
-        width: 100%;
-        height: 100vh;
-        background-color: #ebf0f0;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-
-    }
-
-    .loginForm_ctn {
-        width: 500px;
-        height: 570px;
-        border: solid 0.5px rgb(120, 120, 196);
-        display: inline-block;
-        justify-content: center;
-        align-items: center;
-        border-radius: 5px;
-    }
-
-    .loginForm_ctn2 {
-        width: 100%;
-        height: 90%;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-    }
-
-    .loginForm {
-        padding: 10px;
-    }
-
-    .form_inputs {
-        margin: 15px;
-    }
-
+  
     #emailvalid,
     #pwvalid,
     #checkpw {
         display: none;
     }
 
-    .login_h2,
-    .register_h2 {
-        width: 100%;
-        height: 40px;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        margin-bottom: 50px;
-        margin-top: -50px;
-    }
-
-    .login_h2>h2,
-    .register_h2>h2 {
-        font-size: 40px;
-        font-weight: lighter;
-    }
 
 
 
-    .form_inputs>label>input {
-        width: 350px;
-        height: 35px;
-        padding: 3px 8px;
-        border-radius: 5px;
-        border: solid rgb(120, 120, 196) 1px;
-    }
-
-    .form_inputs>label>input:focus {
-        outline: 1px;
-    }
-
-    .forget_psw_btn {
-        padding: 3px 5px;
-        display: flex;
-        justify-content: space-between;
-        margin-top: -10px;
-
-    }
-
-    .loginregister_btn {
-        width: 370px;
-        height: 40px;
-        color: #f4f4f4;
-        background-color: rgb(120, 120, 196);
-        border: none;
-        border-radius: 5px;
-        padding: 5px 8px;
-        margin-top: 10px;
-    }
-
-    .loginregister_btn:hover {
-        background-color: rgb(121, 121, 179);
-    }
-
-    .form_inputs>label>.error_alert_border {
-        /* border-color: red; */
-        border: solid rgb(120, 120, 196) 1px;
-
-    }
 
     .psw_invalid_hide {
         display: none;
@@ -184,48 +48,30 @@
 </style>
 
 <body>
-    <div class="container">
-        <div class="welcome">
-            <div class="transparent">
-                <div>
-                    <h2 class="text1">
-                        <div class="start_line"></div>
-                        Welcome <span style="color: yellow;">.</span>
-                    </h2>
-                    <span class="text2">Fill with your wish with us</span>
-                </div>
 
-            </div>
-        </div>
 
-        <div class="login">
-            <div class="loginForm_ctn">
-                <div class="loginForm_ctn2">
-                    <form action="" class="loginForm" enctype="multipart/form-data" method="post">
+ 
+      
+    <section class="w-full h-[100vh] bg-gray-200 flex justify-center items-center">
+        <div class="w-[600px] min-h-[450px] bg-gray-100 rounded-lg px-14 py-10">
+            <h3 class="text-cyan-800 text-2xl text-center mb-4">Log In</h3>
 
-                        <div class="register_h2">
-                            <h2>Login</h2>
-                        </div>
 
-                        <div class="form_inputs">
-                            <label for="">
-                                <span>Email</span><br>
-                                <input type="email" placeholder="email" name="email" value=""
-                                    class="error_alert_border">
-                            </label>
+                        <div class="mt-8">
+                            <input type="email" placeholder="email" name="email" value=""
+                                class="w-[475px] h-12 border border-1 rounded-lg p-5 mx-2 focus:outline focus:border focus:border-cyan-200 p-5 error_alert_border">
                             <br>
-                            <span class="emailvalid " id="emailvalid" style="color: red; font-size: 13px;">
+                            <span class="px-3 emailvalid " id="emailvalid" style="color: red; font-size: 13px;">
                                 email is incorrect.</span>
                         </div>
-                        <div class="form_inputs">
-                            <label for="" style="position: relative;">
-                                <span>Password</span><br>
+                        <div class="relative mt-5">
+
                                 <input type="password" placeholder="password" name="password" id="password"
-                                    value="1Aa@23456" class="error_alert_border">
-                                <span>
+                                    value="1Aa@23456" class="w-[475px] h-12 border border-1 rounded-lg p-5 mx-2 focus:outline focus:border focus:border-cyan-200 p-5 error_alert_border">
+                                <span class="absolute right-7 top-[12px]">
                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                         stroke-width="1.5" stroke="currentColor" class="size-6 psw_open_eye"
-                                        style="width: 15px; position:absolute;right:15px; top:33px;">
+                                        style="width: 15px;">
                                         <path stroke-linecap="round" stroke-linejoin="round"
                                             d="M2.036 12.322a1.012 1.012 0 0 1 0-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178Z" />
                                         <path stroke-linecap="round" stroke-linejoin="round"
@@ -233,38 +79,33 @@
                                     </svg>
                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                         stroke-width="1.5" stroke="currentColor" class="size-6 psw_close_eye"
-                                        style="width: 15px; position:absolute;right:15px; top:33px;">
+                                        style="width: 15px;">
                                         <path stroke-linecap="round" stroke-linejoin="round"
                                             d="M3.98 8.223A10.477 10.477 0 0 0 1.934 12C3.226 16.338 7.244 19.5 12 19.5c.993 0 1.953-.138 2.863-.395M6.228 6.228A10.451 10.451 0 0 1 12 4.5c4.756 0 8.773 3.162 10.065 7.498a10.522 10.522 0 0 1-4.293 5.774M6.228 6.228 3 3m3.228 3.228 3.65 3.65m7.894 7.894L21 21m-3.228-3.228-3.65-3.65m0 0a3 3 0 1 0-4.243-4.243m4.242 4.242L9.88 9.88" />
                                     </svg>
                                 </span>
 
-                            </label>
+                            <div class="text-sm text-cyan-800 flex justify-between px-3 mt-2">
+
                                 <span class="pwvalid " id="pwvalid" style="color: red; font-size: 13px;">
                                 password is incorrect.</span>
-                            <br>
-                            <span>Forget password</span>
+                                <span id="forgetpwbtn">Forget password</span>
+                            </div>
 
                         </div>
 
-                        <div class="form_inputs">
-                            <label for="">
-                                <button type="button" class="loginregister_btn">Login</button>
-                            </label>
+                        <div class="w-full flex justify-center mt-5">
+                            <button type="button" class="w-[469px] h-11 rounded-lg text-white bg-cyan-800 loginregister_btn">Login</button>
                         </div>
-                    </form>
-                </div>
+              
 
 
 
-                <div style="font-size: 13px; display: flex; justify-content: center; align-items: center;">
+                <div class="mt-20" style="font-size: 13px; display: flex; justify-content: center; align-items: center;">
                     <span>Don't you have an account? <a href="">Register</a></span>
                 </div>
-            </div>
-
         </div>
-    </div>
-
+    </section>
     <script>
 
 
@@ -371,6 +212,10 @@
                 if(res.status == false){
                     console.log('hh')
                     pwvalid.style.display = 'block';
+                }else if(res.status == true){
+                    window.location.href = "http://localhost/perfumesite/mvcshop/otps/otp";
+                    console.log(window.location.href)
+
                 }
             })
         }
@@ -403,6 +248,13 @@
             return hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
         }
 
+
+
+        // forget password 
+        const forgetpwbtn = document.querySelector('#forgetpwbtn');
+        forgetpwbtn.addEventListener('click',()=>{
+          window.location.href = 'http://localhost/perfumesite/mvcshop/resetpassword/singleresettoken';  
+        })
 
     </script>
 

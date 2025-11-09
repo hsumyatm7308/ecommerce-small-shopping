@@ -8,7 +8,7 @@ require '/Applications/XAMPP/htdocs/perfumesite/mvcshop/vendor/autoload.php';
 
 class Mailserver extends Controller{
         // Mail Server 
-    public function sendEmailOtp($toEmail,$otp){
+    public function sendEmailOtp($data){
         $mail = new PHPMailer(true);
         try {
             //Server settings
@@ -23,15 +23,15 @@ class Mailserver extends Controller{
 
             //Recipients
             $mail->setFrom('hsumyatm7308@gmail.com', 'Perum');
-            $mail->addAddress($toEmail);     //Add a recipient
+            $mail->addAddress($data['email']);     //Add a recipient
 
             //Content
             $mail->isHTML(true);                                  //Set email format to HTML
-            $mail->Subject = 'OTP verification code';
-            $mail->Body    = "Your OTP code is: <b>$otp</b><br>It expires in 5 minutes.";
+            $mail->Subject = $data['subject'];
+            $mail->Body    = $data['body'];
 
             $mail->send();
-            echo 'Message has been sent to $toEmail\n';
+            // echo 'Message has been sent to $toEmail\n';
         } catch (Exception $e) {
             echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
         }

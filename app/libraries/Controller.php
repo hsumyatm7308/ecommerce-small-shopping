@@ -7,6 +7,9 @@ class Controller
     public function view($view, $data = [])
     {
         if (file_exists("../app/views/" . $view . ".php")) {
+            if (!empty($data)) {
+                extract($data);
+            }
             require "../app/views/" . $view . ".php";
         } else {
             die("View file didn't exit");

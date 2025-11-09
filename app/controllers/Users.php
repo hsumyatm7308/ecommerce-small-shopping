@@ -1,10 +1,5 @@
 <?php
 
-// ini_set('display_errors', 1);
-// ini_set('display_errors', 0);
-// ini_set('log_errors', 1);
-// error_reporting(E_ALL);
-
 class Users extends Controller
 {
 
@@ -55,7 +50,7 @@ class Users extends Controller
                     }
                 } else {
                     echo json_encode([
-                        'email' => 'true',
+                        'email' => true,
                         'data' => $data
                     ]);
                 }
@@ -69,6 +64,7 @@ class Users extends Controller
         }
 
         $this->view('users/register');
+
     }
 
 
@@ -89,22 +85,6 @@ class Users extends Controller
 
                 $challenge = $this->usermodel->getchallenge($data['email']);
                 echo json_encode(['status' => 'success', 'challenge' => $challenge,'data' => $data]);
-
-
-                // $loginuser = $this->usermodel->login($data['email'], $data['password']);
-
-                // if ($loginuser) {
-                //     $this->createusersession($loginuser);
-                //     echo json_encode(['status' => 'success']);
-                // } else {
-                //     echo json_encode(value: ['status' => 'fail', 'email' => 'false', 'password' => 'false']);
-                //     // $this->view('users/login', $data);
-
-                // }
-
-
-
-
 
             } catch (Exception $e) {
                 http_response_code(400);
@@ -135,7 +115,7 @@ class Users extends Controller
                 ];
                 $verifyres = $this->usermodel->login($data);
 
-                echo json_encode(['status' => $verifyres]);
+                echo json_encode(['status' => $verifyres, 'redirect' => 'otps/otp']);
                 exit;
             } catch (Exception $e) {
                 http_response_code(400);
