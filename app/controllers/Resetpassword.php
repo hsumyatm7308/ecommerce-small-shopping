@@ -9,10 +9,16 @@ class Resetpassword extends Controller{
     protected $resetpwmodel;
     protected $userid;
     private $resetpwmailserver;
+    private $ip;
+    private $ua;
+    private $logger;
+    private $toEmail;
+    private $resettoken;
 
     public function __construct()
     {
         $this->usermodel = $this->model('User');
+        $this->resettoken = new GenerateResetToken();
         $this->resetpwmodel = $this->model('Resetpw');
         $this->resetpwmailserver = new ResetPasswordMailServer();
         if (isset($_SESSION['session_uid'])) {
@@ -20,6 +26,10 @@ class Resetpassword extends Controller{
         } else {
             $this->userid = null;
         }
+
+        $this->logger = new AuthLogger();
+        $this->ip = $_SERVER['REMOTE_ADDR'];
+        $this->ua = $_SERVER['HTTP_USER_AGENT'] ?? '';
 
     }
 
@@ -29,16 +39,36 @@ class Resetpassword extends Controller{
                 $input = json_decode(file_get_contents("php://input"), true);
                 $email = $input['email'];
                 if($this->usermodel->registeremailcheck($email)){
-                    $tokenPair = $this->generateResetToken();
-
+                    $tokenPair = $this->resettoken->generateResetToken();
                     $expires = (new DateTime("+1 hour"))->format('Y-m-d H:i:s');
+
+          
                     $storetoken = $this->resetpwmodel->storeresetpwhash($this->userid,$tokenPair['token_hash'],$expires);
+
                     if($storetoken){
                         $this->resetpwmailserver->resetPwMailServer($email,$tokenPair['token']);
                         echo json_encode(['tokenPair' => $tokenPair]);
+                        $this->logger->log([
+                            'user_id' => $this->userid,
+                            'identifier' => $email,
+                            'event_type' => 'ResetToken_success',
+                            'ip' => $this->ip,
+                            'ua' => $this->ua,
+                            'details' => 'Reset Token link sent to email successfully.'
+                        ]);
                         exit;
+
                     }else{
+
                         echo json_encode(['tokenPair' => "noo"]);
+                        $this->logger->log([
+                            'user_id' => $this->userid,
+                            'identifier' => $email,
+                            'event_type' => 'ResetToken_fail',
+                            'ip' => $this->ip,
+                            'ua' => $this->ua,
+                            'details' => 'Fail to sent Reset Token Link.'
+                        ]);
                         exit;
 
                     }
@@ -58,12 +88,7 @@ class Resetpassword extends Controller{
     }
 
 
-    public function generateResetToken(int $bytes = 32):array
-    {
-        $token = bin2hex(random_bytes($bytes));
-        $tokenHash = hash('sha256',$token);
-        return ['token'=>$token,'token_hash' => $tokenHash];
-    }
+
 
     public function resetpassword() {
         $token = $_GET['token'] ?? '';
@@ -79,19 +104,16 @@ class Resetpassword extends Controller{
         ]);
     }
 
-
-public function updatepassword() {
-
+// Set New Password
+public function setnewpassword() {
 
     if($_SERVER['REQUEST_METHOD'] === 'POST') {
         try {
             $input = json_decode(file_get_contents("php://input"), true);
 
             $token = $input['token'] ?? null;
-            $email = $input['email'] ?? null;
+            $email = $input['email'] ?? $_SESSION['session_email'];
             $newPassword = $input['password'] ?? null;
-
-
 
             if (!$token || !$email || !$newPassword) {
                 echo json_encode(['status' => 'error', 'message' => 'Missing data']);
@@ -99,27 +121,48 @@ public function updatepassword() {
             }
 
             // // Verify token
-            $user = $this->resetpwmodel->getUserByEmailAndToken($email, $token);
+            $token256 = hash('sha256', $token);
+            $user = $this->resetpwmodel->getUserByEmailAndToken($email,$token256);
             if (!$user) {
-                echo json_encode(['status' => 'error', 'message' => 'Invalid or expired token']);
+                echo json_encode(['status' => 'error', 'message' => 'Invalid or expired token',$email, $token256,'user'=>$user]);
                 exit;
             }
 
             // // Hash new password
             $pw_sha = hash('sha256', $newPassword);
             $hashedPassword = password_hash($pw_sha, PASSWORD_DEFAULT);
-
             // Update password
             if ($this->resetpwmodel->updatePassword($email, $hashedPassword)) {
                 $this->resetpwmodel->deletePasswordResetToken($token);
-                echo json_encode(['pw_status' => true, 'message' => 'Invalid or expired token']);
+                echo json_encode(['pw_status' => true, 'message' => 'spend just now']);
+                $this->logger->log([
+                    'user_id' => $this->userid,
+                    'identifier' => $email,
+                    'event_type' => 'ResetPw_success',
+                    'ip' => $this->ip,
+                    'ua' => $this->ua,
+                    'details' => 'Forget password was reset successfully.'
+                ]);   
                 exit;
+
+
+
             } else {
                 echo json_encode(['status' => false]);
+                $this->logger->log([
+                    'user_id' => $this->userid,
+                    'identifier' => $email,
+                    'event_type' => 'ResetPw_fail',
+                    'ip' => $this->ip,
+                    'ua' => $this->ua,
+                    'details' => 'Fail to rest forget password.'
+                ]); 
                 exit;
             }
 
 
+                
+     
 
         } catch(Exception $e) {
             http_response_code(400);

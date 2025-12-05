@@ -204,14 +204,15 @@
                     };
       
 
-                    fetch("http://localhost/perfumesite/mvcshop/resetpassword/updatepassword", {
+                fetch("http://localhost/perfumesite/mvcshop/resetpassword/setnewpassword", {
                         method: "POST",
                         headers: { "Content-Type": "application/json" },
                         body: JSON.stringify(data),
-                    })
+                })
                         .then(res => res.json())
                         .then(res => {
                           console.log(res );
+                    
                         })
                         .catch(err => console.error("Fetch error:", err));
                 } else {

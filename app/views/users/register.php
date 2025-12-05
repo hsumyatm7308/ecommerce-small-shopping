@@ -1,5 +1,8 @@
 <?php
     require_once ('/Applications/XAMPP/htdocs/perfumesite/mvcshop/app/views/layouts/header.php');
+        
+    //     echo $_SESSION['session_uid'];
+    //    echo  $_SESSION['session_email'];
 ?>
 
 
@@ -126,7 +129,7 @@
             </div>
             
             <div class="mt-10" style="font-size: 13px; display: flex; justify-content: center; align-items: center;">
-                <span>Don't you have an account? <a href="">register</a></span>
+                <span>Don't you have an account? <a href=""> Login</a></span>
             </div>
        
         </div>
@@ -271,8 +274,10 @@
                         .then(res => res.json())
                         .then(res => {
                             if (res.email == true) {
+                                console.log('email true')
                                 emailvalid.style.display = "block";
                             } else if (res.status == 'success') {
+                                console.log('res status success')
                                 window.location.href = res.redirect;
                             }
                         }

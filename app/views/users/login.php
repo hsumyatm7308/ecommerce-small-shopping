@@ -7,8 +7,7 @@
 <html>
 
 <head>
-    <title>Register</title>
-    <link rel="stylesheet" href="auth.css">
+    <title>Login</title>
     <meta name="description" content="Login">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -49,10 +48,14 @@
 
 <body>
 
-
- 
-      
     <section class="w-full h-[100vh] bg-gray-200 flex justify-center items-center">
+        <div class="w-[98%] h-10 bg-red-500 absolute top-5  flex justify-center items-center rounded-md lock-warning-bar hidden">
+            <span class="text-white text-sm">Warning!! Your account is locked until <span class="lock-until-time"></span>.</span>
+        </div>
+
+        <div class="w-[98%] h-10 bg-red-100 absolute top-5  flex justify-center items-center rounded-md accountnotfound-warning-bar hidden">
+            <span class="text-cyan-800 text-sm">Your account is not found.</span>
+        </div>
         <div class="w-[600px] min-h-[450px] bg-gray-100 rounded-lg px-14 py-10">
             <h3 class="text-cyan-800 text-2xl text-center mb-4">Log In</h3>
 
@@ -146,7 +149,10 @@
             var inputs = document.getElementsByTagName('input');
             let loginregister_btn = document.querySelector(".loginregister_btn");
             let emailvalid = document.querySelector('.emailvalid');
+            const lock_warning_bar = document.querySelector('.lock-warning-bar');
+            const lock_until_time = document.querySelector('.lock-until-time');
 
+            const accountnotfound_warning_bar  = document.querySelector('.accountnotfound-warning-bar');
             loginregister_btn.addEventListener("click", () => {
                 for (var i = 0; i < inputs.length; i++) {
                     if (!inputs[i].value.trim() == "") {
@@ -170,6 +176,7 @@
                 })
                     .then(res => res.json())
                     .then(res => {
+                        // If no lock 
                         if (res.challenge == false) {
                             emailvalid.style.display = 'block';
                         } 
@@ -179,6 +186,18 @@
                             handleLogin(ccode);
                         }
 
+                        // If account locked 
+                        if(res.status == 'lock'){
+                            console.log(res);
+                            lock_warning_bar.classList.replace('hidden','show')
+                            lock_until_time.innerHTML = res.lockedUntil.date
+                        }
+
+                        // account not found 
+                        if(res.status == 'accountnotfound'){
+                            console.log(res);
+                            accountnotfound_warning_bar.classList.replace('hidden','show');
+                        }
                     }
 
                     )
@@ -217,7 +236,10 @@
                     console.log(window.location.href)
 
                 }
+                console.log(res)
             })
+            .catch(err => console.error("Fetch error:", err));
+
         }
 
 

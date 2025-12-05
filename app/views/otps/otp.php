@@ -61,8 +61,6 @@
         let attemptCount = 0;
         function sendOtpToServer(otp){
             const atm_time = document.querySelector('.atm_time');
-            attemptCount++;
-            atm_time.innerHTML = attemptCount + " times";
 
             const data = {otp : otp};
 
@@ -75,11 +73,14 @@
             .then(data => {
                 if(data.otp_try_status){
                     console.log('yes otp success');
-                }else{
-                    if(attemptCount >= 3){
-                        atm_time.innerHTML = "You tried to attempt over 3 times!";
-                    }
                 }
+
+                // when attempt times over 3 , lock the account
+                if(data.otp_fail){
+                    atm_time.innerHTML = "You tried to attempt over 3 times! Try again after 15 minutes";
+
+                }
+                console.log(data.otp_fail);
             })
             .catch(err => {
                 console.error('Error sending OTP:', err);

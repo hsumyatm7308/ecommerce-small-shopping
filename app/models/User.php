@@ -27,8 +27,6 @@ class User
     {
         $this->db->dbquery("SELECT * FROM users WHERE email=:email");
         $this->db->dbbind(':email', $email);
-
-
         $this->db->getsingledata();
 
         if ($this->db->rowcount() > 0) {
@@ -39,6 +37,7 @@ class User
 
     }
 
+    // Get challange code
     public function getchallenge($email){
         $this->db->dbquery("SELECT password FROM users WHERE email = :email");
         $this->db->dbbind(":email",$email);
@@ -83,21 +82,21 @@ class User
     }
 
 
-
-
-
-    public function getuserinfo()
+    public function getuserinfo($email)
     {
-        // $useremail = $_SESSION['user_email'];
-        $userid = $_SESSION['user_id'];
-
-        // $this->db->dbquery('SELECT * FROM users WHERE email = :email');
-        // $this->db->dbbind(':email', $useremail);
-
-        $this->db->dbquery('SELECT * FROM customers WHERE id = :id');
-        $this->db->dbbind(':id', $userid);
+        $this->db->dbquery('SELECT * FROM users WHERE email = :email');
+        $this->db->dbbind(':email', $email);
         return $this->db->getsingledata();
     }
+
+    // Account lock
+    public function lockaccount($email, $until) {
+        $this->db->dbquery("UPDATE users SET locked_until = :until WHERE email = :email");
+        $this->db->dbbind(':until', $until);
+        $this->db->dbbind(':email', $email);
+        return $this->db->dbexecute();
+    }
+
 
 
     public function guest_email($email)
