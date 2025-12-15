@@ -124,7 +124,7 @@ public function setnewpassword() {
             $token256 = hash('sha256', $token);
             $user = $this->resetpwmodel->getUserByEmailAndToken($email,$token256);
             if (!$user) {
-                echo json_encode(['status' => 'error', 'message' => 'Invalid or expired token',$email, $token256,'user'=>$user]);
+                echo json_encode(['status' => 'inspired', 'message' => 'Invalid or expired token',$email, $token256,'user'=>$user]);
                 exit;
             }
 

@@ -233,7 +233,7 @@ class Users extends Controller
 
 
                     //If Login Failed Over 3 Between 15 Minutes , Send Email Alert
-    // ::::::::: when login it has error                 
+                    // ::::::::: when login it has error                 
                     $this->loginfailhandle($input['email']);
                     echo json_encode(['status' => false, 'redirect' => 'none']);
                     exit ;
@@ -257,13 +257,14 @@ class Users extends Controller
         $expires = (new DateTime("+1 hour"))->format('Y-m-d H:i:s');
 
         $storetoken = $this->resetpwmodel->storeresetpwhash($this->userid,$tokenPair['token_hash'],$expires);
-
-        if ($loginfail_count['loginfails'] >= 3 && $storetoken) {
+        $attemptime = 5;
+        if ($loginfail_count['loginfails'] >= $attemptime && $storetoken) {
+            
             $this->loginalertmail->LoginFailAlertMailServer($email,$tokenPair['token']);
-            echo json_encode(['detail' => true,$loginfail_count['loginfails']]);
+            echo json_encode(['loginfailover' => true,$loginfail_count['loginfails']]);
             exit;
         } else {
-            echo json_encode(['detail' => false,$loginfail_count['loginfails']]);
+            echo json_encode(['loginfailnotyet' => true,"pwd"=> false, $loginfail_count['loginfails']]);
             exit;
         }
     }

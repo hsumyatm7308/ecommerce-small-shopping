@@ -49,8 +49,8 @@
 <body>
 
     <section class="w-full h-[100vh] bg-gray-200 flex justify-center items-center">
-        <div class="w-[98%] h-10 bg-red-500 absolute top-5  flex justify-center items-center rounded-md lock-warning-bar hidden">
-            <span class="text-white text-sm">Warning!! Your account is locked until <span class="lock-until-time"></span>.</span>
+        <div class="w-[98%] h-10 bg-yellow-500 text-white text-sm absolute top-5  flex justify-center items-center rounded-md warning-bar hidden">
+            <span class=""> Warning!! Your account is locked until <span class="lock-until-time"></span>.</span>
         </div>
 
         <div class="w-[98%] h-10 bg-red-100 absolute top-5  flex justify-center items-center rounded-md accountnotfound-warning-bar hidden">
@@ -149,7 +149,7 @@
             var inputs = document.getElementsByTagName('input');
             let loginregister_btn = document.querySelector(".loginregister_btn");
             let emailvalid = document.querySelector('.emailvalid');
-            const lock_warning_bar = document.querySelector('.lock-warning-bar');
+            const lock_warning_bar = document.querySelector('.warning-bar');
             const lock_until_time = document.querySelector('.lock-until-time');
 
             const accountnotfound_warning_bar  = document.querySelector('.accountnotfound-warning-bar');
@@ -214,6 +214,8 @@
             const challenge = pw_sha + ccode;
             const response = await sha256(challenge);
             const pwvalid = document.querySelector('#pwvalid');
+            const login_warning_bar = document.querySelector('.warning-bar');
+
 
             const data = {
                 email: safeInput("email"),
@@ -228,15 +230,19 @@
             })
             .then(res => res.json())
             .then(res => {
-                if(res.status == false){
+                if(res.loginfailover == true){
+                    login_warning_bar.classList.replace('hidden','show');
+                    login_warning_bar.innerHTML = "We sent Login Fail Alert to this email because you try to attemp over 5 times"
                     console.log('hh')
                     pwvalid.style.display = 'block';
-                }else if(res.status == true){
+                }
+                if(res.status == true){
                     window.location.href = "http://localhost/perfumesite/mvcshop/otps/otp";
                     console.log(window.location.href)
 
                 }
-                console.log(res)
+             
+                console.log(res);
             })
             .catch(err => console.error("Fetch error:", err));
 

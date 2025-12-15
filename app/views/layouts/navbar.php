@@ -1,4 +1,4 @@
-<body class=" bg-[#fffdf6] text-[#4c5372]">
+<body class=" bg-gray-200 text-[#4c5372]">
 
 
 
@@ -19,11 +19,6 @@
 
 
                 <div class="md:col-span-3 w-full flex justify-center items-center md:py-0 ">
-
-
-
-
-
 
                     <div class="w-full h-full  flex justify-center items-center flex-col relative ">
                         <form action="" method="GET" class="w-full inline-block md:visible invisible" style="">

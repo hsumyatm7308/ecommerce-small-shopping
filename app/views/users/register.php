@@ -202,11 +202,14 @@
                 matchornot.style.color = "green";
                 password.style.border = "1px solid rgb(120, 120, 196)";
                 compassword.style.border = "1px solid rgb(120, 120, 196)";
+                matchornot.style.marginBottom = "10px";
+
                 return true;
             } else {
                 matchornot.textContent = "password doesn't match!!";
                 matchornot.style.color = "red";
                 compassword.style.border = "1px solid red";
+                matchornot.style.marginBottom = "10px";
                 return false;
             }
         }

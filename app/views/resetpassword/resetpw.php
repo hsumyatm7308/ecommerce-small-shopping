@@ -6,8 +6,8 @@
 <html>
 
 <head>
-    <title>Register</title>
-    <meta name="description" content="Register">
+    <title>Reset Password</title>
+    <meta name="description" content="Reset Password">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap"
@@ -36,6 +36,10 @@
 <body>
 
     <section class="w-full h-[100vh] bg-gray-200 flex justify-center items-center">
+        <!-- <div class="w-[98%] h-10 bg-gray-500 text-white text-sm absolute top-5  flex justify-center items-center rounded-md warning-bar ">
+            <span class=""> You already used this token.</span>
+        </div> -->
+
         <div class="w-[600px] min-h-[400px] bg-gray-100 rounded-lg px-14 py-10">
             <h3 class="text-cyan-800 text-2xl mb-4">Reset Password</h3>
             <span class="text-gray-500">If that email is registered, we sent a reset link. </span>
@@ -184,6 +188,8 @@
             const email = document.getElementById('email');
 
             submitbtn.addEventListener("click", () => {
+                            var inspired = false;
+
                 console.log('hi')
                 for (let i = 0; i < inputs.length; i++) {
                     if (!inputs[i].value.trim() == "") {
@@ -211,7 +217,14 @@
                 })
                         .then(res => res.json())
                         .then(res => {
-                          console.log(res );
+                          if(res.status == "inspired"){
+                            console.log(res );
+                            console.log("Already use this token");
+                            inspired = true;
+                          }else{
+                            console.log("Password Update");
+                          }
+
                     
                         })
                         .catch(err => console.error("Fetch error:", err));
@@ -219,6 +232,13 @@
                     console.log("It's not strong pw or pw doesn't match")
                 }
 
+                if(inspired == true){
+                    submitbtn.classList.replace("bg-cyan-800","bg-green-800");
+
+                }else{
+                    submitbtn.classList.replace("bg-cyan-800","bg-blue-800");
+
+                }
                     
 
             });

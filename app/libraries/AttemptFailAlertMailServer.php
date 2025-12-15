@@ -11,7 +11,7 @@ class AttemptFailAlertMailServer{
         $resetUrl = "http://localhost/perfumesite/mvcshop/resetpassword/resetpassword?token=" . urlencode($token) . '&e=' . urlencode($toEmail);
 
         $subject = "Login Fail!!";
-        $body = "We noticed 3 unsuccessful sign-in attempts to your account. If this wasn't you, reset your password.:\n\n";
+        $body = "We noticed 5 unsuccessful sign-in attempts to your account. If this wasn't you, reset your password.:\n\n";
         $body .= $resetUrl;
 
         $data = [
